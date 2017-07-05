@@ -1,4 +1,4 @@
-package pictureProcess;
+package pers.zylo117.spotspotter.pictureprocess;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;

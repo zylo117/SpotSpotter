@@ -1,14 +1,14 @@
-package fileListener;
+package pers.zylo117.spotspotter.fileprocessor;
 
 import java.io.File;
 
-public class Filedetecter {
+public class FileDetecter {
 
 	public static boolean judgeFileExists(String path) {
 		File file = new File(path);
 		while(true) {
 		if(file.exists()){
-			System.out.println("OK 2 Proceed");
+			System.out.println("File exists, OK 2 Proceed");
 			break;
 		}
 	}

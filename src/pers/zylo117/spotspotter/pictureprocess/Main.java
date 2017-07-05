@@ -1,11 +1,11 @@
-package pictureProcess;
+package pers.zylo117.spotspotter.pictureprocess;
 
 import java.util.Scanner;
 
-import fileListener.FileListener;
-import patternRecognition.ColorValue;
-import patternRecognition.Comparison;
-import pictureProcess.PicProcess;
+import pers.zylo117.spotspotter.fileprocessor.FileListener;
+import pers.zylo117.spotspotter.patternrecognition.Comparison;
+import pers.zylo117.spotspotter.patternrecognition.GetColorValue;
+import pers.zylo117.spotspotter.pictureprocess.PicProcess;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
@@ -35,11 +35,12 @@ public class Main {
 		}
 
 		//计算完美对比图的像素矩阵
+		
+		//Version1 完美图对比法
 		Comparison.getperfectData(PicProcess.perfect);
-		System.out.println("Perfect Pixel Array Created");
 		
 		
-		// Autoscript,自动监控文件创建,裁剪至整个滤光片(无白边),计算待计算图的像素矩阵
+		// Autoscript,自动监控文件创建,执行Job list
 		FileListener.Autoscript();
 		System.exit(0);
 	}

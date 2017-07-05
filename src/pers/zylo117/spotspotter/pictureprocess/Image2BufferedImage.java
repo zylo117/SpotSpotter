@@ -1,4 +1,4 @@
-package pictureProcess;
+package pers.zylo117.spotspotter.pictureprocess;
 
 import java.awt.Graphics;
 import java.awt.GraphicsConfiguration;
@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 
 public class Image2BufferedImage {
 
-	public BufferedImage toBufferedImage(Image image) {
+	public static BufferedImage toBufferedImage(Image image) {
 		if (image instanceof BufferedImage) {
 			return (BufferedImage) image;
 		}

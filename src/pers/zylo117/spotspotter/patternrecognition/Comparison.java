@@ -1,4 +1,4 @@
-package patternRecognition;
+package pers.zylo117.spotspotter.patternrecognition;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -41,6 +41,8 @@ public final class Comparison {
 						System.out.printf("%x\t", perfectdatargb[i][j]);
 				}
 			}
+			System.out.println("");
+			System.out.println("Perfect Pixel Array Created");
 			System.out.println("");
 		} 
 		catch (IOException e) {

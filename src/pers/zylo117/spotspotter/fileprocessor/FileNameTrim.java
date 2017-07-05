@@ -1,6 +1,6 @@
-package fileListener;
+package pers.zylo117.spotspotter.fileprocessor;
 
-import fileListener.FileListener;
+import pers.zylo117.spotspotter.fileprocessor.FileListener;
 
 public class FileNameTrim {
 	

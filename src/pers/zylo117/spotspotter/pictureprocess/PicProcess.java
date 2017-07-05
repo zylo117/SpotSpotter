@@ -1,4 +1,4 @@
-package pictureProcess;
+package pers.zylo117.spotspotter.pictureprocess;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -10,11 +10,11 @@ import java.io.OutputStream;
 
 import javax.imageio.ImageIO;
 
-import fileListener.FileListener;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.Thumbnails.Builder;
 import net.coobird.thumbnailator.geometry.Positions;
 import net.coobird.thumbnailator.name.Rename;
+import pers.zylo117.spotspotter.fileprocessor.FileListener;
 
 public class PicProcess {
 
