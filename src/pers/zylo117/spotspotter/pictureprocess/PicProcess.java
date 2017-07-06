@@ -19,11 +19,13 @@ import pers.zylo117.spotspotter.fileprocessor.FileListener;
 public class PicProcess {
 
 	// 设置图片路径
-	public static String original = "D:/test/original/";
-	public static String perfect = "D:/test/perfect/perfect.png";
-	public static String IRCF = "D:/test/IRCF/";
-	public static String ROI = "D:/test/ROI/";
-	static File fromPic = new File(original); // 原图
+	public static String inputdir = "D:/SpotSpotterWorkLog/input/";
+	public static String rawoutputdir = "D:/SpotSpotterWorkLog/rawoutput/";
+	public static String finaloutputdir = "D:/SpotSpotterWorkLog/finaloutput/";
+	public static String perfect = "D:/SpotSpotterWorkLog/perfect/perfect.jpg";
+	public static String IRCF = "D:/SpotSpotterWorkLog/IRCF/";
+	public static String ROI = "D:/SpotSpotterWorkLog/ROI/";
+	static File fromPic = new File(inputdir); // 原图
 	static File toIRCF = new File(IRCF); // 处理后IRCF图片
 	static File toROI = new File(ROI); // 处理后ROI图片
 	

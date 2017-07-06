@@ -19,7 +19,7 @@ public class FileListener {
 	public static void Autoscript() throws IOException, InterruptedException {
 		WatchService watcher = FileSystems.getDefault().newWatchService();
 		// 监视文件创建/删除/修改,仅支持JAVA 1.7及以上版本
-		Paths.get(PicProcess.original).register(watcher, 
+		Paths.get(PicProcess.inputdir).register(watcher, 
 				StandardWatchEventKinds.ENTRY_CREATE,
 				StandardWatchEventKinds.ENTRY_DELETE,
 				StandardWatchEventKinds.ENTRY_MODIFY);

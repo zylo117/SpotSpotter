@@ -33,12 +33,12 @@ public class Main {
 			PicProcess.zoom(x, y, scale, angle);
 			System.out.println("PicZoom Finished");
 		}
-
-		//计算完美对比图的像素矩阵
+		
+		// 图片IO路径去PicProcess。java修改
 		
 		//Version1 完美图对比法
+		//计算完美对比图的像素矩阵
 		Comparison.getperfectData(PicProcess.perfect);
-		
 		
 		// Autoscript,自动监控文件创建,执行Job list
 		FileListener.Autoscript();

@@ -5,12 +5,14 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
+import javax.imageio.stream.ImageOutputStream;
 
 import pers.zylo117.spotspotter.fileprocessor.PostfixReader;
 import pers.zylo117.spotspotter.patternrecognition.Comparison;
@@ -25,8 +27,20 @@ public class GetColorValue {
 	public static int[][] rawoutputG;
 	public static int[][] rawoutputB;
 	public static int[][] rawoutputRGB;
+	public static int ROIstart_x;
+	public static int ROIstart_y;
+	public static int ROIlength_x;
+	public static int ROIlength_y;
+	public static String formatname;
+	public static ImageOutputStream rawoutputstream;
 
-	public static void getData(String path,int time, int ROIstart_x, int ROIstart_y, int ROIlength_x, int ROIlength_y) {
+	public static void getData(String inputpath, String outputpath,int time, int ROIstart_x, int ROIstart_y, int ROIlength_x, int ROIlength_y) {
+		GetColorValue.ROIstart_x = ROIstart_x;
+		GetColorValue.ROIstart_y = ROIstart_y;
+		GetColorValue.ROIlength_x = ROIlength_x;
+		GetColorValue.ROIlength_y = ROIlength_y;
+		
+		//延时缓冲
 		try{  
 			Thread.currentThread();
 			Thread.sleep(time);//毫秒 ms  
@@ -35,34 +49,34 @@ public class GetColorValue {
 			e.printStackTrace();
 		} 
 		
-		File file = new File(path);
+		File file = new File(inputpath);
 		BufferedImage bimg;
 		
 		try {
 			// 定义图片流所需变量
-			Iterator<ImageReader> readers;
-			ImageReader reader;
-			ImageInputStream iis;
+//			Iterator<ImageReader> readers;
+//			ImageReader reader;
+//			ImageInputStream iis;
 
 			// 读取图片格式
-			String formatname = PostfixReader.getPostfix(file);
+			formatname = PostfixReader.getPostfix(file);
 			
 			//读取图片流
 			//由于imageIO读取某些格式的图片的ICC信息时错误，所以改类格式的图片要用原始方法读取
-			if (formatname.equals("png")) {
+//			if (formatname.equals("jpg")) {
 				Image pic = Toolkit.getDefaultToolkit().getImage(file.getPath());
 				bimg = Image2BufferedImage.toBufferedImage(pic);
-			} 
-			else {
-				readers = ImageIO.getImageReadersByFormatName(formatname);
-				reader = (ImageReader) readers.next();
-				iis = ImageIO.createImageInputStream(file);
-				reader.setInput(iis, false);
-				int imageindex = 0;
-				bimg = reader.read(imageindex);
-				reader.dispose();
-				imageindex++;
-			}
+//			} 
+//			else {
+//				readers = ImageIO.getImageReadersByFormatName(formatname);
+//				reader = (ImageReader) readers.next();
+//				iis = ImageIO.createImageInputStream(file);
+//				reader.setInput(iis, false);
+//				int imageindex = 0;
+//				bimg = reader.read(imageindex);
+//				reader.dispose();
+//				imageindex++;
+//			}
 			
 			//像素矩阵主算法
 			data = new int[ROIlength_x][ROIlength_y];
@@ -99,8 +113,28 @@ public class GetColorValue {
 			}
 			bimg.flush();
 			System.out.println("");
-		}
-		catch (IOException e) {
+			System.out.println("Input Image Reading Complete");
+
+			// 写入上述ARGB信息到原始缓存图像，并写入到原始图像路径
+			BufferedImage rawbimg;
+			if (formatname.equals("png")) {
+				rawbimg = new BufferedImage(ROIlength_x, ROIlength_y, BufferedImage.TYPE_INT_ARGB);
+			}
+			else {
+			rawbimg = new BufferedImage(ROIlength_x, ROIlength_y, BufferedImage.TYPE_INT_RGB);
+			}
+			
+			for (int i = 0; i < ROIlength_x; i++) {
+				for (int j = 0; j < ROIlength_y; j++) {
+					rawbimg.setRGB(i, j, rawoutputRGB[i][j]);
+				}
+			}
+			FileOutputStream fos = new FileOutputStream(outputpath);
+			ImageIO.write(rawbimg, formatname, fos);
+			System.out.println("Raw Image Output Complete");
+			System.out.println("");
+
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
