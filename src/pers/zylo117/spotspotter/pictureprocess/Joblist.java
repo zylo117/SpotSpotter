@@ -8,12 +8,12 @@ import pers.zylo117.spotspotter.fileprocessor.FileListener;
 import pers.zylo117.spotspotter.fileprocessor.FileNameTrim;
 import pers.zylo117.spotspotter.fileprocessor.Obj2String;
 import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
-import pers.zylo117.spotspotter.patternrecognition.ImageStream2File;
+import pers.zylo117.spotspotter.patternrecognition.Binaryzation;
 
 public class Joblist {
 
 	public static void joblist() throws IOException {
-		
+
 		// 判断文件是否是否写入InputStream
 		if (null == FileListener.filename || "".equals(FileListener.filename)) {
 			System.out.println("Input is null");
@@ -23,6 +23,7 @@ public class Joblist {
 		String rawoutputimage = PicProcess.rawoutputdir + FileListener.filename;
 		String finaloutputimage = PicProcess.finaloutputdir + FileListener.filename;
 
+		// 第一项
 		// 提取像素矩阵前对文件是否存在进行判断
 		while (true) {
 			if (FileDetecter.judgeFileExists(inputimage)) {
@@ -33,6 +34,18 @@ public class Joblist {
 			} else
 				System.out.println("File not exists, skipping");
 		}
-	}
 
+		// 第二项
+		// 对生成的原始画像进行二（多）值化处理
+		while (true) {
+			if (FileDetecter.judgeFileExists(rawoutputimage)) {
+				// 提取像素矩阵,getData(文件,缓冲延迟时间（机器越强，文件越小，延迟越小）,识别起始点x,识别起始点y,识别长度,识别宽度)
+				Binaryzation.bipic(rawoutputimage, 128);
+				rawoutputimage = null;
+				break;
+			} else
+				System.out.println("File not exists, skipping");
+		}
+
+	}
 }

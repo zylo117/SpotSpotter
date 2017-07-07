@@ -37,10 +37,13 @@ public class GetPixelArray {
 
 	public static void getData(String inputpath, String outputpath, int time, int ROIstart_x, int ROIstart_y,
 			int ROIlength_x, int ROIlength_y) {
-//		GetPixelArray.ROIstart_x = ROIstart_x;
-//		GetPixelArray.ROIstart_y = ROIstart_y;
-//		GetPixelArray.ROIlength_x = ROIlength_x;
-//		GetPixelArray.ROIlength_y = ROIlength_y;
+		
+		long beginTime = new Date().getTime();
+		
+		// GetPixelArray.ROIstart_x = ROIstart_x;
+		// GetPixelArray.ROIstart_y = ROIstart_y;
+		// GetPixelArray.ROIlength_x = ROIlength_x;
+		// GetPixelArray.ROIlength_y = ROIlength_y;
 
 		// 延时缓冲
 		try {
@@ -62,13 +65,11 @@ public class GetPixelArray {
 			bimg = new BufferedImage(ROIlength_x, ROIlength_y, BufferedImage.TYPE_INT_RGB);
 		}
 
-		long beginTime = new Date().getTime();
-
 		try {
 			// 定义图片流所需变量
-//			 Iterator<ImageReader> readers;
-//			 ImageReader reader;
-//			 ImageInputStream iis;
+			// Iterator<ImageReader> readers;
+			// ImageReader reader;
+			// ImageInputStream iis;
 
 			// 读取图片流
 			// 由于imageIO读取某些格式的图片的ICC信息时错误，所以改类格式的图片要用原始方法读取
@@ -76,15 +77,15 @@ public class GetPixelArray {
 				if (formatname.equals("jpg")) {
 					Image pic = Toolkit.getDefaultToolkit().getImage(file.getPath());
 					bimg = Image2BufferedImage.toBufferedImage(pic);
-//					 readers = ImageIO.getImageReadersByFormatName(formatname);
-//					 reader = (ImageReader) readers.next();
-//					 iis = ImageIO.createImageInputStream(file);
-//					 reader.setInput(iis, false);
-//					 int imageindex = 0;
-//					 bimg = reader.read(imageindex);
-//					 reader.dispose();
-//					 imageindex++;
-//					
+					// readers = ImageIO.getImageReadersByFormatName(formatname);
+					// reader = (ImageReader) readers.next();
+					// iis = ImageIO.createImageInputStream(file);
+					// reader.setInput(iis, false);
+					// int imageindex = 0;
+					// bimg = reader.read(imageindex);
+					// reader.dispose();
+					// imageindex++;
+					//
 					// 像素矩阵主算法
 					data = new int[ROIlength_x][ROIlength_y];
 					rawoutputR = new int[ROIlength_x][ROIlength_y];
@@ -139,7 +140,7 @@ public class GetPixelArray {
 					ImageIO.write(rawbimg, formatname, fos);
 					System.out.println("Raw Image Output Complete");
 					long endTime = new Date().getTime();
-					System.out.println("Tact Time：[" + (endTime - beginTime) + "]ms");
+					System.out.println("Rawimage output Tact Time：[" + (endTime - beginTime) + "]ms");
 					System.out.println("");
 					break;
 				} else {
