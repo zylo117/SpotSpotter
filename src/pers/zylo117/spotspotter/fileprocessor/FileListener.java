@@ -36,7 +36,7 @@ public class FileListener {
 
 				if (eventkindstr.equals("ENTRY_CREATE")){
 					System.out.println(filename  + " Created");
-					System.out.println("Ready 2 be spitted");
+					System.out.println("Ready 2 be analysed");
 					
 					//裁剪至整个滤光片(无白边),计算待计算图的像素矩阵
 					Joblist.joblist();

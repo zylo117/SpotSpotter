@@ -7,7 +7,7 @@ import pers.zylo117.spotspotter.fileprocessor.FileDetecter;
 import pers.zylo117.spotspotter.fileprocessor.FileListener;
 import pers.zylo117.spotspotter.fileprocessor.FileNameTrim;
 import pers.zylo117.spotspotter.fileprocessor.Obj2String;
-import pers.zylo117.spotspotter.patternrecognition.GetColorValue;
+import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
 import pers.zylo117.spotspotter.patternrecognition.ImageStream2File;
 
 public class Joblist {
@@ -27,7 +27,7 @@ public class Joblist {
 		while (true) {
 			if (FileDetecter.judgeFileExists(inputimage)) {
 				// 提取像素矩阵,getData(文件,缓冲延迟时间（机器越强，文件越小，延迟越小）,识别起始点x,识别起始点y,识别长度,识别宽度)
-				GetColorValue.getData(inputimage, rawoutputimage, 500, 384, 338, 570, 340);
+				GetPixelArray.getData(inputimage, rawoutputimage, 1, 384, 338, 570, 340);
 				inputimage = null;
 				break;
 			} else

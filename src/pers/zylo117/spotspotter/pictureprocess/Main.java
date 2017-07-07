@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import pers.zylo117.spotspotter.fileprocessor.FileListener;
 import pers.zylo117.spotspotter.patternrecognition.Comparison;
-import pers.zylo117.spotspotter.patternrecognition.GetColorValue;
+import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
 import pers.zylo117.spotspotter.pictureprocess.PicProcess;
 
 public class Main {
@@ -36,7 +36,7 @@ public class Main {
 		
 		// 图片IO路径去PicProcess。java修改
 		
-		//Version1 完美图对比法
+		//Version1 完美图对比法,±2颜色值偏差
 		//计算完美对比图的像素矩阵
 		Comparison.getperfectData(PicProcess.perfect);
 		
