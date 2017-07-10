@@ -21,6 +21,7 @@ public class PicProcess {
 	// …Ë÷√Õº∆¨¬∑æ∂
 	public static String inputdir = "D:/SpotSpotterWorkLog/input/";
 	public static String rawoutputdir = "D:/SpotSpotterWorkLog/rawoutput/";
+	public static String bipicdir = "D:/SpotSpotterWorkLog/bipic/";
 	public static String finaloutputdir = "D:/SpotSpotterWorkLog/finaloutput/";
 	public static String perfect = "D:/SpotSpotterWorkLog/perfect/perfect.jpg";
 	public static String IRCF = "D:/SpotSpotterWorkLog/IRCF/";

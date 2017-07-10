@@ -45,7 +45,7 @@ public class Image2BufferedImage {
 		if (bimage == null) {
 			// 创建一个默认色彩的bufferedimage
 			int type = BufferedImage.TYPE_INT_RGB;
-			// int type = BufferedImage.TYPE_3BYTE_BGR;//by wang
+			// int type = BufferedImage.TYPE_3BYTE_BGR;
 			// if (hasAlpha) {
 			type = BufferedImage.TYPE_INT_ARGB;
 			// }
