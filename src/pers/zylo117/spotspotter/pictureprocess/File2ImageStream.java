@@ -1,6 +1,5 @@
 package pers.zylo117.spotspotter.pictureprocess;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
@@ -23,7 +22,7 @@ public class File2ImageStream {
 		ImageReader reader;
 		ImageInputStream iis;
 		readers = ImageIO.getImageReadersByFormatName(formatname);
-		reader = (ImageReader) readers.next();
+		reader = readers.next();
 		iis = ImageIO.createImageInputStream(file);
 		reader.setInput(iis, false);
 		

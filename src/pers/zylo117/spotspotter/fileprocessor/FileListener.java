@@ -10,7 +10,6 @@ import java.nio.file.WatchService;
 
 import pers.zylo117.spotspotter.pictureprocess.Joblist;
 import pers.zylo117.spotspotter.pictureprocess.PicProcess;
-import pers.zylo117.spotspotter.pictureprocess.ROInaive;
 
 public class FileListener {
 

@@ -1,8 +1,6 @@
 package pers.zylo117.spotspotter.pictureprocess;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -15,7 +13,7 @@ public class ImageReader2File {
 
 	public static void IR2F(ImageReader input, String formatname, String output) throws IOException {
 		Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName(formatname);
-		ImageWriter writer = (ImageWriter)writers.next();
+		ImageWriter writer = writers.next();
 		File f = new File(output);
 		ImageOutputStream ios = ImageIO.createImageOutputStream(f);
 		writer.setOutput(ios);

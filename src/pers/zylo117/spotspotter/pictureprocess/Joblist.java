@@ -1,14 +1,11 @@
 package pers.zylo117.spotspotter.pictureprocess;
 
 import java.io.IOException;
-import java.io.File;
-
 import pers.zylo117.spotspotter.fileprocessor.FileDetecter;
 import pers.zylo117.spotspotter.fileprocessor.FileListener;
-import pers.zylo117.spotspotter.fileprocessor.FileNameTrim;
-import pers.zylo117.spotspotter.fileprocessor.Obj2String;
 import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
 import pers.zylo117.spotspotter.patternrecognition.Binaryzation;
+import pers.zylo117.spotspotter.patternrecognition.Comparison;
 
 public class Joblist {
 
@@ -29,7 +26,7 @@ public class Joblist {
 		while (true) {
 			if (FileDetecter.judgeFileExists(inputimage)) {
 				// 提取像素矩阵,getData(文件,缓冲延迟时间（机器越强，文件越小，延迟越小）,识别起始点x,识别起始点y,识别长度,识别宽度)
-				GetPixelArray.getData(inputimage, rawoutputimage, 100, 394, 338, 560, 320);
+				GetPixelArray.getData(inputimage, rawoutputimage, 100, Comparison.ROIstart_x, Comparison.ROIstart_y, Comparison.ROIlength_x, Comparison.ROIlength_y);
 				inputimage = null;
 				break;
 			} else

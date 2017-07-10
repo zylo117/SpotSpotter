@@ -1,11 +1,7 @@
 package pers.zylo117.spotspotter.patternrecognition;
 
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-import java.awt.image.Raster;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Iterator;
@@ -17,7 +13,6 @@ import javax.imageio.stream.ImageOutputStream;
 
 import pers.zylo117.spotspotter.fileprocessor.PostfixReader;
 import pers.zylo117.spotspotter.patternrecognition.Comparison;
-import pers.zylo117.spotspotter.pictureprocess.Image2BufferedImage;
 import pers.zylo117.spotspotter.pictureprocess.ImageStream2File;
 
 public class GetPixelArray {
@@ -29,10 +24,6 @@ public class GetPixelArray {
 	public static int[][] rawoutputG;
 	public static int[][] rawoutputB;
 	public static int[][] rawoutputRGB;
-	public static int ROIstart_x;
-	public static int ROIstart_y;
-	public static int ROIlength_x;
-	public static int ROIlength_y;
 	public static String formatname;
 	public static ImageOutputStream rawoutputstream;
 //	public static int[][] colorvalue;
@@ -41,11 +32,6 @@ public class GetPixelArray {
 			int ROIlength_x, int ROIlength_y) {
 		
 		long beginTime = new Date().getTime();
-		
-		// GetPixelArray.ROIstart_x = ROIstart_x;
-		// GetPixelArray.ROIstart_y = ROIstart_y;
-		// GetPixelArray.ROIlength_x = ROIlength_x;
-		// GetPixelArray.ROIlength_y = ROIlength_y;
 
 		// —” ±ª∫≥Â
 		try {
@@ -80,7 +66,7 @@ public class GetPixelArray {
 //					Image pic = Toolkit.getDefaultToolkit().getImage(file.getPath());
 //					bimg = Image2BufferedImage.toBufferedImage(pic);
 					 readers = ImageIO.getImageReadersByFormatName(formatname);
-					 reader = (ImageReader) readers.next();
+					 reader = readers.next();
 					 iis = ImageIO.createImageInputStream(file);
 					 reader.setInput(iis, false);
 					 int imageindex = 0;

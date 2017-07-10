@@ -4,16 +4,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
-import java.util.Iterator;
-
-import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
-import javax.imageio.stream.ImageInputStream;
-
 import pers.zylo117.spotspotter.fileprocessor.PostfixReader;
 import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
 import pers.zylo117.spotspotter.pictureprocess.File2ImageStream;
-import pers.zylo117.spotspotter.pictureprocess.ImageReader2File;
 import pers.zylo117.spotspotter.pictureprocess.ImageStream2File;
 
 public class Binaryzation {
