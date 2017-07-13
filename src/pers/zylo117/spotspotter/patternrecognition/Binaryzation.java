@@ -95,7 +95,7 @@ public class Binaryzation {
 		ImageStream2File.IS2F(bibimg, formatname, output);
 		
 		long endTime = new Date().getTime();
-		System.out.println("Binaryzation Tact Time£º[" + (endTime - beginTime) + "]ms");
+		System.out.println("Binaryzation Tact Time:[" + (endTime - beginTime) + "]ms");
 		System.out.println("");
 	}
 }
