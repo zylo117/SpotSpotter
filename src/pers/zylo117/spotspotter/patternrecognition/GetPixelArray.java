@@ -11,9 +11,9 @@ import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import javax.imageio.stream.ImageOutputStream;
 
-import pers.zylo117.spotspotter.fileprocessor.PostfixReader;
 import pers.zylo117.spotspotter.patternrecognition.Comparison;
-import pers.zylo117.spotspotter.pictureprocess.ImageStream2File;
+import pers.zylo117.spotspotter.toolbox.GetPostfixReader;
+import pers.zylo117.spotspotter.toolbox.ImageStream2File;
 
 public class GetPixelArray {
 
@@ -44,7 +44,7 @@ public class GetPixelArray {
 		File file = new File(inputpath);
 
 		// 读取图片格式
-		formatname = PostfixReader.getPostfix(file);
+		formatname = GetPostfixReader.getPostfix(file);
 
 		BufferedImage bimg;
 		if (formatname.equals("png")) {
@@ -91,11 +91,11 @@ public class GetPixelArray {
 							rgb[1] = (data[i][j] & 0xff00);
 							rgb[2] = (data[i][j] & 0xff);
 
-							// 求测试图和完美对比图的差值
-							rawoutputR[i][j] = rgb[0] - Comparison.perfectdataR[i][j];
-							rawoutputG[i][j] = rgb[1] - Comparison.perfectdataG[i][j];
-							rawoutputB[i][j] = rgb[2] - Comparison.perfectdataB[i][j];
-							rawoutputRGB[i][j] = rawoutputR[i][j] + rawoutputG[i][j] + rawoutputB[i][j];
+//							// 求测试图和完美对比图的差值
+//							rawoutputR[i][j] = rgb[0] - Comparison.perfectdataR[i][j];
+//							rawoutputG[i][j] = rgb[1] - Comparison.perfectdataG[i][j];
+//							rawoutputB[i][j] = rgb[2] - Comparison.perfectdataB[i][j];
+//							rawoutputRGB[i][j] = rawoutputR[i][j] + rawoutputG[i][j] + rawoutputB[i][j];
 
 //							// 计算单色色值
 //							String tempst = Integer.toHexString(rawoutputRGB[i][j]);
@@ -127,7 +127,7 @@ public class GetPixelArray {
 
 					for (int i = 0; i < ROIlength_x; i++) {
 						for (int j = 0; j < ROIlength_y; j++) {
-							rawbimg.setRGB(i, j, rawoutputRGB[i][j]);
+							rawbimg.setRGB(i, j, data[i][j]);
 						}
 					}
 					ImageStream2File.IS2F(rawbimg, formatname, outputpath);

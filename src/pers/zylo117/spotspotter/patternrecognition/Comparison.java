@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import pers.zylo117.spotspotter.pictureprocess.Image2BufferedImage;
+import pers.zylo117.spotspotter.toolbox.Image2BufferedImage;
 
 public final class Comparison {
 

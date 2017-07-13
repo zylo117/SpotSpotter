@@ -5,10 +5,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import javax.imageio.ImageReader;
-import pers.zylo117.spotspotter.fileprocessor.PostfixReader;
+
 import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
-import pers.zylo117.spotspotter.pictureprocess.File2ImageStream;
-import pers.zylo117.spotspotter.pictureprocess.ImageStream2File;
+import pers.zylo117.spotspotter.toolbox.File2ImageStream;
+import pers.zylo117.spotspotter.toolbox.GetPostfixReader;
+import pers.zylo117.spotspotter.toolbox.ImageStream2File;
 
 public class Binaryzation {
 
@@ -20,7 +21,7 @@ public class Binaryzation {
 
 		// 读取图片格式
 		File file = new File(input);
-		String formatname = PostfixReader.getPostfix(file);
+		String formatname = GetPostfixReader.getPostfix(file);
 
 		// 图片读入成流
 		ImageReader reader = File2ImageStream.F2IS(input, formatname);

@@ -1,4 +1,4 @@
-package pers.zylo117.spotspotter.pictureprocess;
+package pers.zylo117.spotspotter.toolbox;
 
 import java.awt.Graphics;
 import java.awt.GraphicsConfiguration;

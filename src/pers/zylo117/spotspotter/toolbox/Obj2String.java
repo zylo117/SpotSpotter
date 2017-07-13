@@ -1,4 +1,4 @@
-package pers.zylo117.spotspotter.fileprocessor;
+package pers.zylo117.spotspotter.toolbox;
 
 public class Obj2String {
 

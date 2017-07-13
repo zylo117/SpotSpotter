@@ -1,4 +1,4 @@
-package pers.zylo117.spotspotter.pictureprocess;
+package pers.zylo117.spotspotter.toolbox;
 
 import java.io.File;
 import java.io.IOException;
