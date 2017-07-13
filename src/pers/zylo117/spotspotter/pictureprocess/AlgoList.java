@@ -74,7 +74,7 @@ public class AlgoList {
 				System.out.println("File not exists, skipping");
 		}
 
-		SpotSpotter.marking(rawoutputimage, Main.ROIlength_x, Main.ROIlength_y, 1, 0.07);
+		SpotSpotter.marking(rawoutputimage, finaloutputimage, Main.ROIlength_x, Main.ROIlength_y, 1, 0.07);
 	}
 
 }

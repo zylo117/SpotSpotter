@@ -1,5 +1,6 @@
 package pers.zylo117.spotspotter.patternrecognition;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,13 +12,15 @@ import javax.imageio.ImageReader;
 import pers.zylo117.spotspotter.toolbox.File2ImageStream;
 import pers.zylo117.spotspotter.toolbox.GetMaxMin;
 import pers.zylo117.spotspotter.toolbox.GetPostfixReader;
+import pers.zylo117.spotspotter.toolbox.ImageReader2File;
+import pers.zylo117.spotspotter.toolbox.ImageStream2File;
 
 public class SpotSpotter {
 
 	public static double resultCenter;
 
 	// colorvalue 为10进制，0~255的数
-	public static void marking(String input, int x, int y, int matrixsize, double theshold) throws IOException {
+	public static void marking(String input, String output, int x, int y, int matrixsize, double theshold) throws IOException {
 
 		long beginTime = new Date().getTime();
 
@@ -64,6 +67,7 @@ public class SpotSpotter {
 
 					if (resultCenter > theshold) {
 						spottedSpot++;
+						GetPixelArray.data[i][j] = 0xffff0000;
 						System.out.println("Center"+"\tMatrix: " + matrixsize + "\tX: " + i + "\tY: " + j + "\tDifference "
 								+ resultCenter * 100 + "%");
 					}
@@ -71,6 +75,14 @@ public class SpotSpotter {
 			}
 		}
 
+		// 写入上述ARGB信息到原始缓存图像，并写入到原始图像路径
+		BufferedImage rawbimg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				rawbimg.setRGB(i, j, GetPixelArray.data[i][j]);
+			}
+		}
+		ImageStream2File.IS2F(rawbimg, formatname, output);
 
 		System.out.println("Total Spot = " + spottedSpot);
 
