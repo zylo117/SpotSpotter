@@ -11,9 +11,7 @@ import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import javax.imageio.stream.ImageOutputStream;
 
-import pers.zylo117.spotspotter.patternrecognition.Comparison;
 import pers.zylo117.spotspotter.toolbox.GetPostfix;
-import pers.zylo117.spotspotter.toolbox.ImageStream2File;
 import pers.zylo117.spotspotter.toolbox.Timer;
 
 public class GetPixelArray {

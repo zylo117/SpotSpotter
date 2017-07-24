@@ -6,7 +6,6 @@ import pers.zylo117.spotspotter.fileprocessor.FileListener;
 import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
 import pers.zylo117.spotspotter.patternrecognition.Binaryzation;
 import pers.zylo117.spotspotter.patternrecognition.SpotSpotter;
-import pers.zylo117.spotspotter.patternrecognition.Comparison;
 
 public class AlgoList {
 

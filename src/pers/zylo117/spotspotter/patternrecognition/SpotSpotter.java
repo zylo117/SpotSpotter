@@ -1,19 +1,12 @@
 package pers.zylo117.spotspotter.patternrecognition;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.imageio.ImageReader;
-
-import pers.zylo117.spotspotter.pictureprocess.Main;
-import pers.zylo117.spotspotter.toolbox.File2ImageReader;
 import pers.zylo117.spotspotter.toolbox.GetMaxMin;
-import pers.zylo117.spotspotter.toolbox.GetPostfix;
-import pers.zylo117.spotspotter.toolbox.ImageReader2File;
 import pers.zylo117.spotspotter.toolbox.ImageStream2File;
 
 public class SpotSpotter {
@@ -33,14 +26,14 @@ public class SpotSpotter {
 			for (int i = matrixsize; i < width - matrixsize; i += matrixsize) {
 				for (int j = matrixsize; j < height - matrixsize; j += matrixsize) {
 
-					double a1 = (double) GetPixelArray.colorvalue[i - 1][j - 1];
-					double a2 = (double) GetPixelArray.colorvalue[i - 1][j];
-					double a3 = (double) GetPixelArray.colorvalue[i - 1][j + 1];
-					double a4 = (double) GetPixelArray.colorvalue[i][j - 1];
-					double a5 = (double) GetPixelArray.colorvalue[i][j + 1];
-					double a6 = (double) GetPixelArray.colorvalue[i + 1][j - 1];
-					double a7 = (double) GetPixelArray.colorvalue[i + 1][j];
-					double a8 = (double) GetPixelArray.colorvalue[i + 1][j + 1];
+					double a1 = GetPixelArray.colorvalue[i - 1][j - 1];
+					double a2 = GetPixelArray.colorvalue[i - 1][j];
+					double a3 = GetPixelArray.colorvalue[i - 1][j + 1];
+					double a4 = GetPixelArray.colorvalue[i][j - 1];
+					double a5 = GetPixelArray.colorvalue[i][j + 1];
+					double a6 = GetPixelArray.colorvalue[i + 1][j - 1];
+					double a7 = GetPixelArray.colorvalue[i + 1][j];
+					double a8 = GetPixelArray.colorvalue[i + 1][j + 1];
 
 					List<Double> list = new ArrayList<Double>();
 					list.add(a1);
