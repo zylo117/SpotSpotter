@@ -7,8 +7,8 @@ import java.util.Date;
 import javax.imageio.ImageReader;
 
 import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
-import pers.zylo117.spotspotter.toolbox.File2ImageStream;
-import pers.zylo117.spotspotter.toolbox.GetPostfixReader;
+import pers.zylo117.spotspotter.toolbox.File2ImageReader;
+import pers.zylo117.spotspotter.toolbox.GetPostfix;
 import pers.zylo117.spotspotter.toolbox.ImageStream2File;
 
 public class Binaryzation {
@@ -20,11 +20,10 @@ public class Binaryzation {
 		long beginTime = new Date().getTime();
 
 		// 读取图片格式
-		File file = new File(input);
-		String formatname = GetPostfixReader.getPostfix(file);
+		String formatname = GetPostfix.getPostfix(input);
 
 		// 图片读入成流
-		ImageReader reader = File2ImageStream.F2IS(input, formatname);
+		ImageReader reader = File2ImageReader.F2IR(input);
 
 		int theshold = 256 / level;
 		int scale = (int) Math.floor(theshold);

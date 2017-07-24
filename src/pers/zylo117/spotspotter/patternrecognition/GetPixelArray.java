@@ -12,8 +12,9 @@ import javax.imageio.stream.ImageInputStream;
 import javax.imageio.stream.ImageOutputStream;
 
 import pers.zylo117.spotspotter.patternrecognition.Comparison;
-import pers.zylo117.spotspotter.toolbox.GetPostfixReader;
+import pers.zylo117.spotspotter.toolbox.GetPostfix;
 import pers.zylo117.spotspotter.toolbox.ImageStream2File;
+import pers.zylo117.spotspotter.toolbox.Timer;
 
 public class GetPixelArray {
 
@@ -27,6 +28,11 @@ public class GetPixelArray {
 	public static String formatname;
 	public static ImageOutputStream rawoutputstream;
 	public static int[][] colorvalue;
+//	public static BufferedImage outputimg;
+	// 定义图片流所需变量
+	public static Iterator<ImageReader> readers;
+	public static ImageReader reader;
+	public static ImageInputStream iis;
 
 	public static void getData(String inputpath, String outputpath, int time, int ROIstart_x, int ROIstart_y,
 			int ROIlength_x, int ROIlength_y) {
@@ -34,17 +40,12 @@ public class GetPixelArray {
 		long beginTime = new Date().getTime();
 
 		// 延时缓冲
-		try {
-			Thread.currentThread();
-			Thread.sleep(time);// 毫秒 ms
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Timer.timer(time);
 
 		File file = new File(inputpath);
 
 		// 读取图片格式
-		formatname = GetPostfixReader.getPostfix(file);
+		formatname = GetPostfix.getPostfix(inputpath);
 
 		BufferedImage bimg;
 		if (formatname.equals("png")) {
@@ -54,11 +55,6 @@ public class GetPixelArray {
 		}
 
 		try {
-			// 定义图片流所需变量
-			 Iterator<ImageReader> readers;
-			 ImageReader reader;
-			 ImageInputStream iis;
-
 			// 读取图片流
 			// 由于imageIO读取某些格式的图片的ICC信息时错误，所以改类格式的图片要用原始方法读取
 			while (true) {
@@ -118,25 +114,28 @@ public class GetPixelArray {
 					System.out.println("");
 					System.out.println("Input Image Reading Complete");
 
+					// 若非调试，不必输出中间图片
 					// 写入上述ARGB信息到原始缓存图像，并写入到原始图像路径
-					BufferedImage rawbimg;
-					if (formatname.equals("png")) {
-						rawbimg = new BufferedImage(ROIlength_x, ROIlength_y, BufferedImage.TYPE_INT_ARGB);
-					} else {
-						rawbimg = new BufferedImage(ROIlength_x, ROIlength_y, BufferedImage.TYPE_INT_RGB);
-					}
-
-					for (int i = 0; i < ROIlength_x; i++) {
-						for (int j = 0; j < ROIlength_y; j++) {
-							rawbimg.setRGB(i, j, data[i][j]);
-						}
-					}
-					ImageStream2File.IS2F(rawbimg, formatname, outputpath);
+//					if (formatname.equals("png")) {
+//						outputimg = new BufferedImage(ROIlength_x, ROIlength_y, BufferedImage.TYPE_INT_ARGB);
+//					} else {
+//						outputimg = new BufferedImage(ROIlength_x, ROIlength_y, BufferedImage.TYPE_INT_RGB);
+//					}
+//
+//					for (int i = 0; i < ROIlength_x; i++) {
+//						for (int j = 0; j < ROIlength_y; j++) {
+//							outputimg.setRGB(i, j, data[i][j]);
+//						}
+//					}
+//					ImageStream2File.IS2F(outputimg, formatname, outputpath);
+					
 					System.out.println("Raw Image Output Complete");
+					
 					long endTime = new Date().getTime();
 					System.out.println("Rawimage output Tact Time:[" + (endTime - beginTime) + "]ms");
 					System.out.println("");
 					break;
+					
 				} else {
 					System.out.println("Current Version only support JPEG/JPG");
 					System.out.println("");

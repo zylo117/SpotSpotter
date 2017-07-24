@@ -9,9 +9,10 @@ import java.util.List;
 
 import javax.imageio.ImageReader;
 
-import pers.zylo117.spotspotter.toolbox.File2ImageStream;
+import pers.zylo117.spotspotter.pictureprocess.Main;
+import pers.zylo117.spotspotter.toolbox.File2ImageReader;
 import pers.zylo117.spotspotter.toolbox.GetMaxMin;
-import pers.zylo117.spotspotter.toolbox.GetPostfixReader;
+import pers.zylo117.spotspotter.toolbox.GetPostfix;
 import pers.zylo117.spotspotter.toolbox.ImageReader2File;
 import pers.zylo117.spotspotter.toolbox.ImageStream2File;
 
@@ -20,18 +21,9 @@ public class SpotSpotter {
 	public static double resultCenter;
 
 	// colorvalue 为10进制，0~255的数
-	public static void marking(String input, String output, int x, int y, int matrixsize, double theshold) throws IOException {
+	public static void marking(String output, int width, int height, int matrixsize, double theshold) throws IOException {
 
 		long beginTime = new Date().getTime();
-
-		// 读取图片格式
-		File file = new File(input);
-		String formatname = GetPostfixReader.getPostfix(file);
-
-		// 图片读入成流
-		ImageReader reader = File2ImageStream.F2IS(input, formatname);
-		int width = (int) Math.floor(reader.getWidth(0));
-		int height = (int) Math.floor(reader.getHeight(0));
 
 		int spottedSpot = 0;
 
@@ -68,21 +60,22 @@ public class SpotSpotter {
 					if (resultCenter > theshold) {
 						spottedSpot++;
 						GetPixelArray.data[i][j] = 0xffff0000;
-						System.out.println("Center"+"\tMatrix: " + matrixsize + "\tX: " + i + "\tY: " + j + "\tDifference "
-								+ resultCenter * 100 + "%");
+
+						System.out.println("Center" + "\tMatrix: " + matrixsize + "\tX: " + i + "\tY: " + j
+								+ "\tDifference " + resultCenter * 100 + "%");
 					}
 				}
 			}
 		}
 
 		// 写入上述ARGB信息到原始缓存图像，并写入到原始图像路径
-		BufferedImage rawbimg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		BufferedImage outputimg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
-				rawbimg.setRGB(i, j, GetPixelArray.data[i][j]);
+				outputimg.setRGB(i, j, GetPixelArray.data[i][j]);
 			}
 		}
-		ImageStream2File.IS2F(rawbimg, formatname, output);
+		ImageStream2File.IS2F(outputimg, GetPixelArray.formatname, output);
 
 		System.out.println("Total Spot = " + spottedSpot);
 
