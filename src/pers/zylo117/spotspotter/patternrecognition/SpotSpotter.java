@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import pers.zylo117.spotspotter.toolbox.BufferedImage2HQ_ImageFile;
 import pers.zylo117.spotspotter.toolbox.GetMaxMin;
 import pers.zylo117.spotspotter.toolbox.ImageStream2File;
 
@@ -14,7 +15,8 @@ public class SpotSpotter {
 	public static double resultCenter;
 
 	// colorvalue 为10进制，0~255的数
-	public static void marking(String output, int width, int height, int matrixsize, double theshold) throws IOException {
+	public static void marking(String output, int width, int height, int matrixsize, double theshold)
+			throws IOException {
 
 		long beginTime = new Date().getTime();
 
@@ -69,6 +71,7 @@ public class SpotSpotter {
 			}
 		}
 		ImageStream2File.IS2F(outputimg, GetPixelArray.formatname, output);
+		BufferedImage2HQ_ImageFile.writeHighQuality(outputimg, output, GetPixelArray.formatname, 1);
 
 		System.out.println("Total Spot = " + spottedSpot);
 
