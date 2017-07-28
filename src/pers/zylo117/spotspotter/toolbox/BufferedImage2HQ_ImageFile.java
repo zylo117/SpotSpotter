@@ -21,7 +21,6 @@ public class BufferedImage2HQ_ImageFile {
 			ImageWriteParam param = writer.getDefaultWriteParam();
 
 			param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-
 			// Ñ¹ËõÖÊÁ¿Îª0~1
 			param.setCompressionQuality(CompressionQuality);
 			FileImageOutputStream out = new FileImageOutputStream(new File(output));

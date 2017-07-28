@@ -11,6 +11,7 @@ public class FileDetecter {
 				System.out.println("File exists, OK 2 Proceed");
 				break;
 			}
+			System.out.println("File doesn't exist, Can not Proceed");
 		}
 		return true;
 	}

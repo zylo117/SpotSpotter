@@ -38,7 +38,7 @@ public class FileListener {
 
 					switch (index) {
 					case 1:
-						AlgoList.compareAlgo();break;
+						AlgoList.markingAlgo();break;
 						
 					case 2:
 						AlgoList.markingAlgo();break;

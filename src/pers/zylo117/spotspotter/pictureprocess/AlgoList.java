@@ -26,8 +26,8 @@ public class AlgoList {
 		while (true) {
 			if (FileDetecter.judgeFileExists(inputimage)) {
 				// 提取像素矩阵,getData(文件,缓冲延迟时间（机器越强，文件越小，延迟越小）,识别起始点x,识别起始点y,识别长度,识别宽度)
-				GetPixelArray.getData(inputimage, rawoutputimage, 100, Main.ROIstart_x, Main.ROIstart_y,
-						Main.ROIlength_x, Main.ROIlength_y);
+				GetPixelArray.getData(inputimage, rawoutputimage, 100, Main.GA_ROIstart_x, Main.GA_ROIstart_y,
+						Main.GA_ROIWidth, Main.GA_ROIHeight);
 				inputimage = null;
 				break;
 			} else
@@ -65,15 +65,15 @@ public class AlgoList {
 		while (true) {
 			if (FileDetecter.judgeFileExists(inputimage)) {
 				// 提取像素矩阵,getData(文件,缓冲延迟时间（机器越强，文件越小，延迟越小）,识别起始点x,识别起始点y,识别长度,识别宽度)
-				GetPixelArray.getData(inputimage, rawoutputimage, 10, Main.ROIstart_x, Main.ROIstart_y,
-						Main.ROIlength_x, Main.ROIlength_y);
+				GetPixelArray.getData(inputimage, rawoutputimage, 10, Main.GA_ROIstart_x, Main.GA_ROIstart_y,
+						Main.GA_ROIWidth, Main.GA_ROIHeight);
 				inputimage = null;
 				break;
 			} else
 				System.out.println("File not exists, skipping");
 		}
 
-		SpotSpotter.marking(finaloutputimage, Main.ROIlength_x, Main.ROIlength_y, 1, 0.07);
+		SpotSpotter.marking(finaloutputimage, Main.GA_ROIWidth, Main.GA_ROIHeight, 1, 0.07);
 	}
 
 }

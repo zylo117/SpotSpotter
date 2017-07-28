@@ -5,8 +5,7 @@ import java.io.File;
 public class GetPostfix {
 	public static String getPostfix(String input) {
 		File file = new File(input);
-		String fileName = file.getName();
-		String postfix = fileName.substring(fileName.lastIndexOf(".") + 1);
+		String postfix = file.getName().substring(file.getName().lastIndexOf(".") + 1);
 		return postfix;
 	}
 }
