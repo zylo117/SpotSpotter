@@ -8,7 +8,7 @@ public class GetPicType {
 		String targetName = file.getName().substring(file.getName().lastIndexOf("_") + 1);
 		String postfix = file.getName().substring(file.getName().lastIndexOf(".") + 1);
 		int postfixLength = postfix.length();// 得到后缀名长度
-		String targetNameWithputPostfix = targetName.substring(0, targetName.length() - postfixLength);// 得到目标名。去掉了后缀
+		String targetNameWithputPostfix = targetName.substring(0, targetName.length() - postfixLength - 1);// 得到目标名。去掉了后缀
 		return targetNameWithputPostfix;
 	}
 }

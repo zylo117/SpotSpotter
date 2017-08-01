@@ -1,6 +1,6 @@
 package pers.zylo117.spotspotter.pictureprocess;
 
-public class PicProcess {
+public class PathManagement {
 
 	// ÉèÖÃÍ¼Æ¬Â·¾¶
 	public static String inputdir = "D:/SpotSpotterWorkLog/input/";

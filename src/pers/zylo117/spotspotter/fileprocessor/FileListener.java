@@ -9,7 +9,7 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 
 import pers.zylo117.spotspotter.pictureprocess.AlgoList;
-import pers.zylo117.spotspotter.pictureprocess.PicProcess;
+import pers.zylo117.spotspotter.pictureprocess.PathManagement;
 import pers.zylo117.spotspotter.toolbox.Obj2String;
 
 public class FileListener {
@@ -19,7 +19,7 @@ public class FileListener {
 	public static void Autoscript(int index) throws IOException, InterruptedException {
 		WatchService watcher = FileSystems.getDefault().newWatchService();
 		// 监视文件创建/删除/修改,仅支持JAVA 1.7及以上版本
-		Paths.get(PicProcess.inputdir).register(watcher, StandardWatchEventKinds.ENTRY_CREATE,
+		Paths.get(PathManagement.inputdir).register(watcher, StandardWatchEventKinds.ENTRY_CREATE,
 				StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);
 
 		while (true) {
