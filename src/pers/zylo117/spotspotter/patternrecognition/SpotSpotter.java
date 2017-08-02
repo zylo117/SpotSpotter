@@ -73,7 +73,7 @@ public class SpotSpotter {
 		ImageStream2File.IS2F(outputimg, GetPixelArray.formatname, output);
 		
 		// 输出图片，质量0~1，0为最差，1为无损
-		BufferedImage2HQ_ImageFile.writeHighQuality(outputimg, output, GetPixelArray.formatname, 1);
+		BufferedImage2HQ_ImageFile.writeHighQuality(outputimg, output, "jpg", 1);
 
 		System.out.println("Total Spot = " + spottedSpot);
 

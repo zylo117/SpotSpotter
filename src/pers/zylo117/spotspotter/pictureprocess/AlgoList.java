@@ -21,25 +21,29 @@ public class AlgoList {
 		String rawoutputimage = PathManagement.rawoutputdir + FileListener.filename;
 		String bipicoutputimage = PathManagement.bipicdir + FileListener.filename;
 		String finaloutputimage = PathManagement.finaloutputdir + FileListener.filename;
-		
+
 		Parameter.getParameter(inputimage);
-		System.out.println(GetPicType.getPicType(inputimage));
-		System.out.println(TargetClassifier.getClass(inputimage));
+		System.out.println(TargetClassifier.getClass("Process Name" + inputimage));
 
 		// 第一项
 		// 提取像素矩阵前对文件是否存在进行判断
-		while (true) {
+		while (!TargetClassifier.getClass(inputimage).equals("Unknown")) {
 			if (FileDetecter.judgeFileExists(inputimage)) {
 				// 提取像素矩阵,getData(文件,缓冲延迟时间（机器越强，文件越小，延迟越小）,识别起始点x,识别起始点y,识别长度,识别宽度)
-				GetPixelArray.getData(inputimage,  10, Parameter.ROIstart_x, Parameter.ROIstart_y,
-						Parameter.ROIWidth, Parameter.ROIHeight);
+				GetPixelArray.getData(inputimage, 10, Parameter.ROIstart_x, Parameter.ROIstart_y, Parameter.ROIWidth,
+						Parameter.ROIHeight);
 				inputimage = null;
-				break;
-			} else
-				System.out.println("File not exists, skipping");
-		}
 
-		SpotSpotter.marking(finaloutputimage, Parameter.ROIWidth, Parameter.ROIHeight, 1, 0.07);
+				if (GetPixelArray.ready2spot == 1) {
+					SpotSpotter.marking(finaloutputimage, Parameter.ROIWidth, Parameter.ROIHeight, 1,
+							Parameter.theshold);
+				}
+				break;
+			} else {
+				System.out.println("File not exists, skipping");
+				break;
+			}
+		}
 	}
 
 }
