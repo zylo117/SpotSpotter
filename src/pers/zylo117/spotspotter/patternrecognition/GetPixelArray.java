@@ -8,9 +8,11 @@ import java.util.Iterator;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
+import javax.imageio.plugins.bmp.BMPImageWriteParam;
 import javax.imageio.stream.ImageInputStream;
 import javax.imageio.stream.ImageOutputStream;
 
+import pers.zylo117.spotspotter.toolbox.BMPReader;
 import pers.zylo117.spotspotter.toolbox.GetPostfix;
 import pers.zylo117.spotspotter.toolbox.Timer;
 
@@ -26,14 +28,13 @@ public class GetPixelArray {
 	public static String formatname;
 	public static ImageOutputStream rawoutputstream;
 	public static int[][] colorvalue;
-	// public static BufferedImage outputimg;
 	// 定义图片流所需变量
 	public static Iterator<ImageReader> readers;
 	public static ImageReader reader;
 	public static ImageInputStream iis;
 	public static int ready2spot;
 
-	public static void getData(String inputpath, int time, int ROIstart_x, int ROIstart_y, int ROIlength_x,
+	public static void getData(String input, int time, int ROIstart_x, int ROIstart_y, int ROIlength_x,
 			int ROIlength_y) {
 
 		long beginTime = new Date().getTime();
@@ -41,10 +42,10 @@ public class GetPixelArray {
 		// 延时缓冲
 		Timer.timer(time);
 
-		File file = new File(inputpath);
+		File file = new File(input);
 
 		// 读取图片格式
-		formatname = GetPostfix.getPostfix(inputpath);
+		formatname = GetPostfix.getPostfix(input);
 
 		BufferedImage bimg;
 		if (formatname.equals("png")) {
@@ -54,12 +55,12 @@ public class GetPixelArray {
 		}
 
 		int imageindex = 0;
-		
+
 		try {
 			// 读取图片流
 			// 由于imageIO读取某些格式的图片的ICC信息时错误，所以改类格式的图片要用原始方法读取
 			while (true) {
-				if (formatname.equals("jpg") || formatname.equals("bmp")) {
+				if (formatname.equals("jpg")) {
 					// Image pic = Toolkit.getDefaultToolkit().getImage(file.getPath());
 					// bimg = Image2BufferedImage.toBufferedImage(pic);
 					readers = ImageIO.getImageReadersByFormatName(formatname);
@@ -69,11 +70,27 @@ public class GetPixelArray {
 					bimg = reader.read(imageindex);
 					reader.dispose();
 					imageindex++;
-					
+					ready2spot = 1;
+
+				} 
+				
+				else if (formatname.equals("bmp")) {
+					bimg = BMPReader.beBuffered(input);
+					ready2spot = 1;
+				}
+				
+				else {
+					ready2spot = 0;
+					System.out.println("Current Version only support JPEG/BMP");
+					System.out.println("");
+					break;
+				}
+
+				if (ready2spot == 1) {
 					// 像素矩阵主算法
 					data = new int[ROIlength_x][ROIlength_y];
 					colorvalue = new int[ROIlength_x][ROIlength_y];
-					
+
 					// 方式一：通过getRGB()方式获得像素矩阵
 					// 此方式为沿Height方向扫描
 					for (int i = 0; i < ROIlength_x; i++) {
@@ -83,7 +100,7 @@ public class GetPixelArray {
 							// rgb[0] = (data[i][j] & 0xff0000);
 							// rgb[1] = (data[i][j] & 0xff00);
 							// rgb[2] = (data[i][j] & 0xff);
-							
+
 							// 计算单色色值
 							colorvalue[i][j] = (data[i][j] & 0xff);
 							// String tempst = Integer.toHexString(rawoutputRGB[i][j]);
@@ -96,40 +113,16 @@ public class GetPixelArray {
 						}
 					}
 					bimg.flush();
-					ready2spot = 1;
 					System.out.println("");
 					System.out.println("Input Image Reading Complete");
-
-					// 若非调试，不必输出中间图片
-					// 写入上述ARGB信息到原始缓存图像，并写入到原始图像路径
-					// if (formatname.equals("png")) {
-					// outputimg = new BufferedImage(ROIlength_x, ROIlength_y,
-					// BufferedImage.TYPE_INT_ARGB);
-					// } else {
-					// outputimg = new BufferedImage(ROIlength_x, ROIlength_y,
-					// BufferedImage.TYPE_INT_RGB);
-					// }
-					//
-					// for (int i = 0; i < ROIlength_x; i++) {
-					// for (int j = 0; j < ROIlength_y; j++) {
-					// outputimg.setRGB(i, j, data[i][j]);
-					// }
-					// }
-					// ImageStream2File.IS2F(outputimg, formatname, outputpath);
-
 					System.out.println("Raw Image Output Complete");
-
+					
 					long endTime = new Date().getTime();
 					System.out.println("Rawimage output Tact Time:[" + (endTime - beginTime) + "]ms");
 					System.out.println("");
 					break;
-
-				} else {
-					ready2spot = 0;
-					System.out.println("Current Version only support JPEG/BMP");
-					System.out.println("");
-					break;
 				}
+
 			}
 
 		} catch (IOException e) {

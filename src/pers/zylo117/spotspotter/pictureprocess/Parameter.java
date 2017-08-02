@@ -23,13 +23,18 @@ public class Parameter {
 			break;
 
 		case "AA":
-			// AA Glue识别参数
+			// Lumber AA Glue识别参数
 			// 输入ROI起始x/y,ROI画像长宽，阀值大小
-			ROIstart_x = 186;
-			ROIstart_y = 166;
-			ROIWidth = 149;
-			ROIHeight = 184;
-			theshold = 0.25;
+			// ROIstart_x = 186;
+			// ROIstart_y = 166;
+			// ROIWidth = 149;
+			// ROIHeight = 184;
+			// theshold = 0.25;
+			ROIstart_x = 207;
+			ROIstart_y = 186;
+			ROIWidth = 101;
+			ROIHeight = 146;
+			theshold = 0.40;
 			break;
 
 		}
