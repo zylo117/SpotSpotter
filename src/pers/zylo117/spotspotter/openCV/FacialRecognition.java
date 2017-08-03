@@ -1,4 +1,4 @@
-package algorithms;
+package pers.zylo117.spotspotter.openCV;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
