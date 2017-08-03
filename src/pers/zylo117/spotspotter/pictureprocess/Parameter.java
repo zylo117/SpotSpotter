@@ -21,7 +21,6 @@ public class Parameter {
 			ROIHeight = 320;
 			theshold = 0.07;
 			break;
-
 		case "AA":
 			// Lumber AA Glue识别参数
 			// 输入ROI起始x/y,ROI画像长宽，阀值大小
@@ -30,6 +29,8 @@ public class Parameter {
 			// ROIWidth = 149;
 			// ROIHeight = 184;
 			// theshold = 0.25;
+			
+			// Granite AA Glue识别参数
 			ROIstart_x = 207;
 			ROIstart_y = 186;
 			ROIWidth = 101;
