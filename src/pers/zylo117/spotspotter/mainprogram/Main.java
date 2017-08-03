@@ -1,10 +1,9 @@
-package pers.zylo117.spotspotter.pictureprocess;
+package pers.zylo117.spotspotter.mainprogram;
 
 import java.util.Scanner;
 
 import pers.zylo117.spotspotter.fileprocessor.FileListener;
 import pers.zylo117.spotspotter.patternrecognition.Comparison;
-import pers.zylo117.spotspotter.pictureprocess.PathManagement;
 
 public class Main {
 

@@ -8,8 +8,8 @@ import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 
-import pers.zylo117.spotspotter.pictureprocess.AlgoList;
-import pers.zylo117.spotspotter.pictureprocess.PathManagement;
+import pers.zylo117.spotspotter.mainprogram.AlgoList;
+import pers.zylo117.spotspotter.mainprogram.PathManagement;
 import pers.zylo117.spotspotter.toolbox.Obj2String;
 
 public class FileListener {

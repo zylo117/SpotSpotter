@@ -1,3 +1,4 @@
+package pers.zylo117.spotspotter.patternrecognition;
 //package pers.zylo117.spotspotter.patternrecognition;
 //
 //import java.awt.image.BufferedImage;
