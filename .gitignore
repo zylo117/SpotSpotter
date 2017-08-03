@@ -23,3 +23,7 @@ hs_err_pid*
 /bin/
 
 *.JPG
+*.png
+*.bmp
+/src/worklog/
+*.class

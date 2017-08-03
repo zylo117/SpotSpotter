@@ -21,6 +21,7 @@ public static void main(String[] args) throws Exception {
 		if (answer.equals("1") || answer.equals("1")) {
 		}
 
+		PathManagement.definePath();
 		FileListener.Autoscript(2);
 
 		System.exit(0);

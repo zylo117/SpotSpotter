@@ -16,7 +16,7 @@ public class FacialRecognition {
 
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		System.out.println("\nRunning FaceDetector");
-		System.out.println(FacialRecognition.class.getResource("haarcascade_frontalface_alt.xml").getPath().substring(1));
+		System.out.println(System.getProperty("user.dir")+"\\worklog");
 
 		CascadeClassifier faceDetector = new CascadeClassifier(
 				FacialRecognition.class.getResource("haarcascade_frontalface_alt.xml").getPath().substring(1));
