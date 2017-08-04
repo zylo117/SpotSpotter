@@ -20,4 +20,3 @@ Usage:
 Custom:
 1. Path can be altered on PathManagement.java
 2. ROI (region of interest, where will be analyzed), thresholds can be tuned on Parameter.java
-5. Also co-ordinates and test value can be seen on the cmd window.
