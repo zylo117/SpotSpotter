@@ -7,17 +7,24 @@ Warning:
 
 2.Right now it can only process JPEG (R.I.P. BMP/PNG).
 
+<<<<<<< HEAD
 3.Pic file should have postfix like "glue.jpg", "chip.jpg", "glass.jpg"
 
 
+=======
+>>>>>>> origin/master
 Usage:
 1. Run "Run.bat";
 2. Press Key "Enter" to continue;
 3. Place Pic File to "\src\worklog\input\";
 4. View the post-process pic on "\src\worklog\output\";
+<<<<<<< HEAD
 5. Also co-ordinates and test value can be seen on the cmd window.
 
 Custom:
 1. Path can be altered on PathManagement.java
 2. ROI (region of interest, where will be analyzed), thresholds can be tuned on Parameter.java
 5. Also co-ordinates and test value can be seen on the cmd window.
+=======
+5. Also co-ordinates and test value can be seen on the cmd window.
+>>>>>>> origin/master
