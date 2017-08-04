@@ -36,7 +36,7 @@ public class AlgoList {
 
 				if (GetPixelArray.ready2spot == 1) {
 					SpotSpotter.marking(finaloutputimage, Parameter.ROIWidth, Parameter.ROIHeight, 1,
-							Parameter.theshold);
+							Parameter.threshold);
 				}
 				break;
 			} else {

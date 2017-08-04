@@ -6,7 +6,7 @@ public class Parameter {
 	public static int ROIstart_y;
 	public static int ROIWidth;
 	public static int ROIHeight;
-	public static double theshold;
+	public static double threshold;
 
 	public static void getParameter(String input) {
 
@@ -19,7 +19,7 @@ public class Parameter {
 			ROIstart_y = 338;
 			ROIWidth = 560;
 			ROIHeight = 320;
-			theshold = 0.07;
+			threshold = 0.07;
 			break;
 		case "AA":
 			// Lumber AA Glue识别参数
@@ -35,7 +35,7 @@ public class Parameter {
 			ROIstart_y = 186;
 			ROIWidth = 101;
 			ROIHeight = 146;
-			theshold = 0.40;
+			threshold = 0.40;
 			break;
 
 		}
