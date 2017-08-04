@@ -25,5 +25,6 @@ hs_err_pid*
 *.JPG
 *.png
 *.bmp
-/src/worklog/
+/src/worklog/input/*.
+/src/worklog/output/*.
 *.class

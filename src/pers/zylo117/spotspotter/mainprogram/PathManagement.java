@@ -17,13 +17,14 @@ public class PathManagement {
 	public static String ROI;
 
 	public static void definePath() throws IOException {
-		inputdir = GetRootPath.getRootPath() + "\\worklog\\input\\";
-		rawoutputdir = "D:/SpotSpotterWorkLog/rawoutput/";
-		bipicdir = "D:/SpotSpotterWorkLog/bipic/";
-		finaloutputdir = "D:/SpotSpotterWorkLog/finaloutput/";
-		perfect = "D:/SpotSpotterWorkLog/perfect/perfect.jpg";
-		IRCF = "D:/SpotSpotterWorkLog/IRCF/";
-		ROI = "D:/SpotSpotterWorkLog/ROI/";
+		String absClassPath = PathManagement.class.getClass().getResource("/").getPath().substring(1);
+		inputdir = absClassPath + "/worklog/input/";
+		finaloutputdir = absClassPath + "/workLog/output/";
+//		rawoutputdir = "D:/SpotSpotterWorkLog/rawoutput/";
+//		bipicdir = "D:/SpotSpotterWorkLog/bipic/";
+//		perfect = "D:/SpotSpotterWorkLog/perfect/perfect.jpg";
+//		IRCF = "D:/SpotSpotterWorkLog/IRCF/";
+//		ROI = "D:/SpotSpotterWorkLog/ROI/";
 
 	}
 
