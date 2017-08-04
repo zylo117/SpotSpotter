@@ -81,7 +81,7 @@ public class GetPixelArray {
 				
 				else {
 					ready2spot = 0;
-					System.out.println("Current Version only support JPEG/BMP");
+					System.out.println("Current Version only support JPEG");
 					System.out.println("");
 					break;
 				}
