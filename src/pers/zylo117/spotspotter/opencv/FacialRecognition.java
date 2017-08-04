@@ -16,10 +16,10 @@ public class FacialRecognition {
 
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		System.out.println("\nRunning FaceDetector");
-		System.out.println(FacialRecognition.class.getResource("../../../../").getPath().substring(1));
 
-		CascadeClassifier faceDetector = new CascadeClassifier(
-				FacialRecognition.class.getResource("/").getPath().substring(1));
+		CascadeClassifier faceDetector = new CascadeClassifier(FacialRecognition.class
+				.getResource("../../../../opencv/sources/data/haarcascades_cuda/haarcascade_frontalface_alt.xml")
+				.getPath().substring(1));
 		Mat image = Imgcodecs.imread(FacialRecognition.class.getResource("shekhar.JPG").getPath().substring(1));
 
 		MatOfRect faceDetections = new MatOfRect();
@@ -32,8 +32,8 @@ public class FacialRecognition {
 					new Scalar(0, 255, 0));
 		}
 
-		String filename = "ouput.png";
+		String filename = "output.png";
 		System.out.println(String.format("Writing %s", filename));
-		Imgcodecs.imwrite(filename, image);
+		Imgcodecs.imwrite(FacialRecognition.class.getResource("").getPath().substring(1) + filename, image);
 	}
 }
