@@ -16,10 +16,10 @@ public class FacialRecognition {
 
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		System.out.println("\nRunning FaceDetector");
-		System.out.println(System.getProperty("user.dir")+"\\worklog");
+		System.out.println(FacialRecognition.class.getResource("../../../../").getPath().substring(1));
 
 		CascadeClassifier faceDetector = new CascadeClassifier(
-				FacialRecognition.class.getResource("haarcascade_frontalface_alt.xml").getPath().substring(1));
+				FacialRecognition.class.getResource("/").getPath().substring(1));
 		Mat image = Imgcodecs.imread(FacialRecognition.class.getResource("shekhar.JPG").getPath().substring(1));
 
 		MatOfRect faceDetections = new MatOfRect();
