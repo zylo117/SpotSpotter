@@ -1,93 +1,86 @@
 package pers.zylo117.spotspotter.patternrecognition.facialrecognition;
- 
-import java.awt.EventQueue;
- 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
- 
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
+
+import javax.swing.*;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
+import org.opencv.core.*;
+import org.opencv.core.Point;
 import org.opencv.videoio.VideoCapture;
+import org.opencv.videoio.Videoio;
 
 import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
 
-import javax.swing.JButton;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
- 
-public class CameraFacialRecognition {
-     
-    static{System.loadLibrary(Core.NATIVE_LIBRARY_NAME);}
- 
-    private JFrame frame;
-    static JLabel label;
-    static int flag=0;//类静态变量，用于控制按下按钮后 停止摄像头的读取
- 
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    CameraFacialRecognition window = new CameraFacialRecognition();
-                    window.frame.setVisible(true);
-                     
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        //我们的操作
-        VideoCapture camera=new VideoCapture();//创建Opencv中的视频捕捉对象
-        camera.open(0);//open函数中的0代表当前计算机中索引为0的摄像头，如果你的计算机有多个摄像头，那么一次1,2,3……
-        if(!camera.isOpened()){//isOpened函数用来判断摄像头调用是否成功
-            System.out.println("Camera Error");//如果摄像头调用失败，输出错误信息
-        }
-        else{
-            Mat frame=new Mat();//创建一个输出帧
-            while(flag==0){
-                camera.read(frame);//read方法读取摄像头的当前帧
-                label.setIcon(new ImageIcon(Mat2BufferedImage.matToBufferedImage(frame)));//转换图像格式并输出
-                try {
-                    Thread.sleep(100);//线程暂停100ms
-                } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
- 
-    /**
-     * Create the application.
-     */
-    public CameraFacialRecognition() {
-        initialize();
-    }
- 
-    /**
-     * Initialize the contents of the frame. 
-     */
-    private void initialize(){
-        frame = new JFrame();
-        frame.setBounds(100, 100, 800, 450);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(null);
-         
-        JButton btnNewButton = new JButton("\u62CD\u7167");
-        btnNewButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent arg0) {
-                flag=1;//静态变量设置为1，从而按下按钮时会停止摄像头的调用
-            }
-        });
-        btnNewButton.setBounds(33, 13, 113, 27);
-        frame.getContentPane().add(btnNewButton);
-         
-        label = new JLabel("");
-        label.setBounds(0, 0, 800, 450);
-        frame.getContentPane().add(label);  
-    }
+import org.opencv.objdetect.CascadeClassifier;
+import org.opencv.imgproc.Imgproc;
+
+public class CameraFacialRecognition extends JPanel {
+	private static final long serialVersionUID = 1L;
+
+	private BufferedImage mImg;
+
+	private static Mat dobj(CascadeClassifier objDetector, Mat src) {
+		Mat dst = src.clone();
+
+		MatOfRect objDetections = new MatOfRect();
+
+		objDetector.detectMultiScale(dst, objDetections);
+
+		if (objDetections.toArray().length <= 0) {
+			return src;
+		}
+		for (Rect rect : objDetections.toArray()) {
+			Imgproc.rectangle(dst, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height),
+					new Scalar(0, 0, 255), 2);
+		}
+		return dst;
+	}
+
+	public void paintComponent(Graphics g) {
+		if (mImg != null) {
+			g.drawImage(mImg, 0, 0, mImg.getWidth(), mImg.getHeight(), this);
+		}
+	}
+
+	public static void CamFaceDetector() {
+		try {
+			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+
+			CascadeClassifier objDetector = new CascadeClassifier(CameraFacialRecognition.class
+					.getResource("../../../../../opencv/sources/data/lbpcascades/lbpcascade_frontalface_improved.xml")
+					.getPath().substring(1));
+
+			Mat capImg = new Mat();
+			VideoCapture capture = new VideoCapture(0);
+			int height = (int) capture.get(Videoio.CV_CAP_PROP_FRAME_HEIGHT);
+			int width = (int) capture.get(Videoio.CV_CAP_PROP_FRAME_WIDTH);
+			if (height == 0 || width == 0) {
+				throw new Exception("camera not found");
+			}
+
+			JFrame frame = new JFrame("camera");
+			frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+			CameraFacialRecognition panel = new CameraFacialRecognition();
+			frame.setContentPane(panel);
+			frame.setVisible(true);
+			frame.setSize(width + frame.getInsets().left + frame.getInsets().right,
+					height + frame.getInsets().top + frame.getInsets().bottom);
+
+			// Mat2BufferedImage.matToBufferedImage(capImg) matToBi;
+
+			Mat dst = new Mat();
+			while (frame.isShowing()) {
+				capture.read(capImg);
+				dst = dobj(objDetector, capImg);
+				panel.mImg = Mat2BufferedImage.matToBufferedImage(dst);
+				panel.repaint();
+			}
+			capture.release();
+		} catch (Exception e) {
+			System.out.println("Exception" + e);
+		} finally {
+			System.out.println("--done--");
+		}
+	}
 }

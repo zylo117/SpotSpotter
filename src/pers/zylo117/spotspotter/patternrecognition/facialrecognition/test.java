@@ -13,6 +13,7 @@ public static void main(String[] args) {
 	String output = "D:\\workspace\\SpotSpotter\\src\\pers\\zylo117\\spotspotter\\image\\faceoutput.jpg";
 
 StaticFacialRecognition.staticFace(input, output);
+CameraFacialRecognition.CamFaceDetector();
 
 }
 }
