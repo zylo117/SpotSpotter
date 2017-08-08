@@ -4,29 +4,34 @@ import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Point;
+import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 public class DetectCorners {
 
-	public static void corners(String inputimg, String outputimg) {
+	public static void corners(String inputimg, int roi_startX, int roi_startY, int width, int height,
+			String outputimg) {
 		try {
 			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
-			final int maxCorners = 50, blockSize = 5;
-			final double qualityLevel = 0.01, minDistance = 20.0, k = 0.04;
+			final int maxCorners = 500, blockSize = 5;
+			final double qualityLevel = 0.01, minDistance = 10.0, k = 0.04;
 			final boolean useHarrisDetector = true;
 			MatOfPoint corners = new MatOfPoint();
 
+			// …Ë÷√ROI
 			Mat src = Imgcodecs.imread(inputimg);
-			if (src.empty()) {
+			Rect rect = new Rect(roi_startX, roi_startY, width, height);
+			Mat srcROI = new Mat(src, rect);
+			if (srcROI.empty()) {
 				throw new Exception("no file");
 			}
-			Mat dst = src.clone();
+			Mat dst = srcROI.clone();
 			Mat gray = new Mat();
 
-			Imgproc.cvtColor(src, gray, Imgproc.COLOR_RGB2GRAY);
+			Imgproc.cvtColor(srcROI, gray, Imgproc.COLOR_RGB2GRAY);
 			Imgproc.goodFeaturesToTrack(gray, corners, maxCorners, qualityLevel, minDistance, new Mat(), blockSize,
 					useHarrisDetector, k);
 			Point[] pCorners = corners.toArray();

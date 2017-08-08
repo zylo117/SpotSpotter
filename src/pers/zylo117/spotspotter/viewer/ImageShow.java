@@ -43,13 +43,7 @@ public class ImageShow extends JPanel implements KeyListener {
 	private JFrame jframe = new JFrame();
 	byte[] data;
 
-//	private void Mat2BufIm() {
-//		mat.get(0, 0, data);
-//		out.getRaster().setDataElements(0, 0, mat.cols(), mat.rows(), data);
-//	}
 
-	
-	
 	private void init(Mat m, String window) {
 		this.mat = m;
 		data = new byte[mat.cols() * mat.rows() * (int) mat.elemSize()];
