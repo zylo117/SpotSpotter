@@ -17,7 +17,7 @@ public class Mat2BufferedImage {
 			break;
 		case 3:
 			type = BufferedImage.TYPE_3BYTE_BGR;
-			// bgr to rgb 
+			// bgr to rgb
 			byte b;
 			for (int i = 0; i < data.length; i = i + 3) {
 				b = data[i];
@@ -32,4 +32,4 @@ public class Mat2BufferedImage {
 		image2.getRaster().setDataElements(0, 0, cols, rows, data);
 		return image2;
 	}
-};
+}
