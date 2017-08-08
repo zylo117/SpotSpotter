@@ -67,8 +67,6 @@ public class CameraFacialRecognition extends JPanel {
 			frame.setSize(width + frame.getInsets().left + frame.getInsets().right,
 					height + frame.getInsets().top + frame.getInsets().bottom);
 
-			// Mat2BufferedImage.matToBufferedImage(capImg) matToBi;
-
 			Mat dst = new Mat();
 			while (frame.isShowing()) {
 				capture.read(capImg);
