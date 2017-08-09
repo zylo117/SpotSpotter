@@ -11,13 +11,13 @@ import org.opencv.imgproc.Imgproc;
 
 public class DetectCorners {
 
-	public static void corners(String inputimg, int roi_startX, int roi_startY, int width, int height,
+	public static void corners(String inputimg, int roi_startX, int roi_startY, int width, int height, double density,
 			String outputimg) {
 		try {
 			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
-			final int maxCorners = 500, blockSize = 5;
-			final double qualityLevel = 0.01, minDistance = 10.0, k = 0.04;
+			final int maxCorners = 50, blockSize = 5;
+			final double qualityLevel = 0.01, minDistance = density, k = 0.01;
 			final boolean useHarrisDetector = true;
 			MatOfPoint corners = new MatOfPoint();
 
@@ -36,9 +36,9 @@ public class DetectCorners {
 					useHarrisDetector, k);
 			Point[] pCorners = corners.toArray();
 			for (int i = 0; i < pCorners.length; i++) {
-				Imgproc.circle(dst, pCorners[i], 4, new Scalar(255, 255, 0), 2);
+				Imgproc.circle(srcROI, pCorners[i], 4, new Scalar(255, 255, 0), 2);
 			}
-			Imgcodecs.imwrite(outputimg, dst);
+			Imgcodecs.imwrite(outputimg, src);
 		} catch (Exception e) {
 			System.out.println("Exception: " + e);
 		}
