@@ -1,5 +1,6 @@
 package pers.zylo117.spotspotter.patternrecognition.regiondetector;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,6 @@ public class test {
 
 	// Pythagoras-G
 	// 推荐参数
-	//
 
 	// public static void Pythagoras_G(String input, String output) {
 	public static void main(String[] args) {
@@ -27,26 +27,11 @@ public class test {
 		Mat src = Imgcodecs.imread(input);
 
 		// Upper-Left corner
-		src = DetectCorners.corners(src, 206, 178, 20, 20, 15.0, false);
+		src = DetectCorners.corners(src, 206, 178, 20, 20, 1.0, false);
 
 		// 求最优解
-		double ulpoint = 0;
-		List<Double> list = new ArrayList<Double>();
-		for (int i = 0; i < DetectCorners.pCorners.length; i++) {
-			list.add(DetectCorners.pCorners[i].x);
-		}
-		ulpoint = GetMaxMin.getMax(list);
-		// 求最大值的点的序号
-		int pointNO;
-		for(pointNO = 0; pointNO < DetectCorners.pCorners.length; pointNO++ ) {
-			if (ulpoint == DetectCorners.pCorners[pointNO].x) {
-				break;
-			}
-		}
-		System.out.println(ulpoint);
-		System.out.println(pointNO);
-		Imgproc.circle(DetectCorners.srcROI, DetectCorners.pCorners[pointNO], 4, new Scalar(255, 255, 0), 2);
-
+		upperLeft_optimus();
+		
 		// Upper-Right corner
 		src = DetectCorners.corners(src, 306, 178, 20, 20, 1.0, false);
 		// Lower-Left corner
@@ -57,4 +42,20 @@ public class test {
 		Imgcodecs.imwrite(output, src);
 
 	}
+
+	private static void upperLeft_optimus() {
+		// 求最优解
+		double[] temp_x = new double[DetectCorners.pCorners.length];
+		double[] temp_y = new double[DetectCorners.pCorners.length];
+		for (int i = 0; i < DetectCorners.pCorners.length; i++) {
+			temp_x[i] = DetectCorners.pCorners[i].x;
+			temp_y[i] = DetectCorners.pCorners[i].y;
+		}
+		double ulpoint_x = GetMaxMin.getMinFromArray(temp_x);
+		double ulpoint_y = GetMaxMin.getMinFromArray(temp_y);
+		org.opencv.core.Point point = new org.opencv.core.Point(ulpoint_x, ulpoint_y);
+		System.out.println(point.x + "," + point.y);
+		Imgproc.circle(DetectCorners.srcROI, point, 4, new Scalar(255, 255, 0), 2);
+	}
+
 }

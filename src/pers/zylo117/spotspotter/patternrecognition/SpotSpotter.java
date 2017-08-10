@@ -47,8 +47,8 @@ public class SpotSpotter {
 					list.add(a7);
 					list.add(a8);
 
-					double maxB = GetMaxMin.getMax(list);
-					double minB = GetMaxMin.getMin(list);
+					double maxB = GetMaxMin.getMaxFromList(list);
+					double minB = GetMaxMin.getMinFromList(list);
 					double avgB = (a1 + a2 + a3 + a4 + a5 + a6 + a7 + a8 - maxB - minB) / 6;
 					resultCenter = (GetPixelArray.colorvalue[i][j] - avgB) / avgB;
 
