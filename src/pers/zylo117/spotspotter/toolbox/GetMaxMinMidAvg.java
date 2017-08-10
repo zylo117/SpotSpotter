@@ -3,7 +3,7 @@ package pers.zylo117.spotspotter.toolbox;
 import java.util.Collections;
 import java.util.List;
 
-public class GetMaxMin {
+public class GetMaxMinMidAvg {
 
 	public static double getMaxFromList(List list) {
 		double max = (double) Collections.max(list);
@@ -24,7 +24,7 @@ public class GetMaxMin {
 		}
 		return max;
 	}
-	
+
 	public static double getMinFromArray(double[] arr) {
 		double min = arr[0];
 		for (int i = 0; i < arr.length; i++) {
@@ -34,4 +34,22 @@ public class GetMaxMin {
 		}
 		return min;
 	}
+
+	public static double getMidFromArray(double[] arr) {
+		double max = getMaxFromArray(arr);
+		double min = getMinFromArray(arr);
+		double mid = (max + min) / 2;
+		return mid;
+	}
+
+	public static double getAvgFromArray(double[] arr) {
+		int length = arr.length;
+		double sum = 0;
+		for (int i = 0; i < arr.length; i++) {
+			sum += arr[i];
+		}
+		double avg = sum / length;
+		return avg;
+	}
+
 }

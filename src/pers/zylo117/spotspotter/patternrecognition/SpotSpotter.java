@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import pers.zylo117.spotspotter.toolbox.BufferedImage2HQ_ImageFile;
-import pers.zylo117.spotspotter.toolbox.GetMaxMin;
+import pers.zylo117.spotspotter.toolbox.GetMaxMinMidAvg;
 import pers.zylo117.spotspotter.toolbox.ImageStream2File;
 
 public class SpotSpotter {
@@ -47,8 +47,8 @@ public class SpotSpotter {
 					list.add(a7);
 					list.add(a8);
 
-					double maxB = GetMaxMin.getMaxFromList(list);
-					double minB = GetMaxMin.getMinFromList(list);
+					double maxB = GetMaxMinMidAvg.getMaxFromList(list);
+					double minB = GetMaxMinMidAvg.getMinFromList(list);
 					double avgB = (a1 + a2 + a3 + a4 + a5 + a6 + a7 + a8 - maxB - minB) / 6;
 					resultCenter = (GetPixelArray.colorvalue[i][j] - avgB) / avgB;
 
