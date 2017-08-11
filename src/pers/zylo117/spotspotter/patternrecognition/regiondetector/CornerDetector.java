@@ -8,7 +8,7 @@ import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
-public class DetectCorners {
+public class CornerDetector {
 
 	public static Point[] pCorners;
 	public static Mat srcROI;

@@ -4,7 +4,7 @@ import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
-import pers.zylo117.spotspotter.patternrecognition.regiondetector.DetectCorners;
+import pers.zylo117.spotspotter.patternrecognition.regiondetector.CornerDetector;
 
 public class test {
 

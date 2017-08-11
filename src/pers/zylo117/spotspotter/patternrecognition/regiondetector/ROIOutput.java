@@ -12,7 +12,7 @@ import org.opencv.imgproc.Imgproc;
 
 import pers.zylo117.spotspotter.toolbox.GetMaxMinMidAvg;
 
-public class test {
+public class ROIOutput {
 
 	// Pythagoras-G
 	// 推荐参数
@@ -27,87 +27,87 @@ public class test {
 		Mat src = Imgcodecs.imread(input);
 
 		// Upper-Left corner
-		src = DetectCorners.corners(src, 206, 182, 20, 20, 10, false);
+		src = CornerDetector.corners(src, 206, 182, 20, 20, 10, false);
 		// 求最优解
 		upperLeft_optimus();
-		
+
 		// Upper-Right corner
-		src = DetectCorners.corners(src, 302, 182, 20, 20, 15, false);
+		src = CornerDetector.corners(src, 302, 182, 20, 20, 15, false);
 		// 求最优解
 		upperRight_optimus();
-		
+
 		// Lower-Left corner
-		src = DetectCorners.corners(src, 206, 326, 20, 20, 15, false);
+		src = CornerDetector.corners(src, 206, 326, 20, 20, 15, false);
 		// 求最优解
 		lowerLeft_optimus();
-		
+
 		// Lower-Right corner
-		src = DetectCorners.corners(src, 302, 326, 20, 20, 0.5, false);
+		src = CornerDetector.corners(src, 302, 326, 20, 20, 0.5, false);
 		// 求最优解
 		lowerRight_optimus();
-		
+
 		Imgcodecs.imwrite(output, src);
 
 	}
 
 	private static void upperLeft_optimus() {
 		// 求最优解
-		double[] temp_x = new double[DetectCorners.pCorners.length];
-		double[] temp_y = new double[DetectCorners.pCorners.length];
-		for (int i = 0; i < DetectCorners.pCorners.length; i++) {
-			temp_x[i] = DetectCorners.pCorners[i].x;
-			temp_y[i] = DetectCorners.pCorners[i].y;
+		double[] temp_x = new double[CornerDetector.pCorners.length];
+		double[] temp_y = new double[CornerDetector.pCorners.length];
+		for (int i = 0; i < CornerDetector.pCorners.length; i++) {
+			temp_x[i] = CornerDetector.pCorners[i].x;
+			temp_y[i] = CornerDetector.pCorners[i].y;
 		}
 		double ulpoint_x = GetMaxMinMidAvg.getMinFromArray(temp_x);
 		double ulpoint_y = GetMaxMinMidAvg.getMidFromArray(temp_y);
 		org.opencv.core.Point point = new org.opencv.core.Point(ulpoint_x, ulpoint_y);
 		System.out.println(point.x + "," + point.y);
-		Imgproc.circle(DetectCorners.srcROI, point, 4, new Scalar(255, 255, 0), 2);
+		Imgproc.circle(CornerDetector.srcROI, point, 4, new Scalar(255, 255, 0), 2);
 	}
 
 	private static void upperRight_optimus() {
 		// 求最优解
-		double[] temp_x = new double[DetectCorners.pCorners.length];
-		double[] temp_y = new double[DetectCorners.pCorners.length];
-		for (int i = 0; i < DetectCorners.pCorners.length; i++) {
-			temp_x[i] = DetectCorners.pCorners[i].x;
-			temp_y[i] = DetectCorners.pCorners[i].y;
+		double[] temp_x = new double[CornerDetector.pCorners.length];
+		double[] temp_y = new double[CornerDetector.pCorners.length];
+		for (int i = 0; i < CornerDetector.pCorners.length; i++) {
+			temp_x[i] = CornerDetector.pCorners[i].x;
+			temp_y[i] = CornerDetector.pCorners[i].y;
 		}
 		double ulpoint_x = GetMaxMinMidAvg.getMidFromArray(temp_x);
 		double ulpoint_y = GetMaxMinMidAvg.getMinFromArray(temp_y);
 		org.opencv.core.Point point = new org.opencv.core.Point(ulpoint_x, ulpoint_y);
 		System.out.println(point.x + "," + point.y);
-		Imgproc.circle(DetectCorners.srcROI, point, 4, new Scalar(255, 255, 0), 2);
+		Imgproc.circle(CornerDetector.srcROI, point, 4, new Scalar(255, 255, 0), 2);
 	}
-	
+
 	private static void lowerLeft_optimus() {
 		// 求最优解
-		double[] temp_x = new double[DetectCorners.pCorners.length];
-		double[] temp_y = new double[DetectCorners.pCorners.length];
-		for (int i = 0; i < DetectCorners.pCorners.length; i++) {
-			temp_x[i] = DetectCorners.pCorners[i].x;
-			temp_y[i] = DetectCorners.pCorners[i].y;
+		double[] temp_x = new double[CornerDetector.pCorners.length];
+		double[] temp_y = new double[CornerDetector.pCorners.length];
+		for (int i = 0; i < CornerDetector.pCorners.length; i++) {
+			temp_x[i] = CornerDetector.pCorners[i].x;
+			temp_y[i] = CornerDetector.pCorners[i].y;
 		}
 		double ulpoint_x = GetMaxMinMidAvg.getMinFromArray(temp_x);
 		double ulpoint_y = GetMaxMinMidAvg.getMinFromArray(temp_y);
 		org.opencv.core.Point point = new org.opencv.core.Point(ulpoint_x, ulpoint_y);
 		System.out.println(point.x + "," + point.y);
-		Imgproc.circle(DetectCorners.srcROI, point, 4, new Scalar(255, 255, 0), 2);
+		Imgproc.circle(CornerDetector.srcROI, point, 4, new Scalar(255, 255, 0), 2);
 	}
-	
+
 	private static void lowerRight_optimus() {
 		// 求最优解
-		double[] temp_x = new double[DetectCorners.pCorners.length];
-		double[] temp_y = new double[DetectCorners.pCorners.length];
-		for (int i = 0; i < DetectCorners.pCorners.length; i++) {
-			temp_x[i] = DetectCorners.pCorners[i].x;
-			temp_y[i] = DetectCorners.pCorners[i].y;
+		double[] temp_x = new double[CornerDetector.pCorners.length];
+		double[] temp_y = new double[CornerDetector.pCorners.length];
+		for (int i = 0; i < CornerDetector.pCorners.length; i++) {
+			temp_x[i] = CornerDetector.pCorners[i].x;
+			temp_y[i] = CornerDetector.pCorners[i].y;
 		}
 		double ulpoint_x = GetMaxMinMidAvg.getAvgFromArray(temp_x);
 		double ulpoint_y = GetMaxMinMidAvg.getMidFromArray(temp_y);
 		org.opencv.core.Point point = new org.opencv.core.Point(ulpoint_x, ulpoint_y);
 		System.out.println(point.x + "," + point.y);
-		Imgproc.circle(DetectCorners.srcROI, point, 4, new Scalar(255, 255, 0), 2);
+		Imgproc.circle(CornerDetector.srcROI, point, 4, new Scalar(255, 255, 0), 2);
 	}
-	
+
 }
