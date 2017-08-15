@@ -18,7 +18,7 @@ public class CornerDetector {
 		try {
 			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
-			final int maxCorners = 5, blockSize = 5;
+			final int maxCorners = 1, blockSize = 5;
 			final double qualityLevel = 0.01, minDistance = density, k = 0.01;
 			final boolean useHarrisDetector = true;
 			MatOfPoint corners = new MatOfPoint();

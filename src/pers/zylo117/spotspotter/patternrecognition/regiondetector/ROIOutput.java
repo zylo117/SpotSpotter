@@ -16,37 +16,69 @@ public class ROIOutput {
 
 	// Pythagoras-G
 	// 推荐参数
+	
+	public static org.opencv.core.Point abs_ulPoint;
+	public static org.opencv.core.Point abs_urPoint;
+	public static org.opencv.core.Point abs_llPoint;
+	public static org.opencv.core.Point abs_lrPoint;
 
-	// public static void Pythagoras_G(String input, String output) {
-	public static void main(String[] args) {
+	private static org.opencv.core.Point rel_ulPoint;
+	private static org.opencv.core.Point rel_urPoint;
+	private static org.opencv.core.Point rel_llPoint;
+	private static org.opencv.core.Point rel_lrPoint;
+
+	 public static Mat Pythagoras_G(String input) {
+//	public static void main(String[] args) {
 		// TODO 自动生成的方法存根
-		String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/2.jpg";
-		String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output2.jpg";
+//		String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/1.jpg";
+//		String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output1.jpg";
+
+		int roiWidth = 20;
+		int roiHeight = 20;
+		int ulx = 206;
+		int uly = 182;
+		int urx = 302;
+		int ury = 182;
+		int llx = 206;
+		int lly = 326;
+		int lrx = 302;
+		int lry = 326;
 
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		Mat src = Imgcodecs.imread(input);
 
 		// Upper-Left corner
-		src = CornerDetector.corners(src, 206, 182, 20, 20, 10, false);
+		src = CornerDetector.corners(src, ulx, uly, roiWidth, roiHeight, 10, false);
 		// 求最优解
 		upperLeft_optimus();
+		Imgproc.circle(CornerDetector.srcROI, rel_ulPoint, 4, new Scalar(255, 255, 0), 2);
 
 		// Upper-Right corner
-		src = CornerDetector.corners(src, 302, 182, 20, 20, 15, false);
+		src = CornerDetector.corners(src, urx, ury, roiWidth, roiHeight, 15, false);
 		// 求最优解
 		upperRight_optimus();
+		Imgproc.circle(CornerDetector.srcROI, rel_urPoint, 4, new Scalar(255, 255, 0), 2);
 
 		// Lower-Left corner
-		src = CornerDetector.corners(src, 206, 326, 20, 20, 15, false);
+		src = CornerDetector.corners(src, llx, lly, roiWidth, roiHeight, 15, false);
 		// 求最优解
 		lowerLeft_optimus();
+		Imgproc.circle(CornerDetector.srcROI, rel_llPoint, 4, new Scalar(255, 255, 0), 2);
 
 		// Lower-Right corner
-		src = CornerDetector.corners(src, 302, 326, 20, 20, 0.5, false);
+		src = CornerDetector.corners(src, lrx, lry, roiWidth, roiHeight, 0.5, false);
 		// 求最优解
 		lowerRight_optimus();
+		Imgproc.circle(CornerDetector.srcROI, rel_lrPoint, 4, new Scalar(255, 255, 0), 2);
 
-		Imgcodecs.imwrite(output, src);
+		// Imgcodecs.imwrite(output, src);
+
+		abs_ulPoint=new org.opencv.core.Point(ulx+rel_ulPoint.x,uly+rel_ulPoint.y);
+		abs_urPoint=new org.opencv.core.Point(urx+rel_urPoint.x,ury+rel_urPoint.y);
+		abs_llPoint=new org.opencv.core.Point(llx+rel_llPoint.x,lly+rel_llPoint.y);
+		abs_lrPoint=new org.opencv.core.Point(lrx+rel_lrPoint.x,lry+rel_lrPoint.y);
+		
+		return src;
 
 	}
 
@@ -60,9 +92,8 @@ public class ROIOutput {
 		}
 		double ulpoint_x = GetMaxMinMidAvg.getMinFromArray(temp_x);
 		double ulpoint_y = GetMaxMinMidAvg.getMidFromArray(temp_y);
-		org.opencv.core.Point point = new org.opencv.core.Point(ulpoint_x, ulpoint_y);
-		System.out.println(point.x + "," + point.y);
-		Imgproc.circle(CornerDetector.srcROI, point, 4, new Scalar(255, 255, 0), 2);
+		rel_ulPoint = new org.opencv.core.Point(ulpoint_x, ulpoint_y);
+		System.out.println(rel_ulPoint.x + "," + rel_ulPoint.y);
 	}
 
 	private static void upperRight_optimus() {
@@ -75,9 +106,8 @@ public class ROIOutput {
 		}
 		double ulpoint_x = GetMaxMinMidAvg.getMidFromArray(temp_x);
 		double ulpoint_y = GetMaxMinMidAvg.getMinFromArray(temp_y);
-		org.opencv.core.Point point = new org.opencv.core.Point(ulpoint_x, ulpoint_y);
-		System.out.println(point.x + "," + point.y);
-		Imgproc.circle(CornerDetector.srcROI, point, 4, new Scalar(255, 255, 0), 2);
+		rel_urPoint = new org.opencv.core.Point(ulpoint_x, ulpoint_y);
+		System.out.println(rel_urPoint.x + "," + rel_urPoint.y);
 	}
 
 	private static void lowerLeft_optimus() {
@@ -90,9 +120,8 @@ public class ROIOutput {
 		}
 		double ulpoint_x = GetMaxMinMidAvg.getMinFromArray(temp_x);
 		double ulpoint_y = GetMaxMinMidAvg.getMinFromArray(temp_y);
-		org.opencv.core.Point point = new org.opencv.core.Point(ulpoint_x, ulpoint_y);
-		System.out.println(point.x + "," + point.y);
-		Imgproc.circle(CornerDetector.srcROI, point, 4, new Scalar(255, 255, 0), 2);
+		rel_llPoint = new org.opencv.core.Point(ulpoint_x, ulpoint_y);
+		System.out.println(rel_llPoint.x + "," + rel_llPoint.y);
 	}
 
 	private static void lowerRight_optimus() {
@@ -105,9 +134,8 @@ public class ROIOutput {
 		}
 		double ulpoint_x = GetMaxMinMidAvg.getAvgFromArray(temp_x);
 		double ulpoint_y = GetMaxMinMidAvg.getMidFromArray(temp_y);
-		org.opencv.core.Point point = new org.opencv.core.Point(ulpoint_x, ulpoint_y);
-		System.out.println(point.x + "," + point.y);
-		Imgproc.circle(CornerDetector.srcROI, point, 4, new Scalar(255, 255, 0), 2);
+		rel_lrPoint = new org.opencv.core.Point(ulpoint_x, ulpoint_y);
+		System.out.println(rel_lrPoint.x + "," + rel_lrPoint.y);
 	}
 
 }
