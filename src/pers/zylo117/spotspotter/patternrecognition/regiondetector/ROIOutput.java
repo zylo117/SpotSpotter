@@ -1,14 +1,8 @@
 package pers.zylo117.spotspotter.patternrecognition.regiondetector;
 
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import org.opencv.core.Scalar;
 import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
 
 import pers.zylo117.spotspotter.toolbox.GetMaxMinMidAvg;
 
@@ -41,8 +35,6 @@ public class ROIOutput {
 		int ury = 182;
 		int llx = 206;
 		int lly = 326;
-		int lrx = 302;
-		int lry = 326;
 
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		Mat src = Imgcodecs.imread(input);
@@ -51,33 +43,27 @@ public class ROIOutput {
 		src = CornerDetector.corners(src, ulx, uly, roiWidth, roiHeight, 10, false);
 		// 求最优解
 		upperLeft_optimus();
-		Imgproc.circle(CornerDetector.srcROI, rel_ulPoint, 4, new Scalar(255, 255, 0), 2);
+//		Imgproc.circle(CornerDetector.srcROI, rel_ulPoint, 4, new Scalar(255, 255, 0), 2);
+		abs_ulPoint=new org.opencv.core.Point(ulx+rel_ulPoint.x,uly+rel_ulPoint.y);
 
 		// Upper-Right corner
 		src = CornerDetector.corners(src, urx, ury, roiWidth, roiHeight, 15, false);
 		// 求最优解
 		upperRight_optimus();
-		Imgproc.circle(CornerDetector.srcROI, rel_urPoint, 4, new Scalar(255, 255, 0), 2);
+//		Imgproc.circle(CornerDetector.srcROI, rel_urPoint, 4, new Scalar(255, 255, 0), 2);
+		abs_urPoint=new org.opencv.core.Point(urx+rel_urPoint.x,ury+rel_urPoint.y);
 
 		// Lower-Left corner
 		src = CornerDetector.corners(src, llx, lly, roiWidth, roiHeight, 15, false);
 		// 求最优解
 		lowerLeft_optimus();
-		Imgproc.circle(CornerDetector.srcROI, rel_llPoint, 4, new Scalar(255, 255, 0), 2);
+//		Imgproc.circle(CornerDetector.srcROI, rel_llPoint, 4, new Scalar(255, 255, 0), 2);
+		abs_llPoint=new org.opencv.core.Point(llx+rel_llPoint.x,lly+rel_llPoint.y);
 
 		// Lower-Right corner
-		src = CornerDetector.corners(src, lrx, lry, roiWidth, roiHeight, 0.5, false);
-		// 求最优解
-		lowerRight_optimus();
-		Imgproc.circle(CornerDetector.srcROI, rel_lrPoint, 4, new Scalar(255, 255, 0), 2);
+		abs_lrPoint =FourthCorner.fourthPoint(abs_ulPoint, abs_urPoint, abs_llPoint);
 
 		// Imgcodecs.imwrite(output, src);
-
-		abs_ulPoint=new org.opencv.core.Point(ulx+rel_ulPoint.x,uly+rel_ulPoint.y);
-		abs_urPoint=new org.opencv.core.Point(urx+rel_urPoint.x,ury+rel_urPoint.y);
-		abs_llPoint=new org.opencv.core.Point(llx+rel_llPoint.x,lly+rel_llPoint.y);
-		abs_lrPoint=new org.opencv.core.Point(lrx+rel_lrPoint.x,lry+rel_lrPoint.y);
-		
 		return src;
 
 	}
@@ -93,7 +79,7 @@ public class ROIOutput {
 		double ulpoint_x = GetMaxMinMidAvg.getMinFromArray(temp_x);
 		double ulpoint_y = GetMaxMinMidAvg.getMidFromArray(temp_y);
 		rel_ulPoint = new org.opencv.core.Point(ulpoint_x, ulpoint_y);
-		System.out.println(rel_ulPoint.x + "," + rel_ulPoint.y);
+//		System.out.println(rel_ulPoint.x + "," + rel_ulPoint.y);
 	}
 
 	private static void upperRight_optimus() {
@@ -107,7 +93,7 @@ public class ROIOutput {
 		double ulpoint_x = GetMaxMinMidAvg.getMidFromArray(temp_x);
 		double ulpoint_y = GetMaxMinMidAvg.getMinFromArray(temp_y);
 		rel_urPoint = new org.opencv.core.Point(ulpoint_x, ulpoint_y);
-		System.out.println(rel_urPoint.x + "," + rel_urPoint.y);
+//		System.out.println(rel_urPoint.x + "," + rel_urPoint.y);
 	}
 
 	private static void lowerLeft_optimus() {
@@ -121,7 +107,7 @@ public class ROIOutput {
 		double ulpoint_x = GetMaxMinMidAvg.getMinFromArray(temp_x);
 		double ulpoint_y = GetMaxMinMidAvg.getMinFromArray(temp_y);
 		rel_llPoint = new org.opencv.core.Point(ulpoint_x, ulpoint_y);
-		System.out.println(rel_llPoint.x + "," + rel_llPoint.y);
+//		System.out.println(rel_llPoint.x + "," + rel_llPoint.y);
 	}
 
 	private static void lowerRight_optimus() {
@@ -135,7 +121,7 @@ public class ROIOutput {
 		double ulpoint_x = GetMaxMinMidAvg.getAvgFromArray(temp_x);
 		double ulpoint_y = GetMaxMinMidAvg.getMidFromArray(temp_y);
 		rel_lrPoint = new org.opencv.core.Point(ulpoint_x, ulpoint_y);
-		System.out.println(rel_lrPoint.x + "," + rel_lrPoint.y);
+//		System.out.println(rel_lrPoint.x + "," + rel_lrPoint.y);
 	}
 
 }
