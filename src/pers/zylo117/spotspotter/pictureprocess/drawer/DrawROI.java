@@ -9,14 +9,15 @@ import org.opencv.imgproc.Imgproc;
 
 import pers.zylo117.spotspotter.patternrecognition.regiondetector.FourthCorner;
 import pers.zylo117.spotspotter.patternrecognition.regiondetector.ROIOutput;
+import pers.zylo117.spotspotter.toolbox.MathBox.AngleTransform;
 import pers.zylo117.spotspotter.toolbox.MathBox.Line;
 import pers.zylo117.spotspotter.toolbox.MathBox.MathBox;
 
 public class DrawROI {
 //	public static void DrawROI(String input, String output) throws Exception {
 		public static void main(String[] args) throws Exception {
-			String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/5.jpg";
-			String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output5.jpg";
+			String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/8.jpg";
+			String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output8.jpg";
 			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 			Mat in = ROIOutput.Pythagoras_G(input);
 			if (in.empty()) {
@@ -44,10 +45,21 @@ public class DrawROI {
 
 			Imgcodecs.imwrite(output, out);
 			
-			Line line1 = new Line(new Point(0,0), new Point(1,0));
-			Line line2 = new Line(new Point(1,1), new Point(2,1));
-			double l = MathBox.lineDistance(line1,line2);
-			System.out.println(l);
-			
+			Point a1 = new Point(0,0);
+			Point a2 = new Point(0,1);
+			double angle = MathBox.slopeAngle(a1, a2);
+			System.out.println(angle);
+//			
+//			Line line1 = new Line(new Point(0,0), new Point(1,0));
+//			Line line2 = new Line(new Point(1,1), new Point(2,1));
+//			double l = MathBox.lineDistance(line1,line2);
+//			System.out.println(l);
+//			
+//			System.out.println(AngleTransform.radian2Angle(-3*Math.PI));
+//			
+//			Point a1 = new Point(0,0);
+//			Point a2 = new Point(1,0);
+//			Point a3 = MathBox.rotateAroundAPoint(a1, a2, 90);
+//			System.out.println(a3.x + "   " +a3.y);
 		}
 }
