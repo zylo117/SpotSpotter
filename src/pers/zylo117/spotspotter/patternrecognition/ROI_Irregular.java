@@ -14,6 +14,7 @@ import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
+import pers.zylo117.spotspotter.toolbox.MathBox.MathBox;
 import pers.zylo117.spotspotter.viewer.MatView;
 
 public class ROI_Irregular {
@@ -67,8 +68,8 @@ public class ROI_Irregular {
 			boolean noULandLRcorner, double ulCornerRatio, double lrCornerRatio) {
 		Mat maskCopyTo = Mat.zeros(irrInput.size(), CvType.CV_8UC1); // 创建copyTo方法的mask，大小与原图保持一致
 
-		double sin = Math.sin(RotationAngle.slope(p1, p2));
-		double cos = Math.cos(RotationAngle.slope(p1, p2));
+		double sin = Math.sin(MathBox.slope(p1, p2));
+		double cos = Math.cos(MathBox.slope(p1, p2));
 		
 		List<MatOfPoint> counter = new ArrayList<>();
 		Point aP1 = new Point(p1.x + shift * cos + shift * sin, p1.y + shift * cos - shift * sin);

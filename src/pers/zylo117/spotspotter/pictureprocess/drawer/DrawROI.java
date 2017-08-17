@@ -2,12 +2,15 @@ package pers.zylo117.spotspotter.pictureprocess.drawer;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
+import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 import pers.zylo117.spotspotter.patternrecognition.regiondetector.FourthCorner;
 import pers.zylo117.spotspotter.patternrecognition.regiondetector.ROIOutput;
+import pers.zylo117.spotspotter.toolbox.MathBox.Line;
+import pers.zylo117.spotspotter.toolbox.MathBox.MathBox;
 
 public class DrawROI {
 //	public static void DrawROI(String input, String output) throws Exception {
@@ -40,5 +43,11 @@ public class DrawROI {
 			out = DrawLine.lineP2P(in, ROIOutput.abs_lrPoint, ROIOutput.abs_urPoint);
 
 			Imgcodecs.imwrite(output, out);
+			
+			Line line1 = new Line(new Point(0,0), new Point(1,0));
+			Line line2 = new Line(new Point(1,1), new Point(2,1));
+			double l = MathBox.lineDistance(line1,line2);
+			System.out.println(l);
+			
 		}
 }
