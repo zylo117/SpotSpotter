@@ -27,9 +27,9 @@ import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
  *         ig.waitKey(0);
  *
  */
-public class ImageShow extends JPanel implements KeyListener {
+public class ImageGUI extends JPanel implements KeyListener {
 
-	public ImageShow(Mat m, String window) {
+	public ImageGUI(Mat m, String window) {
 		super();
 		init(m, window);
 	}
@@ -117,7 +117,7 @@ public class ImageShow extends JPanel implements KeyListener {
 		synchronized (mt) {
 			mt.notifyAll();
 		}
-		ImageShow.key = e.getKeyCode();
+		ImageGUI.key = e.getKeyCode();
 
 	}
 

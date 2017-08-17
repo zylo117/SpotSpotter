@@ -10,10 +10,10 @@ import pers.zylo117.spotspotter.patternrecognition.regiondetector.FourthCorner;
 import pers.zylo117.spotspotter.patternrecognition.regiondetector.ROIOutput;
 
 public class DrawROI {
-	public static void DrawROI(String input, String output) throws Exception {
-//		public static void main(String[] args) throws Exception {
-//			String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/6.jpg";
-//			String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output6.jpg";
+//	public static void DrawROI(String input, String output) throws Exception {
+		public static void main(String[] args) throws Exception {
+			String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/5.jpg";
+			String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output5.jpg";
 			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 			Mat in = ROIOutput.Pythagoras_G(input);
 			if (in.empty()) {
