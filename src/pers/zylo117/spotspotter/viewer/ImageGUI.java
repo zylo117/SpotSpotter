@@ -55,7 +55,7 @@ public class ImageGUI extends JPanel implements KeyListener {
 		else
 			type = BufferedImage.TYPE_3BYTE_BGR;
 		out = new BufferedImage(mat.cols(), mat.rows(), type);
-		out = Mat2BufferedImage.matToBufferedImage(mat);
+		out = Mat2BufferedImage.mat2BI(mat);
 		jframe.add(this);
 		jframe.setSize(mat.cols(), mat.rows());
 		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -75,7 +75,7 @@ public class ImageGUI extends JPanel implements KeyListener {
 			firstPaint = false;
 		}
 
-		out = Mat2BufferedImage.matToBufferedImage(mat);
+		out = Mat2BufferedImage.mat2BI(mat);
 		this.repaint();
 	}
 

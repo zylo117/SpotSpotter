@@ -71,7 +71,7 @@ public class CameraFacialRecognition extends JPanel {
 			while (frame.isShowing()) {
 				capture.read(capImg);
 				dst = dobj(objDetector, capImg);
-				panel.mImg = Mat2BufferedImage.matToBufferedImage(dst);
+				panel.mImg = Mat2BufferedImage.mat2BI(dst);
 				panel.repaint();
 			}
 			capture.release();

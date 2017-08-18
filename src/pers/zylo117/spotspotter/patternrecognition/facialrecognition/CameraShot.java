@@ -49,7 +49,7 @@ public class CameraShot {
             Mat frame=new Mat();//创建一个输出帧
             while(flag==0){
                 camera.read(frame);//read方法读取摄像头的当前帧
-                label.setIcon(new ImageIcon(Mat2BufferedImage.matToBufferedImage(frame)));//转换图像格式并输出
+                label.setIcon(new ImageIcon(Mat2BufferedImage.mat2BI(frame)));//转换图像格式并输出
                 try {
                     Thread.sleep(100);//线程暂停100ms
                 } catch (InterruptedException e) {

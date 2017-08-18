@@ -72,13 +72,13 @@ public class GetPixelArray {
 					imageindex++;
 					ready2spot = 1;
 
-				} 
-				
+				}
+
 				else if (formatname.equals("bmp")) {
 					bimg = BMPReader.beBuffered(input);
 					ready2spot = 1;
 				}
-				
+
 				else {
 					ready2spot = 0;
 					System.out.println("Current Version only support JPEG");
@@ -116,7 +116,7 @@ public class GetPixelArray {
 					System.out.println("");
 					System.out.println("Input Image Reading Complete");
 					System.out.println("Raw Image Output Complete");
-					
+
 					long endTime = new Date().getTime();
 					System.out.println("Rawimage output Tact Time:[" + (endTime - beginTime) + "]ms");
 					System.out.println("");
@@ -129,6 +129,27 @@ public class GetPixelArray {
 			e.printStackTrace();
 		}
 
+	}
+
+	public static int[][] pixelArray(BufferedImage bimg, boolean ifGray) {
+		data = new int[bimg.getWidth()][bimg.getHeight()];
+		int[][] singleChannel = new int[bimg.getWidth()][bimg.getHeight()];
+		// 方式一：通过getRGB()方式获得像素矩阵
+		// 此方式为沿Height方向扫描
+		for (int i = 0; i < bimg.getWidth(); i++) {
+			for (int j = 0; j < bimg.getHeight(); j++) {
+				data[i][j] = bimg.getRGB(i, j);
+
+				// 计算单色色值
+				singleChannel[i][j] = (data[i][j] & 0xff);
+			}
+		}
+
+		if (!ifGray) {
+			return data;
+		} else {
+			return singleChannel;
+		}
 	}
 
 }

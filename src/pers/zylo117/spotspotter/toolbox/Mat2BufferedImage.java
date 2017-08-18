@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import org.opencv.core.Mat;
 
 public class Mat2BufferedImage {
-	public static BufferedImage matToBufferedImage(Mat matrix) {
+	public static BufferedImage mat2BI(Mat matrix) {
 		int cols = matrix.cols();
 		int rows = matrix.rows();
 		int elemSize = (int) matrix.elemSize();

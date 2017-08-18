@@ -26,8 +26,8 @@ public class ROI_Irregular {
 	// }
 
 	public static void main(String[] args) {
-		String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/6.jpg";
-		String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output6.jpg";
+		String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/7.jpg";
+		String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output7.jpg";
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		Mat imgOrigin = ROIOutput.Pythagoras_G(input);
 		Mat roi = irregularQuadrangle(imgOrigin, ROIOutput.abs_ulPoint, ROIOutput.abs_urPoint, ROIOutput.abs_llPoint,

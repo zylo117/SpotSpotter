@@ -5,10 +5,17 @@ import java.io.IOException;
 import java.util.Date;
 import javax.imageio.ImageReader;
 
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
+
 import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
+import pers.zylo117.spotspotter.patternrecognition.regiondetector.ROIOutput;
 import pers.zylo117.spotspotter.toolbox.File2ImageReader;
 import pers.zylo117.spotspotter.toolbox.GetPostfix;
 import pers.zylo117.spotspotter.toolbox.ImageStream2File;
+import pers.zylo117.spotspotter.viewer.MatView;
 
 public class Binaryzation {
 
@@ -95,5 +102,25 @@ public class Binaryzation {
 		long endTime = new Date().getTime();
 		System.out.println("Binaryzation Tact Time:[" + (endTime - beginTime) + "]ms");
 		System.out.println("");
+	}
+	
+	public static Mat binaryzation_OpenCV(Mat input, double thresh) {
+		Mat gray = new Mat();
+		Imgproc.cvtColor(input, gray, Imgproc.COLOR_RGB2GRAY);
+		Mat binImg = new Mat();
+		Imgproc.threshold(gray, binImg, thresh, 255, Imgproc.THRESH_BINARY);
+		return binImg;
+	}
+	
+	public static void main(String[] args) throws Exception {
+		String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/7.jpg";
+		String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output8.jpg";
+		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+		Mat in = ROIOutput.Pythagoras_G(input);
+		if (in.empty()) {
+			throw new Exception("no file");
+		}
+		Mat mask = binaryzation_OpenCV(in, 20);
+		MatView.imshow(mask, "mask");
 	}
 }

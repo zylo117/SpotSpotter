@@ -44,7 +44,7 @@ public class MatView extends Imgcodecs{
         jFrame.add(imageScrollPane, BorderLayout.CENTER);
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        Image loadedImage = Mat2BufferedImage.matToBufferedImage(image);
+        Image loadedImage = Mat2BufferedImage.mat2BI(image);
         imageView.setIcon(new ImageIcon(loadedImage));
         jFrame.pack();
         jFrame.setLocationRelativeTo(null);
