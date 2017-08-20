@@ -24,9 +24,6 @@ public class DrawROI {
 				throw new Exception("no file");
 			}
 
-			ROIOutput.abs_lrPoint = FourthCorner.fourthPoint(ROIOutput.abs_ulPoint, ROIOutput.abs_urPoint,
-					ROIOutput.abs_llPoint);
-
 			System.out.println(ROIOutput.abs_ulPoint.x + "," + ROIOutput.abs_ulPoint.y);
 			System.out.println(ROIOutput.abs_urPoint.x + "," + ROIOutput.abs_urPoint.y);
 			System.out.println(ROIOutput.abs_llPoint.x + "," + ROIOutput.abs_llPoint.y);
@@ -45,10 +42,10 @@ public class DrawROI {
 
 			Imgcodecs.imwrite(output, out);
 			
-			Point a1 = new Point(0,0);
-			Point a2 = new Point(0,1);
-			double angle = MathBox.slopeAngle(a1, a2);
-			System.out.println(angle);
+//			Point a1 = new Point(0,0);
+//			Point a2 = new Point(0,1);
+//			double angle = MathBox.slopeAngle(a1, a2);
+//			System.out.println(angle);
 //			
 //			Line line1 = new Line(new Point(0,0), new Point(1,0));
 //			Line line2 = new Line(new Point(1,1), new Point(2,1));

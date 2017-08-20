@@ -1,24 +1,16 @@
 package pers.zylo117.spotspotter.patternrecognition.regiondetector.ProjectPR;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-
-import org.opencv.core.Core;
-import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
-import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
+import pers.zylo117.spotspotter.patternrecognition.Binaryzation;
 import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
 import pers.zylo117.spotspotter.patternrecognition.SetPixelArray;
-import pers.zylo117.spotspotter.patternrecognition.regiondetector.ROIOutput;
 import pers.zylo117.spotspotter.toolbox.BufferedImage2Mat;
-import pers.zylo117.spotspotter.toolbox.ImageStream2File;
 import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
-import pers.zylo117.spotspotter.viewer.BIView;
-import pers.zylo117.spotspotter.viewer.MatView;
 
 // Enlightened by YuNing.Qiu, Postgraduate of GDUT, a great brother
 public class ProjectAlgo_Qiu2017 {
@@ -53,12 +45,17 @@ public class ProjectAlgo_Qiu2017 {
 		return lP;
 	}
 
-	public static void main(String[] args) throws IOException {
-		String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output7.jpg";
-		String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output7.jpg";
-		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		Mat imgOrigin = Imgcodecs.imread(input);
+	public static void colorProject_Qiu2017(Mat imgOrigin, double thresh) {
+//	public static void main(String[] args) throws IOException {
+//		String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output7.jpg";
+//		String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output7.jpg";
+//		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+//		Mat imgOrigin = Imgcodecs.imread(input);
 //		MatView.imshow(imgOrigin, "Original Image");
+		
+		// ¶þÖµ»¯Í¼Æ¬
+		imgOrigin = Binaryzation.binaryzation_OpenCV(imgOrigin, thresh);
+		
 		int[][] data = colorTrend_Mat(imgOrigin, false);
 		BufferedImage bimg = SetPixelArray.fromPixelArray(data, imgOrigin.width(), imgOrigin.height());
 //		BIView.imshow(bimg, "out");
@@ -70,8 +67,6 @@ public class ProjectAlgo_Qiu2017 {
 		// for (int i = 0; i < datasingle.length; i++) {
 		// System.out.println(datasingle[i][256]);
 		// }
-
-		double thresh = 200;
 		
 		int lP_up = leapPoint_fromCenter(datasingle[datasingle.length / 2], thresh, true);
 		int lP_down = leapPoint_fromCenter(datasingle[datasingle.length / 2], thresh, false);
@@ -85,11 +80,26 @@ public class ProjectAlgo_Qiu2017 {
 		
 		int lP_right = leapPoint_fromCenter(horizon, thresh, false);
 
-		Imgproc.circle(out, new Point(datasingle.length / 2, lP_up), 4, new Scalar(255, 255, 0), 2);
-		Imgproc.circle(out, new Point(datasingle.length / 2, lP_down), 4, new Scalar(255, 255, 0), 2);
-		Imgproc.circle(out, new Point(lP_left,datasingle[datasingle.length / 2].length / 2), 4, new Scalar(255, 255, 0), 2);
-		Imgproc.circle(out, new Point(lP_right,datasingle[datasingle.length / 2].length / 2), 4, new Scalar(255, 255, 0), 2);
+//		Imgproc.circle(out, new Point(datasingle.length / 2, lP_up), 4, new Scalar(255, 255, 0), 2);
+//		Imgproc.circle(out, new Point(datasingle.length / 2, lP_down), 4, new Scalar(255, 255, 0), 2);
+//		Imgproc.circle(out, new Point(lP_left,datasingle[datasingle.length / 2].length / 2), 4, new Scalar(255, 255, 0), 2);
+//		Imgproc.circle(out, new Point(lP_right,datasingle[datasingle.length / 2].length / 2), 4, new Scalar(255, 255, 0), 2);
 		
-		MatView.imshow(out, "mat");
+		ulP = new Point(lP_left,lP_up);
+		urP = new Point(lP_right,lP_up);
+		llP = new Point(lP_left,lP_down);
+		lrP = new Point(lP_right,lP_down);
+//		
+//		Imgproc.circle(out, ulP, 4, new Scalar(255, 255, 0), 2);
+//		Imgproc.circle(out, urP, 4, new Scalar(255, 255, 0), 2);
+//		Imgproc.circle(out, llP, 4, new Scalar(255, 255, 0), 2);
+//		Imgproc.circle(out, lrP, 4, new Scalar(255, 255, 0), 2);
+		
+//		MatView.imshow(out, "mat");
 	}
+	
+	public static Point ulP;
+	public static Point urP;
+	public static Point llP;
+	public static Point lrP;
 }

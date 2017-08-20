@@ -61,7 +61,9 @@ public class ROIOutput {
 		abs_llPoint=new org.opencv.core.Point(llx+rel_llPoint.x,lly+rel_llPoint.y);
 
 		// Lower-Right corner
-		abs_lrPoint =FourthCorner.fourthPoint(abs_ulPoint, abs_urPoint, abs_llPoint);
+//		abs_lrPoint =FourthCorner.fourthPoint(abs_ulPoint, abs_urPoint, abs_llPoint);
+		ROIOutput.abs_lrPoint = FourthCorner.fourthPoint(ROIOutput.abs_ulPoint, ROIOutput.abs_urPoint,
+				ROIOutput.abs_llPoint);
 
 		// Imgcodecs.imwrite(output, src);
 		return src;
