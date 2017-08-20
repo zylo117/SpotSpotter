@@ -15,23 +15,21 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 import pers.zylo117.spotspotter.patternrecognition.regiondetector.ROIOutput;
+import pers.zylo117.spotspotter.patternrecognition.regiondetector.ProjectPR.ProjectAlgo_Qiu2017;
 import pers.zylo117.spotspotter.toolbox.MathBox.MathBox;
 import pers.zylo117.spotspotter.viewer.MatView;
 
 public class ROI_Irregular {
 
-	// public static Mat irregular_ROI(Mat imgOrigin) {
-	// Mat output = Circle(imgOrigin);
-	// return output;
-	// }
-
 	public static void main(String[] args) {
 		String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/7.jpg";
 		String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output7.jpg";
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		Mat imgOrigin = ROIOutput.Pythagoras_G(input);
-		Mat roi = irregularQuadrangle(imgOrigin, ROIOutput.abs_ulPoint, ROIOutput.abs_urPoint, ROIOutput.abs_llPoint,
-				ROIOutput.abs_lrPoint, 4, true, 0.1, 0.2);
+		Mat imgOrigin = Imgcodecs.imread(input);
+		ProjectAlgo_Qiu2017.colorProject_Qiu2017(imgOrigin, 20);
+
+		Mat roi = irregularQuadrangle_Simplified(imgOrigin, ProjectAlgo_Qiu2017.ulP, ProjectAlgo_Qiu2017.urP,
+				ProjectAlgo_Qiu2017.llP, ProjectAlgo_Qiu2017.lrP, 2, true, 0.1, 0.3);
 		MatView.imshow(imgOrigin, "Original Image");
 		MatView.imshow(roi, "ROI");
 	}
@@ -63,7 +61,7 @@ public class ROI_Irregular {
 		Mat maskCopyTo = Mat.zeros(irrInput.size(), CvType.CV_8UC1); // 创建copyTo方法的mask，大小与原图保持一致
 
 		double angle = MathBox.slopeAngle(p1, p2);
-//		System.out.println(angle);
+		// System.out.println(angle);
 		double sin = Math.sin(angle);
 		double cos = Math.cos(angle);
 
@@ -87,14 +85,55 @@ public class ROI_Irregular {
 			Point aP1Lraw = new Point(aP1.x, aP1.y + (aP3.y - aP1.y) * ulCornerRatio);
 			Point aP1Rraw = new Point(aP1.x + (aP2.x - aP1.x) * ulCornerRatio, aP1.y);
 			Point aP4Lraw = new Point(aP4.x - (aP4.x - aP3.x) * lrCornerRatio, aP4.y);
-			Point aP4Rraw = new Point(aP4.x, aP4.y - (aP4.y - aP2.y) * ulCornerRatio);
-			
+			Point aP4Rraw = new Point(aP4.x, aP4.y - (aP4.y - aP2.y) * lrCornerRatio);
+
 			Point aP1L = MathBox.rotateAroundAPoint(cc, aP1Lraw, angle);
 			Point aP1R = MathBox.rotateAroundAPoint(cc, aP1Rraw, angle);
 			Point aP4L = MathBox.rotateAroundAPoint(cc, aP4Lraw, angle);
 			Point aP4R = MathBox.rotateAroundAPoint(cc, aP4Rraw, angle);
-			
-			counter.add(new MatOfPoint(aP1L, aP1R, aP2, aP4R,aP4L, aP3)); // 绘制一个不规则的多边形，没有左上角和右下角
+
+			counter.add(new MatOfPoint(aP1L, aP1R, aP2, aP4R, aP4L, aP3)); // 绘制一个不规则的多边形，没有左上角和右下角
+		} else
+			counter.add(new MatOfPoint(aP1, aP2, aP4, aP3)); // 绘制一个不规则的多边形
+
+		// floodFill的mask的width和height都必须比输入图像大至少两个像素，否则程序会报错
+		Imgproc.drawContours(maskCopyTo, counter, -1, Scalar.all(255)); // 画出轮廓
+		MatView.imshow(maskCopyTo, "Irregular shape edge");
+		Mat maskFloodFill = new Mat(irrInput.rows() + 2, irrInput.cols() + 2, CvType.CV_8UC1); // 创建floodFill方法的mask，尺寸比原图大一些
+		Imgproc.floodFill(maskCopyTo, maskFloodFill, new Point(centerX, centerY), Scalar.all(255), null, Scalar.all(20),
+				Scalar.all(20), 4); // 漫水填充法填充内部
+		// MatView.imshow(maskFloodFill, "Irregular shape：Mask of floodFill"); //
+		// 画出copyTo方法的mask
+		// MatView.imshow(maskCopyTo, "Irregular shape：Mask of copyTo"); //
+		// 画出floodFill方法的mask
+		Mat imgIrregularROI = new Mat();
+		irrInput.copyTo(imgIrregularROI, maskCopyTo); // 提取不规则形状的ROI
+		// MatView.imshow(imgIrregularROI, "Irregular shape ROI");
+		return imgIrregularROI;
+	}
+
+	public static Mat irregularQuadrangle_Simplified(Mat irrInput, Point p1, Point p2, Point p3, Point p4, double shift,
+			boolean noULandLRcorner, double ulCornerRatio, double lrCornerRatio) {
+		Mat maskCopyTo = Mat.zeros(irrInput.size(), CvType.CV_8UC1); // 创建copyTo方法的mask，大小与原图保持一致
+
+		// 求中心点作为起始填充点
+		double centerX = (p1.x + p2.x + p3.x + p4.x) / 4;
+		double centerY = (p1.y + p2.y + p3.y + p4.y) / 4;
+		Point cc = new Point(centerX, centerY);
+
+		List<MatOfPoint> counter = new ArrayList<>();
+		Point aP1 = new Point(p1.x + shift, p1.y + shift);
+		Point aP2 = new Point(p2.x - shift, p2.y + shift);
+		Point aP3 = new Point(p3.x + shift, p3.y - shift);
+		Point aP4 = new Point(p4.x - shift, p4.y - shift);
+
+		if (noULandLRcorner) {
+			Point aP1L = new Point(aP1.x, aP1.y + (aP3.y - aP1.y) * ulCornerRatio);
+			Point aP1R = new Point(aP1.x + (aP2.x - aP1.x) * ulCornerRatio, aP1.y);
+			Point aP4L = new Point(aP4.x - (aP4.x - aP3.x) * lrCornerRatio, aP4.y);
+			Point aP4R = new Point(aP4.x, aP4.y - (aP4.y - aP2.y) * lrCornerRatio);
+
+			counter.add(new MatOfPoint(aP1L, aP1R, aP2, aP4R, aP4L, aP3)); // 绘制一个不规则的多边形，没有左上角和右下角
 		} else
 			counter.add(new MatOfPoint(aP1, aP2, aP4, aP3)); // 绘制一个不规则的多边形
 
