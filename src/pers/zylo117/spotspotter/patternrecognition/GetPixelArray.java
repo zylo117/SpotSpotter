@@ -12,6 +12,9 @@ import javax.imageio.plugins.bmp.BMPImageWriteParam;
 import javax.imageio.stream.ImageInputStream;
 import javax.imageio.stream.ImageOutputStream;
 
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
+
 import pers.zylo117.spotspotter.toolbox.BMPReader;
 import pers.zylo117.spotspotter.toolbox.GetPostfix;
 import pers.zylo117.spotspotter.toolbox.Timer;
@@ -150,6 +153,22 @@ public class GetPixelArray {
 		} else {
 			return singleChannel;
 		}
+	}
+	
+	public static double[][] pixelArray_Gray_Mat(Mat input) {
+		Mat gray = new Mat();
+		Imgproc.cvtColor(input, gray, Imgproc.COLOR_RGB2GRAY);
+		int cols = gray.cols();
+		int rows = gray.rows();
+		double[][] data = new double[cols][rows];
+		for (int i = 0; i < cols; i++) {
+			for (int j = 0; j < rows; j++) {
+				double[] temp = new double[gray.channels()];
+				temp = input.get(j, i);
+				data[i][j] = temp[0];
+			}
+		}
+		return data;
 	}
 
 }
