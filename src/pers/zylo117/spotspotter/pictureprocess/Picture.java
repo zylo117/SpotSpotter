@@ -15,19 +15,24 @@ import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
 public class Picture {
 
 	public BufferedImage bimg;
-	public int[][] dataSingelChannel;
+	public int[][] dataSingleChannel;
 	public int[][] data;
-	public static Point ulP,urP,llP,lrP;
-		
+	public static Point ulP, urP, llP, lrP;
+	public int width, height;
+
 	public Picture(String file) throws IOException {
 		this.bimg = ImageIO.read(new File(file));
 		this.data = GetPixelArray.pixelArray(bimg, false);
-		this.dataSingelChannel = GetPixelArray.pixelArray(bimg, true);
+		this.dataSingleChannel = GetPixelArray.pixelArray(bimg, true);
+		this.width = bimg.getWidth();
+		this.height = bimg.getHeight();
 	}
-	
+
 	public Picture(Mat matInput) {
 		this.bimg = Mat2BufferedImage.mat2BI(matInput);
 		this.data = GetPixelArray.pixelArray(bimg, false);
-		this.dataSingelChannel = GetPixelArray.pixelArray(bimg, true);
+		this.dataSingleChannel = GetPixelArray.pixelArray(bimg, true);
+		this.width = matInput.width();
+		this.height = matInput.height();
 	}
 }

@@ -7,7 +7,9 @@ import java.util.Date;
 import java.util.List;
 
 import org.opencv.core.Mat;
+import org.opencv.core.Point;
 
+import pers.zylo117.spotspotter.pictureprocess.Picture;
 import pers.zylo117.spotspotter.toolbox.BufferedImage2HQ_ImageFile;
 import pers.zylo117.spotspotter.toolbox.GetMaxMinMidAvg;
 import pers.zylo117.spotspotter.toolbox.ImageStream2File;
@@ -74,7 +76,7 @@ public class SpotSpotter {
 			}
 		}
 		ImageStream2File.IS2F(outputimg, GetPixelArray.formatname, output);
-		
+
 		// 输出图片，质量0~1，0为最差，1为无损
 		BufferedImage2HQ_ImageFile.writeHighQuality(outputimg, output, "jpg", 1);
 
@@ -85,31 +87,48 @@ public class SpotSpotter {
 		System.out.println("");
 	}
 
-	public static Mat mat_version(Mat input, double thresh) {
-		BufferedImage bimg = Mat2BufferedImage.mat2BI(input);
+	public static List<Point> spotList(Mat input, double thresh) {
+		Picture pic = new Picture(input);
+		double result;
+		int spotQty = 0;
+		List<Point> spotList = new ArrayList<Point>();
+		for (int i = 1; i < pic.width - 1; i += 1) {
+			for (int j = 1; j < pic.height - 1; j += 1) {
+
+				double a1 = pic.dataSingleChannel[i - 1][j - 1];
+				double a2 = pic.dataSingleChannel[i - 1][j];
+				double a3 = pic.dataSingleChannel[i - 1][j + 1];
+				double a4 = pic.dataSingleChannel[i][j - 1];
+				double a5 = pic.dataSingleChannel[i][j + 1];
+				double a6 = pic.dataSingleChannel[i + 1][j - 1];
+				double a7 = pic.dataSingleChannel[i + 1][j];
+				double a8 = pic.dataSingleChannel[i + 1][j + 1];
+
+				List<Double> list = new ArrayList<Double>();
+				list.add(a1);
+				list.add(a2);
+				list.add(a3);
+				list.add(a4);
+				list.add(a5);
+				list.add(a6);
+				list.add(a7);
+				list.add(a8);
+
+				double maxB = GetMaxMinMidAvg.getMaxFromList(list);
+				double minB = GetMaxMinMidAvg.getMinFromList(list);
+				double avgB = (a1 + a2 + a3 + a4 + a5 + a6 + a7 + a8 - maxB - minB) / 6;
+				result = Math.abs(pic.dataSingleChannel[i][j] - avgB) / 256;
+
+				if (result > thresh) {
+					spotQty++;
+					spotList.add(new Point(i, j));
+
+					System.out.println("Center" + "\tX: " + i + "\tY: " + j + "\tDifference " + result * 100 + "%");
+				}
+			}
+		}
+		System.out.println("Spot Quantity = " + spotQty);
 		
-			for (int i = 1; i < bimg.getWidth() - 1; i += 1) {
-				for (int j = 1; j < bimg.getHeight() - 1; j += 1) {
-
-					double a1 = GetPixelArray.colorvalue[i - 1][j - 1];
-					double a2 = GetPixelArray.colorvalue[i - 1][j];
-					double a3 = GetPixelArray.colorvalue[i - 1][j + 1];
-					double a4 = GetPixelArray.colorvalue[i][j - 1];
-					double a5 = GetPixelArray.colorvalue[i][j + 1];
-					double a6 = GetPixelArray.colorvalue[i + 1][j - 1];
-					double a7 = GetPixelArray.colorvalue[i + 1][j];
-					double a8 = GetPixelArray.colorvalue[i + 1][j + 1];
-
-					List<Double> list = new ArrayList<Double>();
-					list.add(a1);
-					list.add(a2);
-					list.add(a3);
-					list.add(a4);
-					list.add(a5);
-					list.add(a6);
-					list.add(a7);
-					list.add(a8);
-				}}
-		return null;
+		return spotList;
 	}
 }

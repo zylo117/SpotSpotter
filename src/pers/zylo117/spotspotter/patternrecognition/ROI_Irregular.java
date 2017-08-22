@@ -21,20 +21,6 @@ import pers.zylo117.spotspotter.toolbox.mathBox.MathBox;
 import pers.zylo117.spotspotter.viewer.MatView;
 
 public class ROI_Irregular {
-
-	public static void main(String[] args) {
-		String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/2.jpg";
-		String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output2.jpg";
-		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		Mat imgOrigin = Imgcodecs.imread(input);
-		Picture pic = new Picture(imgOrigin);
-		ProjectAlgo_Qiu2017.colorProject_Qiu2017(imgOrigin, 20);
-
-		Mat roi = irregularQuadrangle_Simplified(imgOrigin, pic.ulP, pic.urP, pic.llP, pic.lrP, 2, true, 0.1, 0.3);
-		MatView.imshow(imgOrigin, "Original Image");
-		MatView.imshow(roi, "ROI");
-	}
-
 	public static Mat Rectangle(Mat rectInput, int startX, int startY, int width, int height) {
 		Rect rect = new Rect(startX, startY, width, height); // 设置矩形ROI的位置
 		Mat imgRectROI = new Mat(rectInput, rect); // 从原图中截取图片

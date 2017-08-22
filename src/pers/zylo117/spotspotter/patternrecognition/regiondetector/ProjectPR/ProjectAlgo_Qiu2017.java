@@ -70,13 +70,13 @@ public class ProjectAlgo_Qiu2017 {
 		// System.out.println(datasingle[i][256]);
 		// }
 		
-		int lP_up = leapPoint_fromCenter(pic.dataSingelChannel[pic.dataSingelChannel.length / 2], thresh, true);
-		int lP_down = leapPoint_fromCenter(pic.dataSingelChannel[pic.dataSingelChannel.length / 2], thresh, false);
+		int lP_up = leapPoint_fromCenter(pic.dataSingleChannel[pic.dataSingleChannel.length / 2], thresh, true);
+		int lP_down = leapPoint_fromCenter(pic.dataSingleChannel[pic.dataSingleChannel.length / 2], thresh, false);
 		
-		int[] horizon = new int[pic.dataSingelChannel.length];
-		for(int i=1;i<pic.dataSingelChannel.length;i++) {
+		int[] horizon = new int[pic.dataSingleChannel.length];
+		for(int i=1;i<pic.dataSingleChannel.length;i++) {
 			
-			horizon[i] = pic.dataSingelChannel[i][pic.dataSingelChannel[pic.dataSingelChannel.length / 2].length / 2];
+			horizon[i] = pic.dataSingleChannel[i][pic.dataSingleChannel[pic.dataSingleChannel.length / 2].length / 2];
 		}
 		int lP_left = leapPoint_fromCenter(horizon, thresh, true);
 		
