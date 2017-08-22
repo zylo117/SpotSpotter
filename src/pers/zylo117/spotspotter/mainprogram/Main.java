@@ -38,8 +38,8 @@ public class Main {
 //
 //		System.exit(0);
 
-		String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/2.jpg";
-		String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output2.jpg";
+		String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/8.jpg";
+		String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output8.jpg";
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		Mat imgOrigin = Imgcodecs.imread(input);
 		Picture pic = new Picture(imgOrigin);
@@ -51,8 +51,8 @@ public class Main {
 		MatView.imshow(roi, "ROI");
 
 		Mat out = imgOrigin.clone();
-		List<Point> spotList = SpotSpotter.spotList(roi, 0.1);
-		DrawPoint.pointList(out, spotList);
+		List<Point> spotList = SpotSpotter.spotList(roi, 0.15);
+		DrawPoint.pointList(out, spotList, 10, 2);
 		MatView.imshow(out, "Output");
 	}
 
