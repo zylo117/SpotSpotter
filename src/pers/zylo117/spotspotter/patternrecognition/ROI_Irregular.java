@@ -16,20 +16,21 @@ import org.opencv.imgproc.Imgproc;
 
 import pers.zylo117.spotspotter.patternrecognition.regiondetector.ROIOutput;
 import pers.zylo117.spotspotter.patternrecognition.regiondetector.ProjectPR.ProjectAlgo_Qiu2017;
-import pers.zylo117.spotspotter.toolbox.MathBox.MathBox;
+import pers.zylo117.spotspotter.pictureprocess.Picture;
+import pers.zylo117.spotspotter.toolbox.mathBox.MathBox;
 import pers.zylo117.spotspotter.viewer.MatView;
 
 public class ROI_Irregular {
 
 	public static void main(String[] args) {
-		String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/7.jpg";
-		String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output7.jpg";
+		String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/2.jpg";
+		String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output2.jpg";
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		Mat imgOrigin = Imgcodecs.imread(input);
+		Picture pic = new Picture(imgOrigin);
 		ProjectAlgo_Qiu2017.colorProject_Qiu2017(imgOrigin, 20);
 
-		Mat roi = irregularQuadrangle_Simplified(imgOrigin, ProjectAlgo_Qiu2017.ulP, ProjectAlgo_Qiu2017.urP,
-				ProjectAlgo_Qiu2017.llP, ProjectAlgo_Qiu2017.lrP, 2, true, 0.1, 0.3);
+		Mat roi = irregularQuadrangle_Simplified(imgOrigin, pic.ulP, pic.urP, pic.llP, pic.lrP, 2, true, 0.1, 0.3);
 		MatView.imshow(imgOrigin, "Original Image");
 		MatView.imshow(roi, "ROI");
 	}

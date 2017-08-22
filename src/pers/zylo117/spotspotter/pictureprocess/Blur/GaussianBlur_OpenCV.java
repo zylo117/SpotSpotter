@@ -1,4 +1,4 @@
-package pers.zylo117.spotspotter.pictureprocess.Blur;
+package pers.zylo117.spotspotter.pictureprocess.blur;
 
 import org.opencv.core.*;
 import org.opencv.imgcodecs.*;

@@ -1,4 +1,4 @@
-package pers.zylo117.spotspotter.toolbox.MathBox;
+package pers.zylo117.spotspotter.toolbox.mathBox;
 
 import org.opencv.core.Point;
 

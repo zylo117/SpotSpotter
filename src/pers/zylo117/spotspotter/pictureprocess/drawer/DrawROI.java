@@ -9,9 +9,9 @@ import org.opencv.imgproc.Imgproc;
 
 import pers.zylo117.spotspotter.patternrecognition.regiondetector.FourthCorner;
 import pers.zylo117.spotspotter.patternrecognition.regiondetector.ROIOutput;
-import pers.zylo117.spotspotter.toolbox.MathBox.AngleTransform;
-import pers.zylo117.spotspotter.toolbox.MathBox.Line;
-import pers.zylo117.spotspotter.toolbox.MathBox.MathBox;
+import pers.zylo117.spotspotter.toolbox.mathBox.AngleTransform;
+import pers.zylo117.spotspotter.toolbox.mathBox.Line;
+import pers.zylo117.spotspotter.toolbox.mathBox.MathBox;
 
 public class DrawROI {
 //	public static void DrawROI(String input, String output) throws Exception {

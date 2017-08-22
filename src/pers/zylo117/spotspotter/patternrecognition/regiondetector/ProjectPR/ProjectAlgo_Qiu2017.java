@@ -9,6 +9,7 @@ import org.opencv.imgproc.Imgproc;
 import pers.zylo117.spotspotter.patternrecognition.Binaryzation;
 import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
 import pers.zylo117.spotspotter.patternrecognition.SetPixelArray;
+import pers.zylo117.spotspotter.pictureprocess.Picture;
 import pers.zylo117.spotspotter.toolbox.BufferedImage2Mat;
 import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
 
@@ -27,18 +28,19 @@ public class ProjectAlgo_Qiu2017 {
 	public static int leapPoint_fromCenter(int[] input, double thresh, boolean ifToLeft) {
 		int center = input.length / 2;
 		int lP = 0;
+//		int failSafe = input.length / 50;
 		if (ifToLeft) {
 			for (int i = 1; i < center; i++) {
 				if ((input[center - i] > thresh * input[center - i + 1])) {
 					lP = center - i;
-					break;
+//					break;
 				}
 			}
 		} else {
 			for (int i = 1; i < center; i++) {
 				if ((input[center + i] > thresh * input[center + i - 1])) {
 					lP = center + i;
-					break;
+//					break;
 				}
 			}
 		}
@@ -54,27 +56,27 @@ public class ProjectAlgo_Qiu2017 {
 //		MatView.imshow(imgOrigin, "Original Image");
 		
 		// ¶þÖµ»¯Í¼Æ¬
-		imgOrigin = Binaryzation.binaryzation_OpenCV(imgOrigin, thresh);
+		imgOrigin = Binaryzation.binaryzation_OpenCV(imgOrigin, thresh/2);
 		
-		int[][] data = colorTrend_Mat(imgOrigin, false);
-		BufferedImage bimg = SetPixelArray.fromPixelArray(data, imgOrigin.width(), imgOrigin.height());
+		Picture pic = new Picture(imgOrigin);
+		
+		BufferedImage bimg = SetPixelArray.fromPixelArray(pic.data, imgOrigin.width(), imgOrigin.height());
 //		BIView.imshow(bimg, "out");
 		Mat out = BufferedImage2Mat.img2Mat(bimg);
 		// Imgcodecs.imwrite(output, out);
 		// ImageStream2File.IS2F(bimg, "jpg", output);
 
-		int[][] datasingle = colorTrend_Mat(imgOrigin, true);
 		// for (int i = 0; i < datasingle.length; i++) {
 		// System.out.println(datasingle[i][256]);
 		// }
 		
-		int lP_up = leapPoint_fromCenter(datasingle[datasingle.length / 2], thresh, true);
-		int lP_down = leapPoint_fromCenter(datasingle[datasingle.length / 2], thresh, false);
+		int lP_up = leapPoint_fromCenter(pic.dataSingelChannel[pic.dataSingelChannel.length / 2], thresh, true);
+		int lP_down = leapPoint_fromCenter(pic.dataSingelChannel[pic.dataSingelChannel.length / 2], thresh, false);
 		
-		int[] horizon = new int[datasingle.length];
-		for(int i=1;i<datasingle.length;i++) {
+		int[] horizon = new int[pic.dataSingelChannel.length];
+		for(int i=1;i<pic.dataSingelChannel.length;i++) {
 			
-			horizon[i] = datasingle[i][datasingle[datasingle.length / 2].length / 2];
+			horizon[i] = pic.dataSingelChannel[i][pic.dataSingelChannel[pic.dataSingelChannel.length / 2].length / 2];
 		}
 		int lP_left = leapPoint_fromCenter(horizon, thresh, true);
 		
@@ -85,11 +87,11 @@ public class ProjectAlgo_Qiu2017 {
 //		Imgproc.circle(out, new Point(lP_left,datasingle[datasingle.length / 2].length / 2), 4, new Scalar(255, 255, 0), 2);
 //		Imgproc.circle(out, new Point(lP_right,datasingle[datasingle.length / 2].length / 2), 4, new Scalar(255, 255, 0), 2);
 		
-		ulP = new Point(lP_left,lP_up);
-		urP = new Point(lP_right,lP_up);
-		llP = new Point(lP_left,lP_down);
-		lrP = new Point(lP_right,lP_down);
-//		
+		pic.ulP = new Point(lP_left,lP_up);
+		pic.urP = new Point(lP_right,lP_up);
+		pic.llP = new Point(lP_left,lP_down);
+		pic.lrP = new Point(lP_right,lP_down);
+		
 //		Imgproc.circle(out, ulP, 4, new Scalar(255, 255, 0), 2);
 //		Imgproc.circle(out, urP, 4, new Scalar(255, 255, 0), 2);
 //		Imgproc.circle(out, llP, 4, new Scalar(255, 255, 0), 2);
@@ -97,9 +99,4 @@ public class ProjectAlgo_Qiu2017 {
 		
 //		MatView.imshow(out, "mat");
 	}
-	
-	public static Point ulP;
-	public static Point urP;
-	public static Point llP;
-	public static Point lrP;
 }

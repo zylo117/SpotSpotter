@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.opencv.core.Mat;
+
 import pers.zylo117.spotspotter.toolbox.BufferedImage2HQ_ImageFile;
 import pers.zylo117.spotspotter.toolbox.GetMaxMinMidAvg;
 import pers.zylo117.spotspotter.toolbox.ImageStream2File;
+import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
 
 public class SpotSpotter {
 
@@ -80,5 +83,33 @@ public class SpotSpotter {
 		long endTime = new Date().getTime();
 		System.out.println("Spotting Tact Time:[" + (endTime - beginTime) + "]ms");
 		System.out.println("");
+	}
+
+	public static Mat mat_version(Mat input, double thresh) {
+		BufferedImage bimg = Mat2BufferedImage.mat2BI(input);
+		
+			for (int i = 1; i < bimg.getWidth() - 1; i += 1) {
+				for (int j = 1; j < bimg.getHeight() - 1; j += 1) {
+
+					double a1 = GetPixelArray.colorvalue[i - 1][j - 1];
+					double a2 = GetPixelArray.colorvalue[i - 1][j];
+					double a3 = GetPixelArray.colorvalue[i - 1][j + 1];
+					double a4 = GetPixelArray.colorvalue[i][j - 1];
+					double a5 = GetPixelArray.colorvalue[i][j + 1];
+					double a6 = GetPixelArray.colorvalue[i + 1][j - 1];
+					double a7 = GetPixelArray.colorvalue[i + 1][j];
+					double a8 = GetPixelArray.colorvalue[i + 1][j + 1];
+
+					List<Double> list = new ArrayList<Double>();
+					list.add(a1);
+					list.add(a2);
+					list.add(a3);
+					list.add(a4);
+					list.add(a5);
+					list.add(a6);
+					list.add(a7);
+					list.add(a8);
+				}}
+		return null;
 	}
 }

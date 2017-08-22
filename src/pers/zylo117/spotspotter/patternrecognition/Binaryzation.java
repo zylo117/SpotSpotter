@@ -113,14 +113,14 @@ public class Binaryzation {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/8.jpg";
-		String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output10.jpg";
+		String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/2.jpg";
+		String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output2.jpg";
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		Mat in = ROIOutput.Pythagoras_G(input);
 		if (in.empty()) {
 			throw new Exception("no file");
 		}
-		Mat mask = binaryzation_OpenCV(in, 20);
+		Mat mask = binaryzation_OpenCV(in, 10);
 		MatView.imshow(mask, "mask");
 //		Imgcodecs.imwrite(output, mask);
 	}

@@ -1,4 +1,4 @@
-package pers.zylo117.spotspotter.pictureprocess.Sharpening;
+package pers.zylo117.spotspotter.pictureprocess.sharpening;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;

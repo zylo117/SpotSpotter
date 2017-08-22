@@ -1,4 +1,4 @@
-package pers.zylo117.spotspotter.toolbox.MathBox;
+package pers.zylo117.spotspotter.toolbox.mathBox;
 
 public class AngleTransform {
 	public static double angle2Radian(double angle) {
