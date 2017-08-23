@@ -126,7 +126,7 @@ public class ROI_Irregular {
 
 		// floodFill的mask的width和height都必须比输入图像大至少两个像素，否则程序会报错
 		Imgproc.drawContours(maskCopyTo, counter, -1, Scalar.all(255)); // 画出轮廓
-		MatView.imshow(maskCopyTo, "Irregular shape edge");
+//		MatView.imshow(maskCopyTo, "Irregular shape edge");
 		Mat maskFloodFill = new Mat(irrInput.rows() + 2, irrInput.cols() + 2, CvType.CV_8UC1); // 创建floodFill方法的mask，尺寸比原图大一些
 		Imgproc.floodFill(maskCopyTo, maskFloodFill, new Point(centerX, centerY), Scalar.all(255), null, Scalar.all(20),
 				Scalar.all(20), 4); // 漫水填充法填充内部

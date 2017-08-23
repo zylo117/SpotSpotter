@@ -2,6 +2,8 @@ package pers.zylo117.spotspotter.mainprogram;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Set;
+import java.util.logging.Handler;
 
 import pers.zylo117.spotspotter.toolbox.GetRootPath;
 
@@ -15,11 +17,19 @@ public class PathManagement {
 	public static String perfect;
 	public static String IRCF;
 	public static String ROI;
+	
+	public static String monitorPath;
 
 	public static void definePath() throws IOException {
 		String absClassPath = PathManagement.class.getClass().getResource("/").getPath().substring(1);
+		
 		inputdir = absClassPath + "/worklog/input/";
 		finaloutputdir = absClassPath + "/workLog/output/";
+		
+		monitorPath = inputdir;
+		System.out.println("Monitoring Path Has Been Set to : " + monitorPath);
+		
+
 //		rawoutputdir = "D:/SpotSpotterWorkLog/rawoutput/";
 //		bipicdir = "D:/SpotSpotterWorkLog/bipic/";
 //		perfect = "D:/SpotSpotterWorkLog/perfect/perfect.jpg";

@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -22,11 +23,13 @@ import javax.swing.WindowConstants;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
+import pers.zylo117.spotspotter.fileprocessor.FileListener;
+import pers.zylo117.spotspotter.mainprogram.Main;
 import pers.zylo117.spotspotter.mainprogram.PathManagement;
 import pers.zylo117.spotspotter.toolbox.GetPostfix;
 import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
 
-public class MatView extends JFrame {
+public class CentralControl extends JFrame {
 	/**
 	 * Display Mat image
 	 *
@@ -48,6 +51,56 @@ public class MatView extends JFrame {
 
 		JFrame jFrame = new JFrame(windowName);
 		JLabel imageView = new JLabel();
+
+		JFileChooser chooser = new JFileChooser();
+		chooser.setCurrentDirectory(new File("."));
+		JMenuBar menubar = new JMenuBar();
+		jFrame.setJMenuBar(menubar);
+		JMenu menu = new JMenu("File");
+		menubar.add(menu);
+		JMenuItem openItem = new JMenuItem("Open");
+		menu.add(openItem);
+		JMenuItem exitItem = new JMenuItem("Close");
+		menu.add(exitItem);
+		openItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				// 写下你的Action
+				int result = chooser.showOpenDialog(null);
+				if (result == JFileChooser.APPROVE_OPTION) {
+					String name = chooser.getSelectedFile().getPath();
+					String path = chooser.getSelectedFile().getParent();
+
+					String postFix = GetPostfix.fromFilename(name);
+					if (postFix.equals("jpg") || postFix.equals("gif") || postFix.equals("bmp")
+							|| postFix.equals("tiff") || postFix.equals("JPG")) {
+						System.out.println("Temporarily Run Test On A Picture");
+						imageView.setIcon(new ImageIcon(name));
+					} else {
+						PathManagement.monitorPath = path + "\\";
+						System.out.println("Monitoring Path Has Been Changed to : " + PathManagement.monitorPath);
+
+						try {
+							FileListener.Autoscript(Main.algoIndex);
+						} catch (IOException | InterruptedException e) {
+							// TODO 自动生成的 catch 块
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		});
+		exitItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				System.exit(0);
+			}
+		});
+
 		final JScrollPane imageScrollPane = new JScrollPane(imageView);
 		if (image.width() < 800 && image.height() < 600)
 			imageScrollPane.setPreferredSize(new Dimension(image.width(), image.height())); // set window size

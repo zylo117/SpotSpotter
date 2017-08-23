@@ -48,7 +48,7 @@ public class GetPixelArray {
 		File file = new File(input);
 
 		// ∂¡»°Õº∆¨∏Ò Ω
-		formatname = GetPostfix.getPostfix(input);
+		formatname = GetPostfix.fromFilepath(input);
 
 		BufferedImage bimg;
 		if (formatname.equals("png")) {

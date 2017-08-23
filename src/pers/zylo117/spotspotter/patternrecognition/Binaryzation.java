@@ -26,7 +26,7 @@ public class Binaryzation {
 		long beginTime = new Date().getTime();
 
 		// 读取图片格式
-		String formatname = GetPostfix.getPostfix(input);
+		String formatname = GetPostfix.fromFilepath(input);
 
 		// 图片读入成流
 		ImageReader reader = File2ImageReader.F2IR(input);

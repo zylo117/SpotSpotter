@@ -15,11 +15,13 @@ import pers.zylo117.spotspotter.toolbox.Obj2String;
 public class FileListener {
 
 	public static String filename;
-
+	public static boolean ifReset;
+	public static WatchService watcher;
+	
 	public static void Autoscript(int index) throws IOException, InterruptedException {
-		WatchService watcher = FileSystems.getDefault().newWatchService();
+		watcher = FileSystems.getDefault().newWatchService();
 		// 监视文件创建/删除/修改,仅支持JAVA 1.7及以上版本
-		Paths.get(PathManagement.inputdir).register(watcher, StandardWatchEventKinds.ENTRY_CREATE,
+		Paths.get(PathManagement.monitorPath).register(watcher, StandardWatchEventKinds.ENTRY_CREATE,
 				StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);
 
 		while (true) {
@@ -38,13 +40,13 @@ public class FileListener {
 
 					switch (index) {
 					case 1:
-						AlgoList.markingAlgo();break;
+						AlgoList.godzilla();break;
 						
 					case 2:
-						AlgoList.markingAlgo();break;
+						AlgoList.pythagoras_G();break;
 						
 					default:
-						AlgoList.markingAlgo();break;
+						AlgoList.pythagoras_G();break;
 					}
 
 				}
@@ -52,6 +54,9 @@ public class FileListener {
 
 			boolean valid = key.reset();
 			if (!valid) {
+				break;
+			}
+			if(ifReset) {
 				break;
 			}
 		}

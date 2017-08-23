@@ -14,7 +14,7 @@ public class File2ImageReader {
 		File file = new File(input);
 
 		// ∂¡»°Õº∆¨∏Ò Ω
-		String formatname = GetPostfix.getPostfix(input);
+		String formatname = GetPostfix.fromFilepath(input);
 		
 		Iterator<ImageReader> readers;
 		ImageReader reader;

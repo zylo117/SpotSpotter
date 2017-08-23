@@ -1,16 +1,29 @@
 package pers.zylo117.spotspotter.mainprogram;
 
 import java.io.IOException;
+import java.util.List;
+
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.imgcodecs.Imgcodecs;
 
 import pers.zylo117.spotspotter.fileprocessor.FileDetecter;
 import pers.zylo117.spotspotter.fileprocessor.FileListener;
 import pers.zylo117.spotspotter.patternrecognition.Binaryzation;
 import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
+import pers.zylo117.spotspotter.patternrecognition.ROI_Irregular;
 import pers.zylo117.spotspotter.patternrecognition.SpotSpotter;
+import pers.zylo117.spotspotter.patternrecognition.regiondetector.ProjectPR.ProjectAlgo_Qiu2017;
+import pers.zylo117.spotspotter.pictureprocess.Picture;
+import pers.zylo117.spotspotter.pictureprocess.drawer.DrawPoint;
+import pers.zylo117.spotspotter.toolbox.Timer;
+import pers.zylo117.spotspotter.viewer.CentralControl;
+import pers.zylo117.spotspotter.viewer.MatView;
 
 public class AlgoList {
 
-	public static void markingAlgo() throws IOException {
+	public static void godzilla() throws IOException {
 
 		// 判断文件是否是否写入InputStream
 		if (null == FileListener.filename || "".equals(FileListener.filename)) {
@@ -46,4 +59,26 @@ public class AlgoList {
 		}
 	}
 
+	public static void pythagoras_G() throws IOException {
+		Timer.timer(10);
+		
+		String input = PathManagement.monitorPath + FileListener.filename;
+//		String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/1.jpg";
+		String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output1.jpg";
+		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+		System.out.println(input);
+		Mat imgOrigin = Imgcodecs.imread(input);
+		Picture pic = new Picture(imgOrigin);
+		ProjectAlgo_Qiu2017.colorProject_Qiu2017(imgOrigin, 20);
+
+		Mat roi = ROI_Irregular.irregularQuadrangle_Simplified(imgOrigin, pic.ulP, pic.urP, pic.llP, pic.lrP, 2, true,
+				0.1, 0.3);
+//		MatView.imshow(imgOrigin, "Original Image");
+//		MatView.imshow(roi, "ROI");
+
+		Mat out = imgOrigin.clone();
+		List<Point> spotList = SpotSpotter.spotList(roi, 0.15);
+		DrawPoint.pointList(out, spotList, 10, 2);
+		MatView.imshow(out, "Output");
+	}
 }
