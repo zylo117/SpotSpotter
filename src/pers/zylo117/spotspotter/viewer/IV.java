@@ -12,7 +12,7 @@ public class IV {
 	/**
 	 * @param args
 	 */
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		EventQueue.invokeLater(new Runnable() {
 
@@ -28,12 +28,12 @@ public class IV {
 }
 
 class ImageViewerFrame extends JFrame {
-	
+
 	private JLabel label;
 	private JFileChooser chooser;
 	private static final int DEFAULT_WIDTH = 800;
 	private static final int DEFAULT_HEIGHT = 600;
-	
+
 	public ImageViewerFrame() {
 		setTitle("ImageViewer");
 		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);

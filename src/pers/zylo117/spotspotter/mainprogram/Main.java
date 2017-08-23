@@ -38,8 +38,8 @@ public class Main {
 //
 //		System.exit(0);
 
-		String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/8.jpg";
-		String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output8.jpg";
+		String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/1.jpg";
+		String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output1.jpg";
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		Mat imgOrigin = Imgcodecs.imread(input);
 		Picture pic = new Picture(imgOrigin);
