@@ -35,10 +35,10 @@ public class DrawROI {
 			Imgproc.circle(in, ROIOutput.abs_lrPoint, 4, new Scalar(255, 255, 0), 1);
 
 			Mat out = new Mat();
-			out = DrawLine.lineP2P(in, ROIOutput.abs_ulPoint, ROIOutput.abs_urPoint);
-			out = DrawLine.lineP2P(in, ROIOutput.abs_ulPoint, ROIOutput.abs_llPoint);
-			out = DrawLine.lineP2P(in, ROIOutput.abs_llPoint, ROIOutput.abs_lrPoint);
-			out = DrawLine.lineP2P(in, ROIOutput.abs_lrPoint, ROIOutput.abs_urPoint);
+			Draw.line_P2P(in, ROIOutput.abs_ulPoint, ROIOutput.abs_urPoint);
+			Draw.line_P2P(in, ROIOutput.abs_ulPoint, ROIOutput.abs_llPoint);
+			Draw.line_P2P(in, ROIOutput.abs_llPoint, ROIOutput.abs_lrPoint);
+			Draw.line_P2P(in, ROIOutput.abs_lrPoint, ROIOutput.abs_urPoint);
 
 			Imgcodecs.imwrite(output, out);
 			

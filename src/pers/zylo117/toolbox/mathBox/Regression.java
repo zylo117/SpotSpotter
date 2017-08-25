@@ -42,16 +42,13 @@ public class Regression {
 		denominator -= list.size() * Math.pow(x_avg, 2);
 		double k = numerator / denominator;
 
-		if(k == Double.NEGATIVE_INFINITY || k == Double.POSITIVE_INFINITY) {
-		// Çób
-		double b = y_avg - k * x_avg;
-
-		Line regressionLine = new Line(k, b);
-
-		return regressionLine;
-		}
-		else {
-			Line regressionLine = new Line(new Point(x_avg,0), new Point(x_avg, 1));
+		if (denominator == 0) {
+			Line regressionLine = new Line(new Point(x_avg, 0), new Point(x_avg, 1));
+			return regressionLine;
+		} else {
+			// Çób
+			double b = y_avg - k * x_avg;
+			Line regressionLine = new Line(k, b);
 			return regressionLine;
 		}
 	}

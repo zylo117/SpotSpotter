@@ -20,6 +20,15 @@ import pers.zylo117.pictureprocess.Picture;
 import pers.zylo117.toolbox.mathBox.MathBox;
 import pers.zylo117.viewer.MatView;
 
+/***
+ * ROI四角排列如下
+ * 
+ * @param p1
+ *            p2
+ * @param p3
+ *            p4
+ */
+
 public class ROI_Irregular {
 	public static Mat Rectangle(Mat rectInput, int startX, int startY, int width, int height) {
 		Rect rect = new Rect(startX, startY, width, height); // 设置矩形ROI的位置
@@ -99,7 +108,7 @@ public class ROI_Irregular {
 		return imgIrregularROI;
 	}
 
-	public static Mat irregularQuadrangle_Simplified(Mat irrInput, Point p1, Point p2, Point p3, Point p4, double shift,
+	public static Mat irregularQuadrangle_Simplified(Mat irrInput, Point p1, Point p2, Point p3, Point p4, double shift_x, double shift_y,
 			boolean noULandLRcorner, double ulCornerRatio, double lrCornerRatio) {
 		Mat maskCopyTo = Mat.zeros(irrInput.size(), CvType.CV_8UC1); // 创建copyTo方法的mask，大小与原图保持一致
 
@@ -109,10 +118,10 @@ public class ROI_Irregular {
 		Point cc = new Point(centerX, centerY);
 
 		List<MatOfPoint> counter = new ArrayList<>();
-		Point aP1 = new Point(p1.x + shift, p1.y + shift);
-		Point aP2 = new Point(p2.x - shift, p2.y + shift);
-		Point aP3 = new Point(p3.x + shift, p3.y - shift);
-		Point aP4 = new Point(p4.x - shift, p4.y - shift);
+		Point aP1 = new Point(p1.x + shift_x, p1.y + shift_y);
+		Point aP2 = new Point(p2.x - shift_x, p2.y + shift_y);
+		Point aP3 = new Point(p3.x + shift_x, p3.y - shift_y);
+		Point aP4 = new Point(p4.x - shift_x, p4.y - shift_y);
 
 		if (noULandLRcorner) {
 			Point aP1L = new Point(aP1.x, aP1.y + (aP3.y - aP1.y) * ulCornerRatio);
@@ -139,4 +148,16 @@ public class ROI_Irregular {
 		// MatView.imshow(imgIrregularROI, "Irregular shape ROI");
 		return imgIrregularROI;
 	}
+
+//	public static Mat zoomoutMat(Mat input, Point p1, Point p2, Point p3, Point p4, double scale_x, double scale_y) {
+//		double width = p2.x - p1.x;
+//		double height = p3.y - p1.y;
+//		Point newP1 = new Point(p1.x + width * scale_x, p1.y + height*scale_y);
+//		Point newP2 = new Point(p2.x - width * scale_x, p2.y + height*scale_y);
+//		Point newP3 = new Point(p3.x + width * scale_x, p3.y - height*scale_y);
+//		Point newP4 = new Point(p4.x - width * scale_x, p4.y - height*scale_y);
+//		
+//		Mat out = irregularQuadrangle_Simplified(input, newP1, newP2, newP3, newP4, shift, noULandLRcorner, ulCornerRatio, lrCornerRatio)
+//		return null;
+//	}
 }

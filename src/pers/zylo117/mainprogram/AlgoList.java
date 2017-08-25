@@ -16,9 +16,10 @@ import pers.zylo117.patternrecognition.ROI_Irregular;
 import pers.zylo117.patternrecognition.corealgorithm.SpotSpotter;
 import pers.zylo117.patternrecognition.regiondetector.ProjectPR.ProjectAlgo_Qiu2017;
 import pers.zylo117.pictureprocess.Picture;
-import pers.zylo117.pictureprocess.drawer.DrawLine;
+import pers.zylo117.pictureprocess.drawer.Draw;
 import pers.zylo117.pictureprocess.drawer.DrawPoint;
 import pers.zylo117.toolbox.Timer;
+import pers.zylo117.toolbox.mathBox.AngleTransform;
 import pers.zylo117.toolbox.mathBox.Line;
 import pers.zylo117.toolbox.mathBox.Regression;
 import pers.zylo117.viewer.CentralControl;
@@ -64,30 +65,42 @@ public class AlgoList {
 
 	public static void pythagoras_G() throws IOException {
 		Timer.timer(10);
-		
+
 		String input = PathManagement.monitorPath + FileListener.filename;
-//		String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/1.jpg";
+		// String input =
+		// "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/1.jpg";
 		String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output1.jpg";
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		System.out.println(input);
 		Mat imgOrigin = Imgcodecs.imread(input);
 		Picture pic = new Picture(imgOrigin);
+
+		// 二值化获得初步ROI
 		ProjectAlgo_Qiu2017.colorProject_Qiu2017(imgOrigin, 20);
+		// 剔除边缘、角落等的精确ROI
+		Mat roi = ROI_Irregular.irregularQuadrangle_Simplified(imgOrigin, pic.ulP, pic.urP, pic.llP, pic.lrP, 2, 2, true,
+				0.4, 0.4);
+		// ROI按区域分级阀值
+//		Mat roi_visiable = ROI_Irregular.irregularQuadrangle_Simplified(imgOrigin, pic.ulP, pic.urP, pic.llP, pic.lrP, 11, 13, true,
+//				0.15, 0.3);
 
-		Mat roi = ROI_Irregular.irregularQuadrangle_Simplified(imgOrigin, pic.ulP, pic.urP, pic.llP, pic.lrP, 2, true,
-				0.1, 0.3);
-//		MatView.imshow(imgOrigin, "Original Image");
-//		MatView.imshow(roi, "ROI");
+		// 可选显示步骤图像
+		 MatView.imshow(imgOrigin, "Original Image");
+		 MatView.imshow(roi, "ROI");
+//		 MatView.imshow(roi_visiable, "ROI_HL");
 
+		// 标记并计数Spot
 		Mat out = imgOrigin.clone();
 		List<Point> spotList = SpotSpotter.spotList(roi, 0.15);
-		DrawPoint.pointList(out, spotList, 10, 2);
+		Draw.pointList(out, spotList, 1, 1);
 		MatView.imshow(out, "Output");
-		
+
+		// 标记回归直线
+		// if(spotList.size()>3)
 		Line line = Regression.line(spotList);
 		Point startP = new Point(line.solveX(0), 0);
-		Point endP = new Point(line.solveX(out.height()-1), out.height()-1);
-		DrawLine.lineP2P(out, startP, endP);
+		Point endP = new Point(line.solveX(out.height() - 1), out.height() - 1);
+		Draw.line_P2P(out, startP, endP);
 		MatView.imshow(out, "lineOutput");
 	}
 }
