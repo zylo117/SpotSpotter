@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="worklog/|opencv/|javacv/|javacv/|pers/zylo117/spotspotter/image/|matclipse/doc/|springframework/" kind="src" output="src" path="src"/>
+	<classpathentry excluding="worklog/|opencv/|javacv/|javacv/|pers/zylo117/spotspotter/image/|matclipse/doc/|springframework/|apache/" kind="src" output="src" path="src"/>
 	<classpathentry kind="src" path="src/springframework"/>
+	<classpathentry kind="src" path="src/apache"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="D:/workspace/SpotSpotter/src"/>
@@ -67,5 +68,11 @@
 	<classpathentry kind="lib" path="src/springframework/spring-websocket-4.3.10.RELEASE-javadoc.jar"/>
 	<classpathentry kind="lib" path="src/springframework/spring-websocket-4.3.10.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="src/springframework/spring-websocket-4.3.10.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/apache/commons-math3-3.6.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/apache/commons-math3-3.6.1-sources.jar"/>
+	<classpathentry kind="lib" path="src/apache/commons-math3-3.6.1-test-sources.jar"/>
+	<classpathentry kind="lib" path="src/apache/commons-math3-3.6.1-tests.jar"/>
+	<classpathentry kind="lib" path="src/apache/commons-math3-3.6.1-tools.jar"/>
+	<classpathentry kind="lib" path="src/apache/commons-math3-3.6.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

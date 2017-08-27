@@ -21,6 +21,7 @@ import pers.zylo117.pictureprocess.drawer.DrawPoint;
 import pers.zylo117.toolbox.Timer;
 import pers.zylo117.toolbox.mathBox.AngleTransform;
 import pers.zylo117.toolbox.mathBox.Line;
+import pers.zylo117.toolbox.mathBox.Pointset;
 import pers.zylo117.toolbox.mathBox.Regression;
 import pers.zylo117.viewer.CentralControl;
 import pers.zylo117.viewer.MatView;
@@ -92,7 +93,10 @@ public class AlgoList {
 		// 标记并计数Spot
 		Mat out = imgOrigin.clone();
 		List<Point> spotList = SpotSpotter.spotList(roi, 0.15);
-		Draw.pointList(out, spotList, 1, 1);
+//		System.out.println(Pointset.centerPoint(spotList).x+" "+Pointset.centerPoint(spotList).y);
+//		System.out.println(Pointset.sigma(spotList).x+" "+Pointset.sigma(spotList).y);
+//		Draw.pointList(out, Pointset.confidenceIntervals(spotList, 1), 1, 1);
+		Draw.pointList(out, Pointset.pointConnectivity(spotList), 2, 1);
 		MatView.imshow(out, "Output");
 
 		// 标记回归直线
