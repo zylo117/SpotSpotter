@@ -22,17 +22,8 @@
 hs_err_pid*
 /bin/
 
-*.JPG
-*.JPEG
-*.jpeg
-*.jpg
-*.PNG
-*.BMP
-*.png
-*.bmp
 /src/worklog/input/*
 /src/worklog/output/*
 /src/opencv/
 /src/pers/zylo117/spotspotter/image/*
 *.class
-*.jpg

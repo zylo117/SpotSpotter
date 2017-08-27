@@ -1,1 +1,2 @@
-cd .\src java pers.zylo117.spotspotter.mainprogram.Main
+cd .\src 
+java pers.zylo117.spotspotter.mainprogram.Main
