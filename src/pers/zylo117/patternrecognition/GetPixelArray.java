@@ -43,7 +43,7 @@ public class GetPixelArray {
 		long beginTime = new Date().getTime();
 
 		// —” ±ª∫≥Â
-		Timer.timer(time);
+		Timer.waitFor(time);
 
 		File file = new File(input);
 

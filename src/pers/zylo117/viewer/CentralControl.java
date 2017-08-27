@@ -80,14 +80,9 @@ public class CentralControl extends JFrame {
 						imageView.setIcon(new ImageIcon(name));
 					} else {
 						PathManagement.monitorPath = path + "\\";
+						hasWorkDir = true;
 						System.out.println("Monitoring Path Has Been Changed to : " + PathManagement.monitorPath);
-
-						try {
-							FileListener.Autoscript(Main.algoIndex);
-						} catch (IOException | InterruptedException e) {
-							// TODO 自动生成的 catch 块
-							e.printStackTrace();
-						}
+//						System.out.println(hasWorkDir);
 					}
 				}
 			}
@@ -115,4 +110,6 @@ public class CentralControl extends JFrame {
 		jFrame.setLocationRelativeTo(null);
 		jFrame.setVisible(true);
 	}
+	
+	public static boolean hasWorkDir = false;
 }

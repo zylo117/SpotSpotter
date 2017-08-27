@@ -26,8 +26,8 @@ public class PathManagement {
 		inputdir = absClassPath + "/worklog/input/";
 		finaloutputdir = absClassPath + "/workLog/output/";
 		
-		monitorPath = inputdir;
-		System.out.println("Monitoring Path Has Been Set to : " + monitorPath);
+//		monitorPath = inputdir;
+//		System.out.println("Monitoring Path Has Been Set to : " + monitorPath);
 		
 
 //		rawoutputdir = "D:/SpotSpotterWorkLog/rawoutput/";

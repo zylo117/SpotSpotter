@@ -65,7 +65,7 @@ public class AlgoList {
 	}
 
 	public static void pythagoras_G() throws IOException {
-		Timer.timer(10);
+		Timer.waitFor(10);
 
 		String input = PathManagement.monitorPath + FileListener.filename;
 		// String input =
@@ -79,32 +79,37 @@ public class AlgoList {
 		// 二值化获得初步ROI
 		ProjectAlgo_Qiu2017.colorProject_Qiu2017(imgOrigin, 20);
 		// 剔除边缘、角落等的精确ROI
-		Mat roi = ROI_Irregular.irregularQuadrangle_Simplified(imgOrigin, pic.ulP, pic.urP, pic.llP, pic.lrP, 2, 2, true,
-				0.4, 0.4);
+		Mat roi = ROI_Irregular.irregularQuadrangle_Simplified(imgOrigin, pic.ulP, pic.urP, pic.llP, pic.lrP, 2, 2,
+				true, 0.4, 0.4);
 		// ROI按区域分级阀值
-//		Mat roi_visiable = ROI_Irregular.irregularQuadrangle_Simplified(imgOrigin, pic.ulP, pic.urP, pic.llP, pic.lrP, 11, 13, true,
-//				0.15, 0.3);
+		// Mat roi_visiable = ROI_Irregular.irregularQuadrangle_Simplified(imgOrigin,
+		// pic.ulP, pic.urP, pic.llP, pic.lrP, 11, 13, true,
+		// 0.15, 0.3);
 
 		// 可选显示步骤图像
-		 MatView.imshow(imgOrigin, "Original Image");
-		 MatView.imshow(roi, "ROI");
-//		 MatView.imshow(roi_visiable, "ROI_HL");
+		MatView.imshow(imgOrigin, "Original Image");
+		MatView.imshow(roi, "ROI");
+		// MatView.imshow(roi_visiable, "ROI_HL");
 
 		// 标记并计数Spot
 		Mat out = imgOrigin.clone();
 		List<Point> spotList = SpotSpotter.spotList(roi, 0.15);
-//		System.out.println(Pointset.centerPoint(spotList).x+" "+Pointset.centerPoint(spotList).y);
-//		System.out.println(Pointset.sigma(spotList).x+" "+Pointset.sigma(spotList).y);
-//		Draw.pointList(out, Pointset.confidenceIntervals(spotList, 1), 1, 1);
-		Draw.pointList(out, Pointset.pointConnectivity(spotList), 2, 1);
+		// System.out.println(Pointset.centerPoint(spotList).x+"
+		// "+Pointset.centerPoint(spotList).y);
+		// System.out.println(Pointset.sigma(spotList).x+"
+		// "+Pointset.sigma(spotList).y);
+		Draw.pointList(out, spotList, 1, 1);
+		// Draw.pointList(out, Pointset.confidenceIntervals(spotList, 1), 1, 1);
+		// Draw.pointList(out, Pointset.pointConnectivity(spotList), 2, 1);
 		MatView.imshow(out, "Output");
 
 		// 标记回归直线
-		// if(spotList.size()>3)
-		Line line = Regression.line(spotList);
-		Point startP = new Point(line.solveX(0), 0);
-		Point endP = new Point(line.solveX(out.height() - 1), out.height() - 1);
-		Draw.line_P2P(out, startP, endP);
-		MatView.imshow(out, "lineOutput");
+		if (spotList.size() > 3) {
+			Line line = Regression.line(spotList);
+			Point startP = new Point(line.solveX(0), 0);
+			Point endP = new Point(line.solveX(out.height() - 1), out.height() - 1);
+			Draw.line_P2P(out, startP, endP);
+			MatView.imshow(out, "lineOutput");
+		}
 	}
 }

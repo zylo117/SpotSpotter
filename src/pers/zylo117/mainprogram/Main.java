@@ -13,9 +13,11 @@ import pers.zylo117.fileprocessor.FileListener;
 import pers.zylo117.patternrecognition.Comparison;
 import pers.zylo117.patternrecognition.ROI_Irregular;
 import pers.zylo117.patternrecognition.corealgorithm.SpotSpotter;
+import pers.zylo117.patternrecognition.facialrecognition.CameraFacialRecognition;
 import pers.zylo117.patternrecognition.regiondetector.ProjectPR.ProjectAlgo_Qiu2017;
 import pers.zylo117.pictureprocess.Picture;
 import pers.zylo117.pictureprocess.drawer.DrawPoint;
+import pers.zylo117.toolbox.Timer;
 import pers.zylo117.viewer.CentralControl;
 import pers.zylo117.viewer.MatView;
 
@@ -27,24 +29,28 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		Scanner inputKey = new Scanner(System.in);
-		
+
 		// —ØŒ À„∑®
 		System.out.println("Welcome running Classified Project Argus");
 		System.out.println("Press Enter to Go Default");
 		System.out.println("Press 1 to run Plato_G");
 		System.out.println("Press 2 to run Pythagoras_G");
-		
+
 		int algoIndex = inputKey.nextInt();
 
 		PathManagement.definePath();
 
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		Mat cover = Mat.zeros(600, 600, CvType.CV_8UC1);
+		Mat cover = Imgcodecs.imread(Main.class.getResource("../../../cover.jpg").getPath().substring(1));
 		CentralControl.imshow(cover, "CentralCtrl");
 
-		FileListener.Autoscript(algoIndex);
-
-//		 AlgoList.pythagoras_G();
+		while (true) {
+			Timer.waitFor(100);
+			if (CentralControl.hasWorkDir) {
+				FileListener.Autoscript(Main.algoIndex);
+			}
+		}
+		// AlgoList.pythagoras_G();
 
 		// System.exit(0);
 	}
