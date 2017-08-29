@@ -53,8 +53,6 @@ public class Main {
 				FileListener.Autoscript(Main.algoIndex);
 			}
 		}
-		// AlgoList.pythagoras_G();
-
 		// System.exit(0);
 	}
 }

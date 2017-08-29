@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="javacv/|javacv/|pers/zylo117/spotspotter/image/|matclipse/doc/|springframework/|apache/|opencv/|opencv/|org/poi/|worklog/" kind="src" output="src" path="src"/>
+	<classpathentry excluding="javacv/|javacv/|pers/zylo117/spotspotter/image/|matclipse/doc/|springframework/|apache/|opencv/|opencv/|worklog/|org/|org/apache/poi/" kind="src" output="src" path="src"/>
+	<classpathentry excluding="apache/|apache/poi/|apache/poi/" kind="src" path="src/org"/>
+	<classpathentry kind="src" path="src/org/apache/poi"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="SpotSpotter/src"/>
@@ -13,5 +15,78 @@
 	<classpathentry kind="lib" path="src/org/apache/common-math/commons-math3-3.6.1-tests.jar"/>
 	<classpathentry kind="lib" path="src/org/apache/common-math/commons-math3-3.6.1-tools.jar"/>
 	<classpathentry kind="lib" path="src/org/apache/common-math/commons-math3-3.6.1.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-aop-4.3.10.RELEASE-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-aop-4.3.10.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-aop-4.3.10.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-aspects-4.3.10.RELEASE-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-aspects-4.3.10.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-aspects-4.3.10.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-beans-4.3.10.RELEASE-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-beans-4.3.10.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-beans-4.3.10.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-context-4.3.10.RELEASE-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-context-4.3.10.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-context-4.3.10.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-context-support-4.3.10.RELEASE-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-context-support-4.3.10.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-context-support-4.3.10.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-core-4.3.10.RELEASE-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-core-4.3.10.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-core-4.3.10.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-expression-4.3.10.RELEASE-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-expression-4.3.10.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-expression-4.3.10.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-instrument-4.3.10.RELEASE-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-instrument-4.3.10.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-instrument-4.3.10.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-instrument-tomcat-4.3.10.RELEASE-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-instrument-tomcat-4.3.10.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-instrument-tomcat-4.3.10.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-jdbc-4.3.10.RELEASE-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-jdbc-4.3.10.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-jdbc-4.3.10.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-jms-4.3.10.RELEASE-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-jms-4.3.10.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-jms-4.3.10.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-messaging-4.3.10.RELEASE-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-messaging-4.3.10.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-messaging-4.3.10.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-orm-4.3.10.RELEASE-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-orm-4.3.10.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-orm-4.3.10.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-oxm-4.3.10.RELEASE-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-oxm-4.3.10.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-oxm-4.3.10.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-test-4.3.10.RELEASE-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-test-4.3.10.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-test-4.3.10.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-tx-4.3.10.RELEASE-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-tx-4.3.10.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-tx-4.3.10.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-web-4.3.10.RELEASE-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-web-4.3.10.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-web-4.3.10.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-webmvc-4.3.10.RELEASE-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-webmvc-4.3.10.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-webmvc-4.3.10.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-webmvc-portlet-4.3.10.RELEASE-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-webmvc-portlet-4.3.10.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-webmvc-portlet-4.3.10.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-websocket-4.3.10.RELEASE-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-websocket-4.3.10.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="src/org/springframework/spring-websocket-4.3.10.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/org/apache/poi/lib/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="src/org/apache/poi/lib/commons-collections4-4.1.jar"/>
+	<classpathentry kind="lib" path="src/org/apache/poi/lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="src/org/apache/poi/lib/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="src/org/apache/poi/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="src/org/apache/poi/poi-3.16.jar"/>
+	<classpathentry kind="lib" path="src/org/apache/poi/poi-examples-3.16.jar"/>
+	<classpathentry kind="lib" path="src/org/apache/poi/poi-excelant-3.16.jar"/>
+	<classpathentry kind="lib" path="src/org/apache/poi/poi-ooxml-3.16.jar"/>
+	<classpathentry kind="lib" path="src/org/apache/poi/poi-ooxml-schemas-3.16.jar"/>
+	<classpathentry kind="lib" path="src/org/apache/poi/poi-scratchpad-3.16.jar"/>
+	<classpathentry kind="lib" path="src/org/apache/poi/ooxml-lib/curvesapi-1.04.jar"/>
+	<classpathentry kind="lib" path="src/org/apache/poi/ooxml-lib/xmlbeans-2.6.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
