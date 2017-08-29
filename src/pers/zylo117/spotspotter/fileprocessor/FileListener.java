@@ -17,7 +17,7 @@ public class FileListener {
 	public static String filename;
 	public static boolean ifReset;
 	public static WatchService watcher;
-	
+
 	public static void Autoscript(int index) throws IOException, InterruptedException {
 		watcher = FileSystems.getDefault().newWatchService();
 		// 监视文件创建/删除/修改,仅支持JAVA 1.7及以上版本
@@ -40,13 +40,16 @@ public class FileListener {
 
 					switch (index) {
 					case 1:
-						AlgoList.godzilla();break;
-						
+						AlgoList.godzilla();
+						break;
+
 					case 2:
-						AlgoList.pythagoras_G();break;
-						
+						AlgoList.pythagoras_G();
+						break;
+
 					default:
-						AlgoList.pythagoras_G();break;
+						AlgoList.pythagoras_G();
+						break;
 					}
 
 				}
@@ -56,7 +59,7 @@ public class FileListener {
 			if (!valid) {
 				break;
 			}
-			if(ifReset) {
+			if (ifReset) {
 				break;
 			}
 		}
