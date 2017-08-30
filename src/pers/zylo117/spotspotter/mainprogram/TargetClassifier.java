@@ -1,7 +1,7 @@
 package pers.zylo117.spotspotter.mainprogram;
 
 public class TargetClassifier {
-	public static String getClass(String input) {
+	public static String getProcessName(String input) {
 		String classname;
 		switch (GetPicType.getPicType(input)) {
 		

@@ -18,6 +18,7 @@ public class Picture {
 	public int[][] dataSingleChannel;
 	public int[][] data;
 	public static Point ulP, urP, llP, lrP;
+	public static String fileName;
 	public int width, height;
 
 	public Picture(String file) throws IOException {

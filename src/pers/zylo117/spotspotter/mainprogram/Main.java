@@ -43,7 +43,6 @@ public class Main {
 
 		// 载入主封面和初始化主控窗口
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		System.out.println(System.getProperty("user.dir"));
 		Mat cover = Imgcodecs.imread(System.getProperty("user.dir")+"/cover.jpg");
 		CentralControl.imshow(cover, "CentralCtrl");
 
