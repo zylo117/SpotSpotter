@@ -17,7 +17,7 @@ import org.opencv.imgproc.Imgproc;
 
 import pers.zylo117.spotspotter.toolbox.BMPReader;
 import pers.zylo117.spotspotter.toolbox.GetPostfix;
-import pers.zylo117.spotspotter.toolbox.Timer;
+import pers.zylo117.spotspotter.toolbox.Time;
 
 public class GetPixelArray {
 
@@ -43,7 +43,7 @@ public class GetPixelArray {
 		long beginTime = new Date().getTime();
 
 		// —” ±ª∫≥Â
-		Timer.waitFor(time);
+		Time.waitFor(time);
 
 		File file = new File(input);
 

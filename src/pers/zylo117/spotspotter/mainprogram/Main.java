@@ -17,7 +17,7 @@ import pers.zylo117.spotspotter.patternrecognition.facialrecognition.CameraFacia
 import pers.zylo117.spotspotter.patternrecognition.regiondetector.ProjectPR.ProjectAlgo_Qiu2017;
 import pers.zylo117.spotspotter.pictureprocess.Picture;
 import pers.zylo117.spotspotter.pictureprocess.drawer.DrawPoint;
-import pers.zylo117.spotspotter.toolbox.Timer;
+import pers.zylo117.spotspotter.toolbox.Time;
 import pers.zylo117.spotspotter.viewer.CentralControl;
 import pers.zylo117.spotspotter.viewer.MatView;
 
@@ -47,7 +47,7 @@ public class Main {
 		CentralControl.imshow(cover, "CentralCtrl");
 
 		while (true) {
-			Timer.waitFor(100);
+			Time.waitFor(100);
 			if (CentralControl.hasWorkDir) {
 				FileListener.Autoscript(Main.algoIndex);
 			}

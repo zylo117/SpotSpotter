@@ -10,7 +10,7 @@ public class Parameter {
 
 	public static void getParameter(String input) {
 
-		switch (TargetClassifier.getProcessName(input)) {
+		switch (TargetClassifier.getProcessNameFromPath(input)) {
 
 		case "GA":
 			// GA Spot识别参数

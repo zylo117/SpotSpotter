@@ -10,7 +10,7 @@ import org.opencv.core.Point;
 import org.opencv.imgcodecs.Imgcodecs;
 
 import pers.zylo117.spotspotter.dataoutput.actualprocessdata.PythagorasData;
-import pers.zylo117.spotspotter.fileprocessor.FileDetecter;
+import pers.zylo117.spotspotter.fileprocessor.FileOperation;
 import pers.zylo117.spotspotter.fileprocessor.FileListener;
 import pers.zylo117.spotspotter.patternrecognition.Binaryzation;
 import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
@@ -20,7 +20,7 @@ import pers.zylo117.spotspotter.patternrecognition.regiondetector.ProjectPR.Proj
 import pers.zylo117.spotspotter.pictureprocess.Picture;
 import pers.zylo117.spotspotter.pictureprocess.drawer.Draw;
 import pers.zylo117.spotspotter.pictureprocess.drawer.DrawPoint;
-import pers.zylo117.spotspotter.toolbox.Timer;
+import pers.zylo117.spotspotter.toolbox.Time;
 import pers.zylo117.spotspotter.toolbox.mathBox.AngleTransform;
 import pers.zylo117.spotspotter.toolbox.mathBox.Line;
 import pers.zylo117.spotspotter.toolbox.mathBox.Pointset;
@@ -43,12 +43,12 @@ public class AlgoList {
 		String finaloutputimage = PathManagement.finaloutputdir + FileListener.filename;
 
 		Parameter.getParameter(inputimage);
-		System.out.println(TargetClassifier.getProcessName("Process Name" + inputimage));
+		System.out.println(TargetClassifier.getProcessNameFromPath("Process Name" + inputimage));
 
 		// 第一项
 		// 提取像素矩阵前对文件是否存在进行判断
-		while (!TargetClassifier.getProcessName(inputimage).equals("Unknown")) {
-			if (FileDetecter.isFileExists(inputimage)) {
+		while (!TargetClassifier.getProcessNameFromPath(inputimage).equals("Unknown")) {
+			if (FileOperation.isFileExists(inputimage)) {
 				// 提取像素矩阵,getData(文件,缓冲延迟时间（机器越强，文件越小，延迟越小）,识别起始点x,识别起始点y,识别长度,识别宽度)
 				GetPixelArray.getData(inputimage, 10, Parameter.ROIstart_x, Parameter.ROIstart_y, Parameter.ROIWidth,
 						Parameter.ROIHeight);
@@ -67,7 +67,7 @@ public class AlgoList {
 	}
 
 	public static void pythagoras_G() throws IOException {
-		Timer.waitFor(10);
+		Time.waitFor(10);
 
 		String input = PathManagement.monitorPath + FileListener.filename;
 		input = URLDecoder.decode(input, "utf-8");
@@ -76,13 +76,13 @@ public class AlgoList {
 		String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output1.jpg";
 		// System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
-		if (FileDetecter.isFileExists(input)) {
-			if (FileDetecter.isFileNameValid(FileListener.filename)) {
+		if (FileOperation.isFileExists(input)) {
+			if (FileOperation.isFileNameValid(FileListener.filename)) {
 				Mat imgOrigin = Imgcodecs.imread(input);
 				Picture pic = new Picture(imgOrigin);
 				pic.fileName = FileListener.filename;
 
-				if (PythagorasData.getType(pic).equals("glue")) {
+				if (TargetClassifier.getProcessNameFromPic(pic).equals("AA")) {
 					// 二值化获得初步ROI
 					ProjectAlgo_Qiu2017.colorProject_Qiu2017(imgOrigin, 20);
 					// 剔除边缘、角落等的精确ROI
@@ -118,6 +118,8 @@ public class AlgoList {
 						Draw.line_P2P(out, startP, endP);
 						MatView.imshow(out, "lineOutput");
 					}
+						
+					GrandCounter.plusOne();
 				}
 			}
 		}

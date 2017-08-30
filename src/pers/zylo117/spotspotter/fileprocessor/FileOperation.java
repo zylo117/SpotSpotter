@@ -4,7 +4,21 @@ import java.io.File;
 
 import org.springframework.context.support.StaticApplicationContext;
 
-public class FileDetecter {
+public class FileOperation {
+
+	public static void createDir(String destDirName) {
+		File dir = new File(destDirName);
+		if (dir.exists()) {// 判断目录是否存在
+			System.out.println("Target dir already existed");
+		}
+		if (!destDirName.endsWith(File.separator)) {// 结尾是否以"/"结束
+			destDirName = destDirName + File.separator;
+		}
+		if (dir.mkdirs()) {// 创建目标目录
+			System.out.println("Succeeded to create dir" + destDirName);
+		}
+	}
+
 
 	public static boolean isFileExists(String path) {
 		File file = new File(path);

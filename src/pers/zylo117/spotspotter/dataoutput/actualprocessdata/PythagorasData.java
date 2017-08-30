@@ -1,8 +1,16 @@
 package pers.zylo117.spotspotter.dataoutput.actualprocessdata;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.poi.ss.usermodel.Workbook;
+
+import pers.zylo117.spotspotter.dataoutput.excel.ExcelOperation;
 import pers.zylo117.spotspotter.pictureprocess.Picture;
+import pers.zylo117.spotspotter.toolbox.Time;
 
 public class PythagorasData {
 	public static String getType(Picture pic) {
@@ -23,5 +31,27 @@ public class PythagorasData {
 
 	public static String getSecond(Picture pic) {
 		return pic.fileName.substring(4, 6);
+	}
+	
+	public static void main(String[] args){
+		Time.getTime();
+		System.out.println(Time.date_hyphen);
+		String path = System.getProperty("user.dir");
+		String currrentPath = path + "/" + Time.year + "/" + Time.month;
+		
+		List<String> data = new ArrayList<>();
+		data.add("ProcessName");
+		data.add("TestDate");
+		data.add("MachineNO");
+		data.add("Station");
+		data.add("ProcessDate");
+		data.add("TestResult"); // OK/NG
+		data.add("PRResult"); // 怀疑的物质
+		data.add("X");  // 最大值的坐标
+		data.add("Y");
+		data.add("Value");
+		
+		Workbook wb = ExcelOperation.writePropertyRow(ExcelOperation.createWookBook(path), data);
+		ExcelOperation.writeExcel2File(wb, currrentPath + "/" +Time.day + ".xlsx");
 	}
 }
