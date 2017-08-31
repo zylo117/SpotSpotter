@@ -102,19 +102,19 @@ public class AlgoList {
 
 					// 标记并计数Spot
 					Mat out = imgOrigin.clone();
-					List<Map<Point, Double>> spotList = SpotSpotter.spotList(roi, 0.15);
+					pic.failureData = SpotSpotter.spotList(roi, 0.15);
 					// System.out.println(Pointset.centerPoint(spotList).x+"
 					// "+Pointset.centerPoint(spotList).y);
 					// System.out.println(Pointset.sigma(spotList).x+"
 					// "+Pointset.sigma(spotList).y);
-					Draw.pointMapList(out, spotList, 10, 1);
+					Draw.pointMapList(out, pic.failureData, 10, 1);
 					// Draw.pointList(out, Pointset.confidenceIntervals(spotList, 1), 1, 1);
 					// Draw.pointList(out, Pointset.pointConnectivity(spotList), 2, 1);
 					MatView.imshow(out, "Output");
 
 					// 标记回归直线
-					if (spotList.size() > 3) {
-						Line line = Regression.line(spotList);
+					if (pic.failureData.size() > 3) {
+						Line line = Regression.lineFromMapList(pic.failureData);
 						Point startP = new Point(line.solveX(0), 0);
 						Point endP = new Point(line.solveX(out.height() - 1), out.height() - 1);
 						Draw.line_P2P(out, startP, endP);
@@ -122,6 +122,7 @@ public class AlgoList {
 					}
 						
 					GrandCounter.plusOne();
+					PythagorasData.writeOneRow(pic, 1);
 				}
 			}
 		}

@@ -29,6 +29,7 @@ public class Draw {
 		System.out.println("Done Drawing");
 	}
 
+	// ratio should be over 10
 	public static void pointMapList(Mat input, List<Map<Point, Double>> list, int radiusRatio, int size) {
 		for (int i = 0; i < list.size(); i++) {
 			Map dataMap = new HashMap<>();
@@ -37,8 +38,7 @@ public class Draw {
 			Set<Map.Entry<Point, Double>> entryseSet = dataMap.entrySet();
 			for (Map.Entry<Point, Double> entry : entryseSet) {
 				Point p = entry.getKey();
-				int radius = (new Double(entry.getValue())).intValue();
-				radius *= radiusRatio;
+				int radius = (new Double(radiusRatio * entry.getValue())).intValue();
 				Imgproc.circle(input, p, radius, new Scalar(255, 0, 255), size);
 			}
 		}

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.chainsaw.Main;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellRange;
 import org.apache.poi.ss.usermodel.Row;
@@ -42,13 +43,16 @@ public class ExcelOperation {
 		}
 	}
 
-	public static Workbook writePropertyRow(Workbook wb, List<String> data) {
-		Sheet sheet = wb.getSheetAt(0);
-		Row propertyRow = sheet.createRow(0);
-		List<String> header = new ArrayList<>();
-		for (int i = 0; i < data.size(); i++) {
-			propertyRow.createCell(i).setCellValue(data.get(i));
+	public static Workbook writeOneRow(Workbook wb, int sheetIndex, int rowIndex, List<String> content) {
+		Sheet sheet = wb.getSheetAt(sheetIndex);
+		Row row = sheet.createRow(rowIndex);
+		for (int i = 0; i < content.size(); i++) {
+			row.createCell(i).setCellValue(content.get(i));
 		}
 		return wb;
+	}
+	
+	public static void main(String[] args) {
+		writeExcel2File(new XSSFWorkbook(), "D:\\workspace\\SpotSpotter\\AA\\2017\\7\\31.xlsx");
 	}
 }
