@@ -3,14 +3,15 @@ package pers.zylo117.spotspotter.mainprogram;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.List;
+import java.util.Map;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.imgcodecs.Imgcodecs;
 
-import pers.zylo117.spotspotter.dataoutput.actualprocessdata.PythagorasData;
 import pers.zylo117.spotspotter.fileprocessor.FileOperation;
+import pers.zylo117.spotspotter.dataoutput.project.PythagorasData;
 import pers.zylo117.spotspotter.fileprocessor.FileListener;
 import pers.zylo117.spotspotter.patternrecognition.Binaryzation;
 import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
@@ -82,7 +83,8 @@ public class AlgoList {
 				Picture pic = new Picture(imgOrigin);
 				pic.fileName = FileListener.filename;
 
-				if (TargetClassifier.getProcessNameFromPic(pic).equals("AA")) {
+				pic.processName = TargetClassifier.getProcessNameFromPic(pic);
+				if (pic.processName.equals("AA")) {
 					// 二值化获得初步ROI
 					ProjectAlgo_Qiu2017.colorProject_Qiu2017(imgOrigin, 20);
 					// 剔除边缘、角落等的精确ROI
@@ -100,12 +102,12 @@ public class AlgoList {
 
 					// 标记并计数Spot
 					Mat out = imgOrigin.clone();
-					List<Point> spotList = SpotSpotter.spotList(roi, 0.15);
+					List<Map<Point, Double>> spotList = SpotSpotter.spotList(roi, 0.15);
 					// System.out.println(Pointset.centerPoint(spotList).x+"
 					// "+Pointset.centerPoint(spotList).y);
 					// System.out.println(Pointset.sigma(spotList).x+"
 					// "+Pointset.sigma(spotList).y);
-					Draw.pointList(out, spotList, 1, 1);
+					Draw.pointMapList(out, spotList, 10, 1);
 					// Draw.pointList(out, Pointset.confidenceIntervals(spotList, 1), 1, 1);
 					// Draw.pointList(out, Pointset.pointConnectivity(spotList), 2, 1);
 					MatView.imshow(out, "Output");

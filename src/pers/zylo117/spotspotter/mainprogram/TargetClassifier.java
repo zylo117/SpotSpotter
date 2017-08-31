@@ -4,71 +4,71 @@ import pers.zylo117.spotspotter.pictureprocess.Picture;
 
 public class TargetClassifier {
 	public static String getProcessNameFromPath(String input) {
-		String classname;
+		String processName;
 		switch (GetPicType.getPicTypeFromPath(input)) {
 		
 		case "glue":
-			classname = "AA";
+			processName = "AA";
 			break;
 			
 		case "chip":
-			classname = "GA";
+			processName = "GA";
 			break;
 			
 		case "glass":
-			classname = "GA";
+			processName = "GA";
 			break;
 			
 		default:
-			classname = "Unknown";
+			processName = "Unknown";
 			break;
 		}
-		return classname;
+		return processName;
 	}
 	
 	public static String getProcessNameFromFilename(String filename) {
-		String classname;
+		String processName;
 		switch (GetPicType.getPicTypeFromPath(filename)) {
 		
 		case "glue":
-			classname = "AA";
+			processName = "AA";
 			break;
 			
 		case "chip":
-			classname = "GA";
+			processName = "GA";
 			break;
 			
 		case "glass":
-			classname = "GA";
+			processName = "GA";
 			break;
 			
 		default:
-			classname = "Unknown";
+			processName = "Unknown";
 			break;
 		}
-		return classname;
+		return processName;
 	}
 	
 	public static String getProcessNameFromPic(Picture pic) {
-		String classname;
+		String processName;
 		switch (GetPicType.getPicTypeFromPic(pic)) {
 		
 		case "glue":
-			classname = "AA";
+			processName = "AA";
 			break;
 			
 		case "chip":
-			classname = "GA";
+			processName = "GA";
 			break;
 			
 		case "glass":
-			classname = "GA";
+			processName = "GA";
 			break;
 			
 		default:
-			classname = "Unknown";
+			processName = "Unknown";
 			break;
 		}
-		return classname;
+		return processName;
 	}
 }

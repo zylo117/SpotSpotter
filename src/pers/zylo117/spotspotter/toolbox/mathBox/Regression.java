@@ -1,12 +1,27 @@
 package pers.zylo117.spotspotter.toolbox.mathBox;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.opencv.core.Point;
 
 public class Regression {
-	public static Line line(List<Point> list) {
+	public static Line line(List<Map<Point, Double>> maplist) {
+		List<Point> list = new ArrayList<>();
+		for (int i = 0; i < maplist.size(); i++) {
+			Map dataMap = new HashMap<>();
+			dataMap = maplist.get(i);
 
+			Set<Map.Entry<Point, Double>> entryseSet = dataMap.entrySet();
+			for (Map.Entry<Point, Double> entry : entryseSet) {
+				Point p = entry.getKey();
+				list.add(p);
+			}
+		}
+		
 		// 先求x,y的平均值x_avg, y_avg
 		// 再用公式代入求解：k=(x1y1+x2y2+...xnyn-nXY)/(x1^2+x2^2+...xn^2-nX^2)
 		// 后把x,y的平均数X，Y代入b=Y-kX

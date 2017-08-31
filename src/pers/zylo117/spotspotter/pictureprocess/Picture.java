@@ -3,6 +3,7 @@ package pers.zylo117.spotspotter.pictureprocess;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -20,6 +21,8 @@ public class Picture {
 	public static Point ulP, urP, llP, lrP;
 	public static String fileName;
 	public int width, height;
+	public static String processName;
+	public static Map<Point, Double> failureData;
 
 	public Picture(String file) throws IOException {
 		this.bimg = ImageIO.read(new File(file));

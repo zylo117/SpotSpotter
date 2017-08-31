@@ -4,7 +4,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -88,11 +90,11 @@ public class SpotSpotter {
 		System.out.println("");
 	}
 
-	public static List<Point> spotList(Mat input, double thresh) {
+	public static List<Map<Point, Double>> spotList(Mat input, double thresh) {
 		Picture pic = new Picture(input);
 		double result;
 		int spotQty = 0;
-		List<Point> spotList = new ArrayList<Point>();
+		List<Map<Point, Double>> spotList = new ArrayList<>();
 		for (int i = 1; i < pic.width - 1; i += 1) {
 			for (int j = 1; j < pic.height - 1; j += 1) {
 
@@ -122,7 +124,9 @@ public class SpotSpotter {
 
 				if (result > thresh) {
 					spotQty++;
-					spotList.add(new Point(i, j));
+					Map datamap = new HashMap<>();
+					datamap.put(new Point(i, j), result);
+					spotList.add(datamap);
 
 					System.out.println("Center" + "\tX: " + i + "\tY: " + j + "\tDifference " + result * 100 + "%");
 				}

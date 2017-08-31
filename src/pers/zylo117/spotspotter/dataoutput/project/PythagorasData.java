@@ -1,4 +1,4 @@
-package pers.zylo117.spotspotter.dataoutput.actualprocessdata;
+package pers.zylo117.spotspotter.dataoutput.project;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections4.Get;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import pers.zylo117.spotspotter.dataoutput.excel.ExcelOperation;
@@ -32,26 +33,36 @@ public class PythagorasData {
 	public static String getSecond(Picture pic) {
 		return pic.fileName.substring(4, 6);
 	}
-	
-	public static void main(String[] args){
+
+	public static String getTestDate() {
 		Time.getTime();
-		System.out.println(Time.date_hyphen);
+		return Time.date_slash;
+	}
+
+	public static String getProcessDate(Picture pic) {
+		String processDate = " " + getHour(pic) + "/" + getMinute(pic) + "/" + getSecond(pic);
+		return Time.date_slash;
+	}
+
+	public static void writeHeader(String processName, String outputpath) {
+
 		String path = System.getProperty("user.dir");
-		String currrentPath = path + "/" + Time.year + "/" + Time.month;
-		
-		List<String> data = new ArrayList<>();
-		data.add("ProcessName");
-		data.add("TestDate");
-		data.add("MachineNO");
-		data.add("Station");
-		data.add("ProcessDate");
-		data.add("TestResult"); // OK/NG
-		data.add("PRResult"); // 怀疑的物质
-		data.add("X");  // 最大值的坐标
-		data.add("Y");
-		data.add("Value");
-		
-		Workbook wb = ExcelOperation.writePropertyRow(ExcelOperation.createWookBook(path), data);
-		ExcelOperation.writeExcel2File(wb, currrentPath + "/" +Time.day + ".xlsx");
+		String currrentPath = path + "/" + processName + "/" + Time.year + "/" + Time.month;
+
+		List<String> header = new ArrayList<>();
+		header.add("ProcessName");
+		header.add("ProductName");
+		header.add("TestDate");
+		header.add("MachineNO");
+		header.add("Station");
+		header.add("ProcessDate");
+		header.add("TestResult"); // OK/NG
+		header.add("PRResult"); // 怀疑的物质
+		header.add("X"); // 最大值的坐标
+		header.add("Y");
+		header.add("Value");
+
+		Workbook wb = ExcelOperation.writePropertyRow(ExcelOperation.createWookBook(path), header);
+		ExcelOperation.writeExcel2File(wb, currrentPath + "/" + Time.day + ".xlsx");
 	}
 }
