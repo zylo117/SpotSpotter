@@ -34,14 +34,14 @@ public class AlgoList {
 	public static void godzilla() throws IOException {
 
 		// 判断文件是否是否写入InputStream
-		if (null == FileListener.filename || "".equals(FileListener.filename)) {
+		if (null == FileListener.fileName || "".equals(FileListener.fileName)) {
 			System.out.println("Input is null");
 		}
 
-		String inputimage = PathManagement.inputdir + FileListener.filename;
-		String rawoutputimage = PathManagement.rawoutputdir + FileListener.filename;
-		String bipicoutputimage = PathManagement.bipicdir + FileListener.filename;
-		String finaloutputimage = PathManagement.finaloutputdir + FileListener.filename;
+		String inputimage = PathManagement.inputdir + FileListener.fileName;
+		String rawoutputimage = PathManagement.rawoutputdir + FileListener.fileName;
+		String bipicoutputimage = PathManagement.bipicdir + FileListener.fileName;
+		String finaloutputimage = PathManagement.finaloutputdir + FileListener.fileName;
 
 		Parameter.getParameter(inputimage);
 		System.out.println(TargetClassifier.getProcessNameFromPath("Process Name" + inputimage));
@@ -70,7 +70,8 @@ public class AlgoList {
 	public static void pythagoras_G() throws IOException {
 		Time.waitFor(10);
 
-		String input = PathManagement.monitorPath + FileListener.filename;
+		String input = FileListener.filePath+"\\" + FileListener.fileName;
+		System.out.println(input);
 		input = URLDecoder.decode(input, "utf-8");
 		// String input =
 		// "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/1.jpg";
@@ -78,10 +79,10 @@ public class AlgoList {
 		// System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
 		if (FileOperation.isFileExists(input)) {
-			if (FileOperation.isFileNameValid(FileListener.filename)) {
+			if (FileOperation.isFileNameValid(FileListener.fileName)) {
 				Mat imgOrigin = Imgcodecs.imread(input);
 				Picture pic = new Picture(imgOrigin);
-				pic.fileName = FileListener.filename;
+				pic.fileName = FileListener.fileName;
 				pic.filePath = input;
 
 				pic.processName = TargetClassifier.getProcessNameFromPic(pic);
@@ -90,7 +91,7 @@ public class AlgoList {
 					ProjectAlgo_Qiu2017.colorProject_Qiu2017(imgOrigin, 20);
 					// 剔除边缘、角落等的精确ROI
 					Mat roi = ROI_Irregular.irregularQuadrangle_Simplified(imgOrigin, pic.ulP, pic.urP, pic.llP,
-							pic.lrP, 2, 2, true, 0.4, 0.4);
+							pic.lrP, 4, 3, true, 0.4, 0.4);
 					// ROI按区域分级阀值
 					// Mat roi_visiable = ROI_Irregular.irregularQuadrangle_Simplified(imgOrigin,
 					// pic.ulP, pic.urP, pic.llP, pic.lrP, 11, 13, true,
