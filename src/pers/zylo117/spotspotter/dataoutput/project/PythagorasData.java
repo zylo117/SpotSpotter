@@ -63,43 +63,34 @@ public class PythagorasData {
 	}
 
 	public static String getDay(Picture pic) {
-		int length = pic.fileParent().length();
-		int length_postfix = GetPostfix.fromFilename(pic.fileName).length();
-		int length_name = pic.fileName.length();
-		return pic.fileParent().substring(pic.fileParent().length()  - length_name-3,
-				pic.fileParent().length()  - length_name-1);
+		int length = pic.fileParent.length();
+		return pic.fileParent.substring(pic.fileParent.length() - 2, pic.fileParent.length());
 	}
 
 	public static String getMonth(Picture pic) {
-		int length = pic.fileParent().length();
-		int length_postfix = GetPostfix.fromFilename(pic.fileName).length();
-		int length_name = pic.fileName.length();
-		return pic.fileParent().substring(pic.fileParent().length()  - length_name - 6,
-				pic.fileParent().length()  - length_name -4);
+		int length = pic.fileParent.length();
+		return pic.fileParent.substring(pic.fileParent.length() - 5, pic.fileParent.length() - 3);
 	}
 
 	public static String getYear(Picture pic) {
-		int length = pic.fileParent().length();
-		int length_postfix = GetPostfix.fromFilename(pic.fileName).length();
-		int length_name = pic.fileName.length();
-		return pic.fileParent().substring(pic.fileParent().length()  - length_name - 11,
-				pic.fileParent().length()  - length_name - 7);
+		int length = pic.fileParent.length();
+		return pic.fileParent.substring(pic.fileParent.length() - 10, pic.fileParent.length() - 6);
 	}
-	
-//	 public static void main(String[] args) {
-//	 try {
-//	 Picture pic = new
-//	 Picture("D:\\EpoxyInsp\\EW4\\2017\\08\\29\\015621(1)417_glue.jpg");
-//	 pic.fileName = "015621(1)417_glue.jpg";
-//	 pic.filePath = "D:\\EpoxyInsp\\EW4\\2017\\08\\29\\015621(1)417_glue.jpg\\";
-//	 System.out.println(getYear(pic));
-//	 System.out.println(getMonth(pic));
-//	 System.out.println(getDay(pic));
-//	 } catch (IOException e) {
-//	 // TODO 自动生成的 catch 块
-//	 e.printStackTrace();
-//	 }
-//	 }
+
+	// public static void main(String[] args) {
+	// try {
+	// Picture pic = new
+	// Picture("D:\\EpoxyInsp\\EW4\\2017\\08\\29\\015621(1)417_glue.jpg");
+	// pic.fileName = "015621(1)417_glue.jpg";
+	// pic.filePath = "D:\\EpoxyInsp\\EW4\\2017\\08\\29\\015621(1)417_glue.jpg\\";
+	// System.out.println(getYear(pic));
+	// System.out.println(getMonth(pic));
+	// System.out.println(getDay(pic));
+	// } catch (IOException e) {
+	// // TODO 自动生成的 catch 块
+	// e.printStackTrace();
+	// }
+	// }
 
 	public static String getHour(Picture pic) {
 		return pic.fileName.substring(0, 2);

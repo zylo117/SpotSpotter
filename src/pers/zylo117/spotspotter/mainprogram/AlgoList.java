@@ -70,7 +70,7 @@ public class AlgoList {
 	public static void pythagoras_G() throws IOException {
 		Time.waitFor(10);
 
-		String input = FileListener.filePath+"\\" + FileListener.fileName;
+		String input = FileListener.filePath + "\\" + FileListener.fileName;
 		System.out.println(input);
 		input = URLDecoder.decode(input, "utf-8");
 		// String input =
@@ -83,6 +83,7 @@ public class AlgoList {
 				Mat imgOrigin = Imgcodecs.imread(input);
 				Picture pic = new Picture(imgOrigin);
 				pic.fileName = FileListener.fileName;
+				pic.fileParent = FileListener.filePath;
 				pic.filePath = input;
 
 				pic.processName = TargetClassifier.getProcessNameFromPic(pic);

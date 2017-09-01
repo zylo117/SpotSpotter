@@ -102,7 +102,7 @@ public class FileListener {
 				fileName = Obj2String.o2s(eventcontext);
 				Object eventkind = event.kind();
 				String eventkindstr = Obj2String.o2s(eventkind);
-				
+
 				if (eventkindstr.equals("ENTRY_CREATE")) {
 					System.out.println(fileName + " Created");
 					System.out.println(key.watchable() + " Modified");
@@ -134,8 +134,9 @@ public class FileListener {
 			}
 		}
 	}
-	
-//	public static void main(String[] args) throws IOException, InterruptedException {
-//		autoDeepScan(2,"D:\\EpoxyInsp\\EW4\\");
-//	}
+
+	// public static void main(String[] args) throws IOException,
+	// InterruptedException {
+	// autoDeepScan(2,"D:\\EpoxyInsp\\EW4\\");
+	// }
 }

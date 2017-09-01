@@ -22,6 +22,7 @@ public class Picture {
 	public static Point ulP, urP, llP, lrP;
 	public static String fileName;
 	public static String filePath;
+	public static String fileParent;
 	public int width, height;
 	public static String processName;
 	public static List<Map<Point, Double>> failureData;
@@ -40,10 +41,5 @@ public class Picture {
 		this.dataSingleChannel = GetPixelArray.pixelArray(bimg, true);
 		this.width = matInput.width();
 		this.height = matInput.height();
-	}
-	
-	public static String fileParent() {
-		String parent = filePath.replaceAll(fileName, "");
-		return parent;
 	}
 }
