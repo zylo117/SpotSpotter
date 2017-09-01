@@ -113,10 +113,10 @@ public class Binaryzation {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/2.jpg";
+		String input = "D:\\11#SUT 4\\3.jpg";
 		String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output2.jpg";
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		Mat in = ROIOutput.Pythagoras_G(input);
+		Mat in = Imgcodecs.imread(input);
 		if (in.empty()) {
 			throw new Exception("no file");
 		}

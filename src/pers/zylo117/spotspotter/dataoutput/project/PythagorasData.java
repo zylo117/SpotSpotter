@@ -23,9 +23,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.opencv.core.Point;
 
 import pers.zylo117.spotspotter.dataoutput.excel.ExcelOperation;
+import pers.zylo117.spotspotter.fileprocessor.FileListener;
 import pers.zylo117.spotspotter.fileprocessor.FileOperation;
 import pers.zylo117.spotspotter.pictureprocess.Picture;
 import pers.zylo117.spotspotter.toolbox.GetMaxMinMidAvg;
+import pers.zylo117.spotspotter.toolbox.GetPostfix;
 import pers.zylo117.spotspotter.toolbox.Time;
 
 public class PythagorasData {
@@ -54,6 +56,50 @@ public class PythagorasData {
 		return targetNameWithputPostfix;
 	}
 
+	public static String getTestDate() {
+		Time.getTime();
+		return Time.date_slash;
+	}
+
+	public static String getDay(Picture pic) {
+		int length = pic.fileParent().length();
+		int length_postfix = GetPostfix.fromFilename(pic.fileName).length();
+		int length_name = pic.fileName.length();
+		return pic.fileParent().substring(pic.fileParent().length() - length_postfix - length_name,
+				pic.fileParent().length() - length_postfix - length_name+2);
+	}
+
+	public static String getMonth(Picture pic) {
+		int length = pic.fileParent().length();
+		int length_postfix = GetPostfix.fromFilename(pic.fileName).length();
+		int length_name = pic.fileName.length();
+		return pic.fileParent().substring(pic.fileParent().length() - length_postfix - length_name - 3,
+				pic.fileParent().length() - length_postfix - length_name - 1);
+	}
+
+	public static String getYear(Picture pic) {
+		int length = pic.fileParent().length();
+		int length_postfix = GetPostfix.fromFilename(pic.fileName).length();
+		int length_name = pic.fileName.length();
+		return pic.fileParent().substring(pic.fileParent().length() - length_postfix - length_name - 8,
+				pic.fileParent().length() - length_postfix - length_name - 4);
+	}
+	
+	// public static void main(String[] args) {
+	// try {
+	// Picture pic = new
+	// Picture("D:\\EpoxyInsp\\EW4\\2017\\08\\29\\015621(1)417_glue.jpg");
+	// pic.fileName = "015621(1)417_glue.jpg";
+	// pic.filePath = "D:\\EpoxyInsp\\EW4\\2017\\08\\29\\015621(1)417_glue.jpg\\";
+	// System.out.println(getYear(pic));
+	// System.out.println(getMonth(pic));
+	// System.out.println(getDay(pic));
+	// } catch (IOException e) {
+	// // TODO 自动生成的 catch 块
+	// e.printStackTrace();
+	// }
+	// }
+
 	public static String getHour(Picture pic) {
 		return pic.fileName.substring(0, 2);
 	}
@@ -66,14 +112,10 @@ public class PythagorasData {
 		return pic.fileName.substring(4, 6);
 	}
 
-	public static String getTestDate() {
-		Time.getTime();
-		return Time.date_slash;
-	}
-
 	public static String getProcessDate(Picture pic) {
-		String processDate = " " + getHour(pic) + "/" + getMinute(pic) + "/" + getSecond(pic);
-		return Time.date_slash;
+		String processDate = getYear(pic) + "/" + getMonth(pic) + "/" + getDay(pic) + " " + getHour(pic) + ":"
+				+ getMinute(pic) + ":" + getSecond(pic);
+		return processDate;
 	}
 
 	public static String getTestResult(Picture pic) {
@@ -152,8 +194,7 @@ public class PythagorasData {
 
 		if (!xlsx.exists()) {
 			FileOperation.createDir(currrentPath);
-			Workbook wb = ExcelOperation.writeOneRow(ExcelOperation.createWookBook(), sheetIndex, 0,
-					defineHeader());
+			Workbook wb = ExcelOperation.writeOneRow(ExcelOperation.createWookBook(), sheetIndex, 0, defineHeader());
 			wb = ExcelOperation.writeOneRow(wb, sheetIndex, 1, content);
 			ExcelOperation.writeExcel2File(wb, finalPath);
 		} else {

@@ -82,6 +82,7 @@ public class AlgoList {
 				Mat imgOrigin = Imgcodecs.imread(input);
 				Picture pic = new Picture(imgOrigin);
 				pic.fileName = FileListener.filename;
+				pic.filePath = input;
 
 				pic.processName = TargetClassifier.getProcessNameFromPic(pic);
 				if (pic.processName.equals("AA")) {
