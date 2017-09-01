@@ -25,8 +25,13 @@ import org.opencv.imgcodecs.Imgcodecs;
 import pers.zylo117.spotspotter.mainprogram.PathManagement;
 import pers.zylo117.spotspotter.toolbox.GetPostfix;
 import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
+import pers.zylo117.spotspotter.toolbox.Time;
 
 public class MatView extends JFrame {
+	public static JFrame jF_overall;
+	public static JLabel imageView;
+	public static Image loadedImage;
+
 	/**
 	 * Display Mat image
 	 *
@@ -61,5 +66,42 @@ public class MatView extends JFrame {
 		jFrame.pack();
 		jFrame.setLocationRelativeTo(null);
 		jFrame.setVisible(true);
+	}
+
+	public static void imshow_reDraw(Mat image, String windowName) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+
+		jF_overall = new JFrame(windowName);
+		imageView = new JLabel();
+		final JScrollPane imageScrollPane = new JScrollPane(imageView);
+		imageScrollPane.setPreferredSize(new Dimension(600, 600));
+		jF_overall.add(imageScrollPane, BorderLayout.CENTER);
+		jF_overall.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+		loadedImage = Mat2BufferedImage.mat2BI(image);
+		imageView.setIcon(new ImageIcon(loadedImage));
+		jF_overall.pack();
+		jF_overall.setLocationRelativeTo(null);
+		jF_overall.setVisible(true);
+
+	}
+
+	public static void showPicOnJFrame(Mat image) {
+		jF_overall.repaint();
+		loadedImage = Mat2BufferedImage.mat2BI(image);
+		imageView.setIcon(new ImageIcon(loadedImage));
+		jF_overall.pack();
+		jF_overall.setLocationRelativeTo(null);
+		jF_overall.setVisible(true);
 	}
 }

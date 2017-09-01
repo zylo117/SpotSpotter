@@ -38,12 +38,11 @@ public class Main {
 
 		int algoIndex = inputKey.nextInt();
 
-		// 定义工作路径
-		PathManagement.definePath();
-
 		// 载入主封面和初始化主控窗口
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		Mat cover = Imgcodecs.imread(System.getProperty("user.dir")+"/cover.jpg");
+		
+		MatView.imshow_reDraw(cover, "SpotMonitor");
 		CentralControl.imshow(cover, "SpotSpotter");
 
 		while (true) {

@@ -5,6 +5,8 @@ import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JFrame;
+
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -21,6 +23,7 @@ import pers.zylo117.spotspotter.patternrecognition.regiondetector.ProjectPR.Proj
 import pers.zylo117.spotspotter.pictureprocess.Picture;
 import pers.zylo117.spotspotter.pictureprocess.drawer.Draw;
 import pers.zylo117.spotspotter.pictureprocess.drawer.DrawPoint;
+import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
 import pers.zylo117.spotspotter.toolbox.Time;
 import pers.zylo117.spotspotter.toolbox.mathBox.AngleTransform;
 import pers.zylo117.spotspotter.toolbox.mathBox.Line;
@@ -99,8 +102,8 @@ public class AlgoList {
 					// 0.15, 0.3);
 
 					// 可选显示步骤图像
-					MatView.imshow(imgOrigin, "Original Image");
-					MatView.imshow(roi, "ROI");
+//					MatView.imshow(imgOrigin, "Original Image");
+//					MatView.imshow(roi, "ROI");
 					// MatView.imshow(roi_visiable, "ROI_HL");
 
 					// 标记并计数Spot
@@ -113,16 +116,17 @@ public class AlgoList {
 					Draw.pointMapList(out, pic.failureData, 10, 1);
 					// Draw.pointList(out, Pointset.confidenceIntervals(spotList, 1), 1, 1);
 					// Draw.pointList(out, Pointset.pointConnectivity(spotList), 2, 1);
-					MatView.imshow(out, "Output");
-
+//					MatView.imshow(out, "Output");
+						
 					// 标记回归直线
 					if (pic.failureData.size() > 3) {
 						Line line = Regression.lineFromMapList(pic.failureData);
 						Point startP = new Point(line.solveX(0), 0);
 						Point endP = new Point(line.solveX(out.height() - 1), out.height() - 1);
 						Draw.line_P2P(out, startP, endP);
-						MatView.imshow(out, "lineOutput");
+						MatView.showPicOnJFrame(out);
 					}
+					else MatView.showPicOnJFrame(out);
 						
 					GrandCounter.plusOne();
 
