@@ -17,6 +17,7 @@ import org.apache.commons.collections4.Get;
 import org.apache.poi.hslf.blip.PICT;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.hslf.blip.Metafile.Header;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.opencv.core.Point;
@@ -107,15 +108,16 @@ public class PythagorasData {
 		return maxMap;
 	}
 
-	public static void writeHeader(Picture pic, List<String> header, String outputpath) {
+	public static void writeHeader(Picture pic) {
+		List<String> header = defineHeader();
 		String path = System.getProperty("user.dir");
 		String currrentPath = path + "/" + pic.processName + "/" + Time.year + "/" + Time.month;
 
-		Workbook wb = ExcelOperation.writeOneRow(ExcelOperation.createWookBook(path), 0, 0, header);
+		Workbook wb = ExcelOperation.writeOneRow(ExcelOperation.createWookBook(), 0, 0, header);
 		ExcelOperation.writeExcel2File(wb, currrentPath + "/" + Time.day + ".xlsx");
 	}
 
-	public static void writeOneRow(Picture pic, int rowIndex) {
+	public static void writeNextRow(Picture pic, int sheetIndex, String cellRef) {
 		List<String> content = new ArrayList<>();
 		content.add(pic.processName);
 		content.add("NH");
@@ -145,19 +147,21 @@ public class PythagorasData {
 		String path = System.getProperty("user.dir");
 		String currrentPath = path + "/" + pic.processName + "/" + Time.year + "/" + Time.month;
 		String finalPath = currrentPath + "/" + Time.day + ".xlsx";
-		
+
 		File xlsx = new File(finalPath);
-		
+
 		if (!xlsx.exists()) {
 			FileOperation.createDir(currrentPath);
-			Workbook wb = ExcelOperation.writeOneRow(ExcelOperation.createWookBook(path), 0, 1, content);
+			Workbook wb = ExcelOperation.writeOneRow(ExcelOperation.createWookBook(), sheetIndex, 0,
+					defineHeader());
+			wb = ExcelOperation.writeOneRow(wb, sheetIndex, 1, content);
 			ExcelOperation.writeExcel2File(wb, finalPath);
-		}
-		else {
+		} else {
 			try {
 				InputStream iStream = new FileInputStream(xlsx);
 				Workbook wb = new XSSFWorkbook(iStream);
-				wb = ExcelOperation.writeOneRow(wb, 0, 1, content);
+				int rowIndex = ExcelOperation.getEmptyRow(wb, sheetIndex, cellRef);
+				wb = ExcelOperation.writeOneRow(wb, sheetIndex, rowIndex, content);
 				ExcelOperation.writeExcel2File(wb, finalPath);
 			} catch (IOException e) {
 				// TODO 自动生成的 catch 块

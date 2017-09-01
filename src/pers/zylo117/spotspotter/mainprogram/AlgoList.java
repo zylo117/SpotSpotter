@@ -122,10 +122,10 @@ public class AlgoList {
 					}
 						
 					GrandCounter.plusOne();
-					PythagorasData.writeOneRow(pic, 1);
+
+					PythagorasData.writeNextRow(pic, 0, "A3");
 				}
 			}
 		}
-
 	}
 }

@@ -14,7 +14,7 @@ public class Time {
 	public static void getTime() {
 		Calendar c1 = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
 		year = c1.get(Calendar.YEAR);
-		month = c1.get(Calendar.MONTH);
+		month = c1.get(Calendar.MONTH) + 1;
 		day = c1.get(Calendar.DATE);
 		date_slash = year + "/" + month + "/" + day;
 		date_hyphen = year + "-" + month + "-" + day;
@@ -28,5 +28,10 @@ public class Time {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void main(String[] args) {
+		getTime();
+		System.out.println(Time.year+" "+Time.month+" "+Time.day);
 	}
 }
