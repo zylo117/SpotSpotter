@@ -3,8 +3,6 @@ package pers.zylo117.spotspotter.toolbox.mathBox;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.math3.analysis.function.Min;
-import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.fitting.GaussianCurveFitter;
 import org.apache.commons.math3.fitting.WeightedObservedPoints;
 import org.opencv.core.Point;

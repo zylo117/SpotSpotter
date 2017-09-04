@@ -40,8 +40,8 @@ public class Main {
 
 		// 载入主封面和初始化主控窗口
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		Mat cover = Imgcodecs.imread(System.getProperty("user.dir")+"/cover.jpg");
-		
+		Mat cover = Imgcodecs.imread(System.getProperty("user.dir") + "/cover.jpg");
+
 		MatView.imshow_reDraw(cover, "SpotMonitor");
 		CentralControl.imshow(cover, "SpotSpotter");
 

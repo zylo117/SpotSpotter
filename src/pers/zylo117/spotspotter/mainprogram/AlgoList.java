@@ -13,7 +13,7 @@ import org.opencv.core.Point;
 import org.opencv.imgcodecs.Imgcodecs;
 
 import pers.zylo117.spotspotter.fileprocessor.FileOperation;
-import pers.zylo117.spotspotter.dataoutput.project.PythagorasData;
+import pers.zylo117.spotspotter.dataio.input.project.PythagorasData;
 import pers.zylo117.spotspotter.fileprocessor.FileListener;
 import pers.zylo117.spotspotter.patternrecognition.Binaryzation;
 import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;

@@ -1,4 +1,4 @@
-package pers.zylo117.spotspotter.dataoutput.excel;
+package pers.zylo117.spotspotter.dataio.output.excel;
 
 import java.io.File;
 import java.io.FileInputStream;

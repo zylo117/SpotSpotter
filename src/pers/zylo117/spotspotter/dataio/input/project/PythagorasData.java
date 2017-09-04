@@ -1,4 +1,4 @@
-package pers.zylo117.spotspotter.dataoutput.project;
+package pers.zylo117.spotspotter.dataio.input.project;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,9 +22,10 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.opencv.core.Point;
 
-import pers.zylo117.spotspotter.dataoutput.excel.ExcelOperation;
+import pers.zylo117.spotspotter.dataio.output.excel.ExcelOperation;
 import pers.zylo117.spotspotter.fileprocessor.FileListener;
 import pers.zylo117.spotspotter.fileprocessor.FileOperation;
+import pers.zylo117.spotspotter.mainprogram.GrandCounter;
 import pers.zylo117.spotspotter.pictureprocess.Picture;
 import pers.zylo117.spotspotter.toolbox.GetMaxMinMidAvg;
 import pers.zylo117.spotspotter.toolbox.GetPostfix;
@@ -34,6 +35,7 @@ public class PythagorasData {
 
 	private static List<String> defineHeader() {
 		List<String> header = new ArrayList<>();
+		header.add("NO");
 		header.add("ProcessName");
 		header.add("ProductName");
 		header.add("TestDate");
@@ -153,6 +155,7 @@ public class PythagorasData {
 
 	public static void writeNextRow(Picture pic, int sheetIndex, String cellRef) {
 		List<String> content = new ArrayList<>();
+		content.add(Integer.toString(GrandCounter.totalTestQuantity));
 		content.add(pic.processName);
 		content.add("NH");
 		content.add(getTestDate());
@@ -203,5 +206,6 @@ public class PythagorasData {
 			}
 
 		}
+		System.out.println("Data Recorded");
 	}
 }

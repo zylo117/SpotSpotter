@@ -1,7 +1,5 @@
 package pers.zylo117.spotspotter.toolbox.mathBox;
 
-import javax.security.auth.x500.X500Principal;
-
 import org.opencv.core.Point;
 
 public class Line {

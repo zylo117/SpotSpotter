@@ -2,8 +2,6 @@ package pers.zylo117.spotspotter.fileprocessor;
 
 import java.io.File;
 
-import org.springframework.context.support.StaticApplicationContext;
-
 public class FileOperation {
 
 	public static void createDir(String destDirName) {
