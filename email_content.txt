@@ -1,0 +1,11 @@
+package patternRecognition;
+import java.awt.image.BufferedImage;
+import java.awt.image.Raster;
+import java∑ —Ú∑ —Ú∑ —Ú∑ —Ú∑ —Ú∑ —Ú∑ —Ú∑ —ÚFile;
+import java.io.IOException;
+import javax.i∑ —Ú∑ —Úio.ImageIO;
+import patternRecognition.Comparison;
+∑ —Ú∑ —Ú
+∑ —Ú∑ —Ú
+
+∑ —Ú∑ —Ú

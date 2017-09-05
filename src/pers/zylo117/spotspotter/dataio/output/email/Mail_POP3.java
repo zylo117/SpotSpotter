@@ -13,8 +13,8 @@ import javax.mail.internet.MimeMessage;
 public class Mail_POP3 {
 	 public static void main(String[] args){
 	        try {
-	            String host = "mailex.0-film.com";//这是QQ邮箱的smtp服务器地址
-	            String port = "110"; //端口号
+	            String host = "smtp.qq.com";//这是QQ邮箱的smtp服务器地址
+	            String port = "25"; //端口号
 	            /*
 	            *Properties是一个属性对象，用来创建Session对象
 	            */
