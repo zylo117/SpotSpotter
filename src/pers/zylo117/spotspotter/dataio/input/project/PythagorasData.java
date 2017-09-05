@@ -51,12 +51,17 @@ public class PythagorasData {
 		return header;
 	}
 
-	public static String getType(Picture pic) {
+	public static String getProcess(Picture pic) {
 		String targetName = pic.fileName.substring(pic.fileName.lastIndexOf("_") + 1);
 		String postfix = pic.fileName.substring(pic.fileName.lastIndexOf(".") + 1);
 		int postfixLength = postfix.length();// 得到后缀名长度
 		String targetNameWithputPostfix = targetName.substring(0, targetName.length() - postfixLength - 1);// 得到目标名。去掉了后缀
 		return targetNameWithputPostfix;
+	}
+	
+	public static String getStation(Picture pic) {
+		int length = pic.fileParent.length();
+		return pic.fileParent.substring(pic.fileParent.length() - 12, pic.fileParent.length() - 11);
 	}
 
 	public static String getTestDate() {
@@ -79,20 +84,20 @@ public class PythagorasData {
 		return pic.fileParent.substring(pic.fileParent.length() - 10, pic.fileParent.length() - 6);
 	}
 
-	// public static void main(String[] args) {
-	// try {
-	// Picture pic = new
-	// Picture("D:\\EpoxyInsp\\EW4\\2017\\08\\29\\015621(1)417_glue.jpg");
-	// pic.fileName = "015621(1)417_glue.jpg";
-	// pic.filePath = "D:\\EpoxyInsp\\EW4\\2017\\08\\29\\015621(1)417_glue.jpg\\";
-	// System.out.println(getYear(pic));
-	// System.out.println(getMonth(pic));
-	// System.out.println(getDay(pic));
-	// } catch (IOException e) {
-	// // TODO 自动生成的 catch 块
-	// e.printStackTrace();
-	// }
-	// }
+//	 public static void main(String[] args) {
+//	 try {
+//	 Picture pic = new
+//	 Picture("D:\\EpoxyInsp\\EW4\\2017\\08\\29\\015621(1)417_glue.jpg");
+//	 pic.fileName = "015621(1)417_glue.jpg";
+//	 pic.filePath = "D:\\EpoxyInsp\\EW4\\2017\\08\\29\\015621(1)417_glue.jpg\\";
+//	 System.out.println(getYear(pic));
+//	 System.out.println(getMonth(pic));
+//	 System.out.println(getDay(pic));
+//	 } catch (IOException e) {
+//	 // TODO 自动生成的 catch 块
+//	 e.printStackTrace();
+//	 }
+//	 }
 
 	public static String getHour(Picture pic) {
 		return pic.fileName.substring(0, 2);
@@ -160,7 +165,7 @@ public class PythagorasData {
 		content.add("NH");
 		content.add(getTestDate());
 		content.add("16");
-		content.add("4");
+		content.add(getStation(pic));
 		content.add(getProcessDate(pic));
 		content.add(getTestResult(pic));
 		if (getTestResult(pic).equals("NG")) {

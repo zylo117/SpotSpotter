@@ -1,0 +1,1 @@
+schtasks /create /tn "name" /F /tr "%~dp0SendE-mail.bat" /sc daily /st 16:41

@@ -1,1 +1,1 @@
-schtasks /create /tn "name" /F /tr "cscript //E:vbs %~dp0email.vbs" /sc daily /st 16:41
+cscript //E:vbs %~dp0email.vbs"

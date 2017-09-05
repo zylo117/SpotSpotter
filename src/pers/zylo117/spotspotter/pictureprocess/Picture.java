@@ -25,6 +25,9 @@ public class Picture {
 	public static String fileParent;
 	public int width, height;
 	public static String processName;
+	public static String productName;
+	public static String MachineName;
+	
 	public static List<Map<Point, Double>> failureData;
 
 	public Picture(String file) throws IOException {
