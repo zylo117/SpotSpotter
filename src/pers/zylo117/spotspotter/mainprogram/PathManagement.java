@@ -1,11 +1,6 @@
 package pers.zylo117.spotspotter.mainprogram;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Set;
-import java.util.logging.Handler;
-
-import pers.zylo117.spotspotter.toolbox.GetRootPath;
 
 public class PathManagement {
 

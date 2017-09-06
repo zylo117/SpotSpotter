@@ -37,6 +37,7 @@ public class CameraFacialRecognition extends JPanel {
 		return dst;
 	}
 
+	@Override
 	public void paintComponent(Graphics g) {
 		if (mImg != null) {
 			g.drawImage(mImg, 0, 0, mImg.getWidth(), mImg.getHeight(), this);

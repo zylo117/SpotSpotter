@@ -27,18 +27,18 @@ public class BMPReader {
 	}
 
 	public static int constructInt(byte[] in, int offset) {
-		int ret = ((int) in[offset + 3] & 0xff);
-		ret = (ret << 8) | ((int) in[offset + 2] & 0xff);
-		ret = (ret << 8) | ((int) in[offset + 1] & 0xff);
-		ret = (ret << 8) | ((int) in[offset + 0] & 0xff);
+		int ret = (in[offset + 3] & 0xff);
+		ret = (ret << 8) | (in[offset + 2] & 0xff);
+		ret = (ret << 8) | (in[offset + 1] & 0xff);
+		ret = (ret << 8) | (in[offset + 0] & 0xff);
 		return (ret);
 	}
 
 	public static int constructInt3(byte[] in, int offset) {
 		int ret = 0xff;
-		ret = (ret << 8) | ((int) in[offset + 2] & 0xff);
-		ret = (ret << 8) | ((int) in[offset + 1] & 0xff);
-		ret = (ret << 8) | ((int) in[offset + 0] & 0xff);
+		ret = (ret << 8) | (in[offset + 2] & 0xff);
+		ret = (ret << 8) | (in[offset + 1] & 0xff);
+		ret = (ret << 8) | (in[offset + 0] & 0xff);
 		return (ret);
 	}
 
@@ -60,8 +60,8 @@ public class BMPReader {
 	}
 
 	public static short constructShort(byte[] in, int offset) {
-		short ret = (short) ((short) in[offset + 1] & 0xff);
-		ret = (short) ((ret << 8) | (short) ((short) in[offset + 0] & 0xff));
+		short ret = (short) (in[offset + 1] & 0xff);
+		ret = (short) ((ret << 8) | (short) (in[offset + 0] & 0xff));
 		return (ret);
 	}
 

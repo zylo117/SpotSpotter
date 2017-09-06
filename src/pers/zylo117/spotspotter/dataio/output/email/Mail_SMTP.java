@@ -1,11 +1,10 @@
 package pers.zylo117.spotspotter.dataio.output.email;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Date;
 import java.util.Properties;
 
+import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -30,13 +29,13 @@ public class Mail_SMTP {
 		message.setFrom(new InternetAddress("aa@send.com", "USER_AA", "UTF-8"));
 
 		// 3. To: 收件人
-		message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress("cc@receive.com", "USER_CC", "UTF-8"));
+		message.setRecipient(RecipientType.TO, new InternetAddress("cc@receive.com", "USER_CC", "UTF-8"));
 		// To: 增加收件人（可选）
-		message.addRecipient(MimeMessage.RecipientType.TO, new InternetAddress("dd@receive.com", "USER_DD", "UTF-8"));
+		message.addRecipient(RecipientType.TO, new InternetAddress("dd@receive.com", "USER_DD", "UTF-8"));
 		// Cc: 抄送（可选）
-		message.setRecipient(MimeMessage.RecipientType.CC, new InternetAddress("ee@receive.com", "USER_EE", "UTF-8"));
+		message.setRecipient(RecipientType.CC, new InternetAddress("ee@receive.com", "USER_EE", "UTF-8"));
 		// Bcc: 密送（可选）
-		message.setRecipient(MimeMessage.RecipientType.BCC, new InternetAddress("ff@receive.com", "USER_FF", "UTF-8"));
+		message.setRecipient(RecipientType.BCC, new InternetAddress("ff@receive.com", "USER_FF", "UTF-8"));
 
 		// 4. Subject: 邮件主题
 		message.setSubject("TEST邮件主题", "UTF-8");

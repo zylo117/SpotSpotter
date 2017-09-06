@@ -2,8 +2,6 @@ package pers.zylo117.spotspotter.dataio.input.project;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -13,22 +11,15 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.apache.commons.collections4.Get;
-import org.apache.poi.hslf.blip.PICT;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.hslf.blip.Metafile.Header;
-import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.opencv.core.Point;
 
 import pers.zylo117.spotspotter.dataio.output.excel.ExcelOperation;
-import pers.zylo117.spotspotter.fileprocessor.FileListener;
 import pers.zylo117.spotspotter.fileprocessor.FileOperation;
 import pers.zylo117.spotspotter.mainprogram.GrandCounter;
 import pers.zylo117.spotspotter.pictureprocess.Picture;
 import pers.zylo117.spotspotter.toolbox.GetMaxMinMidAvg;
-import pers.zylo117.spotspotter.toolbox.GetPostfix;
 import pers.zylo117.spotspotter.toolbox.Time;
 
 public class PythagorasData {

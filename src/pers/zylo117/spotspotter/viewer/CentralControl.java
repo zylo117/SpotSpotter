@@ -6,8 +6,6 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -21,10 +19,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 
 import org.opencv.core.Mat;
-import org.opencv.imgcodecs.Imgcodecs;
-
-import pers.zylo117.spotspotter.fileprocessor.FileListener;
-import pers.zylo117.spotspotter.mainprogram.Main;
 import pers.zylo117.spotspotter.mainprogram.PathManagement;
 import pers.zylo117.spotspotter.toolbox.GetPostfix;
 import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;

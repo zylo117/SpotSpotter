@@ -3,29 +3,16 @@ package pers.zylo117.spotspotter.viewer;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 
 import org.opencv.core.Mat;
-import org.opencv.imgcodecs.Imgcodecs;
-
-import pers.zylo117.spotspotter.mainprogram.PathManagement;
-import pers.zylo117.spotspotter.toolbox.GetPostfix;
 import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
-import pers.zylo117.spotspotter.toolbox.Time;
 
 public class MatView extends JFrame {
 	public static JFrame jF_overall;

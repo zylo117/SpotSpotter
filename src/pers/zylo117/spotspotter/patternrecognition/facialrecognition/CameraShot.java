@@ -29,7 +29,8 @@ public class CameraShot {
      */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
                 try {
                     CameraShot window = new CameraShot();
                     window.frame.setVisible(true);

@@ -1,24 +1,15 @@
 package pers.zylo117.spotspotter.dataio.output.excel;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.chainsaw.Main;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellRange;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import pers.zylo117.spotspotter.fileprocessor.FileOperation;
-import pers.zylo117.spotspotter.toolbox.Time;
 
 public class ExcelOperation {
 	public static Workbook createWookBook() {

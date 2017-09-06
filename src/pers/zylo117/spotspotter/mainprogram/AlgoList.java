@@ -2,35 +2,21 @@ package pers.zylo117.spotspotter.mainprogram;
 
 import java.io.IOException;
 import java.net.URLDecoder;
-import java.util.List;
-import java.util.Map;
-
-import javax.swing.JFrame;
-
-import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
-
 import pers.zylo117.spotspotter.fileprocessor.FileOperation;
 import pers.zylo117.spotspotter.dataio.input.project.PythagorasData;
 import pers.zylo117.spotspotter.fileprocessor.FileListener;
-import pers.zylo117.spotspotter.patternrecognition.Binaryzation;
 import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
 import pers.zylo117.spotspotter.patternrecognition.ROI_Irregular;
 import pers.zylo117.spotspotter.patternrecognition.corealgorithm.SpotSpotter;
 import pers.zylo117.spotspotter.patternrecognition.regiondetector.ProjectPR.ProjectAlgo_Qiu2017;
 import pers.zylo117.spotspotter.pictureprocess.Picture;
 import pers.zylo117.spotspotter.pictureprocess.drawer.Draw;
-import pers.zylo117.spotspotter.pictureprocess.drawer.DrawPoint;
-import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
 import pers.zylo117.spotspotter.toolbox.Time;
-import pers.zylo117.spotspotter.toolbox.mathBox.AngleTransform;
 import pers.zylo117.spotspotter.toolbox.mathBox.Line;
-import pers.zylo117.spotspotter.toolbox.mathBox.Pointset;
 import pers.zylo117.spotspotter.toolbox.mathBox.Regression;
-import pers.zylo117.spotspotter.viewer.CentralControl;
 import pers.zylo117.spotspotter.viewer.MatView;
 
 public class AlgoList {

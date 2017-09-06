@@ -1,8 +1,6 @@
 package pers.zylo117.spotspotter.viewer;
 
-import java.awt.Component;
 import java.awt.EventQueue;
-import java.awt.Graphics;
 import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;

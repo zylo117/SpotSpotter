@@ -16,7 +16,6 @@ import pers.zylo117.spotspotter.pictureprocess.Picture;
 import pers.zylo117.spotspotter.toolbox.BufferedImage2HQ_ImageFile;
 import pers.zylo117.spotspotter.toolbox.GetMaxMinMidAvg;
 import pers.zylo117.spotspotter.toolbox.ImageStream2File;
-import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
 
 public class SpotSpotter {
 

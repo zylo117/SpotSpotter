@@ -1,7 +1,5 @@
 package pers.zylo117.spotspotter.patternrecognition.regiondetector;
 
-import java.security.cert.PolicyQualifierInfo;
-
 import org.opencv.core.Point;
 
 public class FourthCorner {

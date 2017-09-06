@@ -3,7 +3,6 @@ package pers.zylo117.spotspotter.fileprocessor;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
@@ -106,7 +105,7 @@ public class FileListener {
 				if (eventkindstr.equals("ENTRY_CREATE")) {
 					System.out.println(fileName + " Created");
 					System.out.println(key.watchable() + " Modified");
-					Object path = (Object) key.watchable();
+					Object path = key.watchable();
 					filePath = Obj2String.o2s(path);
 					System.out.println("Ready 2 be analysed");
 
