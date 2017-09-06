@@ -93,7 +93,7 @@ public class AlgoList {
 					ProjectAlgo_Qiu2017.colorProject_Qiu2017(imgOrigin, CentralControl.binThresh);
 					// 剔除边缘、角落等的精确ROI
 					Mat roi = ROI_Irregular.irregularQuadrangle_Simplified(imgOrigin, pic.ulP, pic.urP, pic.llP,
-							pic.lrP, 4, 3, true, 0.4, 0.4);
+							pic.lrP, 5, 4, true, 0.4, 0.4);
 					// ROI按区域分级阀值
 					// Mat roi_visiable = ROI_Irregular.irregularQuadrangle_Simplified(imgOrigin,
 					// pic.ulP, pic.urP, pic.llP, pic.lrP, 11, 13, true,
