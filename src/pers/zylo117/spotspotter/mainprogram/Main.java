@@ -42,14 +42,13 @@ public class Main {
 		Properties props = System.getProperties();
 		String bits = String.valueOf(props.get("sun.arch.data.model"));
 		System.out.println(bits + " bits System");
-		if(Integer.parseInt(bits) == 64) {
-			// 载入主封面和初始化主控窗口
+		if (Integer.parseInt(bits) == 64) {
 			System.loadLibrary("opencv_java330_64");
-		}
-		else {
+		} else {
 			System.loadLibrary("opencv_java330_86");
 		}
-		
+
+		// 载入主封面和初始化主控窗口
 		Mat cover = Imgcodecs.imread(System.getProperty("user.dir") + "/cover.jpg");
 
 		MatView.imshow_reDraw(cover, "SpotMonitor");

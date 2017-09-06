@@ -117,13 +117,6 @@ public class PythagorasData {
 		return processDate;
 	}
 
-	public static String getTestResult(Picture pic) {
-		if (pic.failureData.isEmpty())
-			return "OK";
-		else
-			return "NG";
-	}
-
 	public static Map<Point, Double> getMax(Picture pic) {
 		if (pic.failureData.isEmpty())
 			return null;
@@ -167,8 +160,8 @@ public class PythagorasData {
 		content.add("16");
 		content.add(getStation(pic));
 		content.add(getProcessDate(pic));
-		content.add(getTestResult(pic));
-		if (getTestResult(pic).equals("NG")) {
+		content.add(pic.result());
+		if (pic.result().equals("NG")) {
 			content.add("Glue/Dust");
 
 			Map<Point, Double> max = getMax(pic);

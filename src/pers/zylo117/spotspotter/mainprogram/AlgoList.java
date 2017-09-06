@@ -11,6 +11,7 @@ import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
 
 import pers.zylo117.spotspotter.fileprocessor.FileOperation;
 import pers.zylo117.spotspotter.dataio.input.project.PythagorasData;
@@ -131,6 +132,15 @@ public class AlgoList {
 					GrandCounter.plusOne();
 
 					PythagorasData.writeNextRow(pic, 0, "A3");
+					if(pic.result().equals("NG")) {
+						System.out.println("NG Pics Output");
+						Time.getTime();
+						String path = System.getProperty("user.dir") + "\\" + pic.processName + "\\" + Time.year + "\\" + Time.month + "\\NGPics\\";
+						FileOperation.createDir(path);
+						Imgcodecs.imwrite(path+pic.fileNameWOPostfix() + pic.postFixWithDot(), imgOrigin);
+						Imgcodecs.imwrite(path+pic.fileNameWOPostfix() + "_NG" + pic.postFixWithDot(), out);
+					}
+					else System.out.println("Test Result: OK");
 				}
 			}
 		}

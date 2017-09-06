@@ -45,4 +45,22 @@ public class Picture {
 		this.width = matInput.width();
 		this.height = matInput.height();
 	}
+	
+	public static String result() {
+			if (failureData.isEmpty()) {
+				return "OK";
+			}
+			else
+				return "NG";
+	}
+	
+	public static String postFixWithDot() {
+		String postFixWithDot = fileName.substring(fileName.lastIndexOf("."));
+		return postFixWithDot;
+	}
+	
+	public static String fileNameWOPostfix() {
+		String fileNameWOPostfix = fileName.replace(postFixWithDot(), "");
+		return fileNameWOPostfix;
+	}
 }
