@@ -1,8 +1,6 @@
 package pers.zylo117.spotspotter.gui.viewer;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -23,13 +21,18 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 
 import org.opencv.core.Mat;
+
+import pers.zylo117.spotspotter.mainprogram.Main;
 import pers.zylo117.spotspotter.mainprogram.PathManagement;
 import pers.zylo117.spotspotter.toolbox.GetPostfix;
 import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
 
 public class CentralControl extends JFrame {
 	
-	public static JTextField jtf1, jtf2, jtf3, jtf4;
+	public static JTextField processName_manual, machineNO_manual, productName_manual, binarizationThreshold, spotSpotterThreshold;
+	public static String productN = "XX";
+	public static int mcNO = 0, binThresh = 20, ssThresh = 15;
+	public static int algoIndex = 2;
 	/**
 	 * Display Mat image
 	 *
@@ -51,8 +54,6 @@ public class CentralControl extends JFrame {
 
 		JFrame jFrame = new JFrame(windowName);
 		JLabel imageView = new JLabel();
-
-
 		
 		JFileChooser chooser = new JFileChooser();
 		chooser.setCurrentDirectory(new File("."));
@@ -108,25 +109,53 @@ public class CentralControl extends JFrame {
 		Image loadedImage = Mat2BufferedImage.mat2BI(image);
 		imageView.setIcon(new ImageIcon(loadedImage));
 		
-		JPanel jp = new JPanel();
-		jp.setOpaque(false);
+		JPanel jp1 = new JPanel();
+		jp1.setOpaque(false);
+		
+		JTextField processName = new JTextField("Process Name");
+		processName_manual = new JTextField(3);
+		JTextField machineNO = new JTextField("Machine NO");
+		machineNO_manual = new JTextField(3);
+		JTextField productName = new JTextField("Product Name");
+		productName_manual = new JTextField(3);
 
-		jtf1 = new JTextField();
-		jtf2 = new JTextField(10);
-		jtf3 = new JTextField("指定文本内容");
-		jtf4 = new JTextField("指定内容+指定长度(只读状态)", 30);
 
-		jtf3.setEnabled(false); // true可以编辑
-		jtf4.setFont(new Font("宋体", Font.BOLD | Font.ITALIC, 16)); // 字体，是否加粗、斜体，字号
-		// 设置文本的水平对齐方式
-		jtf4.setHorizontalAlignment(JTextField.CENTER);
+		processName.setEnabled(false); // true可以编辑
+		machineNO.setEnabled(false); // true可以编辑
+		productName.setEnabled(false); // true可以编辑
 
-		jp.add(jtf1);
-		jp.add(jtf2);
-		jp.add(jtf3);
-		jp.add(jtf4);
+//		jtf4.setFont(new Font("宋体", Font.BOLD | Font.ITALIC, 16)); // 字体，是否加粗、斜体，字号
+//		// 设置文本的水平对齐方式
+//		jtf4.setHorizontalAlignment(JTextField.CENTER);
 
-		jFrame.add(jp, BorderLayout.SOUTH,0);
+		jp1.add(processName);
+		jp1.add(processName_manual);
+		jp1.add(machineNO);
+		jp1.add(machineNO_manual);
+		jp1.add(productName);
+		jp1.add(productName_manual);
+
+		
+		JPanel jp2 = new JPanel();
+		jp2.setOpaque(false);
+		JTextField binThresh = new JTextField("Binarization Threshold");
+		binarizationThreshold = new JTextField(3);
+		JTextField ssThresh = new JTextField("SpotSpotter Threshold");
+		spotSpotterThreshold = new JTextField(3);
+		JTextField percent = new JTextField("%");
+		
+		binThresh.setEnabled(false); // true可以编辑
+		ssThresh.setEnabled(false); // true可以编辑
+		percent.setEnabled(false); // true可以编辑
+		
+		jp2.add(binThresh);
+		jp2.add(binarizationThreshold);
+		jp2.add(ssThresh);
+		jp2.add(spotSpotterThreshold);
+		jp2.add(percent);
+
+		jFrame.add(jp2, BorderLayout.SOUTH,0);
+		jFrame.add(jp1, BorderLayout.NORTH,0);
 		jFrame.add(imageScrollPane, BorderLayout.CENTER,-1);
 		jFrame.pack();
 //		jFrame.setLocationRelativeTo(null);

@@ -28,15 +28,15 @@ public class Main {
 			System.loadLibrary("opencv_java330_86");
 		}
 
-		Scanner inputKey = new Scanner(System.in);
+//		Scanner inputKey = new Scanner(System.in);
 
 		// 询问算法
 		System.out.println("Welcome running Classified Project Argus");
-		System.out.println("Press Enter to Go Default");
-		System.out.println("Press 1 to run Plato_G");
-		System.out.println("Press 2 to run Pythagoras_G");
+//		System.out.println("Press Enter to Go Default");
+//		System.out.println("Press 1 to run Plato_G");
+//		System.out.println("Press 2 to run Pythagoras_G");
 
-		int algoIndex = inputKey.nextInt();
+//		int algoIndex = inputKey.nextInt();
 
 		// 载入主封面和初始化主控窗口
 		Mat cover = Imgcodecs.imread(System.getProperty("user.dir") + "/cover.jpg");
@@ -47,7 +47,7 @@ public class Main {
 		while (true) {
 			Time.waitFor(100);
 			if (CentralControl.hasWorkDir) {
-				FileListener.autoDeepScan(Main.algoIndex);
+				FileListener.autoDeepScan(CentralControl.algoIndex);
 			}
 		}
 		// System.exit(0);

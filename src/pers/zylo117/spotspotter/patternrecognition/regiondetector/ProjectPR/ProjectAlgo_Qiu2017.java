@@ -3,9 +3,10 @@ package pers.zylo117.spotspotter.patternrecognition.regiondetector.ProjectPR;
 import java.awt.image.BufferedImage;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
-import pers.zylo117.spotspotter.patternrecognition.Binaryzation;
+
 import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
 import pers.zylo117.spotspotter.patternrecognition.SetPixelArray;
+import pers.zylo117.spotspotter.patternrecognition.corealgorithm.Binaryzation;
 import pers.zylo117.spotspotter.pictureprocess.Picture;
 import pers.zylo117.spotspotter.toolbox.BufferedImage2Mat;
 import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;

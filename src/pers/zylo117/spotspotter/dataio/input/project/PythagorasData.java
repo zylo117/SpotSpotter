@@ -17,6 +17,7 @@ import org.opencv.core.Point;
 
 import pers.zylo117.spotspotter.dataio.output.excel.ExcelOperation;
 import pers.zylo117.spotspotter.fileprocessor.FileOperation;
+import pers.zylo117.spotspotter.gui.viewer.CentralControl;
 import pers.zylo117.spotspotter.mainprogram.GrandCounter;
 import pers.zylo117.spotspotter.pictureprocess.Picture;
 import pers.zylo117.spotspotter.toolbox.GetMaxMinMidAvg;
@@ -39,6 +40,8 @@ public class PythagorasData {
 		header.add("Y");
 		header.add("Value");
 		header.add("PictureName");
+		header.add("BinarizationThreshold");
+		header.add("SpotSpotterThreshold");
 		return header;
 	}
 
@@ -146,9 +149,9 @@ public class PythagorasData {
 		List<String> content = new ArrayList<>();
 		content.add(Integer.toString(GrandCounter.totalTestQuantity));
 		content.add(pic.processName);
-		content.add("NH");
+		content.add(CentralControl.productN);
 		content.add(getTestDate());
-		content.add("16");
+		content.add(Integer.toString(CentralControl.mcNO));
 		content.add(getStation(pic));
 		content.add(getProcessDate(pic));
 		content.add(pic.result());
@@ -171,6 +174,9 @@ public class PythagorasData {
 			content.add("");
 		}
 		content.add(pic.fileName);
+		content.add(Integer.toString(CentralControl.binThresh));
+		content.add(Integer.toString(CentralControl.ssThresh) + "%");
+		
 		String path = System.getProperty("user.dir");
 		String currrentPath = path + "/" + pic.processName + "/" + Time.year + "/" + Time.month;
 		String finalPath = currrentPath + "/" + Time.day + ".xlsx";
