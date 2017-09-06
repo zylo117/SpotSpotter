@@ -199,7 +199,6 @@ public class PythagorasData {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
 			}
-
 		}
 		System.out.println("Data Recorded");
 	}
