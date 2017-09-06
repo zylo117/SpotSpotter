@@ -1,7 +1,9 @@
-package pers.zylo117.spotspotter.viewer;
+package pers.zylo117.spotspotter.gui.viewer;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +15,9 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
@@ -24,6 +28,8 @@ import pers.zylo117.spotspotter.toolbox.GetPostfix;
 import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
 
 public class CentralControl extends JFrame {
+	
+	public static JTextField jtf1, jtf2, jtf3, jtf4;
 	/**
 	 * Display Mat image
 	 *
@@ -46,6 +52,8 @@ public class CentralControl extends JFrame {
 		JFrame jFrame = new JFrame(windowName);
 		JLabel imageView = new JLabel();
 
+
+		
 		JFileChooser chooser = new JFileChooser();
 		chooser.setCurrentDirectory(new File("."));
 		JMenuBar menubar = new JMenuBar();
@@ -89,19 +97,40 @@ public class CentralControl extends JFrame {
 				System.exit(0);
 			}
 		});
-
+		
 		final JScrollPane imageScrollPane = new JScrollPane(imageView);
-		if (image.width() < 800 && image.height() < 600)
-			imageScrollPane.setPreferredSize(new Dimension(image.width(), image.height())); // set window size
-		else
-			imageScrollPane.setPreferredSize(new Dimension(600, 600));
-		jFrame.add(imageScrollPane, BorderLayout.CENTER);
+//		if (image.width() <= 800 && image.height() <= 600)
+//			imageScrollPane.setPreferredSize(new Dimension(image.width(), image.height())); // set window size
+//		else
+//			imageScrollPane.setPreferredSize(new Dimension(600, 620));
+		
 		jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
 		Image loadedImage = Mat2BufferedImage.mat2BI(image);
 		imageView.setIcon(new ImageIcon(loadedImage));
+		
+		JPanel jp = new JPanel();
+		jp.setOpaque(false);
+
+		jtf1 = new JTextField();
+		jtf2 = new JTextField(10);
+		jtf3 = new JTextField("指定文本内容");
+		jtf4 = new JTextField("指定内容+指定长度(只读状态)", 30);
+
+		jtf3.setEnabled(false); // true可以编辑
+		jtf4.setFont(new Font("宋体", Font.BOLD | Font.ITALIC, 16)); // 字体，是否加粗、斜体，字号
+		// 设置文本的水平对齐方式
+		jtf4.setHorizontalAlignment(JTextField.CENTER);
+
+		jp.add(jtf1);
+		jp.add(jtf2);
+		jp.add(jtf3);
+		jp.add(jtf4);
+
+		jFrame.add(jp, BorderLayout.SOUTH,0);
+		jFrame.add(imageScrollPane, BorderLayout.CENTER,-1);
 		jFrame.pack();
-		jFrame.setLocationRelativeTo(null);
+//		jFrame.setLocationRelativeTo(null);
+		jFrame.setLocation(50, 120);
 		jFrame.setVisible(true);
 	}
 

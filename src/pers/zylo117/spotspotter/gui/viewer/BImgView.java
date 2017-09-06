@@ -1,4 +1,4 @@
-package pers.zylo117.spotspotter.viewer;
+package pers.zylo117.spotspotter.gui.viewer;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

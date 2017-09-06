@@ -10,11 +10,11 @@ import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
+import pers.zylo117.spotspotter.gui.viewer.MatView;
 import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
 import pers.zylo117.spotspotter.toolbox.File2ImageReader;
 import pers.zylo117.spotspotter.toolbox.GetPostfix;
 import pers.zylo117.spotspotter.toolbox.ImageStream2File;
-import pers.zylo117.spotspotter.viewer.MatView;
 
 public class Binaryzation {
 

@@ -7,9 +7,9 @@ import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
 import pers.zylo117.spotspotter.fileprocessor.FileListener;
+import pers.zylo117.spotspotter.gui.viewer.CentralControl;
+import pers.zylo117.spotspotter.gui.viewer.MatView;
 import pers.zylo117.spotspotter.toolbox.Time;
-import pers.zylo117.spotspotter.viewer.CentralControl;
-import pers.zylo117.spotspotter.viewer.MatView;
 
 public class Main {
 

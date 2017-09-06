@@ -6,6 +6,7 @@ import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.imgcodecs.Imgcodecs;
 import pers.zylo117.spotspotter.fileprocessor.FileOperation;
+import pers.zylo117.spotspotter.gui.viewer.MatView;
 import pers.zylo117.spotspotter.dataio.input.project.PythagorasData;
 import pers.zylo117.spotspotter.fileprocessor.FileListener;
 import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
@@ -17,7 +18,6 @@ import pers.zylo117.spotspotter.pictureprocess.drawer.Draw;
 import pers.zylo117.spotspotter.toolbox.Time;
 import pers.zylo117.spotspotter.toolbox.mathBox.Line;
 import pers.zylo117.spotspotter.toolbox.mathBox.Regression;
-import pers.zylo117.spotspotter.viewer.MatView;
 
 public class AlgoList {
 
