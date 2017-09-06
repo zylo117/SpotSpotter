@@ -1,6 +1,7 @@
 package pers.zylo117.spotspotter.mainprogram;
 
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 
 import org.opencv.core.Core;
@@ -38,8 +39,17 @@ public class Main {
 
 		int algoIndex = inputKey.nextInt();
 
-		// 载入主封面和初始化主控窗口
-		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+		Properties props = System.getProperties();
+		String bits = String.valueOf(props.get("sun.arch.data.model"));
+		System.out.println(bits + " bits System");
+		if(Integer.parseInt(bits) == 64) {
+			// 载入主封面和初始化主控窗口
+			System.loadLibrary("opencv_java330_64");
+		}
+		else {
+			System.loadLibrary("opencv_java330_86");
+		}
+		
 		Mat cover = Imgcodecs.imread(System.getProperty("user.dir") + "/cover.jpg");
 
 		MatView.imshow_reDraw(cover, "SpotMonitor");
