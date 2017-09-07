@@ -9,6 +9,7 @@ import pers.zylo117.spotspotter.fileprocessor.FileOperation;
 import pers.zylo117.spotspotter.gui.viewer.CentralControl;
 import pers.zylo117.spotspotter.gui.viewer.MatView;
 import pers.zylo117.spotspotter.dataio.input.project.PythagorasData;
+import pers.zylo117.spotspotter.dataio.output.email.PythagorasEMail;
 import pers.zylo117.spotspotter.fileprocessor.FileListener;
 import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
 import pers.zylo117.spotspotter.patternrecognition.ROI_Irregular;
@@ -139,6 +140,8 @@ public class AlgoList {
 						Imgcodecs.imwrite(path + pic.fileNameWOPostfix() + "_NG" + pic.postFixWithDot(), out);
 					} else
 						System.out.println("Test Result: OK");
+					
+					PythagorasEMail.writeEMail();
 				}
 			}
 		}

@@ -3,6 +3,7 @@ package pers.zylo117.spotspotter.dataio.output.email;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -25,6 +26,11 @@ public class PythagorasEMail {
 		String currrentPath = System.getProperty("user.dir") + "/" + "email_content.txt";
 
 		File counterTXT = new File(currrentPath);
+		
+		if(!counterTXT.exists()) {
+			FileOutputStream fileOut = new FileOutputStream(counterTXT);
+		}
+		
 		Time.getTime();
 		String str = "Date " + Time.date_slash + System.getProperty("line.separator") + "Category "
 				+ CentralControl.productN + System.getProperty("line.separator")
@@ -32,7 +38,7 @@ public class PythagorasEMail {
 				// System.getProperty("line.separator")
 				// + "SUT " + PythagorasData. + System.getProperty("line.separator")
 				+ "Result: continuously/discontinuously glue spilling" + System.getProperty("line.separator")
-				+ "Glue Spill Rate: " + glueSpillRate();
+				+ "Glue Spill Rate: " + glueSpillRate() + "%";
 		PrintWriter pfp;
 		try {
 			pfp = new PrintWriter(counterTXT);
