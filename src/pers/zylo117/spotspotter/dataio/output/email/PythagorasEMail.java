@@ -60,7 +60,6 @@ public class PythagorasEMail {
 		if (xlsx.exists()) {
 			InputStream iStream;
 			Workbook wb;
-
 			
 			iStream = new FileInputStream(xlsx);
 			wb = new XSSFWorkbook(iStream);

@@ -1,5 +1,6 @@
 package pers.zylo117.spotspotter.fileprocessor;
 
+import java.awt.RenderingHints.Key;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -10,6 +11,7 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.LinkedList;
 
+import pers.zylo117.spotspotter.gui.viewer.CentralControl;
 import pers.zylo117.spotspotter.mainprogram.AlgoList;
 import pers.zylo117.spotspotter.mainprogram.PathManagement;
 import pers.zylo117.spotspotter.toolbox.Obj2String;
@@ -92,6 +94,12 @@ public class FileListener {
 		}
 
 		while (true) {
+			
+			if(CentralControl.ifStop) {
+				watchService.poll();
+				break;
+			}
+			
 			// 获取下一个文件改动事件
 			WatchKey key = watchService.take();
 			for (WatchEvent<?> event : key.pollEvents()) {

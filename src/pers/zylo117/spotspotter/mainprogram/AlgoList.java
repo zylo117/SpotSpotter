@@ -60,7 +60,7 @@ public class AlgoList {
 	}
 
 	public static void pythagoras_G() throws IOException {
-		Time.waitFor(10);
+		Time.waitFor(CentralControl.buffTime);
 
 		// 从主控窗口获取数据
 		if (!CentralControl.machineNO_manual.getText().isEmpty())

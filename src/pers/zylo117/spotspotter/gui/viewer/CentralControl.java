@@ -2,11 +2,13 @@ package pers.zylo117.spotspotter.gui.viewer;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -30,10 +32,11 @@ import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
 public class CentralControl extends JFrame {
 
 	public static JTextField processName_manual, machineNO_manual, productName_manual, binarizationThreshold,
-			spotSpotterThreshold;
+			spotSpotterThreshold, buffTime_manual;
 	public static String productN = "XX";
-	public static int mcNO = 0, binThresh = 20, ssThresh = 15;
+	public static int mcNO = 0, binThresh = 20, ssThresh = 15, buffTime = 20;
 	public static int algoIndex = 2;
+	public static boolean ok2Proceed, ifPause, ifStop = false;
 
 	/**
 	 * Display Mat image
@@ -61,14 +64,15 @@ public class CentralControl extends JFrame {
 		chooser.setCurrentDirectory(new File("."));
 		JMenuBar menubar = new JMenuBar();
 		jFrame.setJMenuBar(menubar);
-		JMenu menu = new JMenu("File");
+		JMenu menu = new JMenu("Main");
 		menubar.add(menu);
-		JMenuItem openItem = new JMenuItem("Open");
+		JMenuItem openItem = new JMenuItem("Select Monitoring Path");
 		menu.add(openItem);
-		JMenuItem exitItem = new JMenuItem("Close");
+		JMenuItem exitItem = new JMenuItem("Exit");
 		menu.add(exitItem);
-		openItem.addActionListener(new ActionListener() {
-
+		
+		ActionListener act = new ActionListener() {
+			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
@@ -91,7 +95,9 @@ public class CentralControl extends JFrame {
 					}
 				}
 			}
-		});
+		};
+		
+		openItem.addActionListener(act);
 		exitItem.addActionListener(new ActionListener() {
 
 			@Override
@@ -111,7 +117,7 @@ public class CentralControl extends JFrame {
 		jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		Image loadedImage = Mat2BufferedImage.mat2BI(image);
 		imageView.setIcon(new ImageIcon(loadedImage));
-
+		
 		JPanel jp1 = new JPanel();
 		jp1.setOpaque(false);
 
@@ -137,6 +143,35 @@ public class CentralControl extends JFrame {
 		jp1.add(productName);
 		jp1.add(productName_manual);
 
+		// 开关按钮
+		JButton select = new JButton("Select");
+		JButton start = new JButton("Start");
+		JButton stop = new JButton("Stop");
+		
+		select.addActionListener(act);
+		
+		start.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO 自动生成的方法存根
+				ok2Proceed = true;
+			}
+		});
+		
+		stop.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO 自动生成的方法存根
+				ifStop = true;
+			}
+		});
+		
+		jp1.add(select);
+		jp1.add(start);
+		jp1.add(stop);
+		
 		JPanel jp2 = new JPanel();
 		jp2.setOpaque(false);
 		JTextField binThresh = new JTextField("Binarization Threshold");
@@ -144,11 +179,19 @@ public class CentralControl extends JFrame {
 		JTextField ssThresh = new JTextField("SpotSpotter Threshold");
 		spotSpotterThreshold = new JTextField(Integer.toString(CentralControl.ssThresh), 3);
 		JTextField percent = new JTextField("%");
+		JTextField bufferTime = new JTextField("Buffer Time");
+		buffTime_manual = new JTextField(Integer.toString(buffTime), 3);
+		JTextField ms = new JTextField("ms");
 
+		bufferTime.setEnabled(false);
+		ms.setEnabled(false);
 		binThresh.setEnabled(false); // true可以编辑
 		ssThresh.setEnabled(false); // true可以编辑
 		percent.setEnabled(false); // true可以编辑
 
+		jp2.add(bufferTime);
+		jp2.add(buffTime_manual);
+		jp2.add(ms);
 		jp2.add(binThresh);
 		jp2.add(binarizationThreshold);
 		jp2.add(ssThresh);
@@ -156,8 +199,9 @@ public class CentralControl extends JFrame {
 		jp2.add(percent);
 
 		jFrame.add(jp2, BorderLayout.SOUTH, 0);
-		jFrame.add(jp1, BorderLayout.NORTH, 0);
-		jFrame.add(imageScrollPane, BorderLayout.CENTER, -1);
+		jFrame.add(jp1, BorderLayout.CENTER, 0);
+		jFrame.add(imageScrollPane, BorderLayout.NORTH, -1);
+
 		jFrame.pack();
 		// jFrame.setLocationRelativeTo(null);
 		jFrame.setLocation(50, 120);
