@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -31,7 +32,7 @@ public class PythagorasEMail {
 				// System.getProperty("line.separator")
 				// + "SUT " + PythagorasData. + System.getProperty("line.separator")
 				+ "Result: continuously/discontinuously glue spilling" + System.getProperty("line.separator")
-				+ "Glue Spill" + glueSpillRate();
+				+ "Glue Spill Rate: " + glueSpillRate();
 		PrintWriter pfp;
 		try {
 			pfp = new PrintWriter(counterTXT);
@@ -69,14 +70,16 @@ public class PythagorasEMail {
 			}
 
 		}
-		System.out.println(failureCount);
-		System.out.println(rowIndex);
-		return (double)failureCount/(rowIndex-1);
+//		System.out.println(failureCount);
+//		System.out.println(rowIndex);
+		BigDecimal bd_rate = new BigDecimal((double)failureCount/(rowIndex-1));
+		double rate = bd_rate.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
+		return rate;
 	}
 
 	public static void main(String[] args) throws IOException {
-//		writeEMail();
-		double i = glueSpillRate();
-		System.out.println(i);
+		writeEMail();
+//		double i = glueSpillRate();
+//		System.out.println(i);
 	}
 }

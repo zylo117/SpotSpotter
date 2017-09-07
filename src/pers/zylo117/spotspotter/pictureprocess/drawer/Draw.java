@@ -38,7 +38,11 @@ public class Draw {
 			Set<Map.Entry<Point, Double>> entryseSet = dataMap.entrySet();
 			for (Map.Entry<Point, Double> entry : entryseSet) {
 				Point p = entry.getKey();
-				int radius = (new Double(radiusRatio * entry.getValue())).intValue();
+				double v = entry.getValue();
+				if(Double.isInfinite(entry.getValue())) {
+					v = 1;
+				}
+				int radius = (new Double(radiusRatio * v)).intValue();
 				Imgproc.circle(input, p, radius, new Scalar(255, 0, 255), size);
 			}
 		}

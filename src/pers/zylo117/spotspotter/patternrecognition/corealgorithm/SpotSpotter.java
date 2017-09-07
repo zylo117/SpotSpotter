@@ -119,7 +119,19 @@ public class SpotSpotter {
 
 				double maxB = GetMaxMinMidAvg.getMaxFromList(list);
 				double minB = GetMaxMinMidAvg.getMinFromList(list);
-				double avgB = (a1 + a2 + a3 + a4 + a5 + a6 + a7 + a8 - maxB - minB) / 6;
+
+				for (int k = 0; k < list.size(); k++) {
+					if (list.get(k) == 0) {
+						list.remove(k);
+					}
+				}
+
+				double sum = 0;
+				for (int l = 0; l < list.size(); l++) {
+					sum += list.get(l);
+				}
+				
+				double avgB = sum / list.size();
 				result = Math.abs(pic.dataSingleChannel[i][j] - avgB) / 256;
 
 				if (result > thresh) {
@@ -133,7 +145,7 @@ public class SpotSpotter {
 			}
 		}
 		System.out.println("Spot Quantity = " + spotQty);
-		
+
 		return spotList;
 	}
 }
