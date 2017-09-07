@@ -9,6 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -78,7 +82,13 @@ public class TextArea {
 		});
 	}
 
-	public static void main(String[] args) {
-		JTextAreaDemo3();
+	public static void main(String[] args) throws IOException {
+//		JTextAreaDemo3();
+//        File f=new File("D:\\out.txt");  
+//        f.createNewFile();  
+//        FileOutputStream fileOutputStream = new FileOutputStream(f);  
+//        PrintStream printStream = new PrintStream(fileOutputStream);  
+//        System.setOut(printStream);  
+//        System.out.println("默认输出到控制台的这一句，输出到了文件 out.txt");  
 	}
 }

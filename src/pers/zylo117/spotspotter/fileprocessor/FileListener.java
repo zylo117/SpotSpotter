@@ -73,10 +73,10 @@ public class FileListener {
 	public static void autoDeepScan(int index) throws IOException, InterruptedException {
 		// 获取文件系统的WatchService对象
 		WatchService watchService = FileSystems.getDefault().newWatchService();
-		Paths.get(PathManagement.monitorPath).register(watchService, StandardWatchEventKinds.ENTRY_CREATE,
+		Paths.get(CentralControl.monitorPath).register(watchService, StandardWatchEventKinds.ENTRY_CREATE,
 				StandardWatchEventKinds.ENTRY_MODIFY, StandardWatchEventKinds.ENTRY_DELETE);
 
-		File file = new File(PathManagement.monitorPath);
+		File file = new File(CentralControl.monitorPath);
 		LinkedList<File> fList = new LinkedList<File>();
 		fList.addLast(file);
 		while (fList.size() > 0) {
