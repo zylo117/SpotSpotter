@@ -123,9 +123,9 @@ public class AlgoList {
 						Point startP = new Point(line.solveX(0), 0);
 						Point endP = new Point(line.solveX(out.height() - 1), out.height() - 1);
 						Draw.line_P2P(out, startP, endP);
-						MatView.showPicOnJFrame(out);
+						CentralControl.showPicOnJFrame(out);
 					} else
-						MatView.showPicOnJFrame(out);
+						CentralControl.showPicOnJFrame(out);
 
 					GrandCounter.plusOne();
 

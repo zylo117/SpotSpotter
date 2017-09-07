@@ -31,12 +31,13 @@ import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
 
 public class CentralControl extends JFrame {
 
+	public static JFrame jFrame;
 	public static JTextField processName_manual, machineNO_manual, productName_manual, binarizationThreshold,
 			spotSpotterThreshold, buffTime_manual;
 	public static String productN = "XX";
 	public static int mcNO = 0, binThresh = 20, ssThresh = 15, buffTime = 20;
 	public static int algoIndex = 2;
-	public static boolean ok2Proceed, ifPause, ifStop = false;
+	public static boolean ok2Proceed, ifPause, ifStop = false, openMonitor = true;
 
 	/**
 	 * Display Mat image
@@ -57,7 +58,7 @@ public class CentralControl extends JFrame {
 			e.printStackTrace();
 		}
 
-		JFrame jFrame = new JFrame(windowName);
+		jFrame = new JFrame(windowName);
 		JLabel imageView = new JLabel();
 
 		JFileChooser chooser = new JFileChooser();
@@ -70,9 +71,9 @@ public class CentralControl extends JFrame {
 		menu.add(openItem);
 		JMenuItem exitItem = new JMenuItem("Exit");
 		menu.add(exitItem);
-		
+
 		ActionListener act = new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
@@ -96,7 +97,7 @@ public class CentralControl extends JFrame {
 				}
 			}
 		};
-		
+
 		openItem.addActionListener(act);
 		exitItem.addActionListener(new ActionListener() {
 
@@ -117,7 +118,7 @@ public class CentralControl extends JFrame {
 		jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		Image loadedImage = Mat2BufferedImage.mat2BI(image);
 		imageView.setIcon(new ImageIcon(loadedImage));
-		
+
 		JPanel jp1 = new JPanel();
 		jp1.setOpaque(false);
 
@@ -147,31 +148,33 @@ public class CentralControl extends JFrame {
 		JButton select = new JButton("Select");
 		JButton start = new JButton("Start");
 		JButton stop = new JButton("Stop");
-		
+
 		select.addActionListener(act);
-		
+
 		start.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO 自动生成的方法存根
 				ok2Proceed = true;
+				System.out.println("Start Monitoring");
 			}
 		});
-		
+
 		stop.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO 自动生成的方法存根
 				ifStop = true;
+				System.out.println("Stop Monitoring");
 			}
 		});
-		
+
 		jp1.add(select);
 		jp1.add(start);
 		jp1.add(stop);
-		
+
 		JPanel jp2 = new JPanel();
 		jp2.setOpaque(false);
 		JTextField binThresh = new JTextField("Binarization Threshold");
@@ -198,9 +201,43 @@ public class CentralControl extends JFrame {
 		jp2.add(spotSpotterThreshold);
 		jp2.add(percent);
 
-		jFrame.add(jp2, BorderLayout.SOUTH, 0);
-		jFrame.add(jp1, BorderLayout.CENTER, 0);
-		jFrame.add(imageScrollPane, BorderLayout.NORTH, -1);
+		JButton monitor = new JButton("Monitor Switch");
+
+		monitor.addActionListener(new ActionListener() {
+			boolean ifMonitorON = true;
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO 自动生成的方法存根
+				if (!ifMonitorON) {
+					openMonitor = false;
+					ifMonitorON = true;
+					jFrame.repaint();
+					jFrame.add(imageViewM, BorderLayout.EAST);
+					jFrame.pack();
+					System.out.println("Turn On Monitor");
+				} else {
+					openMonitor = true;
+					ifMonitorON = false;
+					jFrame.repaint();
+					jFrame.remove(imageViewM);
+					jFrame.pack();
+					System.out.println("Turn Off Monitor");
+				}
+
+			}
+		});
+
+		jp2.add(monitor);
+
+		jFrame.add(jp2, BorderLayout.SOUTH);
+		jFrame.add(jp1, BorderLayout.NORTH);
+		jFrame.add(imageScrollPane, BorderLayout.CENTER);
+
+		// 并排显示监视窗口
+		imageViewM = new JLabel();
+		final JScrollPane imageScrollPaneM = new JScrollPane(imageViewM);
+		jFrame.add(imageViewM, BorderLayout.EAST);
 
 		jFrame.pack();
 		// jFrame.setLocationRelativeTo(null);
@@ -209,4 +246,19 @@ public class CentralControl extends JFrame {
 	}
 
 	public static boolean hasWorkDir = false;
+
+	public static JLabel imageViewM;
+	public static Image loadedImage;
+
+	public static void showPicOnJFrame(Mat image) {
+		if (openMonitor) {
+			jFrame.repaint();
+			loadedImage = Mat2BufferedImage.mat2BI(image);
+			imageViewM.setIcon(new ImageIcon(loadedImage));
+			jFrame.pack();
+			// jF_overall.setLocationRelativeTo(null);
+			// jF_overall.setLocation(650, 120);
+			jFrame.setVisible(true);
+		}
+	}
 }
