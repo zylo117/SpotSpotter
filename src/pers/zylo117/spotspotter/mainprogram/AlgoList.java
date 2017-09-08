@@ -73,7 +73,7 @@ public class AlgoList {
 			CentralControl.productN = CentralControl.productName_manual.getText();
 
 		String input = FileListener.filePath + "\\" + FileListener.fileName;
-//		System.out.println(input);
+		// System.out.println(input);
 		input = URLDecoder.decode(input, "utf-8");
 		// String input =
 		// "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/1.jpg";
@@ -117,15 +117,17 @@ public class AlgoList {
 					// Draw.pointList(out, Pointset.pointConnectivity(spotList), 2, 1);
 					// MatView.imshow(out, "Output");
 
+					CentralControl.showPicOnPre(imgOrigin);
+
 					// 标记回归直线
 					if (pic.failureData.size() > 3) {
 						Line line = Regression.lineFromMapList(pic.failureData);
 						Point startP = new Point(line.solveX(0), 0);
 						Point endP = new Point(line.solveX(out.height() - 1), out.height() - 1);
 						Draw.line_P2P(out, startP, endP);
-						CentralControl.showPicOnJFrame(out);
+						CentralControl.showPicOnPost(out);
 					} else
-						CentralControl.showPicOnJFrame(out);
+						CentralControl.showPicOnPost(out);
 
 					GrandCounter.plusOne();
 
@@ -140,8 +142,9 @@ public class AlgoList {
 						Imgcodecs.imwrite(path + pic.fileNameWOPostfix() + "_NG" + pic.postFixWithDot(), out);
 					} else
 						System.out.println("Test Result: OK");
-					
+
 					PythagorasEMail.writeEMail();
+
 				}
 			}
 		}
