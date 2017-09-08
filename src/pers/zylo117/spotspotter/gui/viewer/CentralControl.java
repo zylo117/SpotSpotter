@@ -2,12 +2,14 @@ package pers.zylo117.spotspotter.gui.viewer;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.ByteArrayOutputStream;
@@ -16,6 +18,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -53,10 +56,11 @@ public class CentralControl extends JFrame {
 
 	public static boolean hasWorkDir = false;
 
-	public static JLabel imageViewM;
+	public static JLabel imageView, imageViewM;
 	public static JPanel logview;
 	public static Image loadedImage;
 	public static String monitorPath;
+	public static Container logContainer;
 	/**
 	 * Display Mat image
 	 *
@@ -78,7 +82,7 @@ public class CentralControl extends JFrame {
 
 		jFrame = new JFrame(windowName);
 //		jFrame.setMaximumSize(new Dimension(1280, 768));
-		JLabel imageView = new JLabel();
+		imageView = new JLabel();
 
 		JFileChooser chooser = new JFileChooser();
 		chooser.setCurrentDirectory(new File("."));
@@ -115,6 +119,8 @@ public class CentralControl extends JFrame {
 						jFrame.repaint();
 					}
 				}
+				ok2Proceed = true;
+				System.out.println("Start Monitoring");
 			}
 		};
 
@@ -128,7 +134,7 @@ public class CentralControl extends JFrame {
 			}
 		});
 
-		final JScrollPane imageScrollPane = new JScrollPane(imageView);
+		final JScrollPane cover = new JScrollPane(imageView);
 		// if (image.width() <= 800 && image.height() <= 600)
 		// imageScrollPane.setPreferredSize(new Dimension(image.width(),
 		// image.height())); // set window size
@@ -138,7 +144,22 @@ public class CentralControl extends JFrame {
 		jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		Image loadedImage = Mat2BufferedImage.mat2BI(image);
 		imageView.setIcon(new ImageIcon(loadedImage));
+		final JScrollPane coverCopy = cover;
 
+		// 监视窗口右边显示Log*************************************		
+		ConsoleTextArea consoleTextArea = null;
+		try {
+			consoleTextArea = new ConsoleTextArea();
+		} catch (IOException e) {
+			System.err.println("Unable to create LoopedStreams：" + e);
+			System.exit(1);
+		}
+		logContainer = jFrame.getContentPane();
+		JScrollPane consolePane = new JScrollPane(consoleTextArea);
+		Rectangle boundsOfCover = imageView.getBounds();
+		consolePane.setBounds(boundsOfCover.x+boundsOfCover.width, boundsOfCover.y, boundsOfCover.width, boundsOfCover.height);
+		logContainer.add(consolePane, BorderLayout.EAST);
+		
 		// Panel1基础信息文本框***********************************
 		JPanel baseInfo = new JPanel();
 		baseInfo.setOpaque(false);
@@ -196,21 +217,11 @@ public class CentralControl extends JFrame {
 		// Panel3开关按钮*******************************************
 		JPanel switchPanel = new JPanel();
 		switchPanel.setOpaque(true);
-		JButton select = new JButton("Select");
+//		JButton select = new JButton("Select");
 		JButton start = new JButton("Start");
 		JButton stop = new JButton("Stop");
 
-		select.addActionListener(act);
-
-		start.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO 自动生成的方法存根
-				ok2Proceed = true;
-				System.out.println("Start Monitoring");
-			}
-		});
+		start.addActionListener(act);
 
 		stop.addActionListener(new ActionListener() {
 
@@ -234,18 +245,21 @@ public class CentralControl extends JFrame {
 					openPicMonitor = false;
 					ifPicMonitorON = true;
 					jFrame.repaint();
-					jFrame.add(imageViewM, BorderLayout.CENTER);
+					jFrame.remove(coverCopy);
+					jFrame.add(cover, BorderLayout.CENTER);
+					
 					jFrame.pack();
 					System.out.println("Turn On Picture Monitor");
 				} else {
 					openPicMonitor = true;
 					ifPicMonitorON = false;
 					jFrame.repaint();
-					jFrame.remove(imageViewM);
+					jFrame.remove(cover);
+					jFrame.add(coverCopy, BorderLayout.CENTER);
+					
 					jFrame.pack();
 					System.out.println("Turn Off Picture Monitor");
 				}
-
 			}
 		});
 		
@@ -260,15 +274,15 @@ public class CentralControl extends JFrame {
 				if (!ifLogMonitorON) {
 					openLogMonitor = false;
 					ifLogMonitorON = true;
-					jFrame.repaint();
-					jFrame.add(logview, BorderLayout.EAST);
+					logContainer.repaint();
+//					logContainer.add(consolePane, BorderLayout.EAST);
 					jFrame.pack();
 					System.out.println("Turn On Log Monitor");
 				} else {
 					openLogMonitor = true;
 					ifLogMonitorON = false;
-					jFrame.repaint();
-					jFrame.remove(logview);
+					logContainer.repaint();
+//					logContainer.remove(consolePane);
 					jFrame.pack();
 					System.out.println("Turn Off Log Monitor");
 				}
@@ -276,7 +290,7 @@ public class CentralControl extends JFrame {
 			}
 		});
 		
-		switchPanel.add(select);
+//		switchPanel.add(select);
 		switchPanel.add(start);
 		switchPanel.add(stop);
 		switchPanel.add(picMonitor);
@@ -296,31 +310,9 @@ public class CentralControl extends JFrame {
 //		overallCtrl.add(currentPath);
 
 		jFrame.add(overallCtrl, BorderLayout.SOUTH);
-		jFrame.add(imageScrollPane, BorderLayout.WEST);
-
-		// 并排显示监视窗口
-		imageViewM = new JLabel();
-		jFrame.add(imageViewM, BorderLayout.CENTER);
+		jFrame.add(cover, BorderLayout.CENTER);
 		
-		
-		// 监视窗口右边显示Log
-
-//		logview = new JPanel();
-//		JScrollPane logPane = printOnLogMonitor();
-//		logPane.setMaximumSize(new Dimension(100, 300));
-//		logview.add(logPane);
-//		logview.setMaximumSize(new Dimension(100, 300));
-//		jFrame.add(logview, BorderLayout.EAST);
-		
-		ConsoleTextArea consoleTextArea = null;
-		try {
-			consoleTextArea = new ConsoleTextArea();
-		} catch (IOException e) {
-			System.err.println("Unable to create LoopedStreams：" + e);
-			System.exit(1);
-		}
-		jFrame.getContentPane().add(new JScrollPane(consoleTextArea), BorderLayout.EAST);
-		
+		// 总窗口设置************************************
 		jFrame.pack();
 		// jFrame.setLocationRelativeTo(null);
 		jFrame.setLocation(20, 20);
@@ -344,7 +336,7 @@ public class CentralControl extends JFrame {
 		if (openPicMonitor) {
 			jFrame.repaint();
 			loadedImage = Mat2BufferedImage.mat2BI(image);
-			imageViewM.setIcon(new ImageIcon(loadedImage));
+			imageView.setIcon(new ImageIcon(loadedImage));
 			if(packcounter == 0)
 				jFrame.pack();
 			packcounter++;

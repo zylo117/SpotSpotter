@@ -1,4 +1,4 @@
-receiptions = "123@abc.com"
+receiptions = "Jiahao.Zhang@o-film.com;Liming.Dong@o-film.com;qing.shuikeyan@o-film.com"
 Subject = "HelloWorld"
 currentpath= createobject("Scripting.FileSystemObject").GetFile(Wscript.ScriptFullName).ParentFolder.Path
 

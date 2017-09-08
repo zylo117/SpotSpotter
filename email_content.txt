@@ -1,4 +1,4 @@
-Date 2017/9/8 10:25:23
-Category XX
+Date 2017/9/8 16:5:49
+Category NH
 Result: continuously/discontinuously glue spilling
-Glue Spill Rate: 0.6%
+Glue Spill Rate: 0.211%
