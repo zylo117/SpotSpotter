@@ -73,7 +73,7 @@ public class AlgoList {
 			CentralControl.productN = CentralControl.productName_manual.getText();
 
 		String input = FileListener.filePath + "\\" + FileListener.fileName;
-		System.out.println(input);
+//		System.out.println(input);
 		input = URLDecoder.decode(input, "utf-8");
 		// String input =
 		// "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/1.jpg";

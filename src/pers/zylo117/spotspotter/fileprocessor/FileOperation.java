@@ -7,7 +7,7 @@ public class FileOperation {
 	public static void createDir(String destDirName) {
 		File dir = new File(destDirName);
 		if (dir.exists()) {// 判断目录是否存在
-			System.out.println("Target dir already existed");
+//			System.out.println("Target dir already existed");
 		}
 		if (!destDirName.endsWith(File.separator)) {// 结尾是否以"/"结束
 			destDirName = destDirName + File.separator;

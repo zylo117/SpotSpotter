@@ -1,4 +1,4 @@
-Date 2017/9/7 19:12:43
+Date 2017/9/8 10:25:23
 Category XX
 Result: continuously/discontinuously glue spilling
-Glue Spill Rate: 0.213%
+Glue Spill Rate: 0.6%

@@ -77,6 +77,7 @@ public class CentralControl extends JFrame {
 		}
 
 		jFrame = new JFrame(windowName);
+//		jFrame.setMaximumSize(new Dimension(1280, 768));
 		JLabel imageView = new JLabel();
 
 		JFileChooser chooser = new JFileChooser();
@@ -299,18 +300,31 @@ public class CentralControl extends JFrame {
 
 		// 并排显示监视窗口
 		imageViewM = new JLabel();
-		final JScrollPane imageScrollPaneM = new JScrollPane(imageViewM);
 		jFrame.add(imageViewM, BorderLayout.CENTER);
-
+		
+		
 		// 监视窗口右边显示Log
-		logview = new JPanel();
-		logview.add(printOnLogMonitor());
-		logview.setMaximumSize(new Dimension(100, 600));
-		jFrame.add(logview, BorderLayout.EAST);
+
+//		logview = new JPanel();
+//		JScrollPane logPane = printOnLogMonitor();
+//		logPane.setMaximumSize(new Dimension(100, 300));
+//		logview.add(logPane);
+//		logview.setMaximumSize(new Dimension(100, 300));
+//		jFrame.add(logview, BorderLayout.EAST);
+		
+		ConsoleTextArea consoleTextArea = null;
+		try {
+			consoleTextArea = new ConsoleTextArea();
+		} catch (IOException e) {
+			System.err.println("Unable to create LoopedStreams：" + e);
+			System.exit(1);
+		}
+		jFrame.getContentPane().add(new JScrollPane(consoleTextArea), BorderLayout.EAST);
 		
 		jFrame.pack();
 		// jFrame.setLocationRelativeTo(null);
-		jFrame.setLocation(50, 50);
+		jFrame.setLocation(20, 20);
+//		jFrame.setBounds(50, 50, 1280, 768);
 		jFrame.setVisible(true);
 	}
 
@@ -325,12 +339,15 @@ public class CentralControl extends JFrame {
 		return new JScrollPane(consoleTextArea);
 	}
 	
+	static int packcounter = 0;
 	public static void showPicOnJFrame(Mat image) {
 		if (openPicMonitor) {
 			jFrame.repaint();
 			loadedImage = Mat2BufferedImage.mat2BI(image);
 			imageViewM.setIcon(new ImageIcon(loadedImage));
-			jFrame.pack();
+			if(packcounter == 0)
+				jFrame.pack();
+			packcounter++;
 			// jF_overall.setLocationRelativeTo(null);
 			// jF_overall.setLocation(650, 120);
 			jFrame.setVisible(true);
