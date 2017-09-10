@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URLDecoder;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
+import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
@@ -18,6 +19,7 @@ import pers.zylo117.spotspotter.patternrecognition.ROI_Irregular;
 import pers.zylo117.spotspotter.patternrecognition.corealgorithm.SpotSpotter;
 import pers.zylo117.spotspotter.patternrecognition.regiondetector.ProjectPR.ProjectAlgo_Qiu2017;
 import pers.zylo117.spotspotter.pictureprocess.Picture;
+import pers.zylo117.spotspotter.pictureprocess.Resize;
 import pers.zylo117.spotspotter.pictureprocess.drawer.Draw;
 import pers.zylo117.spotspotter.toolbox.Time;
 import pers.zylo117.spotspotter.toolbox.mathBox.Line;
@@ -91,14 +93,24 @@ public class AlgoList {
 				pic.fileParent = FileListener.filePath;
 				pic.filePath = input;
 
+				Mat roi = new Mat();
+				
 				pic.processName = TargetClassifier.getProcessNameFromPic(pic);
 				if (pic.processName.equals("AA")) {
 					// 二值化获得初步ROI
 					ProjectAlgo_Qiu2017.colorProject_Qiu2017(imgOrigin, CentralControl.binThresh);
 
 					// 剔除边缘、角落等的精确ROI
-					Mat roi = ROI_Irregular.irregularQuadrangle_Simplified(imgOrigin, pic.ulP, pic.urP, pic.llP,
+					roi = ROI_Irregular.irregularQuadrangle_Simplified(imgOrigin, pic.ulP, pic.urP, pic.llP,
 							pic.lrP, 3, 3, true, 0.5, 0.45);
+				}
+				else if(pic.processName.equals("GA")) {
+					// 二值化获得初步ROI
+					ProjectAlgo_Qiu2017.colorProject_Qiu2017(imgOrigin, CentralControl.binThresh);
+					// ROI
+					roi = ROI_Irregular.irregularQuadrangle_Simplified(imgOrigin, pic.ulP, pic.urP, pic.llP,
+							pic.lrP, 5, 5, false, 0, 0);
+				}
 					// ROI按区域分级阀值
 					// Mat roi_visiable = ROI_Irregular.irregularQuadrangle_Simplified(imgOrigin,
 					// pic.ulP, pic.urP, pic.llP, pic.lrP, 11, 13, true,
@@ -121,7 +133,9 @@ public class AlgoList {
 					// Draw.pointList(out, Pointset.pointConnectivity(spotList), 2, 1);
 					// MatView.imshow(out, "Output");
 
-					CentralControl.showPicOnPre(imgOrigin);
+					// 压缩并显示
+					Mat imgOriginClone = Resize.tillFit(imgOrigin, 512, 512);
+					CentralControl.showPicOnPre(imgOriginClone);
 
 					// 画出ROI
 					Draw.line_P2P(out, pic.ulP, pic.llP);
@@ -139,10 +153,12 @@ public class AlgoList {
 						Point endP = new Point(line.solveX(out.height() - 1), out.height() - 1);
 						Draw.line_P2P(out, startP, endP);
 						pic.material = "Glue";
-						CentralControl.showPicOnPost(out);
+						Mat outClone = Resize.tillFit(out, 512, 512);
+						CentralControl.showPicOnPost(outClone);
 					} else {
 						pic.material = "Dust";
-						CentralControl.showPicOnPost(out);
+						Mat outClone = Resize.tillFit(out, 512, 512);
+						CentralControl.showPicOnPost(outClone);
 					}
 
 					GrandCounter.plusOne();
@@ -162,7 +178,7 @@ public class AlgoList {
 
 					PythagorasEMail.writeEMail();
 
-				}
+				
 			}
 		}
 	}

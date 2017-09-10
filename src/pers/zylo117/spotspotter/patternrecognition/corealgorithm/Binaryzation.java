@@ -112,14 +112,14 @@ public class Binaryzation {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		String input = "D:\\11#SUT 4\\4.jpg";
+		String input = "D:\\11#SUT 4\\5.jpg";
 		String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output2.jpg";
-		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+		System.loadLibrary("opencv_java330_64");
 		Mat in = Imgcodecs.imread(input);
 		if (in.empty()) {
 			throw new Exception("no file");
 		}
-		Mat mask = binaryzation_OpenCV(in, 15);
+		Mat mask = binaryzation_OpenCV(in, 240 * 0.6);
 		MatView.imshow(mask, "mask");
 //		Imgcodecs.imwrite(output, mask);
 	}
