@@ -322,10 +322,14 @@ public class CentralControl extends JFrame {
 
 		// 总窗口设置************************************
 		jFrame.pack();
+		
+//		jFrame.setUndecorated(false);//去掉窗体修饰,包括最大化按钮
+		jFrame.setResizable(false); //禁止改变窗体大小
 		// jFrame.setLocationRelativeTo(null);
 		jFrame.setLocation(20, 20);
 		// jFrame.setBounds(50, 50, 1280, 768);
 		jFrame.setVisible(true);
+
 	}
 
 	public static JScrollPane printOnLogMonitor() {
