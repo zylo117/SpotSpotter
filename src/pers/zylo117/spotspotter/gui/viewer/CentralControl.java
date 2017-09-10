@@ -61,6 +61,7 @@ public class CentralControl extends JFrame {
 	public static Image loadedImage;
 	public static String monitorPath;
 	public static Container logContainer;
+
 	/**
 	 * Display Mat image
 	 *
@@ -81,7 +82,7 @@ public class CentralControl extends JFrame {
 		}
 
 		jFrame = new JFrame(windowName);
-//		jFrame.setMaximumSize(new Dimension(1280, 768));
+		// jFrame.setMaximumSize(new Dimension(1280, 768));
 		imageView = new JLabel();
 
 		JFileChooser chooser = new JFileChooser();
@@ -146,7 +147,7 @@ public class CentralControl extends JFrame {
 		imageView.setIcon(new ImageIcon(loadedImage));
 		final JScrollPane coverCopy = main;
 
-		// 监视窗口右边显示Log*************************************		
+		// 监视窗口右边显示Log*************************************
 		ConsoleTextArea consoleTextArea = null;
 		try {
 			consoleTextArea = new ConsoleTextArea();
@@ -157,9 +158,10 @@ public class CentralControl extends JFrame {
 		logContainer = jFrame.getContentPane();
 		JScrollPane consolePane = new JScrollPane(consoleTextArea);
 		Rectangle boundsOfCover = imageView.getBounds();
-		consolePane.setBounds(boundsOfCover.x+boundsOfCover.width, boundsOfCover.y, boundsOfCover.width, boundsOfCover.height);
+		consolePane.setBounds(boundsOfCover.x + boundsOfCover.width, boundsOfCover.y, boundsOfCover.width,
+				boundsOfCover.height);
 		logContainer.add(consolePane, BorderLayout.EAST);
-		
+
 		// Panel1基础信息文本框***********************************
 		JPanel baseInfo = new JPanel();
 		baseInfo.setOpaque(false);
@@ -186,7 +188,6 @@ public class CentralControl extends JFrame {
 		baseInfo.add(productName);
 		baseInfo.add(productName_manual);
 
-		
 		// Panel2参数文本框***********************************
 		JPanel paraMeter = new JPanel();
 		paraMeter.setOpaque(false);
@@ -198,6 +199,7 @@ public class CentralControl extends JFrame {
 		JTextField bufferTime = new JTextField("BufferTime");
 		buffTime_manual = new JTextField(Integer.toString(buffTime), 3);
 		JTextField ms = new JTextField("ms");
+		JTextField tips = new JTextField("ME: bin-15,ss-10; NH: bin-20, ss-15", 10);
 
 		bufferTime.setEnabled(false);
 		ms.setEnabled(false);
@@ -213,11 +215,12 @@ public class CentralControl extends JFrame {
 		paraMeter.add(ssThresh);
 		paraMeter.add(spotSpotterThreshold);
 		paraMeter.add(percent);
+		paraMeter.add(tips);
 
 		// Panel3开关按钮*******************************************
 		JPanel switchPanel = new JPanel();
 		switchPanel.setOpaque(true);
-//		JButton select = new JButton("Select");
+		// JButton select = new JButton("Select");
 		JButton start = new JButton("Start");
 		JButton stop = new JButton("Stop");
 
@@ -247,7 +250,7 @@ public class CentralControl extends JFrame {
 					jFrame.repaint();
 					jFrame.remove(coverCopy);
 					jFrame.add(main, BorderLayout.CENTER);
-					
+
 					jFrame.pack();
 					System.out.println("Turn On Picture Monitor");
 				} else {
@@ -256,13 +259,13 @@ public class CentralControl extends JFrame {
 					jFrame.repaint();
 					jFrame.remove(main);
 					jFrame.add(coverCopy, BorderLayout.CENTER);
-					
+
 					jFrame.pack();
 					System.out.println("Turn Off Picture Monitor");
 				}
 			}
 		});
-		
+
 		JButton logMonitor = new JButton("Log");
 
 		logMonitor.addActionListener(new ActionListener() {
@@ -275,53 +278,53 @@ public class CentralControl extends JFrame {
 					openLogMonitor = false;
 					ifLogMonitorON = true;
 					logContainer.repaint();
-//					logContainer.add(consolePane, BorderLayout.EAST);
+					// logContainer.add(consolePane, BorderLayout.EAST);
 					jFrame.pack();
 					System.out.println("Turn On Log Monitor");
 				} else {
 					openLogMonitor = true;
 					ifLogMonitorON = false;
 					logContainer.repaint();
-//					logContainer.remove(consolePane);
+					// logContainer.remove(consolePane);
 					jFrame.pack();
 					System.out.println("Turn Off Log Monitor");
 				}
 
 			}
 		});
-		
-//		switchPanel.add(select);
+
+		// switchPanel.add(select);
 		switchPanel.add(start);
 		switchPanel.add(stop);
-		switchPanel.add(picMonitor);
-		switchPanel.add(logMonitor);
-		
-//		// Panel4当前监视路径*******************************************
-//		JPanel currentPath = new JPanel();
-//		currentPath.setOpaque(false);
-//		JTextField path = new JTextField(monitorPath, 80);
-//		currentPath.add(path);
-		
+		// switchPanel.add(picMonitor);
+		// switchPanel.add(logMonitor);
+
+		// // Panel4当前监视路径*******************************************
+		// JPanel currentPath = new JPanel();
+		// currentPath.setOpaque(false);
+		// JTextField path = new JTextField(monitorPath, 80);
+		// currentPath.add(path);
+
 		JPanel overallCtrl = new JPanel();
 		overallCtrl.setLayout(new GridLayout(3, 1));
 		overallCtrl.add(switchPanel);
 		overallCtrl.add(baseInfo);
 		overallCtrl.add(paraMeter);
-//		overallCtrl.add(currentPath);
+		// overallCtrl.add(currentPath);
 
 		// 原图窗口
 		imageViewM = new JLabel();
 		jFrame.add(imageViewM, BorderLayout.CENTER);
-		
+
 		jFrame.add(overallCtrl, BorderLayout.SOUTH);
 		jFrame.add(main, BorderLayout.CENTER);
 		jFrame.add(imageViewM, BorderLayout.WEST);
-		
+
 		// 总窗口设置************************************
 		jFrame.pack();
 		// jFrame.setLocationRelativeTo(null);
 		jFrame.setLocation(20, 20);
-//		jFrame.setBounds(50, 50, 1280, 768);
+		// jFrame.setBounds(50, 50, 1280, 768);
 		jFrame.setVisible(true);
 	}
 
@@ -335,14 +338,15 @@ public class CentralControl extends JFrame {
 		}
 		return new JScrollPane(consoleTextArea);
 	}
-	
+
 	static int packcounter = 0;
+
 	public static void showPicOnPost(Mat image) {
 		if (openPicMonitor) {
 			jFrame.repaint();
 			loadedImage = Mat2BufferedImage.mat2BI(image);
 			imageView.setIcon(new ImageIcon(loadedImage));
-			if(packcounter == 0)
+			if (packcounter == 0)
 				jFrame.pack();
 			packcounter++;
 			// jF_overall.setLocationRelativeTo(null);
@@ -350,13 +354,13 @@ public class CentralControl extends JFrame {
 			jFrame.setVisible(true);
 		}
 	}
-	
+
 	public static void showPicOnPre(Mat image) {
 		if (openPicMonitor) {
 			jFrame.repaint();
 			loadedImage = Mat2BufferedImage.mat2BI(image);
 			imageViewM.setIcon(new ImageIcon(loadedImage));
-			if(packcounter == 0)
+			if (packcounter == 0)
 				jFrame.pack();
 			packcounter++;
 			// jF_overall.setLocationRelativeTo(null);

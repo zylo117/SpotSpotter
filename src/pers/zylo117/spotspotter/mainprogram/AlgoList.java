@@ -5,6 +5,8 @@ import java.net.URLDecoder;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
+
 import pers.zylo117.spotspotter.fileprocessor.FileOperation;
 import pers.zylo117.spotspotter.gui.viewer.CentralControl;
 import pers.zylo117.spotspotter.gui.viewer.MatView;
@@ -19,6 +21,7 @@ import pers.zylo117.spotspotter.pictureprocess.Picture;
 import pers.zylo117.spotspotter.pictureprocess.drawer.Draw;
 import pers.zylo117.spotspotter.toolbox.Time;
 import pers.zylo117.spotspotter.toolbox.mathBox.Line;
+import pers.zylo117.spotspotter.toolbox.mathBox.MathBox;
 import pers.zylo117.spotspotter.toolbox.mathBox.Regression;
 
 public class AlgoList {
@@ -92,6 +95,7 @@ public class AlgoList {
 				if (pic.processName.equals("AA")) {
 					// 二值化获得初步ROI
 					ProjectAlgo_Qiu2017.colorProject_Qiu2017(imgOrigin, CentralControl.binThresh);
+
 					// 剔除边缘、角落等的精确ROI
 					Mat roi = ROI_Irregular.irregularQuadrangle_Simplified(imgOrigin, pic.ulP, pic.urP, pic.llP,
 							pic.lrP, 3, 3, true, 0.5, 0.45);
@@ -119,21 +123,34 @@ public class AlgoList {
 
 					CentralControl.showPicOnPre(imgOrigin);
 
+					// 画出ROI
+					Draw.line_P2P(out, pic.ulP, pic.llP);
+					Draw.line_P2P(out, pic.ulP, pic.urP);
+					Draw.line_P2P(out, pic.urP, pic.lrP);
+					Draw.line_P2P(out, pic.llP, pic.lrP);
+
+					// System.out.print(MathBox.pointDistance(pic.ulP, pic.llP));
+					// System.out.print(MathBox.pointDistance(pic.ulP, pic.urP));
+
 					// 标记回归直线
 					if (pic.failureData.size() > 3) {
 						Line line = Regression.lineFromMapList(pic.failureData);
 						Point startP = new Point(line.solveX(0), 0);
 						Point endP = new Point(line.solveX(out.height() - 1), out.height() - 1);
 						Draw.line_P2P(out, startP, endP);
+						pic.material = "Glue";
 						CentralControl.showPicOnPost(out);
-					} else
+					} else {
+						pic.material = "Dust";
 						CentralControl.showPicOnPost(out);
+					}
 
 					GrandCounter.plusOne();
 
 					PythagorasData.writeNextRow(pic, 0, "A3");
 					if (pic.result().equals("NG")) {
-						System.out.println("NG Pics Output");
+						System.out.println("Test Result: " + pic.material);
+						System.out.println("Outputing NG Pics");
 						Time.getTime();
 						String path = System.getProperty("user.dir") + "\\" + pic.processName + "\\" + Time.year + "\\"
 								+ Time.month + "\\NGPics\\";

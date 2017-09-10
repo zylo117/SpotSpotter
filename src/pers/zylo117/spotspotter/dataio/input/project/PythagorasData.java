@@ -156,7 +156,7 @@ public class PythagorasData {
 		content.add(getProcessDate(pic));
 		content.add(pic.result());
 		if (pic.result().equals("NG")) {
-			content.add("Glue/Dust");
+			content.add(pic.material);
 
 			Map<Point, Double> max = getMax(pic);
 			for (Entry<Point, Double> vo : max.entrySet()) {

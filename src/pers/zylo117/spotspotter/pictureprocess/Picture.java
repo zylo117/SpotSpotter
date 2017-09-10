@@ -27,6 +27,7 @@ public class Picture {
 	public static String processName;
 	public static String productName;
 	public static String MachineName;
+	public static String material;
 	
 	public static List<Map<Point, Double>> failureData;
 

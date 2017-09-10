@@ -28,3 +28,5 @@ hs_err_pid*
 /AA/
 /GA/
 email.vbs
+*.vbs
+email_content.txt
