@@ -199,13 +199,16 @@ public class CentralControl extends JFrame {
 		JTextField bufferTime = new JTextField("BufferTime");
 		buffTime_manual = new JTextField(Integer.toString(buffTime), 3);
 		JTextField ms = new JTextField("ms");
-		JTextField tips = new JTextField("ME: bin-15,ss-10; NH: bin-20, ss-15", 10);
+		JTextField tips = new JTextField("AA: ME: bin-15, ss-10; NH: bin-20, ss-15; GA: bin-240~300, ss-1~10", 80);
 
+		tips.setHorizontalAlignment(JTextField.CENTER);
+		
 		bufferTime.setEnabled(false);
 		ms.setEnabled(false);
 		binThresh.setEnabled(false); // true可以编辑
 		ssThresh.setEnabled(false); // true可以编辑
 		percent.setEnabled(false); // true可以编辑
+		tips.setEnabled(false);
 
 		paraMeter.add(bufferTime);
 		paraMeter.add(buffTime_manual);
@@ -215,7 +218,7 @@ public class CentralControl extends JFrame {
 		paraMeter.add(ssThresh);
 		paraMeter.add(spotSpotterThreshold);
 		paraMeter.add(percent);
-		paraMeter.add(tips);
+//		paraMeter.add(tips);
 
 		// Panel3开关按钮*******************************************
 		JPanel switchPanel = new JPanel();
@@ -306,10 +309,11 @@ public class CentralControl extends JFrame {
 		// currentPath.add(path);
 
 		JPanel overallCtrl = new JPanel();
-		overallCtrl.setLayout(new GridLayout(3, 1));
+		overallCtrl.setLayout(new GridLayout(4, 1));
 		overallCtrl.add(switchPanel);
 		overallCtrl.add(baseInfo);
 		overallCtrl.add(paraMeter);
+		overallCtrl.add(tips);
 		// overallCtrl.add(currentPath);
 
 		// 原图窗口
@@ -326,7 +330,7 @@ public class CentralControl extends JFrame {
 //		jFrame.setUndecorated(false);//去掉窗体修饰,包括最大化按钮
 		jFrame.setResizable(false); //禁止改变窗体大小
 		// jFrame.setLocationRelativeTo(null);
-		jFrame.setLocation(20, 20);
+		jFrame.setLocation(20, 10);
 		// jFrame.setBounds(50, 50, 1280, 768);
 		jFrame.setVisible(true);
 

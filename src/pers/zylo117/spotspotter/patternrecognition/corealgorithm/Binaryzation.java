@@ -119,7 +119,7 @@ public class Binaryzation {
 		if (in.empty()) {
 			throw new Exception("no file");
 		}
-		Mat mask = binaryzation_OpenCV(in, 240 * 0.6);
+		Mat mask = binaryzation_OpenCV(in, 300 * 0.6);
 		MatView.imshow(mask, "mask");
 //		Imgcodecs.imwrite(output, mask);
 	}

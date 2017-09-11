@@ -10,9 +10,9 @@ public class Resize {
 		double newWidth = input.width();
 		double newHeight = input.height();
 		while (newWidth > targetX || newHeight > targetY) {
-			Imgproc.resize(input, inputClone, new Size(newWidth / 2, newHeight / 2));
-			newWidth /= 2;
-			newHeight /= 2;
+			Imgproc.resize(input, inputClone, new Size(newWidth * 0.9, newHeight * 0.9));
+			newWidth *= 0.9;
+			newHeight *= 0.9;
 		}
 		return inputClone;
 	}
