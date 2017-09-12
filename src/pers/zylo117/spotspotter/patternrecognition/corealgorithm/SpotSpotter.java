@@ -126,11 +126,14 @@ public class SpotSpotter {
 					}
 				}
 
+				if(list.size() < 8)
+					continue;
+				
 				double sum = 0;
 				for (int l = 0; l < list.size(); l++) {
 					sum += list.get(l);
 				}
-				
+
 				double avgB = sum / list.size();
 				result = Math.abs(pic.dataSingleChannel[i][j] - avgB) / 256;
 
