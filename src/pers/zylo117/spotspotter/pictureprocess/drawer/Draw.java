@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.poi.ss.formula.ptg.Pxg;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
@@ -30,7 +31,7 @@ public class Draw {
 	}
 
 	// ratio should be over 10
-	public static void pointMapList(Mat input, List<Map<Point, Double>> list, int radiusRatio, int size) {
+	public static void pointMapList(Mat input, List<Map<Point, Double>> list, int radiusRatio, int thickness, int mosaicLength) {
 		for (int i = 0; i < list.size(); i++) {
 			Map dataMap = new HashMap<>();
 			dataMap = list.get(i);
@@ -43,7 +44,7 @@ public class Draw {
 					v = 1;
 				}
 				int radius = (new Double(radiusRatio * v)).intValue();
-				Imgproc.circle(input, p, radius, new Scalar(255, 0, 255), size);
+				Imgproc.circle(input, new Point(p.x * mosaicLength, p.y * mosaicLength), radius, new Scalar(255, 0, 255), thickness);
 			}
 		}
 		System.out.println("Done Drawing");

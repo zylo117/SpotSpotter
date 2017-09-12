@@ -10,6 +10,8 @@ import java.util.Map;
 
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
+import org.opencv.core.Size;
+import org.opencv.imgproc.Imgproc;
 
 import pers.zylo117.spotspotter.gui.viewer.CentralControl;
 import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
@@ -91,10 +93,15 @@ public class SpotSpotter {
 	}
 
 	public static List<Map<Point, Double>> spotList(Mat input, double thresh) {
-		Picture pic = new Picture(input);
 		double result;
 		int spotQty = 0;
 		List<Map<Point, Double>> spotList = new ArrayList<>();
+		
+		// 马赛克化
+		int mosaicLength = CentralControl.mosaicLength;
+		Imgproc.resize(input, input, new Size(input.width() / mosaicLength, input.height() / mosaicLength));
+		Picture pic = new Picture(input);
+		
 		for (int i = 1; i < pic.width - 1; i += 1) {
 			for (int j = 1; j < pic.height - 1; j += 1) {
 
@@ -117,24 +124,24 @@ public class SpotSpotter {
 				list.add(a7);
 				list.add(a8);
 
-				double maxB = GetMaxMinMidAvg.getMaxFromList(list);
-				double minB = GetMaxMinMidAvg.getMinFromList(list);
-
 				for (int k = 0; k < list.size(); k++) {
 					if (list.get(k) == 0) {
 						list.remove(k);
 					}
 				}
 
-				if(list.size() < 8)
+				if (list.size() < 8)
 					continue;
-				
+
 				double sum = 0;
 				for (int l = 0; l < list.size(); l++) {
 					sum += list.get(l);
 				}
 
-				double avgB = sum / list.size();
+				double maxB = GetMaxMinMidAvg.getMaxFromList(list);
+				double minB = GetMaxMinMidAvg.getMinFromList(list);
+
+				double avgB = (sum - maxB - minB) / (list.size() - 2);
 				result = Math.abs(pic.dataSingleChannel[i][j] - avgB) / 256;
 
 				if (result > thresh) {

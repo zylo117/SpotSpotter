@@ -72,12 +72,17 @@ public class AlgoList {
 		// 从主控窗口获取数据
 		if (!CentralControl.machineNO_manual.getText().isEmpty())
 			CentralControl.mcNO = Integer.parseInt(CentralControl.machineNO_manual.getText());
+		if (!CentralControl.productName_manual.getText().isEmpty())
+			CentralControl.productN = CentralControl.productName_manual.getText();
+		
+		if (!CentralControl.buffTime_manual.getText().isEmpty())
+			CentralControl.buffTime = Integer.parseInt(CentralControl.buffTime_manual.getText());
 		if (!CentralControl.binarizationThreshold.getText().isEmpty())
 			CentralControl.binThresh = Integer.parseInt(CentralControl.binarizationThreshold.getText());
 		if (!CentralControl.spotSpotterThreshold.getText().isEmpty())
 			CentralControl.ssThresh = Integer.parseInt(CentralControl.spotSpotterThreshold.getText());
-		if (!CentralControl.productName_manual.getText().isEmpty())
-			CentralControl.productN = CentralControl.productName_manual.getText();
+		if (!CentralControl.mosaicLength_manual.getText().isEmpty())
+			CentralControl.mosaicLength = Integer.parseInt(CentralControl.mosaicLength_manual.getText());
 
 		String input = FileListener.filePath + "\\" + FileListener.fileName;
 		// System.out.println(input);
@@ -125,11 +130,17 @@ public class AlgoList {
 				// 标记并计数Spot
 				Mat out = imgOrigin.clone();
 				pic.failureData = SpotSpotter.spotList(roi, (double) CentralControl.ssThresh / 100);
-				// System.out.println(Pointset.centerPoint(spotList).x+"
+					// System.out.println(Pointset.centerPoint(spotList).x+"
 				// "+Pointset.centerPoint(spotList).y);
 				// System.out.println(Pointset.sigma(spotList).x+"
 				// "+Pointset.sigma(spotList).y);
-				Draw.pointMapList(out, pic.failureData, 10, 1);
+				
+				// 圈出spot
+				if (pic.processName.equals("AA")) {
+					Draw.pointMapList(out, pic.failureData, 10, 1, CentralControl.mosaicLength);
+				} else if (pic.processName.equals("GA")) {
+					Draw.pointMapList(out, pic.failureData, 500, 5, CentralControl.mosaicLength);
+				}
 				// Draw.pointList(out, Pointset.confidenceIntervals(spotList, 1), 1, 1);
 				// Draw.pointList(out, Pointset.pointConnectivity(spotList), 2, 1);
 				// MatView.imshow(out, "Output");
@@ -148,10 +159,10 @@ public class AlgoList {
 				// System.out.print(MathBox.pointDistance(pic.ulP, pic.urP));
 
 				// 标记回归直线
-				if (pic.failureData.size() > 3) {
+				if (pic.processName.equals("AA") && pic.failureData.size() > 3) {
 					Line line = Regression.lineFromMapList(pic.failureData);
-					Point startP = new Point(line.solveX(0), 0);
-					Point endP = new Point(line.solveX(out.height() - 1), out.height() - 1);
+					Point startP = new Point(line.solveX(0) * CentralControl.mosaicLength, 0);
+					Point endP = new Point(line.solveX(out.height() - 1) * CentralControl.mosaicLength, (out.height() - 1) * CentralControl.mosaicLength);
 					Draw.line_P2P(out, startP, endP);
 					pic.material = "Glue";
 					Mat outClone = Resize.tillFit(out, 512, 512);

@@ -48,9 +48,9 @@ public class CentralControl extends JFrame {
 
 	public static JFrame jFrame;
 	public static JTextField processName_manual, machineNO_manual, productName_manual, binarizationThreshold,
-			spotSpotterThreshold, buffTime_manual;
+			spotSpotterThreshold, buffTime_manual, mosaicLength_manual;
 	public static String productN = "XX";
-	public static int mcNO = 0, binThresh = 20, ssThresh = 15, buffTime = 20;
+	public static int mcNO = 0, binThresh = 20, ssThresh = 15, buffTime = 20, mosaicLength = 1;
 	public static int algoIndex = 2;
 	public static boolean ok2Proceed, ifPause, ifStop = false, openPicMonitor = true, openLogMonitor = true;
 
@@ -195,11 +195,13 @@ public class CentralControl extends JFrame {
 		binarizationThreshold = new JTextField(Integer.toString(CentralControl.binThresh), 3);
 		JTextField ssThresh = new JTextField("SpotSpotterThreshold");
 		spotSpotterThreshold = new JTextField(Integer.toString(CentralControl.ssThresh), 3);
+		JTextField mosaicL = new JTextField("ROISize");
+		mosaicLength_manual = new JTextField(Integer.toString(CentralControl.mosaicLength), 3);
 		JTextField percent = new JTextField("%");
 		JTextField bufferTime = new JTextField("BufferTime");
 		buffTime_manual = new JTextField(Integer.toString(buffTime), 3);
 		JTextField ms = new JTextField("ms");
-		JTextField tips = new JTextField("AA: ME: bin-15, ss-10; NH: bin-20, ss-15; GA: bin-240~300, ss-1~10", 80);
+		JTextField tips = new JTextField("AA: ME: bin-15, ss-10, roiSize-1; NH: bin-20, ss-15, roiSize-1; GA: bin-240~300, ss-1~10,roiSize-10", 80);
 
 		tips.setHorizontalAlignment(JTextField.CENTER);
 		
@@ -207,6 +209,7 @@ public class CentralControl extends JFrame {
 		ms.setEnabled(false);
 		binThresh.setEnabled(false); // true可以编辑
 		ssThresh.setEnabled(false); // true可以编辑
+		mosaicL.setEnabled(false);
 		percent.setEnabled(false); // true可以编辑
 		tips.setEnabled(false);
 
@@ -218,6 +221,8 @@ public class CentralControl extends JFrame {
 		paraMeter.add(ssThresh);
 		paraMeter.add(spotSpotterThreshold);
 		paraMeter.add(percent);
+		paraMeter.add(mosaicL);
+		paraMeter.add(mosaicLength_manual);
 //		paraMeter.add(tips);
 
 		// Panel3开关按钮*******************************************
