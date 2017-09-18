@@ -23,13 +23,16 @@ import pers.zylo117.spotspotter.pictureprocess.Picture;
 import pers.zylo117.spotspotter.toolbox.GetMaxMinMidAvg;
 import pers.zylo117.spotspotter.toolbox.Time;
 
-public class PythagorasData {
+public class GA_AA_Data {
 
 	private static List<String> defineHeader() {
 		List<String> header = new ArrayList<>();
 		header.add("NO");
 		header.add("ProcessName");
 		header.add("ProductName");
+		header.add("Lot");
+		header.add("CarrierID");
+		header.add("PocketNO");
 		header.add("TestDate");
 		header.add("MachineNO");
 		header.add("Station");
@@ -51,6 +54,32 @@ public class PythagorasData {
 		int postfixLength = postfix.length();// 得到后缀名长度
 		String targetNameWithputPostfix = targetName.substring(0, targetName.length() - postfixLength - 1);// 得到目标名。去掉了后缀
 		return targetNameWithputPostfix;
+	}
+
+	public static String getLot(Picture pic) {
+		if (pic.processName.equals("GA")) {
+			String lot = pic.fileName.substring(23, 35);
+			return lot;
+		}else {
+			return null;
+		}
+	}
+	
+	public static String getCarrierID(Picture pic) {
+		if (pic.processName.equals("GA")) {
+			String carID = pic.fileName.substring(36, 46);
+			return carID;
+		}else
+			return null;
+	}	
+	
+	public static String getPocketNO(Picture pic) {
+		if (pic.processName.equals("GA")) {
+			String PocketNO = pic.fileName.substring(47, 49);
+			PocketNO = PocketNO.replace("_", "");
+			return PocketNO;
+		}else
+			return null;
 	}
 	
 	public static String getStation(Picture pic) {
@@ -106,9 +135,21 @@ public class PythagorasData {
 	}
 
 	public static String getProcessDate(Picture pic) {
-		String processDate = getYear(pic) + "/" + getMonth(pic) + "/" + getDay(pic) + " " + getHour(pic) + ":"
-				+ getMinute(pic) + ":" + getSecond(pic);
-		return processDate;
+		if (pic.processName.equals("AA")) {
+			String processDate = getYear(pic) + "/" + getMonth(pic) + "/" + getDay(pic) + " " + getHour(pic) + ":"
+					+ getMinute(pic) + ":" + getSecond(pic);
+			return processDate;
+		} else if (pic.processName.equals("GA")) {
+			String year = pic.fileName.substring(0, 4);
+			String month = pic.fileName.substring(4, 6);
+			String day = pic.fileName.substring(6, 8);
+			String hour = pic.fileName.substring(9, 11);
+			String minute = pic.fileName.substring(11, 13);
+			String second = pic.fileName.substring(13, 15);
+			String processDate = year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
+			return processDate;
+		} else
+			return null;
 	}
 
 	public static Map<Point, Double> getMax(Picture pic) {
@@ -150,9 +191,16 @@ public class PythagorasData {
 		content.add(Integer.toString(GrandCounter.totalTestQuantity));
 		content.add(pic.processName);
 		content.add(CentralControl.productN);
+		content.add(getLot(pic));
+		content.add(getCarrierID(pic));
+		content.add(getPocketNO(pic));
 		content.add(getTestDate());
 		content.add(Integer.toString(CentralControl.mcNO));
-		content.add(getStation(pic));
+		if (pic.processName.equals("AA")) {
+			content.add(getStation(pic));
+		}else {
+			content.add(null);
+		}
 		content.add(getProcessDate(pic));
 		content.add(pic.result());
 		if (pic.result().equals("NG")) {
@@ -177,6 +225,7 @@ public class PythagorasData {
 		content.add(Integer.toString(CentralControl.binThresh));
 		content.add(Integer.toString(CentralControl.ssThresh) + "%");
 		
+		// 输出到Excel文件
 		String path = System.getProperty("user.dir");
 		String currrentPath = path + "/" + pic.processName + "/" + Time.year + "/" + Time.month;
 		String finalPath = currrentPath + "/" + Time.day + ".xlsx";

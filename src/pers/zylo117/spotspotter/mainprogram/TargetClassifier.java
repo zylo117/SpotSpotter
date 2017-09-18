@@ -15,9 +15,9 @@ public class TargetClassifier {
 			processName = "GA";
 			break;
 			
-		case "glass":
-			processName = "GA";
-			break;
+//		case "glass":
+//			processName = "GA";
+//			break;
 			
 		default:
 			processName = "Unknown";
@@ -38,9 +38,9 @@ public class TargetClassifier {
 			processName = "GA";
 			break;
 			
-		case "glass":
-			processName = "GA";
-			break;
+//		case "glass":
+//			processName = "GA";
+//			break;
 			
 		default:
 			processName = "Unknown";
@@ -57,13 +57,13 @@ public class TargetClassifier {
 			processName = "AA";
 			break;
 			
-		case "chip":
+		case "Chip":
 			processName = "GA";
 			break;
 			
-		case "glass":
-			processName = "GA";
-			break;
+//		case "glass":
+//			processName = "GA";
+//			break;
 			
 		default:
 			processName = "Unknown";
