@@ -2,6 +2,7 @@ package pers.zylo117.spotspotter.toolbox;
 
 import java.awt.image.BufferedImage;
 import org.opencv.core.Mat;
+import org.opencv.imgcodecs.Imgcodecs;
 
 public class Mat2BufferedImage {
 	public static BufferedImage mat2BI(Mat matrix) {
@@ -31,5 +32,11 @@ public class Mat2BufferedImage {
 		BufferedImage image2 = new BufferedImage(cols, rows, type);
 		image2.getRaster().setDataElements(0, 0, cols, rows, data);
 		return image2;
+	}
+	
+	public static void main(String[] args) {
+		System.loadLibrary("opencv_java330_64");
+		Mat mat = Imgcodecs.imread("Z:\\2017\\09\\19\\20170919_090000514_ALL_T738154GR.01_M441F26952-1_Pkg1_Chip.jpg");
+		BufferedImage bImage = mat2BI(mat);
 	}
 }

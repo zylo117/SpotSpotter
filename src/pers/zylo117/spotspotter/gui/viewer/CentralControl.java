@@ -50,7 +50,7 @@ public class CentralControl extends JFrame {
 	public static JTextField processName_manual, machineNO_manual, productName_manual, binarizationThreshold,
 			spotSpotterThreshold, buffTime_manual, mosaicLength_manual;
 	public static String productN = "XX";
-	public static int mcNO = 0, binThresh = 20, ssThresh = 15, buffTime = 20, mosaicLength = 1;
+	public static int mcNO = 0, binThresh = 20, ssThresh = 15, buffTime = 1000, mosaicLength = 1;
 	public static int algoIndex = 2;
 	public static boolean ok2Proceed, ifPause, ifStop = false, openPicMonitor = true, openLogMonitor = true;
 

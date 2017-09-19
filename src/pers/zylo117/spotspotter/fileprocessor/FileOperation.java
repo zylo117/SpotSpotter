@@ -18,15 +18,17 @@ public class FileOperation {
 	}
 
 
-	public static boolean isFileExists(String path) {
+	public static boolean isFileExists(String path, boolean print) {
 		File file = new File(path);
 		while (true) {
 			if (file.exists()) {
-				System.out.println("File exists, OK 2 Proceed");
+				if(print)
+					System.out.println("File exists, OK 2 Proceed");
 				return true;
 			}
 			else {
-				System.out.println("File doesn't exist, Can not Proceed");
+				if(print)
+					System.out.println("File doesn't exist, Can not Proceed");
 				return false;
 			}
 		}

@@ -14,6 +14,7 @@ import java.util.LinkedList;
 import pers.zylo117.spotspotter.gui.viewer.CentralControl;
 import pers.zylo117.spotspotter.mainprogram.AlgoList;
 import pers.zylo117.spotspotter.mainprogram.PathManagement;
+import pers.zylo117.spotspotter.toolbox.GetPostfix;
 import pers.zylo117.spotspotter.toolbox.Obj2String;
 
 public class FileListener {
@@ -110,27 +111,28 @@ public class FileListener {
 				Object eventkind = event.kind();
 				String eventkindstr = Obj2String.o2s(eventkind);
 
-				if (eventkindstr.equals("ENTRY_CREATE")) {
-					System.out.println(fileName + " Created");
-					System.out.println(key.watchable() + " Modified");
-					Object path = key.watchable();
-					filePath = Obj2String.o2s(path);
-					System.out.println("Ready 2 be analysed");
-
-					switch (index) {
-					case 1:
-						AlgoList.godzilla();
-						break;
-
-					case 2:
-						AlgoList.pythagoras_G();
-						break;
-
-					default:
-						AlgoList.pythagoras_G();
-						break;
+				if(GetPostfix.fromFilename(fileName).equals("jpg")) {				
+					if (eventkindstr.equals("ENTRY_CREATE")) {
+						System.out.println(fileName + " Created");
+						System.out.println(key.watchable() + " Modified");
+						Object path = key.watchable();
+						filePath = Obj2String.o2s(path);
+						System.out.println("Ready 2 be analysed");
+	
+						switch (index) {
+						case 1:
+							AlgoList.godzilla();
+							break;
+	
+						case 2:
+							AlgoList.pythagoras_G();
+							break;
+	
+						default:
+							AlgoList.pythagoras_G();
+							break;
+						}
 					}
-
 				}
 			}
 			// ÷ÿ…ËWatchKey
