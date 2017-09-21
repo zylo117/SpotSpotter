@@ -50,7 +50,7 @@ public class CentralControl extends JFrame {
 	public static JTextField processName_manual, machineNO_manual, productName_manual, binarizationThreshold,
 			spotSpotterThreshold, buffTime_manual, mosaicLength_manual;
 	public static String productN = "XX";
-	public static int mcNO = 0, binThresh = 20, ssThresh = 15, buffTime = 1000, mosaicLength = 1;
+	public static int mcNO = 0, binThresh = 300, ssThresh = 3, buffTime = 100, mosaicLength = 1;
 	public static int algoIndex = 2;
 	public static boolean ok2Proceed, ifPause, ifStop = false, openPicMonitor = true, openLogMonitor = true;
 
@@ -158,7 +158,7 @@ public class CentralControl extends JFrame {
 		logContainer = jFrame.getContentPane();
 		JScrollPane consolePane = new JScrollPane(consoleTextArea);
 		Rectangle boundsOfCover = imageView.getBounds();
-		consolePane.setBounds(boundsOfCover.x + boundsOfCover.width, boundsOfCover.y, boundsOfCover.width,
+		consolePane.setBounds(boundsOfCover.x + boundsOfCover.width/2, boundsOfCover.y, boundsOfCover.width,
 				boundsOfCover.height);
 		logContainer.add(consolePane, BorderLayout.EAST);
 
@@ -201,7 +201,7 @@ public class CentralControl extends JFrame {
 		JTextField bufferTime = new JTextField("BufferTime");
 		buffTime_manual = new JTextField(Integer.toString(buffTime), 3);
 		JTextField ms = new JTextField("ms");
-		JTextField tips = new JTextField("AA: ME: bin-15, ss-10, roiSize-1; NH: bin-20, ss-15, roiSize-1; GA: bin-240~300, ss-1~10,roiSize-10", 80);
+		JTextField tips = new JTextField("AA: ME: bin-15, ss-10, roiSize-1; NH: bin-20, ss-15, roiSize-1; GA: bin-240~300, ss-1~5,roiSize-10", 80);
 
 		tips.setHorizontalAlignment(JTextField.CENTER);
 		

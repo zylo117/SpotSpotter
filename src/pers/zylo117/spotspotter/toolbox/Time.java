@@ -8,6 +8,8 @@ public class Time {
 	public static int year;
 	public static int month;
 	public static int day;
+	public static String strMonth;
+	public static String strDay;
 	public static int hour;
 	public static int minute;
 	public static int second;
@@ -24,6 +26,16 @@ public class Time {
 		second = c1.get(Calendar.SECOND);
 		date_slash = year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
 		date_hyphen = year + "-" + month + "-" + day + " " + hour + "-" + minute + "-" + second;
+	
+		if (month < 10)
+			strMonth = "0" + month;
+		else
+			strMonth = Integer.toString(month);
+		
+		if (day < 10)
+			strDay = "0" + day;
+		else
+			strDay = Integer.toString(day);
 	}
 
 	public static void waitFor(int msec) {

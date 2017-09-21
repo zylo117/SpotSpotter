@@ -1,11 +1,16 @@
 package pers.zylo117.spotspotter.mainprogram;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Scanner;
 
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
+import pers.zylo117.spotspotter.fileprocessor.FIndexReader;
 import pers.zylo117.spotspotter.fileprocessor.FileListener;
 import pers.zylo117.spotspotter.gui.viewer.CentralControl;
 import pers.zylo117.spotspotter.gui.viewer.MatView;
@@ -30,28 +35,40 @@ public class Main {
 
 		// Scanner inputKey = new Scanner(System.in);
 
-		// 询问算法
+		// 欢迎
 		System.out.println("Welcome running Classified Project Argus");
-		// System.out.println("Press Enter to Go Default");
-		// System.out.println("Press 1 to run Plato_G");
-		// System.out.println("Press 2 to run Pythagoras_G");
-
-		// int algoIndex = inputKey.nextInt();
 
 		// 载入主封面和初始化主控窗口
 		Mat cover = Imgcodecs.imread(System.getProperty("user.dir") + "/cover.jpg");
 
-//		MatView.imshow_reDraw(cover, "SpotMonitor");
 		CentralControl.imshow(cover, "SpotSpotter");
 
+		List<String> oldlist = new ArrayList<>();
+		
 		while (true) {
 			Time.waitFor(100);
 			if (CentralControl.hasWorkDir) {
 				if (CentralControl.ok2Proceed) {
-					FileListener.autoDeepScan(CentralControl.algoIndex);
+					oldlist = FIndexReader.getFIndex(CentralControl.monitorPath, false);
+					List<String> newlist = new ArrayList<>();
+					newlist = FIndexReader.getFIndex(CentralControl.monitorPath, true);
+					newlist.removeAll(oldlist);
+					oldlist = newlist;
+					
+					oldlist = FIndexReader.indexProcess(CentralControl.monitorPath, oldlist);
 				}
 			}
 		}
+		
+//		while (true) {
+//			Time.waitFor(100);
+//			if (CentralControl.hasWorkDir) {
+//				if (CentralControl.ok2Proceed) {
+//					FileListener.autoDeepScan(CentralControl.algoIndex);
+//				}
+//			}
+//		}
 		// System.exit(0);
 	}
 }
+	
