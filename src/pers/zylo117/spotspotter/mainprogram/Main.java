@@ -18,12 +18,12 @@ import pers.zylo117.spotspotter.toolbox.Time;
 
 public class Main {
 
-	// Í¼Æ¬IOÂ·¾¶È¥PathManagement¡£javaĞŞ¸Ä
-	// Ê¶±ğ²ÎÊıÇëÈ¥ParameterManagement¡£javaĞŞ¸Ä
+	// å›¾ç‰‡IOè·¯å¾„å»PathManagementã€‚javaä¿®æ”¹
+	// è¯†åˆ«å‚æ•°è¯·å»ParameterManagementã€‚javaä¿®æ”¹
 	public static int algoIndex;
 
 	public static void main(String[] args) throws Exception {
-		// ¸ù¾İÏµÍ³¼Ü¹¹ÔØÈëdll
+		// æ ¹æ®ç³»ç»Ÿæ¶æ„è½½å…¥dll
 		Properties props = System.getProperties();
 		String bits = String.valueOf(props.get("sun.arch.data.model"));
 		System.out.println("System Architecture: " + bits + " bits System");
@@ -35,22 +35,22 @@ public class Main {
 
 		// Scanner inputKey = new Scanner(System.in);
 
-		// »¶Ó­
+		// æ¬¢è¿
 		System.out.println("Welcome running Classified Project Argus");
 
-		// ÔØÈëÖ÷·âÃæºÍ³õÊ¼»¯Ö÷¿Ø´°¿Ú
+		// è½½å…¥ä¸»å°é¢å’Œåˆå§‹åŒ–ä¸»æ§çª—å£
 		Mat cover = Imgcodecs.imread(System.getProperty("user.dir") + "/cover.jpg");
 
 		CentralControl.imshow(cover, "SpotSpotter");
 
-		List<String> oldlist = new ArrayList<>();
+		List<String> oldlist = new ArrayList<String>();
 		
 		while (true) {
 			Time.waitFor(100);
 			if (CentralControl.hasWorkDir) {
 				if (CentralControl.ok2Proceed) {
 					oldlist = FIndexReader.getFIndex(CentralControl.monitorPath, false);
-					List<String> newlist = new ArrayList<>();
+					List<String> newlist = new ArrayList<String>();
 					newlist = FIndexReader.getFIndex(CentralControl.monitorPath, true);
 					newlist.removeAll(oldlist);
 					oldlist = newlist;
