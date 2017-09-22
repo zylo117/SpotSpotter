@@ -50,8 +50,11 @@ public class FIndexReader {
 		}
 		
         String[] indexList = content.split(System.lineSeparator());
-        List<String> list = Arrays.asList(indexList);
-        list.toArray();
+        
+        List<String> list = new ArrayList<String>();
+        for(int i = 0; i<indexList.length;i++) {
+        	list.add(indexList[i]);
+        }
 		return list;
 		
 	}
@@ -127,8 +130,22 @@ public class FIndexReader {
 	
 	public static void main(String[] args) {
 		String path = "\\\\43.98.145.236\\WorkLog\\MTInsp\\Image\\ALL\\GRA-DB01";
-		System.out.println(getFIndex(path, false));
-		getFIndex(path,true);
+//		System.out.println(getFIndex(path, false));
+//		getFIndex(path,true).remove(getFIndex(path, false));
+		List<String> list1 =new ArrayList<>();
+		list1.add("aaaa");
+		list1.add("bbbb");
+		list1.add("cccc");
+
+		List<String> list2 =new ArrayList();
+		list2.add("cccc");
+		list2.add("dddd");
+		list2.add("eeee");
+
+		
+		list1.removeAll(list2);
+		
+		System.out.println(list1);
 //		fIndex(path);
 		
 //        String str ="1001"+"\n"+"1002"+"\n"+"1003"+"\n"+"asdf";

@@ -43,14 +43,14 @@ public class Main {
 
 		CentralControl.imshow(cover, "SpotSpotter");
 
-		List<String> oldlist = new ArrayList<>();
+		List<String> oldlist = new ArrayList<String>();
 		
 		while (true) {
 			Time.waitFor(100);
 			if (CentralControl.hasWorkDir) {
 				if (CentralControl.ok2Proceed) {
 					oldlist = FIndexReader.getFIndex(CentralControl.monitorPath, false);
-					List<String> newlist = new ArrayList<>();
+					List<String> newlist = new ArrayList<String>();
 					newlist = FIndexReader.getFIndex(CentralControl.monitorPath, true);
 					newlist.removeAll(oldlist);
 					oldlist = newlist;
