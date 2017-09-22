@@ -46,7 +46,7 @@ public class Main {
 		List<String> oldlist = new ArrayList<String>();
 		
 		while (true) {
-			Time.waitFor(100);
+			Time.waitFor(10000);
 			if (CentralControl.hasWorkDir) {
 				if (CentralControl.ok2Proceed) {
 					oldlist = FIndexReader.getFIndex(CentralControl.monitorPath, false);
