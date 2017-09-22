@@ -49,13 +49,7 @@ public class Main {
 			Time.waitFor(10000);
 			if (CentralControl.hasWorkDir) {
 				if (CentralControl.ok2Proceed) {
-					oldlist = FIndexReader.getFIndex(CentralControl.monitorPath, false);
-					List<String> newlist = new ArrayList<String>();
-					newlist = FIndexReader.getFIndex(CentralControl.monitorPath, true);
-					newlist.removeAll(oldlist);
-					oldlist = newlist;
-					
-					oldlist = FIndexReader.indexProcess(CentralControl.monitorPath, oldlist);
+					BreakPoint.continuous(oldlist);
 				}
 			}
 		}
