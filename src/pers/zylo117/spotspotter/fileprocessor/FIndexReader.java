@@ -18,18 +18,22 @@ import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
+import pers.zylo117.spotspotter.gui.viewer.CentralControl;
 import pers.zylo117.spotspotter.mainprogram.AlgoList;
 import pers.zylo117.spotspotter.toolbox.Time;
 
 public class FIndexReader {
 	public static List<String> getFIndex(String path, boolean ifNew) {
-		File file = new File(System.getProperty("user.dir") + "/tmpIndex.dat");
+		String oldIndex = System.getProperty("user.dir") + "\\tmpIndex.dat";
+		File file = new File(oldIndex);
 		Time.getTime();
 		String todayFIndex = path + "\\" + Time.year + "\\" + Time.strMonth + "\\" + Time.strDay + "\\" + "findex.dat";
 		File fIndex = new File(todayFIndex);
 		File onLoad;
-		if(!file.exists() || ifNew){	
+		if(!file.exists() || ifNew || FileCreateTime.ifOutOfDate(oldIndex)){	
 			onLoad = fIndex;
+			if(file.exists() && !ifNew )
+				file.delete();
 		}
 		else {
 			onLoad = file;	

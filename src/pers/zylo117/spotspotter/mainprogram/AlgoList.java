@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.Date;
+
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Size;
@@ -217,6 +219,8 @@ public class AlgoList {
 	}
 	
 	public static void panda(String input) {
+		long beginTime = new Date().getTime();
+
 		Time.waitFor(CentralControl.buffTime);
 		while (true) {
 			// 从主控窗口获取数据
@@ -358,6 +362,10 @@ public class AlgoList {
 							System.out.println("Test Result: OK");
 
 						EMailContent.write();
+						
+						long endTime = new Date().getTime();
+						System.out.println("Tact Time:[" + (endTime - beginTime) + "]ms");
+						
 						break;
 					}else
 						break;

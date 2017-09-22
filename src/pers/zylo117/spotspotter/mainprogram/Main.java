@@ -46,7 +46,7 @@ public class Main {
 		List<String> oldlist = new ArrayList<String>();
 		
 		while (true) {
-			Time.waitFor(10000);
+			Time.waitFor(100);
 			if (CentralControl.hasWorkDir) {
 				if (CentralControl.ok2Proceed) {
 					BreakPoint.continuous(oldlist);

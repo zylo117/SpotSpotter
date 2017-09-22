@@ -37,7 +37,7 @@ public class EMailContent {
 		}
 
 		Time.getTime();
-		String str = "Date " + Time.date_slash + System.getProperty("line.separator") + "Category "
+		String str = "Date " + Time.datetime_slash + System.getProperty("line.separator") + "Category "
 				+ CentralControl.productN + System.getProperty("line.separator")
 				// + "AA " + Integer.toString(CentralControl.mcNO) +
 				// System.getProperty("line.separator")

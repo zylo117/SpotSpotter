@@ -89,7 +89,7 @@ public class GA_AA_Data {
 
 	public static String getTestDate() {
 		Time.getTime();
-		return Time.date_slash;
+		return Time.datetime_slash;
 	}
 
 	public static String getDay(Picture pic) {
