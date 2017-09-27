@@ -29,7 +29,7 @@ public class FIndexReader {
 		Time.getTime();
 		String todayFIndex = path + "\\" + Time.year + "\\" + Time.strMonth + "\\" + Time.strDay + "\\" + "findex.dat";
 		File fIndex = new File(todayFIndex);
-		File onLoad;
+		File onLoad = null;
 		if(!file.exists() || ifNew || FileCreateTime.ifOutOfDate(oldIndex)){	
 			onLoad = fIndex;
 			if(file.exists() && !ifNew )
@@ -89,17 +89,20 @@ public class FIndexReader {
 		return newlist;
 	}
 	
-	public static List<String> indexProcess(String path, List<String> list) {
+	public static void indexProcess(String path, List<String> list) {
 		Time.getTime();
 		String todayFIndex = path + Time.year + "\\" + Time.strMonth + "\\" + Time.strDay + "\\";
 		List<String> newlist = new ArrayList<>();
 		for (int i = 0; i < list.size(); i++) {
 			AlgoList.panda(todayFIndex + list.get(i));
+			if (!CentralControl.monitorPath.isEmpty() && !CentralControl.monitorPath.equals(path)) {
+				File file = new File(System.getProperty("user.dir") + "/tmpIndex.dat");
+				file.delete();
+				break;
+			}
 			newlist.add(list.get(i));
 			outputIndex(newlist.get(i));
 		}
-
-		return newlist;
 	}
 
 	public static void outputIndex(String content) {

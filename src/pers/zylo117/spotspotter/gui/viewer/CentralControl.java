@@ -48,9 +48,9 @@ public class CentralControl extends JFrame {
 
 	public static JFrame jFrame;
 	public static JTextField processName_manual, machineNO_manual, productName_manual, binarizationThreshold,
-			spotSpotterThreshold, buffTime_manual, mosaicLength_manual;
+			spotSpotterThreshold, buffTime_manual, mosaicLength_manual, offsetText;
 	public static String productN = "XX";
-	public static int mcNO = 0, binThresh = 300, ssThresh = 3, buffTime = 10, mosaicLength = 1;
+	public static int mcNO = 0, binThresh = 300, ssThresh = 3, buffTime = 10, mosaicLength = 1, offset = 20;
 	public static int algoIndex = 2;
 	public static boolean ok2Proceed, ifPause, ifStop = false, openPicMonitor = true, openLogMonitor = true;
 
@@ -59,7 +59,7 @@ public class CentralControl extends JFrame {
 	public static JLabel imageView, imageViewM;
 	public static JPanel logview;
 	public static Image loadedImage;
-	public static String monitorPath;
+	public static String monitorPath = null;
 	public static Container logContainer;
 
 	/**
@@ -102,6 +102,8 @@ public class CentralControl extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				// 写下你的Action
+				// 只选择目录
+				chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 				int result = chooser.showOpenDialog(null);
 				if (result == JFileChooser.APPROVE_OPTION) {
 					String name = chooser.getSelectedFile().getPath();
@@ -112,8 +114,14 @@ public class CentralControl extends JFrame {
 							|| postFix.equals("tiff") || postFix.equals("JPG")) {
 						System.out.println("Temporarily Run Test On A Picture");
 						imageView.setIcon(new ImageIcon(name));
-					} else {
+					} else if(chooser.getSelectedFile().isFile()){
 						monitorPath = path + "\\";
+						hasWorkDir = true;
+						System.out.println("Monitoring Path Hooked to : " + monitorPath);
+						// System.out.println(hasWorkDir);
+						jFrame.repaint();
+					}else {
+						monitorPath = name + "\\";
 						hasWorkDir = true;
 						System.out.println("Monitoring Path Has Been Changed to : " + monitorPath);
 						// System.out.println(hasWorkDir);
@@ -172,10 +180,13 @@ public class CentralControl extends JFrame {
 		machineNO_manual = new JTextField(Integer.toString(mcNO), 3);
 		JTextField productName = new JTextField("Product");
 		productName_manual = new JTextField(productN, 3);
+		JTextField offsetBox = new JTextField("Offset");
+		offsetText = new JTextField(Integer.toString(offset), 3);
 
 		processName.setEnabled(false); // true可以编辑
 		machineNO.setEnabled(false); // true可以编辑
 		productName.setEnabled(false); // true可以编辑
+		offsetBox.setEnabled(false);
 
 		// jtf4.setFont(new Font("宋体", Font.BOLD | Font.ITALIC, 16)); // 字体，是否加粗、斜体，字号
 		// // 设置文本的水平对齐方式
@@ -187,6 +198,8 @@ public class CentralControl extends JFrame {
 		baseInfo.add(machineNO_manual);
 		baseInfo.add(productName);
 		baseInfo.add(productName_manual);
+		baseInfo.add(offsetBox);
+		baseInfo.add(offsetText);
 
 		// Panel2参数文本框***********************************
 		JPanel paraMeter = new JPanel();

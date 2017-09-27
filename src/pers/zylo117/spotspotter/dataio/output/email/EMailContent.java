@@ -42,9 +42,10 @@ public class EMailContent {
 				// + "AA " + Integer.toString(CentralControl.mcNO) +
 				// System.getProperty("line.separator")
 				// + "SUT " + PythagorasData. + System.getProperty("line.separator")
-				+ "Daily Failure Rate Summary" + System.getProperty("line.separator") + "AA Glue Spill Rate: "
-				+ failureRate("AA") + "%" + System.getProperty("line.separator") + "GA Dust Detect Rate: "
-				+ failureRate("GA") + "%";
+				+ "Daily Failure Rate Summary" + System.getProperty("line.separator")
+//				+ "AA Glue Spill Rate: " + failureRate("AA") + "%" + System.getProperty("line.separator")
+				+ "GA Dust Detect Rate: " + failureRate("GA") + "%";
+		
 		PrintWriter pfp;
 		try {
 			pfp = new PrintWriter(counterTXT);

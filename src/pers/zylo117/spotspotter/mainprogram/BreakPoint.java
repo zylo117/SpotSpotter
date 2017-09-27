@@ -10,9 +10,9 @@ public class BreakPoint {
 	public static void continuous(List<String> oldlist) {
 			oldlist = FIndexReader.getFIndex(CentralControl.monitorPath, false);
 			List<String> newlist = FIndexReader.getFIndex(CentralControl.monitorPath, true);
-			newlist.removeAll(oldlist);
+			newlist.removeAll(oldlist);			
 			if(!newlist.isEmpty())
 				oldlist = newlist;
-			oldlist = FIndexReader.indexProcess(CentralControl.monitorPath, oldlist);
+			FIndexReader.indexProcess(CentralControl.monitorPath, oldlist);
 	}
 }

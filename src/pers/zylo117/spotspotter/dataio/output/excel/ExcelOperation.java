@@ -1,7 +1,11 @@
 package pers.zylo117.spotspotter.dataio.output.excel;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -10,6 +14,9 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import pers.zylo117.spotspotter.pictureprocess.Picture;
+import pers.zylo117.spotspotter.toolbox.Time;
 
 public class ExcelOperation {
 	public static Workbook createWookBook() {
@@ -74,6 +81,43 @@ public class ExcelOperation {
 			row.createCell(i).setCellValue(content.get(i));
 		}
 		return wb;
+	}
+	
+	public static List<String> getTrend(String processName){
+		Time.getTime();
+		String path = System.getProperty("user.dir") + "/" + processName + "/" + Time.year + "/" + Time.month + "/"
+				+ Time.day + ".xlsx";
+		File xlsx = new File(path);
+		int rowIndex = 0;
+		int failureCount = 0;
+		if (xlsx.exists()) {
+			InputStream iStream;
+			Workbook wb;
+
+			try {
+				iStream = new FileInputStream(xlsx);
+
+				wb = new XSSFWorkbook(iStream);
+				rowIndex = ExcelOperation.getEmptyRow(wb, 0, "A1");
+
+				for (int i = 1; i < rowIndex; i++) {
+					Sheet sheet = wb.getSheetAt(0);
+					Row row = sheet.getRow(i);
+					Cell cell = row.getCell(10);
+					if (cell.getStringCellValue().equals("NG")) {
+						failureCount++;
+					}
+				}
+			} catch (IOException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+		}
+		// System.out.println(failureCount);
+		// System.out.println(rowIndex);
+		BigDecimal bd_rate = new BigDecimal((double) failureCount * 100 / (rowIndex - 1));
+		double rate = bd_rate.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
+//		return rate;
 	}
 
 	public static void main(String[] args) {

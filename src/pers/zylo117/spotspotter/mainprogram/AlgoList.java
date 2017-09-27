@@ -220,7 +220,7 @@ public class AlgoList {
 	
 	public static void panda(String input) {
 		long beginTime = new Date().getTime();
-
+		
 		Time.waitFor(CentralControl.buffTime);
 		while (true) {
 			// 从主控窗口获取数据
@@ -237,7 +237,9 @@ public class AlgoList {
 				CentralControl.ssThresh = Integer.parseInt(CentralControl.spotSpotterThreshold.getText());
 			if (!CentralControl.mosaicLength_manual.getText().isEmpty())
 				CentralControl.mosaicLength = Integer.parseInt(CentralControl.mosaicLength_manual.getText());
-
+			if (!CentralControl.offsetText.getText().isEmpty())
+				CentralControl.offset = Integer.parseInt(CentralControl.offsetText.getText());
+			
 //			String input = FileListener.filePath + "\\" + FileListener.fileName;
 
 			try {
@@ -281,7 +283,7 @@ public class AlgoList {
 							ProjectAlgo_Qiu2017.colorProject_Qiu2017(imgOrigin, CentralControl.binThresh);
 							// ROI
 							roi = ROI_Irregular.irregularQuadrangle_Simplified(imgOrigin, pic.ulP, pic.urP, pic.llP,
-									pic.lrP, 10, 10, false, 0, 0);
+									pic.lrP, CentralControl.offset, CentralControl.offset, false, 0, 0);
 						} else {
 //							System.out.println("Type: " + GetPicType.getPicTypeFromPic(pic));
 //							System.out.println("Type doesn't match, skipping");
