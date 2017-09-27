@@ -92,7 +92,7 @@ public class SpotSpotter {
 		System.out.println("");
 	}
 
-	public static List<Map<Point, Double>> spotList(Mat input, double thresh) {
+	public static List<Map<Point, Double>> spotList(Mat input, double thresh, boolean ifPrint) {
 		double result;
 		int spotQty = 0;
 		final List<Map<Point, Double>> spotList = new ArrayList<>();
@@ -154,7 +154,8 @@ public class SpotSpotter {
 				}
 			}
 		}
-		System.out.println("Spot Quantity = " + spotQty);
+		if(ifPrint)
+			System.out.println("Spot Quantity = " + spotQty);
 
 		return spotList;
 	}

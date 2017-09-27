@@ -15,7 +15,7 @@ public class MainLoader {
 
 	// 图片IO路径去PathManagement。java修改
 	// 识别参数请去ParameterManagement。java修改
-//	public static int algoIndex;
+	// public static int algoIndex;
 
 	public static void main(String[] args) throws Exception {
 		// 根据系统架构载入dll
@@ -39,24 +39,24 @@ public class MainLoader {
 		CentralControl.imshow(cover, "SpotSpotter");
 
 		final List<String> oldlist = new ArrayList<String>();
-		
+
 		pilot(oldlist);
-		
-//		while (true) {
-//			Time.waitFor(100);
-//			if (CentralControl.hasWorkDir) {
-//				if (CentralControl.ok2Proceed) {
-//					FileListener.autoDeepScan(CentralControl.algoIndex);
-//				}
-//			}
-//		}
+
+		// while (true) {
+		// Time.waitFor(100);
+		// if (CentralControl.hasWorkDir) {
+		// if (CentralControl.ok2Proceed) {
+		// FileListener.autoDeepScan(CentralControl.algoIndex);
+		// }
+		// }
+		// }
 		// System.exit(0);
 	}
-	
+
 	// Read existed FileIndex
-	
+
 	public static File oldFileIndex, fIndex;
-	
+
 	private static void pilot(List<String> oldlist) {
 		while (true) {
 			Time.waitFor(100);
@@ -64,7 +64,8 @@ public class MainLoader {
 				if (CentralControl.ok2Proceed) {
 					Time.getTime();
 					final String oldIndex = System.getProperty("user.dir") + "\\tmpIndex.dat";
-					final String todayFIndex = CentralControl.monitorPath + "\\" + Time.year + "\\" + Time.strMonth + "\\" + Time.strDay + "\\" + "findex.dat";
+					final String todayFIndex = CentralControl.monitorPath + "\\" + Time.year + "\\" + Time.strMonth
+							+ "\\" + Time.strDay + "\\" + "findex.dat";
 					oldFileIndex = new File(oldIndex);
 					fIndex = new File(todayFIndex);
 					BreakPoint.continuous(oldlist);
@@ -73,4 +74,3 @@ public class MainLoader {
 		}
 	}
 }
-	

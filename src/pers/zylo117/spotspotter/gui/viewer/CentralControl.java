@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -143,19 +144,19 @@ public class CentralControl extends JFrame {
 		final JScrollPane coverCopy = main;
 
 		// 监视窗口右边显示Log*************************************
-//		ConsoleTextArea consoleTextArea = null;
-//		try {
-//			consoleTextArea = new ConsoleTextArea();
-//		} catch (final IOException e) {
-//			System.err.println("Unable to create LoopedStreams：" + e);
-//			System.exit(1);
-//		}
-//		logContainer = jFrame.getContentPane();
-//		final JScrollPane consolePane = new JScrollPane(consoleTextArea);
-//		final Rectangle boundsOfCover = imageView.getBounds();
-//		consolePane.setBounds(boundsOfCover.x + boundsOfCover.width/2, boundsOfCover.y, boundsOfCover.width,
-//				boundsOfCover.height);
-//		logContainer.add(consolePane, BorderLayout.EAST);
+		ConsoleTextArea consoleTextArea = null;
+		try {
+			consoleTextArea = new ConsoleTextArea();
+		} catch (final IOException e) {
+			System.err.println("Unable to create LoopedStreams：" + e);
+			System.exit(1);
+		}
+		logContainer = jFrame.getContentPane();
+		final JScrollPane consolePane = new JScrollPane(consoleTextArea);
+		final Rectangle boundsOfCover = imageView.getBounds();
+		consolePane.setBounds(boundsOfCover.x + boundsOfCover.width/2, boundsOfCover.y, boundsOfCover.width,
+				boundsOfCover.height);
+		logContainer.add(consolePane, BorderLayout.EAST);
 
 		// Panel1基础信息文本框***********************************
 		final JPanel baseInfo = new JPanel();
@@ -323,7 +324,6 @@ public class CentralControl extends JFrame {
 
 		// 原图窗口
 		imageViewM = new JLabel();
-		jFrame.add(imageViewM, BorderLayout.CENTER);
 
 		jFrame.add(overallCtrl, BorderLayout.SOUTH);
 		jFrame.add(main, BorderLayout.CENTER);

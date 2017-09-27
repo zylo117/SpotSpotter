@@ -137,7 +137,7 @@ public class AlgoList {
 
 						// 标记并计数Spot
 						final Mat out = imgOrigin.clone();
-						pic.failureData = SpotSpotter.spotList(roi, (double) CentralControl.ssThresh / 100);
+						pic.failureData = SpotSpotter.spotList(roi, (double) CentralControl.ssThresh / 100, false);
 						// System.out.println(Pointset.centerPoint(spotList).x+"
 						// "+Pointset.centerPoint(spotList).y);
 						// System.out.println(Pointset.sigma(spotList).x+"
@@ -297,7 +297,7 @@ public class AlgoList {
 
 						// 标记并计数Spot
 						final Mat out = imgOrigin.clone();
-						pic.failureData = SpotSpotter.spotList(roi, (double) CentralControl.ssThresh / 100);
+						pic.failureData = SpotSpotter.spotList(roi, (double) CentralControl.ssThresh / 100, false);
 						// System.out.println(Pointset.centerPoint(spotList).x+"
 						// "+Pointset.centerPoint(spotList).y);
 						// System.out.println(Pointset.sigma(spotList).x+"
@@ -315,7 +315,7 @@ public class AlgoList {
 
 						// 压缩并显示
 						final Mat imgOriginClone = Resize.tillFit(imgOrigin, 512, 512);
-						CentralControl.showPicOnPre(imgOriginClone);
+//						CentralControl.showPicOnPre(imgOriginClone);
 
 						// 画出ROI
 						Draw.line_P2P(out, pic.ulP, pic.llP);
