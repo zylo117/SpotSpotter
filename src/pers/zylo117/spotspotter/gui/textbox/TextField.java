@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class TextField {
 	static JFrame jf;
@@ -21,7 +22,7 @@ public class TextField {
 
 		jf = new JFrame("TextField案例");
 
-		Container contentPane = jf.getContentPane();
+		final Container contentPane = jf.getContentPane();
 		contentPane.setLayout(new BorderLayout());
 
 		jp = new JPanel();
@@ -34,7 +35,7 @@ public class TextField {
 		jtf3.setEnabled(false); // true可以编辑
 		jtf4.setFont(new Font("宋体", Font.BOLD | Font.ITALIC, 16)); // 字体，是否加粗、斜体，字号
 		// 设置文本的水平对齐方式
-		jtf4.setHorizontalAlignment(JTextField.CENTER);
+		jtf4.setHorizontalAlignment(SwingConstants.CENTER);
 
 		jp.add(jtf1);
 		jp.add(jtf2);
@@ -47,6 +48,7 @@ public class TextField {
 		jf.setLocation(400, 200);
 		jf.setVisible(true);
 		jf.addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
@@ -55,11 +57,11 @@ public class TextField {
 
 	public static void main(String[] args) {
 		JTextFieldDemo1();
-		JFrame f = new JFrame("Welcome To Earth!");
-		JTextField name = new JTextField(30);
-		JTextField noed = new JTextField("HJW", 10);
-		JLabel nameLab = new JLabel("输入用户姓名:");
-		JLabel noedLab = new JLabel("不可编辑文本 ");
+		final JFrame f = new JFrame("Welcome To Earth!");
+		final JTextField name = new JTextField(30);
+		final JTextField noed = new JTextField("HJW", 10);
+		final JLabel nameLab = new JLabel("输入用户姓名:");
+		final JLabel noedLab = new JLabel("不可编辑文本 ");
 		noed.setEnabled(false);
 		name.setColumns(30);
 		noed.setColumns(30);

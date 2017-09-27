@@ -12,10 +12,10 @@ import javax.imageio.stream.ImageOutputStream;
 public class ImageReader2File {
 
 	public static void IR2F(ImageReader input, String formatname, String output) throws IOException {
-		Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName(formatname);
-		ImageWriter writer = writers.next();
-		File f = new File(output);
-		ImageOutputStream ios = ImageIO.createImageOutputStream(f);
+		final Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName(formatname);
+		final ImageWriter writer = writers.next();
+		final File f = new File(output);
+		final ImageOutputStream ios = ImageIO.createImageOutputStream(f);
 		writer.setOutput(ios);
 	}
 }

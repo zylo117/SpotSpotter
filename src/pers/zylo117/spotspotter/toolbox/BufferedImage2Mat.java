@@ -10,13 +10,13 @@ public class BufferedImage2Mat {
 		Mat out;
 		byte[] data;
 		int r, g, b;
-		int width = in.getWidth();
-		int height = in.getHeight();
+		final int width = in.getWidth();
+		final int height = in.getHeight();
 
 		if (in.getType() == BufferedImage.TYPE_INT_RGB) {
 			out = new Mat(height, width, CvType.CV_8UC3);
 			data = new byte[width * height * (int) out.elemSize()];
-			int[] dataBuff = in.getRGB(0, 0, width, height, null, 0, width);
+			final int[] dataBuff = in.getRGB(0, 0, width, height, null, 0, width);
 			for (int i = 0; i < dataBuff.length; i++) {
 				data[i * 3] = (byte) ((dataBuff[i] >> 16) & 0xFF);
 				data[i * 3 + 1] = (byte) ((dataBuff[i] >> 8) & 0xFF);
@@ -25,7 +25,7 @@ public class BufferedImage2Mat {
 		} else {
 			out = new Mat(height, width, CvType.CV_8UC1);
 			data = new byte[width * height * (int) out.elemSize()];
-			int[] dataBuff = in.getRGB(0, 0, width, height, null, 0, width);
+			final int[] dataBuff = in.getRGB(0, 0, width, height, null, 0, width);
 			for (int i = 0; i < dataBuff.length; i++) {
 				r = (byte) ((dataBuff[i] >> 16) & 0xFF);
 				g = (byte) ((dataBuff[i] >> 8) & 0xFF);

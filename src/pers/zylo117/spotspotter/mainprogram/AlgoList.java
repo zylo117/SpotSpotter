@@ -8,13 +8,9 @@ import java.util.Date;
 
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
-import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
-
 import pers.zylo117.spotspotter.fileprocessor.FileOperation;
 import pers.zylo117.spotspotter.gui.viewer.CentralControl;
-import pers.zylo117.spotspotter.gui.viewer.MatView;
 import pers.zylo117.spotspotter.dataio.input.project.GA_AA_Data;
 import pers.zylo117.spotspotter.dataio.output.email.EMailContent;
 import pers.zylo117.spotspotter.fileprocessor.FileListener;
@@ -30,7 +26,6 @@ import pers.zylo117.spotspotter.toolbox.GetPostfix;
 import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
 import pers.zylo117.spotspotter.toolbox.Time;
 import pers.zylo117.spotspotter.toolbox.mathBox.Line;
-import pers.zylo117.spotspotter.toolbox.mathBox.MathBox;
 import pers.zylo117.spotspotter.toolbox.mathBox.Regression;
 
 public class AlgoList {
@@ -43,9 +38,9 @@ public class AlgoList {
 		}
 
 		String inputimage = PathManagement.inputdir + FileListener.fileName;
-		String rawoutputimage = PathManagement.rawoutputdir + FileListener.fileName;
-		String bipicoutputimage = PathManagement.bipicdir + FileListener.fileName;
-		String finaloutputimage = PathManagement.finaloutputdir + FileListener.fileName;
+		final String rawoutputimage = PathManagement.rawoutputdir + FileListener.fileName;
+		final String bipicoutputimage = PathManagement.bipicdir + FileListener.fileName;
+		final String finaloutputimage = PathManagement.finaloutputdir + FileListener.fileName;
 
 		Parameter.getParameter(inputimage);
 		System.out.println(TargetClassifier.getProcessNameFromPath("Process Name" + inputimage));
@@ -95,14 +90,14 @@ public class AlgoList {
 			System.out.println(input);
 			// String input =
 			// "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/1.jpg";
-			String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output1.jpg";
+			final String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output1.jpg";
 			// System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
 			if (FileOperation.isFileExists(input, false)) {
 				if (FileOperation.isFileNameValid(FileListener.fileName)) {
 					if (GetPostfix.fromFilename(FileListener.fileName).equals("jpg")) {
-						Mat imgOrigin = Imgcodecs.imread(input);
-						Picture pic = new Picture(imgOrigin);
+						final Mat imgOrigin = Imgcodecs.imread(input);
+						final Picture pic = new Picture(imgOrigin);
 						pic.fileName = FileListener.fileName;
 						pic.fileParent = FileListener.filePath;
 						pic.filePath = input;
@@ -140,7 +135,7 @@ public class AlgoList {
 						// MatView.imshow(roi_visiable, "ROI_HL");
 
 						// 标记并计数Spot
-						Mat out = imgOrigin.clone();
+						final Mat out = imgOrigin.clone();
 						pic.failureData = SpotSpotter.spotList(roi, (double) CentralControl.ssThresh / 100);
 						// System.out.println(Pointset.centerPoint(spotList).x+"
 						// "+Pointset.centerPoint(spotList).y);
@@ -158,7 +153,7 @@ public class AlgoList {
 						// MatView.imshow(out, "Output");
 
 						// 压缩并显示
-						Mat imgOriginClone = Resize.tillFit(imgOrigin, 512, 512);
+						final Mat imgOriginClone = Resize.tillFit(imgOrigin, 512, 512);
 						CentralControl.showPicOnPre(imgOriginClone);
 
 						// 画出ROI
@@ -172,17 +167,17 @@ public class AlgoList {
 
 						// 标记回归直线
 						if (pic.processName.equals("AA") && pic.failureData.size() > 3) {
-							Line line = Regression.lineFromMapList(pic.failureData);
-							Point startP = new Point(line.solveX(0) * CentralControl.mosaicLength, 0);
-							Point endP = new Point(line.solveX(out.height() - 1) * CentralControl.mosaicLength,
+							final Line line = Regression.lineFromMapList(pic.failureData);
+							final Point startP = new Point(line.solveX(0) * CentralControl.mosaicLength, 0);
+							final Point endP = new Point(line.solveX(out.height() - 1) * CentralControl.mosaicLength,
 									(out.height() - 1) * CentralControl.mosaicLength);
 							Draw.line_P2P(out, startP, endP);
 							pic.material = "Glue";
-							Mat outClone = Resize.tillFit(out, 512, 512);
+							final Mat outClone = Resize.tillFit(out, 512, 512);
 							CentralControl.showPicOnPost(outClone);
 						} else {
 							pic.material = "Dust";
-							Mat outClone = Resize.tillFit(out, 512, 512);
+							final Mat outClone = Resize.tillFit(out, 512, 512);
 							CentralControl.showPicOnPost(outClone);
 						}
 
@@ -193,7 +188,7 @@ public class AlgoList {
 							System.out.println("Test Result: " + pic.material);
 							System.out.println("Outputing NG Pics");
 							Time.getTime();
-							String path = System.getProperty("user.dir") + "\\" + pic.processName + "\\" + Time.year
+							final String path = System.getProperty("user.dir") + "\\" + pic.processName + "\\" + Time.year
 									+ "\\" + Time.month + "\\NGPics\\";
 							FileOperation.createDir(path);
 							// Imgcodecs.imwrite(path + pic.fileNameWOPostfix() + pic.postFixWithDot(),
@@ -219,7 +214,7 @@ public class AlgoList {
 	}
 	
 	public static void panda(String input) {
-		long beginTime = new Date().getTime();
+		final long beginTime = new Date().getTime();
 		
 		Time.waitFor(CentralControl.buffTime);
 		while (true) {
@@ -244,23 +239,23 @@ public class AlgoList {
 
 			try {
 				input = URLDecoder.decode(input, "utf-8");
-			} catch (UnsupportedEncodingException e) {
+			} catch (final UnsupportedEncodingException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
 			}
 
 			// String input =
 			// "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/1.jpg";
-			String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output1.jpg";
+			final String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output1.jpg";
 			// System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
-			File file = new File(input);
+			final File file = new File(input);
 			
 			if (FileOperation.isFileExists(input, false)) {
 				if (FileOperation.isFileNameValid(file.getName())) {
 					if (GetPostfix.fromFilename(file.getName()).equals("jpg")) {
-						Mat imgOrigin = Imgcodecs.imread(input);
-						Picture pic = new Picture(imgOrigin);
+						final Mat imgOrigin = Imgcodecs.imread(input);
+						final Picture pic = new Picture(imgOrigin);
 						pic.fileName = file.getName();
 						pic.fileParent = file.getParent();
 						pic.filePath = input;
@@ -300,7 +295,7 @@ public class AlgoList {
 						// MatView.imshow(roi_visiable, "ROI_HL");
 
 						// 标记并计数Spot
-						Mat out = imgOrigin.clone();
+						final Mat out = imgOrigin.clone();
 						pic.failureData = SpotSpotter.spotList(roi, (double) CentralControl.ssThresh / 100);
 						// System.out.println(Pointset.centerPoint(spotList).x+"
 						// "+Pointset.centerPoint(spotList).y);
@@ -318,7 +313,7 @@ public class AlgoList {
 						// MatView.imshow(out, "Output");
 
 						// 压缩并显示
-						Mat imgOriginClone = Resize.tillFit(imgOrigin, 512, 512);
+						final Mat imgOriginClone = Resize.tillFit(imgOrigin, 512, 512);
 						CentralControl.showPicOnPre(imgOriginClone);
 
 						// 画出ROI
@@ -332,17 +327,17 @@ public class AlgoList {
 
 						// 标记回归直线
 						if (pic.processName.equals("AA") && pic.failureData.size() > 3) {
-							Line line = Regression.lineFromMapList(pic.failureData);
-							Point startP = new Point(line.solveX(0) * CentralControl.mosaicLength, 0);
-							Point endP = new Point(line.solveX(out.height() - 1) * CentralControl.mosaicLength,
+							final Line line = Regression.lineFromMapList(pic.failureData);
+							final Point startP = new Point(line.solveX(0) * CentralControl.mosaicLength, 0);
+							final Point endP = new Point(line.solveX(out.height() - 1) * CentralControl.mosaicLength,
 									(out.height() - 1) * CentralControl.mosaicLength);
 							Draw.line_P2P(out, startP, endP);
 							pic.material = "Glue";
-							Mat outClone = Resize.tillFit(out, 512, 512);
+							final Mat outClone = Resize.tillFit(out, 512, 512);
 							CentralControl.showPicOnPost(outClone);
 						} else {
 							pic.material = "Dust";
-							Mat outClone = Resize.tillFit(out, 512, 512);
+							final Mat outClone = Resize.tillFit(out, 512, 512);
 							CentralControl.showPicOnPost(outClone);
 						}
 
@@ -353,7 +348,7 @@ public class AlgoList {
 							System.out.println("Test Result: " + pic.material);
 							System.out.println("Outputing NG Pics");
 							Time.getTime();
-							String path = System.getProperty("user.dir") + "\\" + pic.processName + "\\" + Time.year
+							final String path = System.getProperty("user.dir") + "\\" + pic.processName + "\\" + Time.year
 									+ "\\" + Time.month + "\\NGPics\\";
 							FileOperation.createDir(path);
 							BufferedImage2HQ_ImageFile.writeHighQuality(Mat2BufferedImage.mat2BI(imgOrigin),
@@ -365,7 +360,7 @@ public class AlgoList {
 
 						EMailContent.write();
 						
-						long endTime = new Date().getTime();
+						final long endTime = new Date().getTime();
 						System.out.println("Tact Time:[" + (endTime - beginTime) + "]ms");
 						
 						break;

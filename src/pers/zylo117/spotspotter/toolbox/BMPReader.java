@@ -13,14 +13,14 @@ public class BMPReader {
 	public static BufferedImage beBuffered(String input) {
 		BufferedImage tag = null;
 		try {
-			FileInputStream in = new FileInputStream(input);
-			Image TheImage = read(in);
-			int width = TheImage.getWidth(null);
-			int height = TheImage.getHeight(null);
+			final FileInputStream in = new FileInputStream(input);
+			final Image TheImage = read(in);
+			final int width = TheImage.getWidth(null);
+			final int height = TheImage.getHeight(null);
 			tag = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 			tag.getGraphics().drawImage(TheImage, 0, 0, width, height, null);
 
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			System.out.println(e);
 		}
 		return tag;
@@ -55,7 +55,7 @@ public class BMPReader {
 	}
 
 	public static double constructDouble(byte[] in, int offset) {
-		long ret = constructLong(in, offset);
+		final long ret = constructLong(in, offset);
 		return (Double.longBitsToDouble(ret));
 	}
 
@@ -72,10 +72,10 @@ public class BMPReader {
 		// 读取bmp文件头信息
 		public void read(FileInputStream fs) throws IOException {
 			final int bflen = 14;
-			byte bf[] = new byte[bflen];
+			final byte bf[] = new byte[bflen];
 			fs.read(bf, 0, bflen);
 			final int bilen = 40;
-			byte bi[] = new byte[bilen];
+			final byte bi[] = new byte[bilen];
 			fs.read(bi, 0, bilen);
 			iSize = constructInt(bf, 2);
 			ibiSize = constructInt(bi, 2);
@@ -94,7 +94,7 @@ public class BMPReader {
 
 	public static Image read(FileInputStream fs) {
 		try {
-			BitmapHeader bh = new BitmapHeader();
+			final BitmapHeader bh = new BitmapHeader();
 			bh.read(fs);
 			if (bh.iBitcount == 24) {
 				return (readImage24(fs, bh));
@@ -103,7 +103,7 @@ public class BMPReader {
 				return (readImage32(fs, bh));
 			}
 			fs.close();
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			System.out.println(e);
 		}
 		return (null);
@@ -116,9 +116,9 @@ public class BMPReader {
 			bh.iSizeimage = ((((bh.iWidth * bh.iBitcount) + 31) & ~31) >> 3);
 			bh.iSizeimage *= bh.iHeight;
 		}
-		int npad = (bh.iSizeimage / bh.iHeight) - bh.iWidth * 3;
-		int ndata[] = new int[bh.iHeight * bh.iWidth];
-		byte brgb[] = new byte[(bh.iWidth + npad) * 3 * bh.iHeight];
+		final int npad = (bh.iSizeimage / bh.iHeight) - bh.iWidth * 3;
+		final int ndata[] = new int[bh.iHeight * bh.iWidth];
+		final byte brgb[] = new byte[(bh.iWidth + npad) * 3 * bh.iHeight];
 		fs.read(brgb, 0, (bh.iWidth + npad) * 3 * bh.iHeight);
 		int nindex = 0;
 		for (int j = 0; j < bh.iHeight; j++) {
@@ -137,8 +137,8 @@ public class BMPReader {
 	// 32位
 	protected static Image readImage32(FileInputStream fs, BitmapHeader bh) throws IOException {
 		Image image;
-		int ndata[] = new int[bh.iHeight * bh.iWidth];
-		byte brgb[] = new byte[bh.iWidth * 4 * bh.iHeight];
+		final int ndata[] = new int[bh.iHeight * bh.iWidth];
+		final byte brgb[] = new byte[bh.iWidth * 4 * bh.iHeight];
 		fs.read(brgb, 0, bh.iWidth * 4 * bh.iHeight);
 		int nindex = 0;
 		for (int j = 0; j < bh.iHeight; j++) {

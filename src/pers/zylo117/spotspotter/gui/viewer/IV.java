@@ -17,7 +17,7 @@ public class IV {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				JFrame frame = new ImageViewerFrame();
+				final JFrame frame = new ImageViewerFrame();
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setVisible(true);
 			}
@@ -27,8 +27,8 @@ public class IV {
 
 class ImageViewerFrame extends JFrame {
 
-	private JLabel label;
-	private JFileChooser chooser;
+	private final JLabel label;
+	private final JFileChooser chooser;
 	private static final int DEFAULT_WIDTH = 800;
 	private static final int DEFAULT_HEIGHT = 600;
 
@@ -39,22 +39,22 @@ class ImageViewerFrame extends JFrame {
 		add(label);
 		chooser = new JFileChooser();
 		chooser.setCurrentDirectory(new File("."));
-		JMenuBar menubar = new JMenuBar();
+		final JMenuBar menubar = new JMenuBar();
 		setJMenuBar(menubar);
-		JMenu menu = new JMenu("File");
+		final JMenu menu = new JMenu("File");
 		menubar.add(menu);
-		JMenuItem openItem = new JMenuItem("Open");
+		final JMenuItem openItem = new JMenuItem("Open");
 		menu.add(openItem);
-		JMenuItem exitItem = new JMenuItem("Close");
+		final JMenuItem exitItem = new JMenuItem("Close");
 		menu.add(exitItem);
 		openItem.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				int result = chooser.showOpenDialog(null);
+				final int result = chooser.showOpenDialog(null);
 				if (result == JFileChooser.APPROVE_OPTION) {
-					String name = chooser.getSelectedFile().getPath();
+					final String name = chooser.getSelectedFile().getPath();
 					label.setIcon(new ImageIcon(name));
 				}
 			}

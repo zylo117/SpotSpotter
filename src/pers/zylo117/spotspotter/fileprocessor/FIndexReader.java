@@ -2,33 +2,21 @@ package pers.zylo117.spotspotter.fileprocessor;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.opencv.core.Point;
-import org.opencv.core.Scalar;
-import org.opencv.imgproc.Imgproc;
-
 import pers.zylo117.spotspotter.gui.viewer.CentralControl;
 import pers.zylo117.spotspotter.mainprogram.AlgoList;
 import pers.zylo117.spotspotter.toolbox.Time;
 
 public class FIndexReader {
 	public static List<String> getFIndex(String path, boolean ifNew) {
-		String oldIndex = System.getProperty("user.dir") + "\\tmpIndex.dat";
-		File file = new File(oldIndex);
+		final String oldIndex = System.getProperty("user.dir") + "\\tmpIndex.dat";
+		final File file = new File(oldIndex);
 		Time.getTime();
-		String todayFIndex = path + "\\" + Time.year + "\\" + Time.strMonth + "\\" + Time.strDay + "\\" + "findex.dat";
-		File fIndex = new File(todayFIndex);
+		final String todayFIndex = path + "\\" + Time.year + "\\" + Time.strMonth + "\\" + Time.strDay + "\\" + "findex.dat";
+		final File fIndex = new File(todayFIndex);
 		File onLoad = null;
 		if(!file.exists() || ifNew || FileCreateTime.ifOutOfDate(oldIndex)){	
 			onLoad = fIndex;
@@ -41,21 +29,21 @@ public class FIndexReader {
 		String content = "";
 
 		try {
-			FileInputStream in = new FileInputStream(onLoad);
+			final FileInputStream in = new FileInputStream(onLoad);
 			// size 为字串的长度 ，这里一次性读完
-			int size = in.available();
-			byte[] buffer = new byte[size];
+			final int size = in.available();
+			final byte[] buffer = new byte[size];
 			in.read(buffer);
 			in.close();
 			content = new String(buffer, "UTF-8");
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			// TODO Auto-generated catch block
 			return null;
 		}
 		
-        String[] indexList = content.split(System.lineSeparator());
+        final String[] indexList = content.split(System.lineSeparator());
         
-        List<String> list = new ArrayList<String>();
+        final List<String> list = new ArrayList<String>();
         for(int i = 0; i<indexList.length;i++) {
         	list.add(indexList[i]);
         }
@@ -78,9 +66,9 @@ public class FIndexReader {
 	
 	public static List<String> indexProcess(String path) {
 		Time.getTime();
-		String todayFIndex = path + Time.year + "\\" + Time.strMonth + "\\" + Time.strDay + "\\";
-		List<String> list = getFIndex(path, false);
-		List<String> newlist = new ArrayList<>();
+		final String todayFIndex = path + Time.year + "\\" + Time.strMonth + "\\" + Time.strDay + "\\";
+		final List<String> list = getFIndex(path, false);
+		final List<String> newlist = new ArrayList<>();
 		for (int i = 0; i < list.size(); i++) {
 			AlgoList.panda(todayFIndex + list.get(i));
 			newlist.add(list.get(i));
@@ -91,12 +79,12 @@ public class FIndexReader {
 	
 	public static void indexProcess(String path, List<String> list) {
 		Time.getTime();
-		String todayFIndex = path + Time.year + "\\" + Time.strMonth + "\\" + Time.strDay + "\\";
-		List<String> newlist = new ArrayList<>();
+		final String todayFIndex = path + Time.year + "\\" + Time.strMonth + "\\" + Time.strDay + "\\";
+		final List<String> newlist = new ArrayList<>();
 		for (int i = 0; i < list.size(); i++) {
 			AlgoList.panda(todayFIndex + list.get(i));
 			if (!CentralControl.monitorPath.isEmpty() && !CentralControl.monitorPath.equals(path)) {
-				File file = new File(System.getProperty("user.dir") + "/tmpIndex.dat");
+				final File file = new File(System.getProperty("user.dir") + "/tmpIndex.dat");
 				file.delete();
 				break;
 			}
@@ -106,7 +94,7 @@ public class FIndexReader {
 	}
 
 	public static void outputIndex(String content) {
-		File file = new File(System.getProperty("user.dir") + "/tmpIndex.dat");
+		final File file = new File(System.getProperty("user.dir") + "/tmpIndex.dat");
 		try {
 			if (!file.exists())
 				file.createNewFile();
@@ -116,11 +104,11 @@ public class FIndexReader {
 			// 然后可以把一个对象用.toString()方法转换成字符串。
 			// 然后再用.getBytes()转换成字符数组。
 			content += System.lineSeparator();
-			byte[] bytes = content.getBytes();
+			final byte[] bytes = content.getBytes();
 			// 写入文件：
 			fos.write(bytes);
 			fos.close();
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
@@ -136,15 +124,15 @@ public class FIndexReader {
 	}
 	
 	public static void main(String[] args) {
-		String path = "\\\\43.98.145.236\\WorkLog\\MTInsp\\Image\\ALL\\GRA-DB01";
+		final String path = "\\\\43.98.145.236\\WorkLog\\MTInsp\\Image\\ALL\\GRA-DB01";
 //		System.out.println(getFIndex(path, false));
 //		getFIndex(path,true).remove(getFIndex(path, false));
-		List<String> list1 =new ArrayList<>();
+		final List<String> list1 =new ArrayList<>();
 		list1.add("aaaa");
 		list1.add("bbbb");
 		list1.add("cccc");
 
-		List<String> list2 =new ArrayList();
+		final List<String> list2 =new ArrayList();
 		list2.add("cccc");
 		list2.add("dddd");
 		list2.add("eeee");

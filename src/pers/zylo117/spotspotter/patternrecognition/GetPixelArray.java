@@ -39,12 +39,12 @@ public class GetPixelArray {
 	public static void getData(String input, int time, int ROIstart_x, int ROIstart_y, int ROIlength_x,
 			int ROIlength_y) {
 
-		long beginTime = new Date().getTime();
+		final long beginTime = new Date().getTime();
 
 		// 延时缓冲
 		Time.waitFor(time);
 
-		File file = new File(input);
+		final File file = new File(input);
 
 		// 读取图片格式
 		formatname = GetPostfix.fromFilepath(input);
@@ -119,7 +119,7 @@ public class GetPixelArray {
 					System.out.println("Input Image Reading Complete");
 					System.out.println("Raw Image Output Complete");
 
-					long endTime = new Date().getTime();
+					final long endTime = new Date().getTime();
 					System.out.println("Rawimage output Tact Time:[" + (endTime - beginTime) + "]ms");
 					System.out.println("");
 					break;
@@ -127,7 +127,7 @@ public class GetPixelArray {
 
 			}
 
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		}
 
@@ -135,7 +135,7 @@ public class GetPixelArray {
 
 	public static int[][] pixelArray(BufferedImage bimg, boolean ifGray) {
 		data = new int[bimg.getWidth()][bimg.getHeight()];
-		int[][] singleChannel = new int[bimg.getWidth()][bimg.getHeight()];
+		final int[][] singleChannel = new int[bimg.getWidth()][bimg.getHeight()];
 		// 方式一：通过getRGB()方式获得像素矩阵
 		// 此方式为沿Height方向扫描
 		for (int i = 0; i < bimg.getWidth(); i++) {
@@ -155,11 +155,11 @@ public class GetPixelArray {
 	}
 	
 	public static double[][] pixelArray_Gray_Mat(Mat input) {
-		Mat gray = new Mat();
+		final Mat gray = new Mat();
 		Imgproc.cvtColor(input, gray, Imgproc.COLOR_RGB2GRAY);
-		int cols = gray.cols();
-		int rows = gray.rows();
-		double[][] data = new double[cols][rows];
+		final int cols = gray.cols();
+		final int rows = gray.rows();
+		final double[][] data = new double[cols][rows];
 		for (int i = 0; i < cols; i++) {
 			for (int j = 0; j < rows; j++) {
 				double[] temp = new double[gray.channels()];

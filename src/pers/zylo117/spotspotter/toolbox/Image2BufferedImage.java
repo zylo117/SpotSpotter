@@ -26,7 +26,7 @@ public class Image2BufferedImage {
 
 		// 创建一个可以在屏幕上共存的格式的bufferedimage
 		BufferedImage bimage = null;
-		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		try {
 			// 确定新的缓冲图像类型的透明度
 			int transparency = Transparency.OPAQUE;
@@ -35,10 +35,10 @@ public class Image2BufferedImage {
 			// }
 
 			// 创造一个bufferedimage
-			GraphicsDevice gs = ge.getDefaultScreenDevice();
-			GraphicsConfiguration gc = gs.getDefaultConfiguration();
+			final GraphicsDevice gs = ge.getDefaultScreenDevice();
+			final GraphicsConfiguration gc = gs.getDefaultConfiguration();
 			bimage = gc.createCompatibleImage(image.getWidth(null), image.getHeight(null), transparency);
-		} catch (HeadlessException e) {
+		} catch (final HeadlessException e) {
 			// 系统不会有一个屏幕
 		}
 
@@ -53,7 +53,7 @@ public class Image2BufferedImage {
 		}
 
 		// 把图像复制到bufferedimage上
-		Graphics g = bimage.createGraphics();
+		final Graphics g = bimage.createGraphics();
 
 		// 把图像画到bufferedimage上
 		g.drawImage(image, 0, 0, null);

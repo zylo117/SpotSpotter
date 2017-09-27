@@ -6,10 +6,10 @@ import org.opencv.imgcodecs.Imgcodecs;
 
 public class Mat2BufferedImage {
 	public static BufferedImage mat2BI(Mat matrix) {
-		int cols = matrix.cols();
-		int rows = matrix.rows();
-		int elemSize = (int) matrix.elemSize();
-		byte[] data = new byte[cols * rows * elemSize];
+		final int cols = matrix.cols();
+		final int rows = matrix.rows();
+		final int elemSize = (int) matrix.elemSize();
+		final byte[] data = new byte[cols * rows * elemSize];
 		int type;
 		matrix.get(0, 0, data);
 		switch (matrix.channels()) {
@@ -29,14 +29,14 @@ public class Mat2BufferedImage {
 		default:
 			return null;
 		}
-		BufferedImage image2 = new BufferedImage(cols, rows, type);
+		final BufferedImage image2 = new BufferedImage(cols, rows, type);
 		image2.getRaster().setDataElements(0, 0, cols, rows, data);
 		return image2;
 	}
 	
 	public static void main(String[] args) {
 		System.loadLibrary("opencv_java330_64");
-		Mat mat = Imgcodecs.imread("Z:\\2017\\09\\19\\20170919_090000514_ALL_T738154GR.01_M441F26952-1_Pkg1_Chip.jpg");
-		BufferedImage bImage = mat2BI(mat);
+		final Mat mat = Imgcodecs.imread("Z:\\2017\\09\\19\\20170919_090000514_ALL_T738154GR.01_M441F26952-1_Pkg1_Chip.jpg");
+		final BufferedImage bImage = mat2BI(mat);
 	}
 }

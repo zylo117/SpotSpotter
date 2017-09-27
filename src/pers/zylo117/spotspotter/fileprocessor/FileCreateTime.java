@@ -13,12 +13,12 @@ import pers.zylo117.spotspotter.toolbox.Time;
 
 public class FileCreateTime {
 	public static String getCreateTime(String filePath) {
-		String postFix = GetPostfix.fromFilepath(filePath);
+		final String postFix = GetPostfix.fromFilepath(filePath);
 		String strTime = null;
 		try {
-			Process p = Runtime.getRuntime().exec("cmd /C dir " + filePath + "/tc");
-			InputStream is = p.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			final Process p = Runtime.getRuntime().exec("cmd /C dir " + filePath + "/tc");
+			final InputStream is = p.getInputStream();
+			final BufferedReader br = new BufferedReader(new InputStreamReader(is));
 			String line;
 			while ((line = br.readLine()) != null) {
 				if (line.endsWith(postFix)) {
@@ -26,11 +26,11 @@ public class FileCreateTime {
 					break;
 				}
 			}
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		}
 
-		String year = strTime.substring(0, 4);
+		final String year = strTime.substring(0, 4);
 		// System.out.println("创建时间 " + strTime);
 		return strTime;
 		// 输出：创建时间 2009-08-17 10:21
@@ -38,10 +38,10 @@ public class FileCreateTime {
 
 	public static boolean compare_date(String newDate, String oldDate) {
 
-		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		final DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
 		try {
-			Date dt1 = df.parse(newDate);
-			Date dt2 = df.parse(oldDate);
+			final Date dt1 = df.parse(newDate);
+			final Date dt2 = df.parse(oldDate);
 			if (dt1.getTime() > dt2.getTime()) {
 				// System.out.println("dt1 在dt2前");
 				return true;
@@ -51,20 +51,20 @@ public class FileCreateTime {
 			} else {
 				return false;
 			}
-		} catch (Exception exception) {
+		} catch (final Exception exception) {
 			exception.printStackTrace();
 		}
 		return false;
 	}
 
 	public static boolean ifOutOfDate(String filePath) {
-		String oldDate = getCreateTime(filePath);
+		final String oldDate = getCreateTime(filePath);
 		Time.getTime();
-		String newDate = Time.date_slash;
-		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		final String newDate = Time.date_slash;
+		final DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
 		try {
-			Date dt1 = df.parse(newDate);
-			Date dt2 = df.parse(oldDate);
+			final Date dt1 = df.parse(newDate);
+			final Date dt2 = df.parse(oldDate);
 			if (dt1.getTime() > dt2.getTime()) {
 				return true;
 			} else if (dt1.getTime() < dt2.getTime()) {
@@ -72,7 +72,7 @@ public class FileCreateTime {
 			} else {
 				return false;
 			}
-		} catch (Exception exception) {
+		} catch (final Exception exception) {
 			exception.printStackTrace();
 		}
 		return false;

@@ -16,7 +16,7 @@ public class PathManagement {
 	public static String monitorPath;
 
 	public static void definePath() throws IOException {
-		String absClassPath = PathManagement.class.getClass().getResource("/").getPath().substring(1);
+		final String absClassPath = PathManagement.class.getClass().getResource("/").getPath().substring(1);
 		
 		inputdir = absClassPath + "/worklog/input/";
 		finaloutputdir = absClassPath + "/workLog/output/";

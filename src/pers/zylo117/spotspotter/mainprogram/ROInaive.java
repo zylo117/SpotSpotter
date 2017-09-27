@@ -11,30 +11,30 @@ public class ROInaive {
 
 	public static void spitImage(String pic) throws IOException {
 		// 定义路径
-		String originalImg = pic;
+		final String originalImg = pic;
 
-		File file = new File(originalImg);
-		FileInputStream fis = new FileInputStream(file);
-		BufferedImage image = ImageIO.read(fis);
+		final File file = new File(originalImg);
+		final FileInputStream fis = new FileInputStream(file);
+		final BufferedImage image = ImageIO.read(fis);
 
 		// 分割成2*2(180行*288列)
-		int rows = 4;
-		int cols = 4;
-		int chunks = rows * cols;
+		final int rows = 4;
+		final int cols = 4;
+		final int chunks = rows * cols;
 
 		// 计算每个小图的宽度和高度
-		int chunkWidth = image.getWidth() / cols;
-		int chunkHeight = image.getHeight() / rows;
+		final int chunkWidth = image.getWidth() / cols;
+		final int chunkHeight = image.getHeight() / rows;
 
 		int count = 0;
-		BufferedImage imgs[] = new BufferedImage[chunks];
+		final BufferedImage imgs[] = new BufferedImage[chunks];
 		for (int x = 0; x < rows; x++) {
 			for (int y = 0; y < cols; y++) {
 				// 设置小图的大小和类型
 				imgs[count] = new BufferedImage(chunkWidth, chunkHeight, image.getType());
 
 				// 写入图像内容
-				Graphics2D gr = imgs[count++].createGraphics();
+				final Graphics2D gr = imgs[count++].createGraphics();
 				gr.drawImage(image, 0, 0, chunkWidth, chunkHeight, chunkWidth * y, chunkHeight * x,
 						chunkWidth * y + chunkWidth, chunkHeight * x + chunkHeight, null);
 				gr.dispose();

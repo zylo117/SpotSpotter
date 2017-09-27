@@ -11,10 +11,10 @@ import javax.imageio.stream.ImageInputStream;
 public class File2ImageReader {
 	public static ImageReader F2IR(String input) throws IOException {
 
-		File file = new File(input);
+		final File file = new File(input);
 
 		// ∂¡»°Õº∆¨∏Ò Ω
-		String formatname = GetPostfix.fromFilepath(input);
+		final String formatname = GetPostfix.fromFilepath(input);
 		
 		Iterator<ImageReader> readers;
 		ImageReader reader;

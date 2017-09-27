@@ -29,9 +29,9 @@ public final class Comparison {
 		Comparison.ROIlength_x = ROIlength_x;
 		Comparison.ROIlength_y = ROIlength_y;
 		
-		File file = new File(path);
-		Image pic = Toolkit.getDefaultToolkit().getImage(file.getPath());
-		BufferedImage perfectbimg = Image2BufferedImage.toBufferedImage(pic);
+		final File file = new File(path);
+		final Image pic = Toolkit.getDefaultToolkit().getImage(file.getPath());
+		final BufferedImage perfectbimg = Image2BufferedImage.toBufferedImage(pic);
 		perfectdatargb = new int[ROIlength_x][ROIlength_y];
 		perfectdataR = new int[ROIlength_x][ROIlength_y];
 		perfectdataG = new int[ROIlength_x][ROIlength_y];

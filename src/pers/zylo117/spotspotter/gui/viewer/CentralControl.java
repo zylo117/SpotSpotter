@@ -1,24 +1,14 @@
 package pers.zylo117.spotspotter.gui.viewer;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
-
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -29,18 +19,14 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
-import javax.swing.border.Border;
-
 import org.opencv.core.Mat;
 
 import pers.zylo117.spotspotter.gui.textbox.ConsoleTextArea;
-import pers.zylo117.spotspotter.mainprogram.Main;
-import pers.zylo117.spotspotter.mainprogram.PathManagement;
 import pers.zylo117.spotspotter.toolbox.GetPostfix;
 import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
 
@@ -50,7 +36,7 @@ public class CentralControl extends JFrame {
 	public static JTextField processName_manual, machineNO_manual, productName_manual, binarizationThreshold,
 			spotSpotterThreshold, buffTime_manual, mosaicLength_manual, offsetText;
 	public static String productN = "XX";
-	public static int mcNO = 0, binThresh = 300, ssThresh = 3, buffTime = 10, mosaicLength = 1, offset = 20;
+	public static int mcNO = 0, binThresh = 280, ssThresh = 3, buffTime = 10, mosaicLength = 1, offset = 15;
 	public static int algoIndex = 2;
 	public static boolean ok2Proceed, ifPause, ifStop = false, openPicMonitor = true, openLogMonitor = true;
 
@@ -71,13 +57,13 @@ public class CentralControl extends JFrame {
 	public static void imshow(Mat image, String windowName) {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException e) {
+		} catch (final ClassNotFoundException e) {
 			e.printStackTrace();
-		} catch (InstantiationException e) {
+		} catch (final InstantiationException e) {
 			e.printStackTrace();
-		} catch (IllegalAccessException e) {
+		} catch (final IllegalAccessException e) {
 			e.printStackTrace();
-		} catch (UnsupportedLookAndFeelException e) {
+		} catch (final UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
 
@@ -85,18 +71,18 @@ public class CentralControl extends JFrame {
 		// jFrame.setMaximumSize(new Dimension(1280, 768));
 		imageView = new JLabel();
 
-		JFileChooser chooser = new JFileChooser();
+		final JFileChooser chooser = new JFileChooser();
 		chooser.setCurrentDirectory(new File("."));
-		JMenuBar menubar = new JMenuBar();
+		final JMenuBar menubar = new JMenuBar();
 		jFrame.setJMenuBar(menubar);
-		JMenu menu = new JMenu("Main");
+		final JMenu menu = new JMenu("Main");
 		menubar.add(menu);
-		JMenuItem openItem = new JMenuItem("Select Monitoring Path");
+		final JMenuItem openItem = new JMenuItem("Select Monitoring Path");
 		menu.add(openItem);
-		JMenuItem exitItem = new JMenuItem("Exit");
+		final JMenuItem exitItem = new JMenuItem("Exit");
 		menu.add(exitItem);
 
-		ActionListener act = new ActionListener() {
+		final ActionListener act = new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -104,12 +90,12 @@ public class CentralControl extends JFrame {
 				// 写下你的Action
 				// 只选择目录
 				chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-				int result = chooser.showOpenDialog(null);
+				final int result = chooser.showOpenDialog(null);
 				if (result == JFileChooser.APPROVE_OPTION) {
-					String name = chooser.getSelectedFile().getPath();
-					String path = chooser.getSelectedFile().getParent();
+					final String name = chooser.getSelectedFile().getPath();
+					final String path = chooser.getSelectedFile().getParent();
 
-					String postFix = GetPostfix.fromFilename(name);
+					final String postFix = GetPostfix.fromFilename(name);
 					if (postFix.equals("jpg") || postFix.equals("gif") || postFix.equals("bmp") || postFix.equals("png")
 							|| postFix.equals("tiff") || postFix.equals("JPG")) {
 						System.out.println("Temporarily Run Test On A Picture");
@@ -151,7 +137,7 @@ public class CentralControl extends JFrame {
 		// imageScrollPane.setPreferredSize(new Dimension(600, 620));
 
 		jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		Image loadedImage = Mat2BufferedImage.mat2BI(image);
+		final Image loadedImage = Mat2BufferedImage.mat2BI(image);
 		imageView.setIcon(new ImageIcon(loadedImage));
 		final JScrollPane coverCopy = main;
 
@@ -159,28 +145,28 @@ public class CentralControl extends JFrame {
 		ConsoleTextArea consoleTextArea = null;
 		try {
 			consoleTextArea = new ConsoleTextArea();
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			System.err.println("Unable to create LoopedStreams：" + e);
 			System.exit(1);
 		}
 		logContainer = jFrame.getContentPane();
-		JScrollPane consolePane = new JScrollPane(consoleTextArea);
-		Rectangle boundsOfCover = imageView.getBounds();
+		final JScrollPane consolePane = new JScrollPane(consoleTextArea);
+		final Rectangle boundsOfCover = imageView.getBounds();
 		consolePane.setBounds(boundsOfCover.x + boundsOfCover.width/2, boundsOfCover.y, boundsOfCover.width,
 				boundsOfCover.height);
 		logContainer.add(consolePane, BorderLayout.EAST);
 
 		// Panel1基础信息文本框***********************************
-		JPanel baseInfo = new JPanel();
+		final JPanel baseInfo = new JPanel();
 		baseInfo.setOpaque(false);
 
-		JTextField processName = new JTextField("Process");
+		final JTextField processName = new JTextField("Process");
 		processName_manual = new JTextField(3);
-		JTextField machineNO = new JTextField("MachineNO");
+		final JTextField machineNO = new JTextField("MachineNO");
 		machineNO_manual = new JTextField(Integer.toString(mcNO), 3);
-		JTextField productName = new JTextField("Product");
+		final JTextField productName = new JTextField("Product");
 		productName_manual = new JTextField(productN, 3);
-		JTextField offsetBox = new JTextField("Offset");
+		final JTextField offsetBox = new JTextField("Offset");
 		offsetText = new JTextField(Integer.toString(offset), 3);
 
 		processName.setEnabled(false); // true可以编辑
@@ -202,21 +188,21 @@ public class CentralControl extends JFrame {
 		baseInfo.add(offsetText);
 
 		// Panel2参数文本框***********************************
-		JPanel paraMeter = new JPanel();
+		final JPanel paraMeter = new JPanel();
 		paraMeter.setOpaque(false);
-		JTextField binThresh = new JTextField("BinarizationThreshold");
+		final JTextField binThresh = new JTextField("BinarizationThreshold");
 		binarizationThreshold = new JTextField(Integer.toString(CentralControl.binThresh), 3);
-		JTextField ssThresh = new JTextField("SpotSpotterThreshold");
+		final JTextField ssThresh = new JTextField("SpotSpotterThreshold");
 		spotSpotterThreshold = new JTextField(Integer.toString(CentralControl.ssThresh), 3);
-		JTextField mosaicL = new JTextField("ROISize");
+		final JTextField mosaicL = new JTextField("ROISize");
 		mosaicLength_manual = new JTextField(Integer.toString(CentralControl.mosaicLength), 3);
-		JTextField percent = new JTextField("%");
-		JTextField bufferTime = new JTextField("BufferTime");
+		final JTextField percent = new JTextField("%");
+		final JTextField bufferTime = new JTextField("BufferTime");
 		buffTime_manual = new JTextField(Integer.toString(buffTime), 3);
-		JTextField ms = new JTextField("ms");
-		JTextField tips = new JTextField("AA: ME: bin-15, ss-10, roiSize-1; NH: bin-20, ss-15, roiSize-1; GA: bin-240~300, ss-1~5,roiSize-10", 80);
+		final JTextField ms = new JTextField("ms");
+		final JTextField tips = new JTextField("AA: ME: bin-15, ss-10, roiSize-1; NH: bin-20, ss-15, roiSize-1; GA: bin-240~300, ss-1~5,roiSize-10", 80);
 
-		tips.setHorizontalAlignment(JTextField.CENTER);
+		tips.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		bufferTime.setEnabled(false);
 		ms.setEnabled(false);
@@ -239,11 +225,11 @@ public class CentralControl extends JFrame {
 //		paraMeter.add(tips);
 
 		// Panel3开关按钮*******************************************
-		JPanel switchPanel = new JPanel();
+		final JPanel switchPanel = new JPanel();
 		switchPanel.setOpaque(true);
 		// JButton select = new JButton("Select");
-		JButton start = new JButton("Start");
-		JButton stop = new JButton("Stop");
+		final JButton start = new JButton("Start");
+		final JButton stop = new JButton("Stop");
 
 		start.addActionListener(act);
 
@@ -257,7 +243,7 @@ public class CentralControl extends JFrame {
 			}
 		});
 
-		JButton picMonitor = new JButton("Monitor");
+		final JButton picMonitor = new JButton("Monitor");
 
 		picMonitor.addActionListener(new ActionListener() {
 			boolean ifPicMonitorON = true;
@@ -287,7 +273,7 @@ public class CentralControl extends JFrame {
 			}
 		});
 
-		JButton logMonitor = new JButton("Log");
+		final JButton logMonitor = new JButton("Log");
 
 		logMonitor.addActionListener(new ActionListener() {
 			boolean ifLogMonitorON = true;
@@ -326,7 +312,7 @@ public class CentralControl extends JFrame {
 		// JTextField path = new JTextField(monitorPath, 80);
 		// currentPath.add(path);
 
-		JPanel overallCtrl = new JPanel();
+		final JPanel overallCtrl = new JPanel();
 		overallCtrl.setLayout(new GridLayout(4, 1));
 		overallCtrl.add(switchPanel);
 		overallCtrl.add(baseInfo);
@@ -358,7 +344,7 @@ public class CentralControl extends JFrame {
 		ConsoleTextArea consoleTextArea = null;
 		try {
 			consoleTextArea = new ConsoleTextArea();
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			System.err.println("不能创建LoopedStreams：" + e);
 			System.exit(1);
 		}

@@ -26,7 +26,7 @@ import pers.zylo117.spotspotter.toolbox.Time;
 public class GA_AA_Data {
 
 	private static List<String> defineHeader() {
-		List<String> header = new ArrayList<>();
+		final List<String> header = new ArrayList<>();
 		header.add("NO");
 		header.add("ProcessName");
 		header.add("ProductName");
@@ -49,16 +49,16 @@ public class GA_AA_Data {
 	}
 
 	public static String getProcess(Picture pic) {
-		String targetName = pic.fileName.substring(pic.fileName.lastIndexOf("_") + 1);
-		String postfix = pic.fileName.substring(pic.fileName.lastIndexOf(".") + 1);
-		int postfixLength = postfix.length();// 得到后缀名长度
-		String targetNameWithputPostfix = targetName.substring(0, targetName.length() - postfixLength - 1);// 得到目标名。去掉了后缀
+		final String targetName = pic.fileName.substring(pic.fileName.lastIndexOf("_") + 1);
+		final String postfix = pic.fileName.substring(pic.fileName.lastIndexOf(".") + 1);
+		final int postfixLength = postfix.length();// 得到后缀名长度
+		final String targetNameWithputPostfix = targetName.substring(0, targetName.length() - postfixLength - 1);// 得到目标名。去掉了后缀
 		return targetNameWithputPostfix;
 	}
 
 	public static String getLot(Picture pic) {
 		if (pic.processName.equals("GA")) {
-			String lot = pic.fileName.substring(23, 35);
+			final String lot = pic.fileName.substring(23, 35);
 			return lot;
 		}else {
 			return null;
@@ -67,7 +67,7 @@ public class GA_AA_Data {
 	
 	public static String getCarrierID(Picture pic) {
 		if (pic.processName.equals("GA")) {
-			String carID = pic.fileName.substring(36, 46);
+			final String carID = pic.fileName.substring(36, 46);
 			return carID;
 		}else
 			return null;
@@ -83,7 +83,7 @@ public class GA_AA_Data {
 	}
 	
 	public static String getStation(Picture pic) {
-		int length = pic.fileParent.length();
+		final int length = pic.fileParent.length();
 		return pic.fileParent.substring(pic.fileParent.length() - 12, pic.fileParent.length() - 11);
 	}
 
@@ -93,17 +93,17 @@ public class GA_AA_Data {
 	}
 
 	public static String getDay(Picture pic) {
-		int length = pic.fileParent.length();
+		final int length = pic.fileParent.length();
 		return pic.fileParent.substring(pic.fileParent.length() - 2, pic.fileParent.length());
 	}
 
 	public static String getMonth(Picture pic) {
-		int length = pic.fileParent.length();
+		final int length = pic.fileParent.length();
 		return pic.fileParent.substring(pic.fileParent.length() - 5, pic.fileParent.length() - 3);
 	}
 
 	public static String getYear(Picture pic) {
-		int length = pic.fileParent.length();
+		final int length = pic.fileParent.length();
 		return pic.fileParent.substring(pic.fileParent.length() - 10, pic.fileParent.length() - 6);
 	}
 
@@ -136,17 +136,17 @@ public class GA_AA_Data {
 
 	public static String getProcessDate(Picture pic) {
 		if (pic.processName.equals("AA")) {
-			String processDate = getYear(pic) + "/" + getMonth(pic) + "/" + getDay(pic) + " " + getHour(pic) + ":"
+			final String processDate = getYear(pic) + "/" + getMonth(pic) + "/" + getDay(pic) + " " + getHour(pic) + ":"
 					+ getMinute(pic) + ":" + getSecond(pic);
 			return processDate;
 		} else if (pic.processName.equals("GA")) {
-			String year = pic.fileName.substring(0, 4);
-			String month = pic.fileName.substring(4, 6);
-			String day = pic.fileName.substring(6, 8);
-			String hour = pic.fileName.substring(9, 11);
-			String minute = pic.fileName.substring(11, 13);
-			String second = pic.fileName.substring(13, 15);
-			String processDate = year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
+			final String year = pic.fileName.substring(0, 4);
+			final String month = pic.fileName.substring(4, 6);
+			final String day = pic.fileName.substring(6, 8);
+			final String hour = pic.fileName.substring(9, 11);
+			final String minute = pic.fileName.substring(11, 13);
+			final String second = pic.fileName.substring(13, 15);
+			final String processDate = year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
 			return processDate;
 		} else
 			return null;
@@ -155,39 +155,39 @@ public class GA_AA_Data {
 	public static Map<Point, Double> getMax(Picture pic) {
 		if (pic.failureData.isEmpty())
 			return null;
-		List<Map<Point, Double>> maplist = pic.failureData;
-		List<Point> point = new ArrayList<>();
-		List<Double> value = new ArrayList<>();
+		final List<Map<Point, Double>> maplist = pic.failureData;
+		final List<Point> point = new ArrayList<>();
+		final List<Double> value = new ArrayList<>();
 		for (int i = 0; i < maplist.size(); i++) {
 			Map dataMap = new HashMap<>();
 			dataMap = maplist.get(i);
-			Set<Map.Entry<Point, Double>> entryseSet = dataMap.entrySet();
-			for (Map.Entry<Point, Double> entry : entryseSet) {
-				Point p = entry.getKey();
-				double v = entry.getValue();
+			final Set<Map.Entry<Point, Double>> entryseSet = dataMap.entrySet();
+			for (final Map.Entry<Point, Double> entry : entryseSet) {
+				final Point p = entry.getKey();
+				final double v = entry.getValue();
 				point.add(p);
 				value.add(v);
 			}
 		}
-		double max = GetMaxMinMidAvg.getMaxFromList(value);
-		int maxIndex = value.indexOf(max);
-		Map<Point, Double> maxMap = new HashMap<>();
+		final double max = GetMaxMinMidAvg.getMaxFromList(value);
+		final int maxIndex = value.indexOf(max);
+		final Map<Point, Double> maxMap = new HashMap<>();
 		maxMap.put(point.get(maxIndex), value.get(maxIndex));
 
 		return maxMap;
 	}
 
 	public static void writeHeader(Picture pic) {
-		List<String> header = defineHeader();
-		String path = System.getProperty("user.dir");
-		String currrentPath = path + "/" + pic.processName + "/" + Time.year + "/" + Time.month;
+		final List<String> header = defineHeader();
+		final String path = System.getProperty("user.dir");
+		final String currrentPath = path + "/" + pic.processName + "/" + Time.year + "/" + Time.month;
 
-		Workbook wb = ExcelOperation.writeOneRow(ExcelOperation.createWookBook(), 0, 0, header);
+		final Workbook wb = ExcelOperation.writeOneRow(ExcelOperation.createWookBook(), 0, 0, header);
 		ExcelOperation.writeExcel2File(wb, currrentPath + "/" + Time.day + ".xlsx");
 	}
 
 	public static void writeNextRow(Picture pic, int sheetIndex, String cellRef) {
-		List<String> content = new ArrayList<>();
+		final List<String> content = new ArrayList<>();
 		content.add(Integer.toString(GrandCounter.totalTestQuantity));
 		content.add(pic.processName);
 		content.add(CentralControl.productN);
@@ -206,10 +206,10 @@ public class GA_AA_Data {
 		if (pic.result().equals("NG")) {
 			content.add(pic.material);
 
-			Map<Point, Double> max = getMax(pic);
-			for (Entry<Point, Double> vo : max.entrySet()) {
-				Point p = vo.getKey();
-				double value = vo.getValue();
+			final Map<Point, Double> max = getMax(pic);
+			for (final Entry<Point, Double> vo : max.entrySet()) {
+				final Point p = vo.getKey();
+				final double value = vo.getValue();
 
 				content.add(Double.toString(p.x));
 				content.add(Double.toString(p.y));
@@ -226,11 +226,11 @@ public class GA_AA_Data {
 		content.add(Integer.toString(CentralControl.ssThresh) + "%");
 		
 		// 输出到Excel文件
-		String path = System.getProperty("user.dir");
-		String currrentPath = path + "/" + pic.processName + "/" + Time.year + "/" + Time.month;
-		String finalPath = currrentPath + "/" + Time.day + ".xlsx";
+		final String path = System.getProperty("user.dir");
+		final String currrentPath = path + "/" + pic.processName + "/" + Time.year + "/" + Time.month;
+		final String finalPath = currrentPath + "/" + Time.day + ".xlsx";
 
-		File xlsx = new File(finalPath);
+		final File xlsx = new File(finalPath);
 
 		if (!xlsx.exists()) {
 			FileOperation.createDir(currrentPath);
@@ -239,12 +239,12 @@ public class GA_AA_Data {
 			ExcelOperation.writeExcel2File(wb, finalPath);
 		} else {
 			try {
-				InputStream iStream = new FileInputStream(xlsx);
+				final InputStream iStream = new FileInputStream(xlsx);
 				Workbook wb = new XSSFWorkbook(iStream);
-				int rowIndex = ExcelOperation.getEmptyRow(wb, sheetIndex, cellRef);
+				final int rowIndex = ExcelOperation.getEmptyRow(wb, sheetIndex, cellRef);
 				wb = ExcelOperation.writeOneRow(wb, sheetIndex, rowIndex, content);
 				ExcelOperation.writeExcel2File(wb, finalPath);
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
 			}

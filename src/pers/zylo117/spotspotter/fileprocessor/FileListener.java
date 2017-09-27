@@ -1,6 +1,5 @@
 package pers.zylo117.spotspotter.fileprocessor;
 
-import java.awt.RenderingHints.Key;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -31,14 +30,14 @@ public class FileListener {
 				StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);
 
 		while (true) {
-			WatchKey key = watcher.take();
-			for (WatchEvent<?> event : key.pollEvents()) {
+			final WatchKey key = watcher.take();
+			for (final WatchEvent<?> event : key.pollEvents()) {
 				// 文件创建/删除/修改时通知
 				// System.out.println(event.context() + " comes to " + event.kind());
-				Object eventcontext = event.context();
+				final Object eventcontext = event.context();
 				fileName = Obj2String.o2s(eventcontext);
-				Object eventkind = event.kind();
-				String eventkindstr = Obj2String.o2s(eventkind);
+				final Object eventkind = event.kind();
+				final String eventkindstr = Obj2String.o2s(eventkind);
 
 				if (eventkindstr.equals("ENTRY_CREATE")) {
 					System.out.println(fileName + " Created");
@@ -61,7 +60,7 @@ public class FileListener {
 				}
 			}
 
-			boolean valid = key.reset();
+			final boolean valid = key.reset();
 			if (!valid) {
 				break;
 			}
@@ -73,18 +72,18 @@ public class FileListener {
 
 	public static void autoDeepScan(int index) throws IOException, InterruptedException {
 		// 获取文件系统的WatchService对象
-		WatchService watchService = FileSystems.getDefault().newWatchService();
+		final WatchService watchService = FileSystems.getDefault().newWatchService();
 		Paths.get(CentralControl.monitorPath).register(watchService, StandardWatchEventKinds.ENTRY_CREATE,
 				StandardWatchEventKinds.ENTRY_MODIFY, StandardWatchEventKinds.ENTRY_DELETE);
 
-		File file = new File(CentralControl.monitorPath);
-		LinkedList<File> fList = new LinkedList<File>();
+		final File file = new File(CentralControl.monitorPath);
+		final LinkedList<File> fList = new LinkedList<File>();
 		fList.addLast(file);
 		while (fList.size() > 0) {
-			File f = fList.removeFirst();
+			final File f = fList.removeFirst();
 			if (f.listFiles() == null)
 				continue;
-			for (File file2 : f.listFiles()) {
+			for (final File file2 : f.listFiles()) {
 				if (file2.isDirectory()) {// 下一级目录
 					fList.addLast(file2);
 					// 依次注册子目录
@@ -102,20 +101,20 @@ public class FileListener {
 			}
 			
 			// 获取下一个文件改动事件
-			WatchKey key = watchService.take();
-			for (WatchEvent<?> event : key.pollEvents()) {
+			final WatchKey key = watchService.take();
+			for (final WatchEvent<?> event : key.pollEvents()) {
 				// 文件创建/删除/修改时通知
 				// System.out.println(event.context() + " comes to " + event.kind());
-				Object eventcontext = event.context();
+				final Object eventcontext = event.context();
 				fileName = Obj2String.o2s(eventcontext);
-				Object eventkind = event.kind();
-				String eventkindstr = Obj2String.o2s(eventkind);
+				final Object eventkind = event.kind();
+				final String eventkindstr = Obj2String.o2s(eventkind);
 
 				if(GetPostfix.fromFilename(fileName).equals("jpg")) {				
 					if (eventkindstr.equals("ENTRY_CREATE")) {
 						System.out.println(fileName + " Created");
 						System.out.println(key.watchable() + " Modified");
-						Object path = key.watchable();
+						final Object path = key.watchable();
 						filePath = Obj2String.o2s(path);
 						System.out.println("Ready 2 be analysed");
 	
@@ -136,7 +135,7 @@ public class FileListener {
 				}
 			}
 			// 重设WatchKey
-			boolean valid = key.reset();
+			final boolean valid = key.reset();
 			// 如果重设失败，退出监听
 			if (!valid) {
 				break;

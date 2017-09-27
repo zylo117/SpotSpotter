@@ -49,7 +49,7 @@ public class Line {
 		if (k == Double.NEGATIVE_INFINITY || k == Double.POSITIVE_INFINITY) {
 			return this.anyP.x;
 		} else if (k != 0) {
-			double x = (y - b) / k;
+			final double x = (y - b) / k;
 			return x;
 		} else {
 			return 0;
@@ -60,7 +60,7 @@ public class Line {
 		if (k == Double.NEGATIVE_INFINITY || k == Double.POSITIVE_INFINITY) {
 			return 0;
 		} else if (k != 0) {
-			double y = k * x + b;
+			final double y = k * x + b;
 			return y;
 		} else {
 			return b;

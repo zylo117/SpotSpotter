@@ -1,19 +1,12 @@
 package pers.zylo117.spotspotter.mainprogram;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
-import java.util.Scanner;
-
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
-import pers.zylo117.spotspotter.fileprocessor.FIndexReader;
-import pers.zylo117.spotspotter.fileprocessor.FileListener;
 import pers.zylo117.spotspotter.gui.viewer.CentralControl;
-import pers.zylo117.spotspotter.gui.viewer.MatView;
 import pers.zylo117.spotspotter.toolbox.Time;
 
 public class Main {
@@ -24,8 +17,8 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		// 根据系统架构载入dll
-		Properties props = System.getProperties();
-		String bits = String.valueOf(props.get("sun.arch.data.model"));
+		final Properties props = System.getProperties();
+		final String bits = String.valueOf(props.get("sun.arch.data.model"));
 		System.out.println("System Architecture: " + bits + " bits System");
 		if (Integer.parseInt(bits) == 64) {
 			System.loadLibrary("opencv_java330_64");
@@ -39,11 +32,11 @@ public class Main {
 		System.out.println("Welcome running Classified Project Argus");
 
 		// 载入主封面和初始化主控窗口
-		Mat cover = Imgcodecs.imread(System.getProperty("user.dir") + "/cover.jpg");
+		final Mat cover = Imgcodecs.imread(System.getProperty("user.dir") + "/cover.jpg");
 
 		CentralControl.imshow(cover, "SpotSpotter");
 
-		List<String> oldlist = new ArrayList<String>();
+		final List<String> oldlist = new ArrayList<String>();
 		
 		while (true) {
 			Time.waitFor(100);

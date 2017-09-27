@@ -5,7 +5,7 @@ import java.io.File;
 public class FileOperation {
 
 	public static void createDir(String destDirName) {
-		File dir = new File(destDirName);
+		final File dir = new File(destDirName);
 		if (dir.exists()) {// ÅÐ¶ÏÄ¿Â¼ÊÇ·ñ´æÔÚ
 //			System.out.println("Target dir already existed");
 		}
@@ -19,7 +19,7 @@ public class FileOperation {
 
 
 	public static boolean isFileExists(String path, boolean print) {
-		File file = new File(path);
+		final File file = new File(path);
 		while (true) {
 			if (file.exists()) {
 				if(print)
@@ -46,8 +46,8 @@ public class FileOperation {
 	}
 
 	public static boolean ifFilenameContainsSpaceKey(String fileName) {
-		CharSequence spacekey1 = "%20";
-		CharSequence spacekey2 = " ";
+		final CharSequence spacekey1 = "%20";
+		final CharSequence spacekey2 = " ";
 		if(fileName.contains(spacekey1) ||fileName.contains(spacekey2)) {
 			return true;
 		}
@@ -55,8 +55,8 @@ public class FileOperation {
 	}
 	
 	public static String RemoveSpaceKeyFromFilename(String fileName) {
-		CharSequence spacekey1 = "%20";
-		CharSequence spacekey2 = " ";
+		final CharSequence spacekey1 = "%20";
+		final CharSequence spacekey2 = " ";
 		String result;
 		if(fileName.contains(spacekey1) ||fileName.contains(spacekey2)) {
 			result = fileName.replace(" ","");

@@ -23,7 +23,7 @@ public class Pointset {
 		}
 		y_avg = y_avg / list.size();
 
-		Point cP = new Point(x_avg, y_avg);
+		final Point cP = new Point(x_avg, y_avg);
 		return cP;
 	}
 
@@ -42,20 +42,20 @@ public class Pointset {
 		sigma_y /= list.size();
 		sigma_y = Math.sqrt(sigma_y);
 
-		Point sigma = new Point(sigma_x, sigma_y);
+		final Point sigma = new Point(sigma_x, sigma_y);
 		return sigma;
 	}
 
 	public static List<Point> confidenceIntervals(List<Point> list, double howManySigmas_bothSizes) {
-		double singleSideSigma = howManySigmas_bothSizes / 2;
-		double min_x = centerPoint(list).x - singleSideSigma * sigma(list).x;
-		double min_y = centerPoint(list).y - singleSideSigma * sigma(list).y;
-		double max_x = centerPoint(list).x + singleSideSigma * sigma(list).x;
-		double max_y = centerPoint(list).y + singleSideSigma * sigma(list).y;
+		final double singleSideSigma = howManySigmas_bothSizes / 2;
+		final double min_x = centerPoint(list).x - singleSideSigma * sigma(list).x;
+		final double min_y = centerPoint(list).y - singleSideSigma * sigma(list).y;
+		final double max_x = centerPoint(list).x + singleSideSigma * sigma(list).x;
+		final double max_y = centerPoint(list).y + singleSideSigma * sigma(list).y;
 
 		// System.out.println(min_x+" "+min_y+" "+max_x+" "+max_y);
 
-		List<Point> confiList = new ArrayList<Point>();
+		final List<Point> confiList = new ArrayList<Point>();
 
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).x > min_x && list.get(i).x < max_x && list.get(i).y > min_y && list.get(i).y < max_y) {
@@ -67,7 +67,7 @@ public class Pointset {
 
 	public static List<Point> pointConnectivity(List<Point> list) {
 		double distance;
-		List<Point> newList = new ArrayList<Point>();
+		final List<Point> newList = new ArrayList<Point>();
 		for (int i = 0; i < list.size(); i++) {
 			for (int j = i + 1; j < list.size(); j++) {
 				distance = MathBox.pointDistance(list.get(i), list.get(j));
@@ -81,11 +81,11 @@ public class Pointset {
 	}
 
 	public static double[] fittingNormalDistribution(List<Point> list) {
-		WeightedObservedPoints obs = new WeightedObservedPoints();
+		final WeightedObservedPoints obs = new WeightedObservedPoints();
 		for (int i = 0; i < list.size(); i++) {
 			obs.add(list.get(i).x, list.get(i).y);
 		}
-		double[] result = GaussianCurveFitter.create().fit(obs.toList());
+		final double[] result = GaussianCurveFitter.create().fit(obs.toList());
 		return result;
 		// result[0] = norm;
 		// result[1] = mean;

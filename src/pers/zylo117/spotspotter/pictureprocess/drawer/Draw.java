@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.poi.ss.formula.ptg.Pxg;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
@@ -24,7 +23,7 @@ public class Draw {
 
 	public static void pointList(Mat input, List<Point> list, int radius, int size) {
 		for (int i = 0; i < list.size(); i++) {
-			Point p = list.get(i);
+			final Point p = list.get(i);
 			Imgproc.circle(input, p, radius, new Scalar(255, 0, 255), size);
 		}
 		System.out.println("Done Drawing");
@@ -36,14 +35,14 @@ public class Draw {
 			Map dataMap = new HashMap<>();
 			dataMap = list.get(i);
 
-			Set<Map.Entry<Point, Double>> entryseSet = dataMap.entrySet();
-			for (Map.Entry<Point, Double> entry : entryseSet) {
-				Point p = entry.getKey();
+			final Set<Map.Entry<Point, Double>> entryseSet = dataMap.entrySet();
+			for (final Map.Entry<Point, Double> entry : entryseSet) {
+				final Point p = entry.getKey();
 				double v = entry.getValue();
 				if(Double.isInfinite(entry.getValue())) {
 					v = 1;
 				}
-				int radius = (new Double(radiusRatio * v)).intValue();
+				final int radius = (new Double(radiusRatio * v)).intValue();
 				Imgproc.circle(input, new Point(p.x * mosaicLength, p.y * mosaicLength), radius, new Scalar(255, 0, 255), thickness);
 			}
 		}

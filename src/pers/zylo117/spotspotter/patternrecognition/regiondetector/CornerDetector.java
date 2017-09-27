@@ -21,16 +21,16 @@ public class CornerDetector {
 			final int maxCorners = 1, blockSize = 5;
 			final double qualityLevel = 0.01, minDistance = density, k = 0.01;
 			final boolean useHarrisDetector = true;
-			MatOfPoint corners = new MatOfPoint();
+			final MatOfPoint corners = new MatOfPoint();
 
 			// …Ë÷√ROI
-			Rect rect = new Rect(roi_startX, roi_startY, width, height);
+			final Rect rect = new Rect(roi_startX, roi_startY, width, height);
 			srcROI = new Mat(src, rect);
 			
 			if (srcROI.empty()) {
 				throw new Exception("no file");
 			}
-			Mat gray = new Mat();
+			final Mat gray = new Mat();
 
 			Imgproc.cvtColor(srcROI, gray, Imgproc.COLOR_RGB2GRAY);
 			Imgproc.goodFeaturesToTrack(gray, corners, maxCorners, qualityLevel, minDistance, new Mat(), blockSize,
@@ -42,7 +42,7 @@ public class CornerDetector {
 					Imgproc.circle(srcROI, pCorners[i], 4, new Scalar(255, 255, 0), 2);
 				}
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			System.out.println("Exception: " + e);
 		}
 		return src;

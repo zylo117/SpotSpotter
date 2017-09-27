@@ -12,24 +12,24 @@ public class GrandCounter {
 	public static int totalTestQuantity;
 
 	public static void readQTY() {
-		String currrentPath = System.getProperty("user.dir") + "/" + "GrandCounter.txt";
+		final String currrentPath = System.getProperty("user.dir") + "/" + "GrandCounter.txt";
 
-		File counterTXT = new File(currrentPath);
+		final File counterTXT = new File(currrentPath);
 		if (counterTXT.exists()) {
 			InputStreamReader reader;
 			try {
 				reader = new InputStreamReader(new FileInputStream(counterTXT));
 
-				StringBuilder result = new StringBuilder();
+				final StringBuilder result = new StringBuilder();
 				try {
-					BufferedReader br = new BufferedReader(reader);// 构造一个BufferedReader类来读取文件
+					final BufferedReader br = new BufferedReader(reader);// 构造一个BufferedReader类来读取文件
 					String s = null;
 					while ((s = br.readLine()) != null) {// 使用readLine方法，一次读一行
 						result.append(System.lineSeparator() + s);
 					}
 					br.close();
 
-				} catch (Exception e) {
+				} catch (final Exception e) {
 					e.printStackTrace();
 				}
 				String s = result.toString();
@@ -38,15 +38,15 @@ public class GrandCounter {
 				s = s.replace(" ", "");
 				s = s.replace("\n", "");
 				totalTestQuantity = Integer.parseInt(s);
-			} catch (FileNotFoundException e1) {
+			} catch (final FileNotFoundException e1) {
 				// TODO 自动生成的 catch 块
 				e1.printStackTrace();
 			}
 
 		} else {
 			try {
-				FileOutputStream fileOut = new FileOutputStream(counterTXT);
-			} catch (FileNotFoundException e) {
+				final FileOutputStream fileOut = new FileOutputStream(counterTXT);
+			} catch (final FileNotFoundException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
 			}
@@ -55,40 +55,40 @@ public class GrandCounter {
 	}
 
 	public static void writeQTY() {
-		String currrentPath = System.getProperty("user.dir") + "/" + "GrandCounter.txt";
+		final String currrentPath = System.getProperty("user.dir") + "/" + "GrandCounter.txt";
 
-		File counterTXT = new File(currrentPath);
-		String str = Integer.toString(totalTestQuantity);
+		final File counterTXT = new File(currrentPath);
+		final String str = Integer.toString(totalTestQuantity);
 		PrintWriter pfp;
 		try {
 			pfp = new PrintWriter(counterTXT);
 			pfp.print(str);
 			pfp.close();
-		} catch (FileNotFoundException e) {
+		} catch (final FileNotFoundException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
 	}
 
 	public static void plusOne() {
-		String currrentPath = System.getProperty("user.dir") + "/" + "GrandCounter.txt";
+		final String currrentPath = System.getProperty("user.dir") + "/" + "GrandCounter.txt";
 
-		File counterTXT = new File(currrentPath);
+		final File counterTXT = new File(currrentPath);
 		if (counterTXT.exists()) {
 			InputStreamReader reader;
 			try {
 				reader = new InputStreamReader(new FileInputStream(counterTXT));
 
-				StringBuilder result = new StringBuilder();
+				final StringBuilder result = new StringBuilder();
 				try {
-					BufferedReader br = new BufferedReader(reader);// 构造一个BufferedReader类来读取文件
+					final BufferedReader br = new BufferedReader(reader);// 构造一个BufferedReader类来读取文件
 					String s = null;
 					while ((s = br.readLine()) != null) {// 使用readLine方法，一次读一行
 						result.append(System.lineSeparator() + s);
 					}
 					br.close();
 
-				} catch (Exception e) {
+				} catch (final Exception e) {
 					e.printStackTrace();
 				}
 				String s = result.toString();
@@ -97,15 +97,15 @@ public class GrandCounter {
 				s = s.replace(" ", "");
 				s = s.replace("\n", "");
 				totalTestQuantity = Integer.parseInt(s);
-			} catch (FileNotFoundException e1) {
+			} catch (final FileNotFoundException e1) {
 				// TODO 自动生成的 catch 块
 				e1.printStackTrace();
 			}
 
 		} else {
 			try {
-				FileOutputStream fileOut = new FileOutputStream(counterTXT);
-			} catch (FileNotFoundException e) {
+				final FileOutputStream fileOut = new FileOutputStream(counterTXT);
+			} catch (final FileNotFoundException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
 			}
@@ -113,13 +113,13 @@ public class GrandCounter {
 		}
 
 		totalTestQuantity++;
-		String str = Integer.toString(totalTestQuantity);
+		final String str = Integer.toString(totalTestQuantity);
 		PrintWriter pfp;
 		try {
 			pfp = new PrintWriter(counterTXT);
 			pfp.print(str);
 			pfp.close();
-		} catch (FileNotFoundException e) {
+		} catch (final FileNotFoundException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}

@@ -6,10 +6,10 @@ public class test {
 
 	public static void main(String[] args) {
 		// TODO 自动生成的方法存根
-		Line l = new Line(1,1);
-		double y = l.solveY(0);
+		final Line l = new Line(1,1);
+		final double y = l.solveY(0);
 		System.out.println(y);
-		double x = l.solveX(0);
+		final double x = l.solveX(0);
 		System.out.println(x);
 	}
 

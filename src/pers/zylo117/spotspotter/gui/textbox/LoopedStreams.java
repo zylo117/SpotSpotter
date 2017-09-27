@@ -2,31 +2,33 @@ package pers.zylo117.spotspotter.gui.textbox;
 
 import java.io.*;
 public class LoopedStreams {
-    private PipedOutputStream pipedOS = 
+    private final PipedOutputStream pipedOS = 
         new PipedOutputStream();
     private boolean keepRunning = true;
-    private ByteArrayOutputStream byteArrayOS =
+    private final ByteArrayOutputStream byteArrayOS =
         new ByteArrayOutputStream() {
-        public void close() {
+        @Override
+		public void close() {
             keepRunning = false;
             try {
                 super.close();
                 pipedOS.close();
             }
-            catch(IOException e) {
+            catch(final IOException e) {
                 // 记载缺陷或其他处置责罚
                 // 为庞杂计，此处我们直接停止
                 System.exit(1);
             }
         }
     };
-    private PipedInputStream pipedIS = new PipedInputStream() {
-        public void close() {
+    private final PipedInputStream pipedIS = new PipedInputStream() {
+        @Override
+		public void close() {
             keepRunning = false;
             try    {
                 super.close();
             }
-            catch(IOException e) {
+            catch(final IOException e) {
                 // 记载缺陷或其他处置责罚
                 // 为庞杂计，此处我们直接停止
                 System.exit(1);
@@ -45,7 +47,8 @@ public class LoopedStreams {
     } // getOutputStream()
     private void startByteArrayReaderThread() {
         new Thread(new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
                 while(keepRunning) {
                     // 搜检流里面的字节数
                     if(byteArrayOS.size() > 0) {
@@ -58,7 +61,7 @@ public class LoopedStreams {
                             // 把提取到的数据发送给PipedOutputStream
                             pipedOS.write(buffer, 0, buffer.length);
                         }
-                        catch(IOException e) {
+                        catch(final IOException e) {
                             // 记载缺陷或其他处置责罚
                             // 为庞杂计，此处我们直接停止
                             System.exit(1);
@@ -69,7 +72,7 @@ public class LoopedStreams {
                             // 每隔1秒检查ByteArrayOutputStream搜检新数据
                             Thread.sleep(1000);
                         }
-                        catch(InterruptedException e) {}
+                        catch(final InterruptedException e) {}
                     }
              }
         }).start();

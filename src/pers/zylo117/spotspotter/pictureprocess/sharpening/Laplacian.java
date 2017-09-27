@@ -10,18 +10,18 @@ public class Laplacian {
 		try {
 			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
-			Mat src = Imgcodecs.imread(input);
+			final Mat src = Imgcodecs.imread(input);
 
 			// ∂¡»°ÕºœÒµΩæÿ’Û
 			if (src.empty()) {
 				throw new Exception("no file");
 			}
 
-			Mat dst = src.clone();
+			final Mat dst = src.clone();
 			// ∏¥÷∆æÿ’ÛµΩdst
 			Imgproc.Laplacian(src, dst, ddepth);
 			Imgcodecs.imwrite(output, dst);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			System.out.println("Exception " + e);
 		}
 	}

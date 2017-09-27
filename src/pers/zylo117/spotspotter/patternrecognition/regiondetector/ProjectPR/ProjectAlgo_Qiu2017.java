@@ -14,8 +14,8 @@ import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
 // Enlightened by YuNing.Qiu, Postgraduate of GDUT, a great brother
 public class ProjectAlgo_Qiu2017 {
 	public static int[][] colorTrend_Mat(Mat input, boolean ifGray) {
-		BufferedImage bimg = Mat2BufferedImage.mat2BI(input);
-		int[][] singleChannelData = GetPixelArray.pixelArray(bimg, ifGray);
+		final BufferedImage bimg = Mat2BufferedImage.mat2BI(input);
+		final int[][] singleChannelData = GetPixelArray.pixelArray(bimg, ifGray);
 
 		// for (int i = 0; i < input.width(); i++) {
 		// System.out.printf("%x\t", singleChannelData[i][256]);
@@ -24,9 +24,9 @@ public class ProjectAlgo_Qiu2017 {
 	}
 
 	public static int leapPoint_fromCenter(int[] input, double thresh, boolean ifToLeft, boolean takeFirstOne) {
-		int center = input.length / 2;
+		final int center = input.length / 2;
 		// 设置安全区
-		double safeLength = center * 0.8; 
+		final double safeLength = center * 0.8; 
 		int lP = 0;
 		// int failSafe = input.length / 50;
 		if (ifToLeft) {
@@ -64,11 +64,11 @@ public class ProjectAlgo_Qiu2017 {
 		// 二值化图片
 		imgOrigin = Binaryzation.binaryzation_OpenCV(imgOrigin, thresh * 0.6);
 
-		Picture pic = new Picture(imgOrigin);
+		final Picture pic = new Picture(imgOrigin);
 
-		BufferedImage bimg = SetPixelArray.fromPixelArray(pic.data, imgOrigin.width(), imgOrigin.height());
+		final BufferedImage bimg = SetPixelArray.fromPixelArray(pic.data, imgOrigin.width(), imgOrigin.height());
 		// BIView.imshow(bimg, "out");
-		Mat out = BufferedImage2Mat.img2Mat(bimg);
+		final Mat out = BufferedImage2Mat.img2Mat(bimg);
 		// Imgcodecs.imwrite(output, out);
 		// ImageStream2File.IS2F(bimg, "jpg", output);
 
@@ -81,17 +81,17 @@ public class ProjectAlgo_Qiu2017 {
 		else
 			takeFirstOne = false;
 		
-		int lP_up = leapPoint_fromCenter(pic.dataSingleChannel[pic.dataSingleChannel.length / 2], thresh, true, takeFirstOne);
-		int lP_down = leapPoint_fromCenter(pic.dataSingleChannel[pic.dataSingleChannel.length / 2], thresh, false, takeFirstOne);
+		final int lP_up = leapPoint_fromCenter(pic.dataSingleChannel[pic.dataSingleChannel.length / 2], thresh, true, takeFirstOne);
+		final int lP_down = leapPoint_fromCenter(pic.dataSingleChannel[pic.dataSingleChannel.length / 2], thresh, false, takeFirstOne);
 
-		int[] horizon = new int[pic.dataSingleChannel.length];
+		final int[] horizon = new int[pic.dataSingleChannel.length];
 		for (int i = 1; i < pic.dataSingleChannel.length; i++) {
 
 			horizon[i] = pic.dataSingleChannel[i][pic.dataSingleChannel[pic.dataSingleChannel.length / 2].length / 2];
 		}
-		int lP_left = leapPoint_fromCenter(horizon, thresh, true, takeFirstOne);
+		final int lP_left = leapPoint_fromCenter(horizon, thresh, true, takeFirstOne);
 
-		int lP_right = leapPoint_fromCenter(horizon, thresh, false,takeFirstOne);
+		final int lP_right = leapPoint_fromCenter(horizon, thresh, false,takeFirstOne);
 
 		// Imgproc.circle(out, new Point(datasingle.length / 2, lP_up), 4, new
 		// Scalar(255, 255, 0), 2);

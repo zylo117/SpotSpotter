@@ -27,14 +27,14 @@ public class ROIOutput {
 //		String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/1.jpg";
 //		String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output1.jpg";
 
-		int roiWidth = 20;
-		int roiHeight = 20;
-		int ulx = 206;
-		int uly = 182;
-		int urx = 302;
-		int ury = 182;
-		int llx = 206;
-		int lly = 326;
+		final int roiWidth = 20;
+		final int roiHeight = 20;
+		final int ulx = 206;
+		final int uly = 182;
+		final int urx = 302;
+		final int ury = 182;
+		final int llx = 206;
+		final int lly = 326;
 
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		Mat src = Imgcodecs.imread(input);
@@ -72,56 +72,56 @@ public class ROIOutput {
 
 	private static void upperLeft_optimus() {
 		// 求最优解
-		double[] temp_x = new double[CornerDetector.pCorners.length];
-		double[] temp_y = new double[CornerDetector.pCorners.length];
+		final double[] temp_x = new double[CornerDetector.pCorners.length];
+		final double[] temp_y = new double[CornerDetector.pCorners.length];
 		for (int i = 0; i < CornerDetector.pCorners.length; i++) {
 			temp_x[i] = CornerDetector.pCorners[i].x;
 			temp_y[i] = CornerDetector.pCorners[i].y;
 		}
-		double ulpoint_x = GetMaxMinMidAvg.getMinFromArray(temp_x);
-		double ulpoint_y = GetMaxMinMidAvg.getMidFromArray(temp_y);
+		final double ulpoint_x = GetMaxMinMidAvg.getMinFromArray(temp_x);
+		final double ulpoint_y = GetMaxMinMidAvg.getMidFromArray(temp_y);
 		rel_ulPoint = new org.opencv.core.Point(ulpoint_x, ulpoint_y);
 //		System.out.println(rel_ulPoint.x + "," + rel_ulPoint.y);
 	}
 
 	private static void upperRight_optimus() {
 		// 求最优解
-		double[] temp_x = new double[CornerDetector.pCorners.length];
-		double[] temp_y = new double[CornerDetector.pCorners.length];
+		final double[] temp_x = new double[CornerDetector.pCorners.length];
+		final double[] temp_y = new double[CornerDetector.pCorners.length];
 		for (int i = 0; i < CornerDetector.pCorners.length; i++) {
 			temp_x[i] = CornerDetector.pCorners[i].x;
 			temp_y[i] = CornerDetector.pCorners[i].y;
 		}
-		double ulpoint_x = GetMaxMinMidAvg.getMidFromArray(temp_x);
-		double ulpoint_y = GetMaxMinMidAvg.getMinFromArray(temp_y);
+		final double ulpoint_x = GetMaxMinMidAvg.getMidFromArray(temp_x);
+		final double ulpoint_y = GetMaxMinMidAvg.getMinFromArray(temp_y);
 		rel_urPoint = new org.opencv.core.Point(ulpoint_x, ulpoint_y);
 //		System.out.println(rel_urPoint.x + "," + rel_urPoint.y);
 	}
 
 	private static void lowerLeft_optimus() {
 		// 求最优解
-		double[] temp_x = new double[CornerDetector.pCorners.length];
-		double[] temp_y = new double[CornerDetector.pCorners.length];
+		final double[] temp_x = new double[CornerDetector.pCorners.length];
+		final double[] temp_y = new double[CornerDetector.pCorners.length];
 		for (int i = 0; i < CornerDetector.pCorners.length; i++) {
 			temp_x[i] = CornerDetector.pCorners[i].x;
 			temp_y[i] = CornerDetector.pCorners[i].y;
 		}
-		double ulpoint_x = GetMaxMinMidAvg.getMinFromArray(temp_x);
-		double ulpoint_y = GetMaxMinMidAvg.getMinFromArray(temp_y);
+		final double ulpoint_x = GetMaxMinMidAvg.getMinFromArray(temp_x);
+		final double ulpoint_y = GetMaxMinMidAvg.getMinFromArray(temp_y);
 		rel_llPoint = new org.opencv.core.Point(ulpoint_x, ulpoint_y);
 //		System.out.println(rel_llPoint.x + "," + rel_llPoint.y);
 	}
 
 	private static void lowerRight_optimus() {
 		// 求最优解
-		double[] temp_x = new double[CornerDetector.pCorners.length];
-		double[] temp_y = new double[CornerDetector.pCorners.length];
+		final double[] temp_x = new double[CornerDetector.pCorners.length];
+		final double[] temp_y = new double[CornerDetector.pCorners.length];
 		for (int i = 0; i < CornerDetector.pCorners.length; i++) {
 			temp_x[i] = CornerDetector.pCorners[i].x;
 			temp_y[i] = CornerDetector.pCorners[i].y;
 		}
-		double ulpoint_x = GetMaxMinMidAvg.getAvgFromArray(temp_x);
-		double ulpoint_y = GetMaxMinMidAvg.getMidFromArray(temp_y);
+		final double ulpoint_x = GetMaxMinMidAvg.getAvgFromArray(temp_x);
+		final double ulpoint_y = GetMaxMinMidAvg.getMidFromArray(temp_y);
 		rel_lrPoint = new org.opencv.core.Point(ulpoint_x, ulpoint_y);
 //		System.out.println(rel_lrPoint.x + "," + rel_lrPoint.y);
 	}

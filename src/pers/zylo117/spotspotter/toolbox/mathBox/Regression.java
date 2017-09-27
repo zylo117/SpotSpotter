@@ -10,14 +10,14 @@ import org.opencv.core.Point;
 
 public class Regression {
 	public static Line lineFromMapList(List<Map<Point, Double>> maplist) {
-		List<Point> list = new ArrayList<>();
+		final List<Point> list = new ArrayList<>();
 		for (int i = 0; i < maplist.size(); i++) {
 			Map dataMap = new HashMap<>();
 			dataMap = maplist.get(i);
 
-			Set<Map.Entry<Point, Double>> entryseSet = dataMap.entrySet();
-			for (Map.Entry<Point, Double> entry : entryseSet) {
-				Point p = entry.getKey();
+			final Set<Map.Entry<Point, Double>> entryseSet = dataMap.entrySet();
+			for (final Map.Entry<Point, Double> entry : entryseSet) {
+				final Point p = entry.getKey();
 				list.add(p);
 			}
 		}
@@ -55,15 +55,15 @@ public class Regression {
 			denominator += Math.pow(list.get(i).x, 2);
 		}
 		denominator -= list.size() * Math.pow(x_avg, 2);
-		double k = numerator / denominator;
+		final double k = numerator / denominator;
 
 		if (denominator == 0) {
-			Line regressionLine = new Line(new Point(x_avg, 0), new Point(x_avg, 1));
+			final Line regressionLine = new Line(new Point(x_avg, 0), new Point(x_avg, 1));
 			return regressionLine;
 		} else {
 			// Çób
-			double b = y_avg - k * x_avg;
-			Line regressionLine = new Line(k, b);
+			final double b = y_avg - k * x_avg;
+			final Line regressionLine = new Line(k, b);
 			return regressionLine;
 		}
 	}
@@ -102,15 +102,15 @@ public class Regression {
 			denominator += Math.pow(list.get(i).x, 2);
 		}
 		denominator -= list.size() * Math.pow(x_avg, 2);
-		double k = numerator / denominator;
+		final double k = numerator / denominator;
 
 		if (denominator == 0) {
-			Line regressionLine = new Line(new Point(x_avg, 0), new Point(x_avg, 1));
+			final Line regressionLine = new Line(new Point(x_avg, 0), new Point(x_avg, 1));
 			return regressionLine;
 		} else {
 			// Çób
-			double b = y_avg - k * x_avg;
-			Line regressionLine = new Line(k, b);
+			final double b = y_avg - k * x_avg;
+			final Line regressionLine = new Line(k, b);
 			return regressionLine;
 		}
 	}

@@ -11,10 +11,10 @@ import pers.zylo117.spotspotter.patternrecognition.regiondetector.ROIOutput;
 public class DrawROI {
 //	public static void DrawROI(String input, String output) throws Exception {
 		public static void main(String[] args) throws Exception {
-			String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/8.jpg";
-			String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output8.jpg";
+			final String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/8.jpg";
+			final String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output8.jpg";
 			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-			Mat in = ROIOutput.Pythagoras_G(input);
+			final Mat in = ROIOutput.Pythagoras_G(input);
 			if (in.empty()) {
 				throw new Exception("no file");
 			}
@@ -29,7 +29,7 @@ public class DrawROI {
 			Imgproc.circle(in, ROIOutput.abs_llPoint, 4, new Scalar(255, 255, 0), 1);
 			Imgproc.circle(in, ROIOutput.abs_lrPoint, 4, new Scalar(255, 255, 0), 1);
 
-			Mat out = new Mat();
+			final Mat out = new Mat();
 			Draw.line_P2P(in, ROIOutput.abs_ulPoint, ROIOutput.abs_urPoint);
 			Draw.line_P2P(in, ROIOutput.abs_ulPoint, ROIOutput.abs_llPoint);
 			Draw.line_P2P(in, ROIOutput.abs_llPoint, ROIOutput.abs_lrPoint);

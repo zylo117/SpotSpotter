@@ -6,12 +6,12 @@ import java.util.List;
 public class GetMaxMinMidAvg {
 
 	public static double getMaxFromList(List list) {
-		double max = (double) Collections.max(list);
+		final double max = (double) Collections.max(list);
 		return max;
 	}
 
 	public static double getMinFromList(List list) {
-		double min = (double) Collections.min(list);
+		final double min = (double) Collections.min(list);
 		return min;
 	}
 
@@ -36,19 +36,19 @@ public class GetMaxMinMidAvg {
 	}
 
 	public static double getMidFromArray(double[] arr) {
-		double max = getMaxFromArray(arr);
-		double min = getMinFromArray(arr);
-		double mid = (max + min) / 2;
+		final double max = getMaxFromArray(arr);
+		final double min = getMinFromArray(arr);
+		final double mid = (max + min) / 2;
 		return mid;
 	}
 
 	public static double getAvgFromArray(double[] arr) {
-		int length = arr.length;
+		final int length = arr.length;
 		double sum = 0;
 		for (int i = 0; i < arr.length; i++) {
 			sum += arr[i];
 		}
-		double avg = sum / length;
+		final double avg = sum / length;
 		return avg;
 	}
 

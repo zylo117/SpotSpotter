@@ -9,11 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -29,7 +25,7 @@ public class TextArea {
 
 	public static void JTextAreaDemo3() {
 		jf = new JFrame("JTextArea°¸Àý3");
-		Container contentPane = jf.getContentPane();
+		final Container contentPane = jf.getContentPane();
 		contentPane.setLayout(new BorderLayout());
 		jta = new JTextArea(10, 15);
 		jta.setTabSize(4);
@@ -76,6 +72,7 @@ public class TextArea {
 		jf.setLocation(400, 200);
 		jf.setVisible(true);
 		jf.addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}

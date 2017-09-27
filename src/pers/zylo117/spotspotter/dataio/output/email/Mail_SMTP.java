@@ -14,9 +14,9 @@ import javax.mail.internet.MimeMessage;
 public class Mail_SMTP {
 	public static MimeMessage writeDown(String sendAddress, String receiveAddress) throws IOException, MessagingException {
 		// 1. 创建一封邮件
-		Properties props = new Properties(); // 用于连接邮件服务器的参数配置（发送邮件时才需要用到）
-		Session session = Session.getDefaultInstance(props); // 根据参数配置，创建会话对象（为了发送邮件准备的）
-		MimeMessage message = new MimeMessage(session); // 创建邮件对象
+		final Properties props = new Properties(); // 用于连接邮件服务器的参数配置（发送邮件时才需要用到）
+		final Session session = Session.getDefaultInstance(props); // 根据参数配置，创建会话对象（为了发送邮件准备的）
+		final MimeMessage message = new MimeMessage(session); // 创建邮件对象
 
 		/*
 		 * 也可以根据已有的eml邮件文件创建 MimeMessage 对象 MimeMessage message = new
@@ -75,7 +75,7 @@ public class Mail_SMTP {
 
 	public static void sendOut(String mailFile) throws IOException, MessagingException {
 		 // 1. 创建参数配置, 用于连接邮件服务器的参数配置
-        Properties props = new Properties();                    // 参数配置
+        final Properties props = new Properties();                    // 参数配置
         props.setProperty("mail.transport.protocol", "smtp");   // 使用的协议（JavaMail规范要求）
         props.setProperty("mail.smtp.host", myEmailSMTPHost);   // 发件人的邮箱的 SMTP 服务器地址
         props.setProperty("mail.smtp.auth", "true");            // 需要请求认证
@@ -95,14 +95,14 @@ public class Mail_SMTP {
         */
 
         // 2. 根据配置创建会话对象, 用于和邮件服务器交互
-        Session session = Session.getDefaultInstance(props);
+        final Session session = Session.getDefaultInstance(props);
         session.setDebug(true);                                 // 设置为debug模式, 可以查看详细的发送 log
 
         // 3. 创建一封邮件
-        MimeMessage message = writeDown(myEmailAccount, receiveMailAccount);
+        final MimeMessage message = writeDown(myEmailAccount, receiveMailAccount);
 
         // 4. 根据 Session 获取邮件传输对象
-        Transport transport = session.getTransport();
+        final Transport transport = session.getTransport();
 
         // 5. 使用 邮箱账号 和 密码 连接邮件服务器, 这里认证的邮箱必须与 message 中的发件人邮箱一致, 否则报错
         // 

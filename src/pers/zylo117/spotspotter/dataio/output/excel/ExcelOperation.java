@@ -15,7 +15,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import pers.zylo117.spotspotter.pictureprocess.Picture;
 import pers.zylo117.spotspotter.toolbox.Time;
 
 public class ExcelOperation {
@@ -24,10 +23,10 @@ public class ExcelOperation {
 //		String currrentPath = path + "/" + Time.year + "/" + Time.month;
 //		FileOperation.createDir(currrentPath);
 		// 创建excel工作簿
-		Workbook wb = new XSSFWorkbook();
+		final Workbook wb = new XSSFWorkbook();
 
 		// 创建sheet（页）
-		Sheet sheet1 = wb.createSheet("Data");
+		final Sheet sheet1 = wb.createSheet("Data");
 		return wb;
 	}
 
@@ -37,25 +36,25 @@ public class ExcelOperation {
 			fileOut = new FileOutputStream(path);
 			wb.write(fileOut);
 			fileOut.close();
-		} catch (IOException e1) {
+		} catch (final IOException e1) {
 			// TODO 自动生成的 catch 块
 			e1.printStackTrace();
 		}
 	}
 
 	public static int getEmptyRow(Workbook wb, int sheetIndex, String cellRef) {
-		Sheet sheet = wb.getSheetAt(sheetIndex);
-		CellReference cellReference = new CellReference(cellRef); // 一般是A1
+		final Sheet sheet = wb.getSheetAt(sheetIndex);
+		final CellReference cellReference = new CellReference(cellRef); // 一般是A1
 		boolean flag = false;
 		for (int i = cellReference.getRow(); i <= sheet.getLastRowNum();) {
-			Row r = sheet.getRow(i);
+			final Row r = sheet.getRow(i);
 			if (r == null) {
 				// 如果是空行（即没有任何数据、格式），直接把它以下的数据往上移动
 				sheet.shiftRows(i + 1, sheet.getLastRowNum(), -1);
 				continue;
 			}
 			flag = false;
-			for (Cell c : r) {
+			for (final Cell c : r) {
 				if (c.getCellType() != Cell.CELL_TYPE_BLANK) {
 					flag = true;
 					break;
@@ -75,19 +74,19 @@ public class ExcelOperation {
 	}
 
 	public static Workbook writeOneRow(Workbook wb, int sheetIndex, int rowIndex, List<String> content) {
-		Sheet sheet = wb.getSheetAt(sheetIndex);
-		Row row = sheet.createRow(rowIndex);
+		final Sheet sheet = wb.getSheetAt(sheetIndex);
+		final Row row = sheet.createRow(rowIndex);
 		for (int i = 0; i < content.size(); i++) {
 			row.createCell(i).setCellValue(content.get(i));
 		}
 		return wb;
 	}
 	
-	public static List<String> getTrend(String processName){
+	public static void getTrend(String processName){
 		Time.getTime();
-		String path = System.getProperty("user.dir") + "/" + processName + "/" + Time.year + "/" + Time.month + "/"
+		final String path = System.getProperty("user.dir") + "/" + processName + "/" + Time.year + "/" + Time.month + "/"
 				+ Time.day + ".xlsx";
-		File xlsx = new File(path);
+		final File xlsx = new File(path);
 		int rowIndex = 0;
 		int failureCount = 0;
 		if (xlsx.exists()) {
@@ -101,22 +100,22 @@ public class ExcelOperation {
 				rowIndex = ExcelOperation.getEmptyRow(wb, 0, "A1");
 
 				for (int i = 1; i < rowIndex; i++) {
-					Sheet sheet = wb.getSheetAt(0);
-					Row row = sheet.getRow(i);
-					Cell cell = row.getCell(10);
+					final Sheet sheet = wb.getSheetAt(0);
+					final Row row = sheet.getRow(i);
+					final Cell cell = row.getCell(10);
 					if (cell.getStringCellValue().equals("NG")) {
 						failureCount++;
 					}
 				}
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
 			}
 		}
 		// System.out.println(failureCount);
 		// System.out.println(rowIndex);
-		BigDecimal bd_rate = new BigDecimal((double) failureCount * 100 / (rowIndex - 1));
-		double rate = bd_rate.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
+		final BigDecimal bd_rate = new BigDecimal((double) failureCount * 100 / (rowIndex - 1));
+		final double rate = bd_rate.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
 //		return rate;
 	}
 

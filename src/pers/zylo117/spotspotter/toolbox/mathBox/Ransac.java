@@ -19,9 +19,9 @@ import java.util.Set;
 
 public class Ransac<T, S> {
 	private List<S> parameters = null;
-	private ParameterEstimator<T, S> paramEstimator;
+	private final ParameterEstimator<T, S> paramEstimator;
 	private boolean[] bestVotes;
-	private int numForEstimate;
+	private final int numForEstimate;
 	private double maximalOutlierPercentage;
 
 	/**
@@ -64,21 +64,21 @@ public class Ransac<T, S> {
 	 * @return 最优情况下的内点百分比
 	 */
 	public double compute(List<T> data, double desiredProbabilityForNoOutliers) {
-		int dataSize = data.size();
+		final int dataSize = data.size();
 		if (dataSize < numForEstimate || maximalOutlierPercentage >= 1.0) {
 			return 0.0;
 		}
-		List<T> exactedData = new ArrayList<T>();
+		final List<T> exactedData = new ArrayList<T>();
 		List<T> leastSqData;
 		List<S> exactedParams;
 		int bestSize, curSize, tryTimes;
 		bestVotes = new boolean[dataSize];
-		boolean[] curVotes = new boolean[dataSize];
-		boolean[] notChosen = new boolean[dataSize];
-		Set<int[]> chosenSubSets = new HashSet<int[]>();
+		final boolean[] curVotes = new boolean[dataSize];
+		final boolean[] notChosen = new boolean[dataSize];
+		final Set<int[]> chosenSubSets = new HashSet<int[]>();
 		int[] curSubSetIndexes;
 		double outlierPercentage = maximalOutlierPercentage;
-		double numerator = Math.log(1.0 - desiredProbabilityForNoOutliers);
+		final double numerator = Math.log(1.0 - desiredProbabilityForNoOutliers);
 		double denominator = Math.log(1 - Math.pow(1 - maximalOutlierPercentage, numForEstimate));
 		if (parameters != null) {
 			parameters.clear();
@@ -86,7 +86,7 @@ public class Ransac<T, S> {
 			parameters = new ArrayList<S>();
 		}
 		bestSize = -1;
-		Random random = new Random(new Date().getTime());
+		final Random random = new Random(new Date().getTime());
 		tryTimes = (int) Math.round(numerator / denominator);
 		for (int i = 0; i < tryTimes; i++) {
 			for (int j = 0; j < notChosen.length; j++) {
@@ -96,7 +96,7 @@ public class Ransac<T, S> {
 			exactedData.clear();
 			// 随机选取样本
 			for (int j = 0; j < numForEstimate; j++) {
-				int selectedIndex = random.nextInt(dataSize - j);
+				final int selectedIndex = random.nextInt(dataSize - j);
 				int k, l;
 				for (k = 0, l = -1; k < dataSize && l < selectedIndex; k++) {
 					if (notChosen[k]) {

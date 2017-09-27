@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 public class ImageStream2File {
 
 	public static void IS2F(BufferedImage input, String formatname, String output) throws IOException {
-		FileOutputStream fos = new FileOutputStream(output);
+		final FileOutputStream fos = new FileOutputStream(output);
 		ImageIO.write(input, formatname, fos);
 	}
 }

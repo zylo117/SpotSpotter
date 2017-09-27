@@ -10,9 +10,6 @@ import javax.imageio.ImageIO;
 
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
-
 import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
 import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
 
@@ -58,12 +55,12 @@ public class Picture {
 	}
 	
 	public static String postFixWithDot() {
-		String postFixWithDot = fileName.substring(fileName.lastIndexOf("."));
+		final String postFixWithDot = fileName.substring(fileName.lastIndexOf("."));
 		return postFixWithDot;
 	}
 	
 	public static String fileNameWOPostfix() {
-		String fileNameWOPostfix = fileName.replace(postFixWithDot(), "");
+		final String fileNameWOPostfix = fileName.replace(postFixWithDot(), "");
 		return fileNameWOPostfix;
 	}
 }

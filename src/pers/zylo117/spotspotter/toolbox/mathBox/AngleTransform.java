@@ -2,7 +2,7 @@ package pers.zylo117.spotspotter.toolbox.mathBox;
 
 public class AngleTransform {
 	public static double degree2Radian(double angle) {
-		double radian = angle / 180 * Math.PI;
+		final double radian = angle / 180 * Math.PI;
 		return radian;
 	}
 

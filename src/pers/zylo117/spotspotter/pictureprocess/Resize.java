@@ -6,7 +6,7 @@ import org.opencv.imgproc.Imgproc;
 
 public class Resize {
 	public static Mat tillFit(Mat input, double targetX, double targetY) {
-		Mat inputClone = input.clone();
+		final Mat inputClone = input.clone();
 		double newWidth = input.width();
 		double newHeight = input.height();
 		while (newWidth > targetX || newHeight > targetY) {

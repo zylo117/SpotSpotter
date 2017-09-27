@@ -17,7 +17,7 @@ import org.opencv.imgproc.Imgproc;
 public class CannyEdgeDetector {
 	public static void canny(String oriImg, String dstImg, int threshold) {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		Mat img = Imgcodecs.imread(oriImg);
+		final Mat img = Imgcodecs.imread(oriImg);
 		Imgproc.cvtColor(img, img, Imgproc.COLOR_BGR2GRAY);
 		//
 		Imgproc.Canny(img, img, threshold, threshold * 3, 3, true);

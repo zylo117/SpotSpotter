@@ -28,18 +28,18 @@ public class MatView extends JFrame {
 	public static void imshow(Mat image, String windowName) {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException e) {
+		} catch (final ClassNotFoundException e) {
 			e.printStackTrace();
-		} catch (InstantiationException e) {
+		} catch (final InstantiationException e) {
 			e.printStackTrace();
-		} catch (IllegalAccessException e) {
+		} catch (final IllegalAccessException e) {
 			e.printStackTrace();
-		} catch (UnsupportedLookAndFeelException e) {
+		} catch (final UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
 
-		JFrame jFrame = new JFrame(windowName);
-		JLabel imageView = new JLabel();
+		final JFrame jFrame = new JFrame(windowName);
+		final JLabel imageView = new JLabel();
 		final JScrollPane imageScrollPane = new JScrollPane(imageView);
 		if (image.width() < 800 && image.height() < 600)
 			imageScrollPane.setPreferredSize(new Dimension(image.width(), image.height())); // set window size
@@ -48,7 +48,7 @@ public class MatView extends JFrame {
 		jFrame.add(imageScrollPane, BorderLayout.CENTER);
 		jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-		Image loadedImage = Mat2BufferedImage.mat2BI(image);
+		final Image loadedImage = Mat2BufferedImage.mat2BI(image);
 		imageView.setIcon(new ImageIcon(loadedImage));
 		jFrame.pack();
 		jFrame.setLocationRelativeTo(null);
@@ -58,13 +58,13 @@ public class MatView extends JFrame {
 	public static void imshow_reDraw(Mat image, String windowName) {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException e) {
+		} catch (final ClassNotFoundException e) {
 			e.printStackTrace();
-		} catch (InstantiationException e) {
+		} catch (final InstantiationException e) {
 			e.printStackTrace();
-		} catch (IllegalAccessException e) {
+		} catch (final IllegalAccessException e) {
 			e.printStackTrace();
-		} catch (UnsupportedLookAndFeelException e) {
+		} catch (final UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
 

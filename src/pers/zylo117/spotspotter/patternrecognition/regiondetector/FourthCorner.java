@@ -24,8 +24,8 @@ public class FourthCorner {
 //		double result_x1 = (-b+Math.sqrt(delta))/2*a;
 //		double result_x2 = (-b-Math.sqrt(delta))/2*a;
 
-		double vector_x = p2.x - p1.x;
-		double vector_y = p2.y - p1.y;
+		final double vector_x = p2.x - p1.x;
+		final double vector_y = p2.y - p1.y;
 		p4 = new Point(p3.x + vector_x, p3.y + vector_y);
 		
 		return p4;

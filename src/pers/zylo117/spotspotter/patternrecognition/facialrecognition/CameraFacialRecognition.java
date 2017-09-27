@@ -21,16 +21,16 @@ public class CameraFacialRecognition extends JPanel {
 	private BufferedImage mImg;
 
 	private static Mat dobj(CascadeClassifier objDetector, Mat src) {
-		Mat dst = src.clone();
+		final Mat dst = src.clone();
 
-		MatOfRect objDetections = new MatOfRect();
+		final MatOfRect objDetections = new MatOfRect();
 
 		objDetector.detectMultiScale(dst, objDetections);
 
 		if (objDetections.toArray().length <= 0) {
 			return src;
 		}
-		for (Rect rect : objDetections.toArray()) {
+		for (final Rect rect : objDetections.toArray()) {
 			Imgproc.rectangle(dst, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height),
 					new Scalar(0, 0, 255), 2);
 		}
@@ -48,21 +48,21 @@ public class CameraFacialRecognition extends JPanel {
 		try {
 			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
-			CascadeClassifier objDetector = new CascadeClassifier(CameraFacialRecognition.class
+			final CascadeClassifier objDetector = new CascadeClassifier(CameraFacialRecognition.class
 					.getResource("../../../../../opencv/sources/data/lbpcascades/lbpcascade_frontalface_improved.xml")
 					.getPath().substring(1));
 
-			Mat capImg = new Mat();
-			VideoCapture capture = new VideoCapture(0);
-			int height = (int) capture.get(Videoio.CV_CAP_PROP_FRAME_HEIGHT);
-			int width = (int) capture.get(Videoio.CV_CAP_PROP_FRAME_WIDTH);
+			final Mat capImg = new Mat();
+			final VideoCapture capture = new VideoCapture(0);
+			final int height = (int) capture.get(Videoio.CV_CAP_PROP_FRAME_HEIGHT);
+			final int width = (int) capture.get(Videoio.CV_CAP_PROP_FRAME_WIDTH);
 			if (height == 0 || width == 0) {
 				throw new Exception("camera not found");
 			}
 
-			JFrame frame = new JFrame("camera");
+			final JFrame frame = new JFrame("camera");
 			frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			CameraFacialRecognition panel = new CameraFacialRecognition();
+			final CameraFacialRecognition panel = new CameraFacialRecognition();
 			frame.setContentPane(panel);
 			frame.setVisible(true);
 			frame.setSize(width + frame.getInsets().left + frame.getInsets().right,
@@ -76,7 +76,7 @@ public class CameraFacialRecognition extends JPanel {
 				panel.repaint();
 			}
 			capture.release();
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			System.out.println("Exception" + e);
 		} finally {
 			System.out.println("--done--");

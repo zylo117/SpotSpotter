@@ -13,12 +13,12 @@ import javax.mail.internet.MimeMessage;
 public class Mail_POP3 {
 	 public static void main(String[] args){
 	        try {
-	            String host = "smtp.qq.com";//这是QQ邮箱的smtp服务器地址
-	            String port = "25"; //端口号
+	            final String host = "smtp.qq.com";//这是QQ邮箱的smtp服务器地址
+	            final String port = "25"; //端口号
 	            /*
 	            *Properties是一个属性对象，用来创建Session对象
 	            */
-	            Properties props = new Properties();
+	            final Properties props = new Properties();
 	            props.setProperty("mail.smtp.host", host);
 	            props.setProperty("mail.smtp.port", port);
 	            props.setProperty("mail.smtp.auth", "true");
@@ -29,7 +29,7 @@ public class Mail_POP3 {
 	            /*
 	            *Session类定义了一个基本的邮件对话。
 	            */
-	            Session session = Session.getInstance(props, new Authenticator() {
+	            final Session session = Session.getInstance(props, new Authenticator() {
 	                @Override
 	                protected PasswordAuthentication getPasswordAuthentication() {
 	                    //登录用户名密码
@@ -41,12 +41,12 @@ public class Mail_POP3 {
 	            *Transport类用来发送邮件。
 	            *传入参数smtp，transport将自动按照smtp协议发送邮件。
 	            */
-	            Transport transport = session.getTransport("smtp");//"smtps"
+	            final Transport transport = session.getTransport("smtp");//"smtps"
 	            transport.connect(host,user,pwd);
 	            /*
 	            *Message对象用来储存实际发送的电子邮件信息
 	            */
-	            MimeMessage message = new MimeMessage(session);
+	            final MimeMessage message = new MimeMessage(session);
 	            message.setSubject("邮件标题");
 	            //消息发送者接收者设置(发件地址，昵称)，收件人看到的昵称是这里设定的
 	            message.setFrom(new InternetAddress(user,"二师兄"));
@@ -64,7 +64,7 @@ public class Mail_POP3 {
 	            //transport.send(message);
 	            Transport.send(message);
 	            transport.close();
-	        } catch (Exception e) {
+	        } catch (final Exception e) {
 	            // TODO Auto-generated catch block
 	            e.printStackTrace();
 	        }

@@ -18,7 +18,7 @@ public class Time {
 	public static String datetime_hyphen;
 
 	public static void getTime() {
-		Calendar c1 = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
+		final Calendar c1 = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
 		year = c1.get(Calendar.YEAR);
 		month = c1.get(Calendar.MONTH) + 1;
 		day = c1.get(Calendar.DATE);
@@ -45,7 +45,7 @@ public class Time {
 		try {
 			Thread.currentThread();
 			Thread.sleep(msec);// ∫¡√Î ms
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 	}

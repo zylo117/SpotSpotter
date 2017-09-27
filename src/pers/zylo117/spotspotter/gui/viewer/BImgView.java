@@ -23,24 +23,24 @@ public class BImgView{
     public static void imshow(BufferedImage image, String windowName){
        try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException e) {
+        } catch (final ClassNotFoundException e) {
             e.printStackTrace();
-        } catch (InstantiationException e) {
+        } catch (final InstantiationException e) {
             e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (final IllegalAccessException e) {
             e.printStackTrace();
-        } catch (UnsupportedLookAndFeelException e) {
+        } catch (final UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
 
-        JFrame jFrame = new JFrame(windowName);
-        JLabel imageView = new JLabel();
+        final JFrame jFrame = new JFrame(windowName);
+        final JLabel imageView = new JLabel();
         final JScrollPane imageScrollPane = new JScrollPane(imageView);
         imageScrollPane.setPreferredSize(new Dimension(500, 500));  // set window size
         jFrame.add(imageScrollPane, BorderLayout.CENTER);
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        Image loadedImage = image;
+        final Image loadedImage = image;
         imageView.setIcon(new ImageIcon(loadedImage));
         jFrame.pack();
         jFrame.setLocationRelativeTo(null);

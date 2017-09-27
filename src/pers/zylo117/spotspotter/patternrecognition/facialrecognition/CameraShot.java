@@ -32,28 +32,28 @@ public class CameraShot {
             @Override
 			public void run() {
                 try {
-                    CameraShot window = new CameraShot();
+                    final CameraShot window = new CameraShot();
                     window.frame.setVisible(true);
                      
-                } catch (Exception e) {
+                } catch (final Exception e) {
                     e.printStackTrace();
                 }
             }
         });
         //我们的操作
-        VideoCapture camera=new VideoCapture();//创建Opencv中的视频捕捉对象
+        final VideoCapture camera=new VideoCapture();//创建Opencv中的视频捕捉对象
         camera.open(0);//open函数中的0代表当前计算机中索引为0的摄像头，如果你的计算机有多个摄像头，那么一次1,2,3……
         if(!camera.isOpened()){//isOpened函数用来判断摄像头调用是否成功
             System.out.println("Camera Error");//如果摄像头调用失败，输出错误信息
         }
         else{
-            Mat frame=new Mat();//创建一个输出帧
+            final Mat frame=new Mat();//创建一个输出帧
             while(flag==0){
                 camera.read(frame);//read方法读取摄像头的当前帧
                 label.setIcon(new ImageIcon(Mat2BufferedImage.mat2BI(frame)));//转换图像格式并输出
                 try {
                     Thread.sleep(100);//线程暂停100ms
-                } catch (InterruptedException e) {
+                } catch (final InterruptedException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
@@ -77,7 +77,7 @@ public class CameraShot {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
          
-        JButton btnNewButton = new JButton("\u62CD\u7167");
+        final JButton btnNewButton = new JButton("\u62CD\u7167");
         btnNewButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent arg0) {
