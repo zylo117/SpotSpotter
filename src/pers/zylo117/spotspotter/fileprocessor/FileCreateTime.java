@@ -80,32 +80,36 @@ public class FileCreateTime {
 	}
 	
 	public static boolean ifOutOfDate(File file) {
-		final String oldDate = getCreateTime(file.getAbsolutePath());
-		Time.getTime();
-		final String newDate = Time.date_slash;
-		final DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
-		try {
-			final Date dt1 = df.parse(newDate);
-			final Date dt2 = df.parse(oldDate);
-			if (dt1.getTime() > dt2.getTime()) {
-				return true;
-			} else if (dt1.getTime() < dt2.getTime()) {
-				return false;
-			} else {
-				return false;
+		if(!file.exists())
+			return true;
+		else {
+			final String oldDate = getCreateTime(file.getAbsolutePath());
+			Time.getTime();
+			final String newDate = Time.date_slash;
+			final DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+			try {
+				final Date dt1 = df.parse(newDate);
+				final Date dt2 = df.parse(oldDate);
+				if (dt1.getTime() > dt2.getTime()) {
+					return true;
+				} else if (dt1.getTime() < dt2.getTime()) {
+					return false;
+				} else {
+					return false;
+				}
+			} catch (final Exception exception) {
+				exception.printStackTrace();
 			}
-		} catch (final Exception exception) {
-			exception.printStackTrace();
+			return false;
 		}
-		return false;
 	}
 
 	public static void main(String[] args) {
-		getCreateTime("D:\\workspace\\SpotSpotter\\tmpIndex.dat");
-		getCreateTime("D:\\workspace\\SpotSpotter\\Run.bat");
-		System.out.println(compare_date(getCreateTime("D:\\workspace\\SpotSpotter\\tmpIndex.dat"),
-				getCreateTime("D:\\workspace\\SpotSpotter\\Run.bat")));
-		System.out.println(System.getProperty("user.dir") + "\\tmpIndex.dat");
+//		getCreateTime("D:\\workspace\\SpotSpotter\\tmpIndex.dat");
+//		getCreateTime("D:\\workspace\\SpotSpotter\\Run.bat");
+//		System.out.println(compare_date(getCreateTime("D:\\workspace\\SpotSpotter\\tmpIndex.dat"),
+//				getCreateTime("D:\\workspace\\SpotSpotter\\Run.bat")));
+//		System.out.println(System.getProperty("user.dir") + "\\tmpIndex.dat");
 		System.out.println(ifOutOfDate(new File(System.getProperty("user.dir") + "\\tmpIndex.dat")));
 	}
 }

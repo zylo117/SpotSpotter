@@ -149,12 +149,11 @@ public class SpotSpotter {
 					final Map datamap = new HashMap<>();
 					datamap.put(new Point(i, j), result);
 					spotList.add(datamap);
-
-					System.out.println("Center" + "\tX: " + i + "\tY: " + j + "\tDifference " + result * 100 + "%");
+					if(ifPrint)
+						System.out.println("Center" + "\tX: " + i + "\tY: " + j + "\tDifference " + result * 100 + "%");
 				}
 			}
 		}
-		if(ifPrint)
 			System.out.println("Spot Quantity = " + spotQty);
 
 		return spotList;
