@@ -6,25 +6,24 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import pers.zylo117.spotspotter.gui.viewer.CentralControl;
 import pers.zylo117.spotspotter.mainprogram.AlgoList;
+import pers.zylo117.spotspotter.mainprogram.MainLoader;
 import pers.zylo117.spotspotter.toolbox.Time;
 
 public class FIndexReader {
 	public static List<String> getFIndex(String path, boolean ifNew) {
-		final String oldIndex = System.getProperty("user.dir") + "\\tmpIndex.dat";
-		final File file = new File(oldIndex);
-		Time.getTime();
-		final String todayFIndex = path + "\\" + Time.year + "\\" + Time.strMonth + "\\" + Time.strDay + "\\" + "findex.dat";
-		final File fIndex = new File(todayFIndex);
+		final File oldFileIndex = MainLoader.oldFileIndex;
+		final File fIndex = MainLoader.fIndex;
 		File onLoad = null;
-		if(!file.exists() || ifNew || FileCreateTime.ifOutOfDate(oldIndex)){	
+		if(!oldFileIndex.exists() || ifNew || FileCreateTime.ifOutOfDate(oldFileIndex)){	
 			onLoad = fIndex;
-			if(file.exists() && !ifNew )
-				file.delete();
+			if(FileCreateTime.ifOutOfDate(oldFileIndex))
+				oldFileIndex.delete();
 		}
 		else {
-			onLoad = file;	
+			onLoad = oldFileIndex;	
 		}
 		String content = "";
 
@@ -84,8 +83,8 @@ public class FIndexReader {
 		for (int i = 0; i < list.size(); i++) {
 			AlgoList.panda(todayFIndex + list.get(i));
 			if (!CentralControl.monitorPath.isEmpty() && !CentralControl.monitorPath.equals(path)) {
-				final File file = new File(System.getProperty("user.dir") + "/tmpIndex.dat");
-				file.delete();
+//				final File file = new File(System.getProperty("user.dir") + "/tmpIndex.dat");
+//				file.delete();
 				break;
 			}
 			newlist.add(list.get(i));
@@ -94,7 +93,7 @@ public class FIndexReader {
 	}
 
 	public static void outputIndex(String content) {
-		final File file = new File(System.getProperty("user.dir") + "/tmpIndex.dat");
+		final File file = MainLoader.oldFileIndex;
 		try {
 			if (!file.exists())
 				file.createNewFile();

@@ -2,6 +2,7 @@ package pers.zylo117.spotspotter.toolbox;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+
 import javax.imageio.ImageIO;
 
 public class ImageFormater {

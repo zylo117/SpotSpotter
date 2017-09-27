@@ -1,20 +1,19 @@
 package pers.zylo117.spotspotter.patternrecognition.facialrecognition;
  
 import java.awt.EventQueue;
- 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
- 
+
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoCapture;
 
 import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
-
-import javax.swing.JButton;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
  
 public class CameraShot {
      

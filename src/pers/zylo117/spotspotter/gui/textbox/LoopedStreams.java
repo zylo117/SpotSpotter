@@ -1,6 +1,11 @@
 package pers.zylo117.spotspotter.gui.textbox;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
 public class LoopedStreams {
     private final PipedOutputStream pipedOS = 
         new PipedOutputStream();

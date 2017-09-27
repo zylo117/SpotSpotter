@@ -7,11 +7,11 @@ import pers.zylo117.spotspotter.gui.viewer.CentralControl;
 
 public class BreakPoint {
 	public static void continuous(List<String> oldlist) {
-			oldlist = FIndexReader.getFIndex(CentralControl.monitorPath, false);
-			final List<String> newlist = FIndexReader.getFIndex(CentralControl.monitorPath, true);
-			newlist.removeAll(oldlist);			
-			if(!newlist.isEmpty())
-				oldlist = newlist;
-			FIndexReader.indexProcess(CentralControl.monitorPath, oldlist);
+		oldlist = FIndexReader.getFIndex(CentralControl.monitorPath, false);
+		final List<String> newlist = FIndexReader.getFIndex(CentralControl.monitorPath, true);
+		newlist.removeAll(oldlist);
+		if (!newlist.isEmpty())
+			oldlist = newlist;
+		FIndexReader.indexProcess(CentralControl.monitorPath, oldlist);
 	}
 }

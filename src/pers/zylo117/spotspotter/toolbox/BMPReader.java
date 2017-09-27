@@ -4,7 +4,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.awt.image.MemoryImageSource;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 

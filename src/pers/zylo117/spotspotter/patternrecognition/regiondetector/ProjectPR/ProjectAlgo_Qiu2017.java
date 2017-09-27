@@ -1,6 +1,7 @@
 package pers.zylo117.spotspotter.patternrecognition.regiondetector.ProjectPR;
 
 import java.awt.image.BufferedImage;
+
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 

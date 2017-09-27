@@ -1,19 +1,24 @@
 package pers.zylo117.spotspotter.patternrecognition.facialrecognition;
 
-import javax.swing.*;
-
-import java.awt.*;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import org.opencv.core.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
+
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfRect;
 import org.opencv.core.Point;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
+import org.opencv.objdetect.CascadeClassifier;
 import org.opencv.videoio.VideoCapture;
 import org.opencv.videoio.Videoio;
 
 import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
-
-import org.opencv.objdetect.CascadeClassifier;
-import org.opencv.imgproc.Imgproc;
 
 public class CameraFacialRecognition extends JPanel {
 	private static final long serialVersionUID = 1L;

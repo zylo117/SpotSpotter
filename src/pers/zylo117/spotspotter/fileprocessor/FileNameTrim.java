@@ -1,7 +1,5 @@
 package pers.zylo117.spotspotter.fileprocessor;
 
-import pers.zylo117.spotspotter.fileprocessor.FileListener;
-
 public class FileNameTrim {
 	
 	public static String getStatus(){

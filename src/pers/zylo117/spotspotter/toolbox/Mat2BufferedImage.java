@@ -1,6 +1,7 @@
 package pers.zylo117.spotspotter.toolbox;
 
 import java.awt.image.BufferedImage;
+
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 

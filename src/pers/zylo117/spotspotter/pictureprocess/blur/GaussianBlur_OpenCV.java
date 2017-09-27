@@ -1,7 +1,9 @@
 package pers.zylo117.spotspotter.pictureprocess.blur;
 
-import org.opencv.core.*;
-import org.opencv.imgcodecs.*;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.Size;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 public class GaussianBlur_OpenCV {

@@ -4,11 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -24,6 +24,7 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
+
 import org.opencv.core.Mat;
 
 import pers.zylo117.spotspotter.gui.textbox.ConsoleTextArea;
@@ -142,19 +143,19 @@ public class CentralControl extends JFrame {
 		final JScrollPane coverCopy = main;
 
 		// 监视窗口右边显示Log*************************************
-		ConsoleTextArea consoleTextArea = null;
-		try {
-			consoleTextArea = new ConsoleTextArea();
-		} catch (final IOException e) {
-			System.err.println("Unable to create LoopedStreams：" + e);
-			System.exit(1);
-		}
-		logContainer = jFrame.getContentPane();
-		final JScrollPane consolePane = new JScrollPane(consoleTextArea);
-		final Rectangle boundsOfCover = imageView.getBounds();
-		consolePane.setBounds(boundsOfCover.x + boundsOfCover.width/2, boundsOfCover.y, boundsOfCover.width,
-				boundsOfCover.height);
-		logContainer.add(consolePane, BorderLayout.EAST);
+//		ConsoleTextArea consoleTextArea = null;
+//		try {
+//			consoleTextArea = new ConsoleTextArea();
+//		} catch (final IOException e) {
+//			System.err.println("Unable to create LoopedStreams：" + e);
+//			System.exit(1);
+//		}
+//		logContainer = jFrame.getContentPane();
+//		final JScrollPane consolePane = new JScrollPane(consoleTextArea);
+//		final Rectangle boundsOfCover = imageView.getBounds();
+//		consolePane.setBounds(boundsOfCover.x + boundsOfCover.width/2, boundsOfCover.y, boundsOfCover.width,
+//				boundsOfCover.height);
+//		logContainer.add(consolePane, BorderLayout.EAST);
 
 		// Panel1基础信息文本框***********************************
 		final JPanel baseInfo = new JPanel();

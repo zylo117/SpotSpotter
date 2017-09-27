@@ -3,6 +3,7 @@ package pers.zylo117.spotspotter.gui.viewer;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Image;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,6 +13,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 
 import org.opencv.core.Mat;
+
 import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
 
 public class MatView extends JFrame {
