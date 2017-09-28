@@ -13,7 +13,7 @@ import pers.zylo117.spotspotter.mainprogram.MainLoader;
 import pers.zylo117.spotspotter.toolbox.Time;
 
 public class FIndexReader {
-	public static List<String> getFIndex(String path, boolean ifNew) {
+	public static List<String> getFIndex(boolean ifNew) {
 		final File oldFileIndex = MainLoader.oldFileIndex;
 		final File fIndex = MainLoader.fIndex;
 		File onLoad = null;
@@ -66,7 +66,7 @@ public class FIndexReader {
 	public static List<String> indexProcess(String path) {
 		Time.getTime();
 		final String todayFIndex = path + Time.year + "\\" + Time.strMonth + "\\" + Time.strDay + "\\";
-		final List<String> list = getFIndex(path, false);
+		final List<String> list = getFIndex(false);
 		final List<String> newlist = new ArrayList<>();
 		for (int i = 0; i < list.size(); i++) {
 			AlgoList.panda(todayFIndex + list.get(i));

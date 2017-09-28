@@ -68,6 +68,8 @@ public class MainLoader {
 							+ "\\" + Time.strDay + "\\" + "findex.dat";
 					oldFileIndex = new File(oldIndex);
 					fIndex = new File(todayFIndex);
+					if(!fIndex.exists())
+						break;
 					BreakPoint.continuous(oldlist);
 				}
 			}
