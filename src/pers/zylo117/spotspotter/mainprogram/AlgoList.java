@@ -17,7 +17,7 @@ import pers.zylo117.spotspotter.fileprocessor.FileOperation;
 import pers.zylo117.spotspotter.gui.viewer.CentralControl;
 import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
 import pers.zylo117.spotspotter.patternrecognition.ROI_Irregular;
-import pers.zylo117.spotspotter.patternrecognition.corealgorithm.SpotSpotter;
+import pers.zylo117.spotspotter.patternrecognition.core.SpotSpotter;
 import pers.zylo117.spotspotter.patternrecognition.regiondetector.ProjectPR.ProjectAlgo_Qiu2017;
 import pers.zylo117.spotspotter.pictureprocess.Picture;
 import pers.zylo117.spotspotter.pictureprocess.Resize;

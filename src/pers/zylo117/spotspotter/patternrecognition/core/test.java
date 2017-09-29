@@ -1,4 +1,4 @@
-package pers.zylo117.spotspotter.patternrecognition.corealgorithm;
+package pers.zylo117.spotspotter.patternrecognition.core;
 
 import pers.zylo117.spotspotter.toolbox.mathBox.Line;
 

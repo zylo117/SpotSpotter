@@ -1,4 +1,4 @@
-package pers.zylo117.spotspotter.patternrecognition.corealgorithm;
+package pers.zylo117.spotspotter.patternrecognition.core;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
