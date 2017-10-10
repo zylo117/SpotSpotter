@@ -30,6 +30,8 @@ import pers.zylo117.spotspotter.toolbox.mathBox.Line;
 import pers.zylo117.spotspotter.toolbox.mathBox.Regression;
 
 public class AlgoList {
+	
+	public static boolean ifIODone = true;
 
 	public static void godzilla() throws IOException {
 
@@ -217,6 +219,8 @@ public class AlgoList {
 	public static void panda(String input) {
 		final long beginTime = new Date().getTime();
 		
+		ifIODone = false;
+		
 		Time.waitFor(CentralControl.buffTime);
 		while (true) {
 			// 从主控窗口获取数据
@@ -247,12 +251,11 @@ public class AlgoList {
 
 			// String input =
 			// "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/1.jpg";
-			final String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output1.jpg";
 			// System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
 			final File file = new File(input);
 			
-			if (FileOperation.isFileExists(input, false)) {
+			if (file.exists()) {
 				if (FileOperation.isFileNameValid(file.getName())) {
 					if (GetPostfix.fromFilename(file.getName()).equals("jpg")) {
 						final Mat imgOrigin = Imgcodecs.imread(input);
@@ -314,7 +317,7 @@ public class AlgoList {
 						// MatView.imshow(out, "Output");
 
 						// 压缩并显示
-						final Mat imgOriginClone = Resize.tillFit(imgOrigin, 512, 512);
+//						final Mat imgOriginClone = Resize.tillFit(imgOrigin, 512, 512);
 //						CentralControl.showPicOnPre(imgOriginClone);
 
 						// 画出ROI
@@ -372,5 +375,6 @@ public class AlgoList {
 			}else
 				break;
 		}
+		ifIODone = true;
 	}
 }

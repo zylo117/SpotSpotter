@@ -28,9 +28,12 @@ import javax.swing.WindowConstants;
 
 import org.opencv.core.Mat;
 
+import pers.zylo117.spotspotter.fileprocessor.FIndexReader;
 import pers.zylo117.spotspotter.gui.textbox.ConsoleTextArea;
+import pers.zylo117.spotspotter.mainprogram.AlgoList;
 import pers.zylo117.spotspotter.toolbox.GetPostfix;
 import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
+import pers.zylo117.spotspotter.toolbox.Time;
 
 public class CentralControl extends JFrame {
 
@@ -40,7 +43,7 @@ public class CentralControl extends JFrame {
 	public static String productN = "XX";
 	public static int mcNO = 0, binThresh = 280, ssThresh = 3, buffTime = 10, mosaicLength = 1, offset = 15;
 	public static int algoIndex = 2;
-	public static boolean ok2Proceed, ifPause, ifStop = false, openPicMonitor = true, openLogMonitor = true;
+	public static boolean ok2Proceed, ok2Test, ifPause, ifStop = false, openPicMonitor = true, openLogMonitor = true;
 
 	public static boolean hasWorkDir = false;
 
@@ -49,6 +52,7 @@ public class CentralControl extends JFrame {
 	public static Image loadedImage;
 	public static String monitorPath = null;
 	public static Container logContainer;
+	public static File tempFile;
 
 	/**
 	 * Display Mat image
@@ -84,7 +88,7 @@ public class CentralControl extends JFrame {
 		final JMenuItem exitItem = new JMenuItem("Exit");
 		menu.add(exitItem);
 
-		final ActionListener act = new ActionListener() {
+		final ActionListener act_start = new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -94,6 +98,7 @@ public class CentralControl extends JFrame {
 				chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 				final int result = chooser.showOpenDialog(null);
 				if (result == JFileChooser.APPROVE_OPTION) {
+					final File file = chooser.getSelectedFile();
 					final String name = chooser.getSelectedFile().getPath();
 					final String path = chooser.getSelectedFile().getParent();
 
@@ -102,34 +107,45 @@ public class CentralControl extends JFrame {
 							|| postFix.equals("tiff") || postFix.equals("JPG")) {
 						System.out.println("Temporarily Run Test On A Picture");
 						imageView.setIcon(new ImageIcon(name));
-					} else if(chooser.getSelectedFile().isFile()){
+					} else if (postFix.equals("dat")) {
+						hasWorkDir = true;
+						System.out.println("Temporarily Run Test On A List");
+						tempFile = file;
+						ok2Test = true;
+					} else if (file.isFile()) {
 						monitorPath = path + "\\";
 						hasWorkDir = true;
 						System.out.println("Monitoring Path Hooked to : " + monitorPath);
+						System.out.println("Start Monitoring");
 						// System.out.println(hasWorkDir);
 						jFrame.repaint();
-					}else {
+						ok2Proceed = true;
+					} else {
 						monitorPath = name + "\\";
 						hasWorkDir = true;
 						System.out.println("Monitoring Path Has Been Changed to : " + monitorPath);
+						System.out.println("Start Monitoring");
 						// System.out.println(hasWorkDir);
 						jFrame.repaint();
+						ok2Proceed = true;
 					}
 				}
-				ok2Proceed = true;
-				System.out.println("Start Monitoring");
 			}
 		};
 
-		openItem.addActionListener(act);
-		exitItem.addActionListener(new ActionListener() {
-
+		final ActionListener act_exit = new ActionListener() {
+			
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.exit(0);
+			public void actionPerformed(ActionEvent e) {
+				// TODO 自动生成的方法存根
+				if(AlgoList.ifIODone)
+					System.exit(0);
 			}
-		});
+		};
+		
+		openItem.addActionListener(act_start);
+		jFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		exitItem.addActionListener(act_exit);
 
 		final JScrollPane main = new JScrollPane(imageView);
 		// if (image.width() <= 800 && image.height() <= 600)
@@ -138,25 +154,25 @@ public class CentralControl extends JFrame {
 		// else
 		// imageScrollPane.setPreferredSize(new Dimension(600, 620));
 
-		jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		
 		final Image loadedImage = Mat2BufferedImage.mat2BI(image);
 		imageView.setIcon(new ImageIcon(loadedImage));
 		final JScrollPane coverCopy = main;
 
 		// 监视窗口右边显示Log*************************************
-		ConsoleTextArea consoleTextArea = null;
-		try {
-			consoleTextArea = new ConsoleTextArea();
-		} catch (final IOException e) {
-			System.err.println("Unable to create LoopedStreams：" + e);
-			System.exit(1);
-		}
-		logContainer = jFrame.getContentPane();
-		final JScrollPane consolePane = new JScrollPane(consoleTextArea);
-		final Rectangle boundsOfCover = imageView.getBounds();
-		consolePane.setBounds(boundsOfCover.x + boundsOfCover.width/2, boundsOfCover.y, boundsOfCover.width,
-				boundsOfCover.height);
-		logContainer.add(consolePane, BorderLayout.EAST);
+//		ConsoleTextArea consoleTextArea = null;
+//		try {
+//			consoleTextArea = new ConsoleTextArea();
+//		} catch (final IOException e) {
+//			System.err.println("Unable to create LoopedStreams：" + e);
+//			System.exit(1);
+//		}
+//		logContainer = jFrame.getContentPane();
+//		final JScrollPane consolePane = new JScrollPane(consoleTextArea);
+//		final Rectangle boundsOfCover = imageView.getBounds();
+//		consolePane.setBounds(boundsOfCover.x + boundsOfCover.width / 2, boundsOfCover.y, boundsOfCover.width,
+//				boundsOfCover.height);
+//		logContainer.add(consolePane, BorderLayout.EAST);
 
 		// Panel1基础信息文本框***********************************
 		final JPanel baseInfo = new JPanel();
@@ -202,10 +218,12 @@ public class CentralControl extends JFrame {
 		final JTextField bufferTime = new JTextField("BufferTime");
 		buffTime_manual = new JTextField(Integer.toString(buffTime), 3);
 		final JTextField ms = new JTextField("ms");
-		final JTextField tips = new JTextField("AA: ME: bin-15, ss-10, roiSize-1; NH: bin-20, ss-15, roiSize-1; GA: bin-240~300, ss-1~5,roiSize-10", 80);
+		final JTextField tips = new JTextField(
+				"AA: ME: bin-15, ss-10, roiSize-1; NH: bin-20, ss-15, roiSize-1; GA: bin-240~300, ss-1~5,roiSize-10",
+				80);
 
 		tips.setHorizontalAlignment(SwingConstants.CENTER);
-		
+
 		bufferTime.setEnabled(false);
 		ms.setEnabled(false);
 		binThresh.setEnabled(false); // true可以编辑
@@ -224,7 +242,7 @@ public class CentralControl extends JFrame {
 		paraMeter.add(percent);
 		paraMeter.add(mosaicL);
 		paraMeter.add(mosaicLength_manual);
-//		paraMeter.add(tips);
+		// paraMeter.add(tips);
 
 		// Panel3开关按钮*******************************************
 		final JPanel switchPanel = new JPanel();
@@ -233,17 +251,9 @@ public class CentralControl extends JFrame {
 		final JButton start = new JButton("Start");
 		final JButton stop = new JButton("Stop");
 
-		start.addActionListener(act);
+		start.addActionListener(act_start);
 
-		stop.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO 自动生成的方法存根
-				ifStop = true;
-				System.out.println("Stop Monitoring");
-			}
-		});
+		stop.addActionListener(act_exit);
 
 		final JButton picMonitor = new JButton("Monitor");
 
@@ -331,9 +341,9 @@ public class CentralControl extends JFrame {
 
 		// 总窗口设置************************************
 		jFrame.pack();
-		
-//		jFrame.setUndecorated(false);//去掉窗体修饰,包括最大化按钮
-		jFrame.setResizable(false); //禁止改变窗体大小
+
+		// jFrame.setUndecorated(false);//去掉窗体修饰,包括最大化按钮
+		jFrame.setResizable(false); // 禁止改变窗体大小
 		// jFrame.setLocationRelativeTo(null);
 		jFrame.setLocation(20, 10);
 		// jFrame.setBounds(50, 50, 1280, 768);

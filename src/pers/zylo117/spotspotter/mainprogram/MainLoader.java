@@ -8,6 +8,7 @@ import java.util.Properties;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
+import pers.zylo117.spotspotter.fileprocessor.FIndexReader;
 import pers.zylo117.spotspotter.gui.viewer.CentralControl;
 import pers.zylo117.spotspotter.toolbox.Time;
 
@@ -71,6 +72,8 @@ public class MainLoader {
 					if(!fIndex.exists())
 						break;
 					BreakPoint.continuous(oldlist);
+				}else if (CentralControl.ok2Test){
+					 FIndexReader.indexProcess(CentralControl.tempFile);
 				}
 			}
 		}
