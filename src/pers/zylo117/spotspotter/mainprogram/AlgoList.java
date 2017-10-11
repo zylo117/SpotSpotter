@@ -376,5 +376,8 @@ public class AlgoList {
 				break;
 		}
 		ifIODone = true;
+		
+		if(CentralControl.ok2Exit)
+			System.exit(0);
 	}
 }

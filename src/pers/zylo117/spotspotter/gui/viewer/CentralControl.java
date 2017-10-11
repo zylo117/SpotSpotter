@@ -43,7 +43,7 @@ public class CentralControl extends JFrame {
 	public static String productN = "XX";
 	public static int mcNO = 0, binThresh = 280, ssThresh = 3, buffTime = 10, mosaicLength = 1, offset = 15;
 	public static int algoIndex = 2;
-	public static boolean ok2Proceed, ok2Test, ifPause, ifStop = false, openPicMonitor = true, openLogMonitor = true;
+	public static boolean ok2Proceed, ok2Test, ok2Exit = false, ifPause, ifStop = false, openPicMonitor = true, openLogMonitor = true;
 
 	public static boolean hasWorkDir = false;
 
@@ -139,7 +139,7 @@ public class CentralControl extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO 自动生成的方法存根
 				if(AlgoList.ifIODone)
-					System.exit(0);
+					ok2Exit = true;
 			}
 		};
 		
@@ -249,11 +249,11 @@ public class CentralControl extends JFrame {
 		switchPanel.setOpaque(true);
 		// JButton select = new JButton("Select");
 		final JButton start = new JButton("Start");
-		final JButton stop = new JButton("Stop");
+		final JButton exit = new JButton("Exit");
 
 		start.addActionListener(act_start);
 
-		stop.addActionListener(act_exit);
+		exit.addActionListener(act_exit);
 
 		final JButton picMonitor = new JButton("Monitor");
 
@@ -314,7 +314,7 @@ public class CentralControl extends JFrame {
 
 		// switchPanel.add(select);
 		switchPanel.add(start);
-		switchPanel.add(stop);
+		switchPanel.add(exit);
 		// switchPanel.add(picMonitor);
 		// switchPanel.add(logMonitor);
 
