@@ -186,7 +186,7 @@ public class AlgoList {
 
 						GrandCounter.plusOne();
 
-						GA_AA_Data.writeNextRow(pic, 0, "A3");
+						GA_AA_Data.writeNextRow(pic, 0, "A3", true);
 						if (pic.result().equals("NG")) {
 							System.out.println("Test Result: " + pic.material);
 							System.out.println("Outputing NG Pics");
@@ -239,6 +239,9 @@ public class AlgoList {
 				CentralControl.mosaicLength = Integer.parseInt(CentralControl.mosaicLength_manual.getText());
 			if (!CentralControl.offsetText.getText().isEmpty())
 				CentralControl.offset = Integer.parseInt(CentralControl.offsetText.getText());
+			
+			if (!CentralControl.ioPulseText.getText().isEmpty())
+				CentralControl.ioPulse = Integer.parseInt(CentralControl.ioPulseText.getText());
 			
 //			String input = FileListener.filePath + "\\" + FileListener.fileName;
 
@@ -347,7 +350,12 @@ public class AlgoList {
 
 						GrandCounter.plusOne();
 
-						GA_AA_Data.writeNextRow(pic, 0, "A3");
+						boolean ifOutputFile =false;
+						if(!CentralControl.ifTemp && CentralControl.counter % CentralControl.ioPulse == 0)
+							ifOutputFile = true;
+						
+						GA_AA_Data.writeNextRow(pic, 0, "A3", ifOutputFile);
+						
 						if (pic.result().equals("NG")) {
 							System.out.println("Test Result: " + pic.material);
 							System.out.println("Outputing NG Pics");
@@ -362,7 +370,8 @@ public class AlgoList {
 						} else
 							System.out.println("Test Result: OK");
 
-						EMailContent.write();
+						if(!CentralControl.ifTemp && CentralControl.counter % CentralControl.ioPulse == 0)
+							EMailContent.write();
 						
 						final long endTime = new Date().getTime();
 						System.out.println("Tact Time:[" + (endTime - beginTime) + "]ms");
@@ -376,6 +385,9 @@ public class AlgoList {
 				break;
 		}
 		ifIODone = true;
+		
+		if(!CentralControl.ifTemp)
+			CentralControl.counter++;
 		
 		if(CentralControl.ok2Exit)
 			System.exit(0);

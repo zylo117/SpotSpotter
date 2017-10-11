@@ -15,12 +15,13 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import pers.zylo117.spotspotter.dataio.input.project.GA_AA_Data;
 import pers.zylo117.spotspotter.dataio.output.excel.ExcelOperation;
 import pers.zylo117.spotspotter.gui.viewer.CentralControl;
 import pers.zylo117.spotspotter.toolbox.Time;
 
 public class EMailContent {
-	public static void write(){
+	public static void write() {
 		final String currrentPath = System.getProperty("user.dir") + "/" + "email_content.txt";
 
 		final File counterTXT = new File(currrentPath);
@@ -41,9 +42,10 @@ public class EMailContent {
 				// System.getProperty("line.separator")
 				// + "SUT " + PythagorasData. + System.getProperty("line.separator")
 				+ "Daily Failure Rate Summary" + System.getProperty("line.separator")
-//				+ "AA Glue Spill Rate: " + failureRate("AA") + "%" + System.getProperty("line.separator")
-				+ "GA Dust Detect Rate: " + failureRate("GA") + "%";
-		
+				// + "AA Glue Spill Rate: " + failureRate() + "%" +
+				// System.getProperty("line.separator")
+				+ "GA Dust Detect Rate: " + failureRate() + "%";
+
 		PrintWriter pfp;
 		try {
 			pfp = new PrintWriter(counterTXT);
@@ -55,34 +57,24 @@ public class EMailContent {
 		}
 	}
 
-	public static double failureRate(String processName) {
-		Time.getTime();
-		final String path = System.getProperty("user.dir") + "/" + processName + "/" + Time.year + "/" + Time.month + "/"
-				+ Time.day + ".xlsx";
-		final File xlsx = new File(path);
+	public static double failureRate() {
+		// Time.getTime();
+		// final String path = System.getProperty("user.dir") + "/" + processName + "/"
+		// + Time.year + "/" + Time.month
+		// + "/" + Time.day + ".xlsx";
+		// final File xlsx = new File(path);
 		int rowIndex = 0;
 		int failureCount = 0;
-		if (xlsx.exists()) {
-			InputStream iStream;
-			Workbook wb;
+		Workbook wb;
+		wb = GA_AA_Data.tmpWB;
+		rowIndex = ExcelOperation.getEmptyRow(wb, 0, "A1");
 
-			try {
-				iStream = new FileInputStream(xlsx);
-
-				wb = new XSSFWorkbook(iStream);
-				rowIndex = ExcelOperation.getEmptyRow(wb, 0, "A1");
-
-				for (int i = 1; i < rowIndex; i++) {
-					final Sheet sheet = wb.getSheetAt(0);
-					final Row row = sheet.getRow(i);
-					final Cell cell = row.getCell(10);
-					if (cell.getStringCellValue().equals("NG")) {
-						failureCount++;
-					}
-				}
-			} catch (final IOException e) {
-				// TODO 自动生成的 catch 块
-				e.printStackTrace();
+		for (int i = 1; i < rowIndex; i++) {
+			final Sheet sheet = wb.getSheetAt(0);
+			final Row row = sheet.getRow(i);
+			final Cell cell = row.getCell(10);
+			if (cell.getStringCellValue().equals("NG")) {
+				failureCount++;
 			}
 		}
 		// System.out.println(failureCount);

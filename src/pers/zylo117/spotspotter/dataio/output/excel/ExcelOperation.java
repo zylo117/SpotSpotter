@@ -40,6 +40,8 @@ public class ExcelOperation {
 			// TODO 自动生成的 catch 块
 			e1.printStackTrace();
 		}
+
+		System.out.println("Data Recorded");
 	}
 
 	public static int getEmptyRow(Workbook wb, int sheetIndex, String cellRef) {

@@ -25,6 +25,8 @@ import pers.zylo117.spotspotter.toolbox.Time;
 
 public class GA_AA_Data {
 
+	public static Workbook tmpWB = null;
+	
 	private static List<String> defineHeader() {
 		final List<String> header = new ArrayList<>();
 		header.add("NO");
@@ -186,7 +188,7 @@ public class GA_AA_Data {
 		ExcelOperation.writeExcel2File(wb, currrentPath + "/" + Time.day + ".xlsx");
 	}
 
-	public static void writeNextRow(Picture pic, int sheetIndex, String cellRef) {
+	public static void writeNextRow(Picture pic, int sheetIndex, String cellRef, boolean ifOutputFile) {
 		final List<String> content = new ArrayList<>();
 		content.add(Integer.toString(GrandCounter.totalTestQuantity));
 		content.add(pic.processName);
@@ -236,19 +238,24 @@ public class GA_AA_Data {
 			FileOperation.createDir(currrentPath);
 			Workbook wb = ExcelOperation.writeOneRow(ExcelOperation.createWookBook(), sheetIndex, 0, defineHeader());
 			wb = ExcelOperation.writeOneRow(wb, sheetIndex, 1, content);
-			ExcelOperation.writeExcel2File(wb, finalPath);
+			
+			if(ifOutputFile)
+				ExcelOperation.writeExcel2File(wb, finalPath);
 		} else {
 			try {
-				final InputStream iStream = new FileInputStream(xlsx);
-				Workbook wb = new XSSFWorkbook(iStream);
-				final int rowIndex = ExcelOperation.getEmptyRow(wb, sheetIndex, cellRef);
-				wb = ExcelOperation.writeOneRow(wb, sheetIndex, rowIndex, content);
-				ExcelOperation.writeExcel2File(wb, finalPath);
+				if(tmpWB == null) {
+					final InputStream iStream = new FileInputStream(xlsx);
+					tmpWB = new XSSFWorkbook(iStream);
+				}
+				final int rowIndex = ExcelOperation.getEmptyRow(tmpWB, sheetIndex, cellRef);
+				tmpWB = ExcelOperation.writeOneRow(tmpWB, sheetIndex, rowIndex, content);
+
+				if(ifOutputFile)
+					ExcelOperation.writeExcel2File(tmpWB, finalPath);
 			} catch (final IOException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Data Recorded");
 	}
 }

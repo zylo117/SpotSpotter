@@ -39,11 +39,12 @@ public class CentralControl extends JFrame {
 
 	public static JFrame jFrame;
 	public static JTextField processName_manual, machineNO_manual, productName_manual, binarizationThreshold,
-			spotSpotterThreshold, buffTime_manual, mosaicLength_manual, offsetText;
+			spotSpotterThreshold, buffTime_manual, mosaicLength_manual, offsetText, ioPulseText;
 	public static String productN = "XX";
-	public static int mcNO = 0, binThresh = 280, ssThresh = 3, buffTime = 10, mosaicLength = 1, offset = 15;
-	public static int algoIndex = 2;
-	public static boolean ok2Proceed, ok2Test, ok2Exit = false, ifPause, ifStop = false, openPicMonitor = true, openLogMonitor = true;
+	public static int mcNO = 0, binThresh = 300, ssThresh = 3, buffTime = 10, mosaicLength = 1, offset = 25, ioPulse = 10;
+	public static int algoIndex = 2, counter = 0;
+	public static boolean ok2Proceed, ok2Test, ok2Exit = false, ifTemp = false, ifPause, ifStop = false,
+			openPicMonitor = true, openLogMonitor = true;
 
 	public static boolean hasWorkDir = false;
 
@@ -85,7 +86,7 @@ public class CentralControl extends JFrame {
 		menubar.add(menu);
 		final JMenuItem openItem = new JMenuItem("Select Monitoring Path");
 		menu.add(openItem);
-		final JMenuItem exitItem = new JMenuItem("Exit");
+		final JMenuItem exitItem = new JMenuItem("Force Close");
 		menu.add(exitItem);
 
 		final ActionListener act_start = new ActionListener() {
@@ -95,6 +96,7 @@ public class CentralControl extends JFrame {
 				// TODO Auto-generated method stub
 				// 写下你的Action
 				// 只选择目录
+				jFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 				chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 				final int result = chooser.showOpenDialog(null);
 				if (result == JFileChooser.APPROVE_OPTION) {
@@ -111,6 +113,7 @@ public class CentralControl extends JFrame {
 						hasWorkDir = true;
 						System.out.println("Temporarily Run Test On A List");
 						tempFile = file;
+						ifTemp = true;
 						ok2Test = true;
 					} else if (file.isFile()) {
 						monitorPath = path + "\\";
@@ -134,18 +137,24 @@ public class CentralControl extends JFrame {
 		};
 
 		final ActionListener act_exit = new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO 自动生成的方法存根
-				if(AlgoList.ifIODone)
-					ok2Exit = true;
+				ok2Exit = true;
 			}
 		};
-		
+
 		openItem.addActionListener(act_start);
-		jFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		exitItem.addActionListener(act_exit);
+		jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		exitItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO 自动生成的方法存根
+				System.exit(0);
+			}
+		});
 
 		final JScrollPane main = new JScrollPane(imageView);
 		// if (image.width() <= 800 && image.height() <= 600)
@@ -154,25 +163,25 @@ public class CentralControl extends JFrame {
 		// else
 		// imageScrollPane.setPreferredSize(new Dimension(600, 620));
 
-		
 		final Image loadedImage = Mat2BufferedImage.mat2BI(image);
 		imageView.setIcon(new ImageIcon(loadedImage));
 		final JScrollPane coverCopy = main;
 
 		// 监视窗口右边显示Log*************************************
-//		ConsoleTextArea consoleTextArea = null;
-//		try {
-//			consoleTextArea = new ConsoleTextArea();
-//		} catch (final IOException e) {
-//			System.err.println("Unable to create LoopedStreams：" + e);
-//			System.exit(1);
-//		}
-//		logContainer = jFrame.getContentPane();
-//		final JScrollPane consolePane = new JScrollPane(consoleTextArea);
-//		final Rectangle boundsOfCover = imageView.getBounds();
-//		consolePane.setBounds(boundsOfCover.x + boundsOfCover.width / 2, boundsOfCover.y, boundsOfCover.width,
-//				boundsOfCover.height);
-//		logContainer.add(consolePane, BorderLayout.EAST);
+		// ConsoleTextArea consoleTextArea = null;
+		// try {
+		// consoleTextArea = new ConsoleTextArea();
+		// } catch (final IOException e) {
+		// System.err.println("Unable to create LoopedStreams：" + e);
+		// System.exit(1);
+		// }
+		// logContainer = jFrame.getContentPane();
+		// final JScrollPane consolePane = new JScrollPane(consoleTextArea);
+		// final Rectangle boundsOfCover = imageView.getBounds();
+		// consolePane.setBounds(boundsOfCover.x + boundsOfCover.width / 2,
+		// boundsOfCover.y, boundsOfCover.width,
+		// boundsOfCover.height);
+		// logContainer.add(consolePane, BorderLayout.EAST);
 
 		// Panel1基础信息文本框***********************************
 		final JPanel baseInfo = new JPanel();
@@ -186,11 +195,14 @@ public class CentralControl extends JFrame {
 		productName_manual = new JTextField(productN, 3);
 		final JTextField offsetBox = new JTextField("Offset");
 		offsetText = new JTextField(Integer.toString(offset), 3);
+		final JTextField ioPulseBox = new JTextField("I/O Feq");
+		ioPulseText = new JTextField(Integer.toString(ioPulse), 3);
 
 		processName.setEnabled(false); // true可以编辑
 		machineNO.setEnabled(false); // true可以编辑
 		productName.setEnabled(false); // true可以编辑
 		offsetBox.setEnabled(false);
+		ioPulseBox.setEnabled(false);
 
 		// jtf4.setFont(new Font("宋体", Font.BOLD | Font.ITALIC, 16)); // 字体，是否加粗、斜体，字号
 		// // 设置文本的水平对齐方式
@@ -204,6 +216,8 @@ public class CentralControl extends JFrame {
 		baseInfo.add(productName_manual);
 		baseInfo.add(offsetBox);
 		baseInfo.add(offsetText);
+		baseInfo.add(ioPulseBox);
+		baseInfo.add(ioPulseText);
 
 		// Panel2参数文本框***********************************
 		final JPanel paraMeter = new JPanel();
