@@ -218,6 +218,8 @@ public class AlgoList {
 	
 	public static void panda(String input) {
 		final long beginTime = new Date().getTime();
+
+		boolean ifOutputFile =false;
 		
 		ifIODone = false;
 		
@@ -350,7 +352,6 @@ public class AlgoList {
 
 						GrandCounter.plusOne();
 
-						boolean ifOutputFile =false;
 						if(!CentralControl.ifTemp && CentralControl.counter % CentralControl.ioPulse == 0)
 							ifOutputFile = true;
 						
@@ -389,6 +390,11 @@ public class AlgoList {
 		if(!CentralControl.ifTemp)
 			CentralControl.counter++;
 		
+		if(!CentralControl.ifTemp && CentralControl.counter % CentralControl.ioPulse * 10 == 0) {
+			System.gc();
+			System.out.println("Memory Clean");
+		}
+			
 		if(CentralControl.ok2Exit)
 			System.exit(0);
 	}
