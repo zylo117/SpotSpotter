@@ -103,23 +103,32 @@ public class Binaryzation {
 		System.out.println("");
 	}
 	
-	public static Mat binaryzation_OpenCV(Mat input, double thresh) {
-		final Mat gray = new Mat();
-		Imgproc.cvtColor(input, gray, Imgproc.COLOR_RGB2GRAY);
-		final Mat binImg = new Mat();
-		Imgproc.threshold(gray, binImg, thresh, 255, Imgproc.THRESH_BINARY);
-		return binImg;
+	public static Mat binaryzation_OpenCV(Mat input, double thresh, boolean ifAdaptive) {
+		if(!ifAdaptive) {
+			final Mat gray = new Mat();
+			Imgproc.cvtColor(input, gray, Imgproc.COLOR_RGB2GRAY);
+			final Mat binImg = new Mat();
+			Imgproc.threshold(gray, binImg, thresh, 255, Imgproc.THRESH_BINARY);
+			return binImg;
+		}else {
+			final Mat gray = new Mat();
+			Imgproc.cvtColor(input, gray, Imgproc.COLOR_RGB2GRAY);
+			final Mat binImg = new Mat();
+			Imgproc.threshold(gray, binImg, 0, 255, Imgproc.THRESH_OTSU);
+//			Imgproc.adaptiveThreshold(gray, binImg, 255, Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, 11, 0);
+			return binImg;
+		}
 	}
 	
 	public static void main(String[] args) throws Exception {
-		final String input = "D:\\11#SUT 4\\7.jpg";
-		final String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output2.jpg";
+		final String input = "D:\\11#SUT 4\\test\\ (9).jpg";
+//		final String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output2.jpg";
 		System.loadLibrary("opencv_java330_64");
 		final Mat in = Imgcodecs.imread(input);
 		if (in.empty()) {
 			throw new Exception("no file");
 		}
-		final Mat mask = binaryzation_OpenCV(in, 300 * 0.6);
+		final Mat mask = binaryzation_OpenCV(in, 300 * 0.6, true);
 		MatView.imshow(mask, "mask");
 //		Imgcodecs.imwrite(output, mask);
 	}

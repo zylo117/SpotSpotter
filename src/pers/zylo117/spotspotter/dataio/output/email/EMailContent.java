@@ -65,23 +65,27 @@ public class EMailContent {
 		// final File xlsx = new File(path);
 		int rowIndex = 0;
 		int failureCount = 0;
-		Workbook wb;
-		wb = GA_AA_Data.tmpWB;
-		rowIndex = ExcelOperation.getEmptyRow(wb, 0, "A1");
-
-		for (int i = 1; i < rowIndex; i++) {
-			final Sheet sheet = wb.getSheetAt(0);
-			final Row row = sheet.getRow(i);
-			final Cell cell = row.getCell(10);
-			if (cell.getStringCellValue().equals("NG")) {
-				failureCount++;
+		Workbook wb =  GA_AA_Data.tmpWB;
+		
+		if(wb == null)
+			return 0;
+		else {
+			rowIndex = ExcelOperation.getEmptyRow(wb, 0, "A1");
+	
+			for (int i = 1; i < rowIndex; i++) {
+				final Sheet sheet = wb.getSheetAt(0);
+				final Row row = sheet.getRow(i);
+				final Cell cell = row.getCell(10);
+				if (cell.getStringCellValue().equals("NG")) {
+					failureCount++;
+				}
 			}
+			// System.out.println(failureCount);
+			// System.out.println(rowIndex);
+			final BigDecimal bd_rate = new BigDecimal((double) failureCount * 100 / (rowIndex - 1));
+			final double rate = bd_rate.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
+			return rate;
 		}
-		// System.out.println(failureCount);
-		// System.out.println(rowIndex);
-		final BigDecimal bd_rate = new BigDecimal((double) failureCount * 100 / (rowIndex - 1));
-		final double rate = bd_rate.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
-		return rate;
 	}
 
 	public static void main(String[] args) throws IOException {

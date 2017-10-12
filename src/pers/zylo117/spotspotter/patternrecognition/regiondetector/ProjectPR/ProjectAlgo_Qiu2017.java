@@ -63,7 +63,7 @@ public class ProjectAlgo_Qiu2017 {
 		// MatView.imshow(imgOrigin, "Original Image");
 
 		// ¶þÖµ»¯Í¼Æ¬
-		imgOrigin = Binaryzation.binaryzation_OpenCV(imgOrigin, thresh * 0.6);
+		imgOrigin = Binaryzation.binaryzation_OpenCV(imgOrigin, thresh * 0.6, false);
 
 		final Picture pic = new Picture(imgOrigin);
 

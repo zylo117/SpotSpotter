@@ -30,7 +30,7 @@ import pers.zylo117.spotspotter.toolbox.mathBox.Line;
 import pers.zylo117.spotspotter.toolbox.mathBox.Regression;
 
 public class AlgoList {
-	
+
 	public static boolean ifIODone = true;
 
 	public static void godzilla() throws IOException {
@@ -123,8 +123,8 @@ public class AlgoList {
 							roi = ROI_Irregular.irregularQuadrangle_Simplified(imgOrigin, pic.ulP, pic.urP, pic.llP,
 									pic.lrP, 10, 10, false, 0, 0);
 						} else {
-//							System.out.println("Type: " + GetPicType.getPicTypeFromPic(pic));
-//							System.out.println("Type doesn't match, skipping");
+							// System.out.println("Type: " + GetPicType.getPicTypeFromPic(pic));
+							// System.out.println("Type doesn't match, skipping");
 							break;
 						}
 						// ROI按区域分级阀值
@@ -191,8 +191,8 @@ public class AlgoList {
 							System.out.println("Test Result: " + pic.material);
 							System.out.println("Outputing NG Pics");
 							Time.getTime();
-							final String path = System.getProperty("user.dir") + "\\" + pic.processName + "\\" + Time.year
-									+ "\\" + Time.month + "\\NGPics\\";
+							final String path = System.getProperty("user.dir") + "\\" + pic.processName + "\\"
+									+ Time.year + "\\" + Time.month + "\\NGPics\\";
 							FileOperation.createDir(path);
 							// Imgcodecs.imwrite(path + pic.fileNameWOPostfix() + pic.postFixWithDot(),
 							// imgOrigin);
@@ -207,22 +207,22 @@ public class AlgoList {
 
 						EMailContent.write();
 						break;
-					}else
+					} else
 						break;
-				}else
+				} else
 					break;
-			}else
+			} else
 				break;
 		}
 	}
-	
+
 	public static void panda(String input) {
 		final long beginTime = new Date().getTime();
 
-		boolean ifOutputFile =false;
-		
+		boolean ifOutputFile = false;
+
 		ifIODone = false;
-		
+
 		Time.waitFor(CentralControl.buffTime);
 		while (true) {
 			// 从主控窗口获取数据
@@ -241,11 +241,11 @@ public class AlgoList {
 				CentralControl.mosaicLength = Integer.parseInt(CentralControl.mosaicLength_manual.getText());
 			if (!CentralControl.offsetText.getText().isEmpty())
 				CentralControl.offset = Integer.parseInt(CentralControl.offsetText.getText());
-			
+
 			if (!CentralControl.ioPulseText.getText().isEmpty())
 				CentralControl.ioPulse = Integer.parseInt(CentralControl.ioPulseText.getText());
-			
-//			String input = FileListener.filePath + "\\" + FileListener.fileName;
+
+			// String input = FileListener.filePath + "\\" + FileListener.fileName;
 
 			try {
 				input = URLDecoder.decode(input, "utf-8");
@@ -259,7 +259,7 @@ public class AlgoList {
 			// System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
 			final File file = new File(input);
-			
+
 			if (file.exists()) {
 				if (FileOperation.isFileNameValid(file.getName())) {
 					if (GetPostfix.fromFilename(file.getName()).equals("jpg")) {
@@ -289,8 +289,8 @@ public class AlgoList {
 							roi = ROI_Irregular.irregularQuadrangle_Simplified(imgOrigin, pic.ulP, pic.urP, pic.llP,
 									pic.lrP, CentralControl.offset, CentralControl.offset, false, 0, 0);
 						} else {
-//							System.out.println("Type: " + GetPicType.getPicTypeFromPic(pic));
-//							System.out.println("Type doesn't match, skipping");
+							// System.out.println("Type: " + GetPicType.getPicTypeFromPic(pic));
+							// System.out.println("Type doesn't match, skipping");
 							break;
 						}
 						// ROI按区域分级阀值
@@ -322,8 +322,8 @@ public class AlgoList {
 						// MatView.imshow(out, "Output");
 
 						// 压缩并显示
-//						final Mat imgOriginClone = Resize.tillFit(imgOrigin, 512, 512);
-//						CentralControl.showPicOnPre(imgOriginClone);
+						// final Mat imgOriginClone = Resize.tillFit(imgOrigin, 512, 512);
+						// CentralControl.showPicOnPre(imgOriginClone);
 
 						// 画出ROI
 						Draw.line_P2P(out, pic.ulP, pic.llP);
@@ -352,17 +352,17 @@ public class AlgoList {
 
 						GrandCounter.plusOne();
 
-						if(!CentralControl.ifTemp && CentralControl.counter % CentralControl.ioPulse == 0)
+						if (!CentralControl.ifTemp && CentralControl.counter % CentralControl.ioPulse == 0)
 							ifOutputFile = true;
-						
+
 						GA_AA_Data.writeNextRow(pic, 0, "A3", ifOutputFile);
-						
+
 						if (pic.result().equals("NG")) {
 							System.out.println("Test Result: " + pic.material);
 							System.out.println("Outputing NG Pics");
 							Time.getTime();
-							final String path = System.getProperty("user.dir") + "\\" + pic.processName + "\\" + Time.year
-									+ "\\" + Time.month + "\\NGPics\\";
+							final String path = System.getProperty("user.dir") + "\\" + pic.processName + "\\"
+									+ Time.year + "\\" + Time.month + "\\NGPics\\";
 							FileOperation.createDir(path);
 							BufferedImage2HQ_ImageFile.writeHighQuality(Mat2BufferedImage.mat2BI(imgOrigin),
 									path + pic.fileNameWOPostfix() + pic.postFixWithDot(), "jpg", 1);
@@ -371,31 +371,34 @@ public class AlgoList {
 						} else
 							System.out.println("Test Result: OK");
 
-						if(!CentralControl.ifTemp && CentralControl.counter % CentralControl.ioPulse == 0)
+						if (!CentralControl.ifTemp && CentralControl.counter % CentralControl.ioPulse == 0)
 							EMailContent.write();
+
+						if (CentralControl.ok2Exit) {
+							GA_AA_Data.writeNextRow(pic, 0, "A3", true);
+							
+							System.exit(0);
+						}
 						
 						final long endTime = new Date().getTime();
 						System.out.println("Tact Time:[" + (endTime - beginTime) + "]ms");
-						
+
 						break;
-					}else
+					} else
 						break;
-				}else
+				} else
 					break;
-			}else
+			} else
 				break;
 		}
 		ifIODone = true;
-		
-		if(!CentralControl.ifTemp)
+
+		if (!CentralControl.ifTemp)
 			CentralControl.counter++;
-		
-		if(!CentralControl.ifTemp && CentralControl.counter % CentralControl.ioPulse * 10 == 0) {
+
+		if (!CentralControl.ifTemp && CentralControl.counter % CentralControl.ioPulse * 10 == 0) {
 			System.gc();
 			System.out.println("Memory Clean");
 		}
-			
-		if(CentralControl.ok2Exit)
-			System.exit(0);
 	}
 }
