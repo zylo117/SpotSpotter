@@ -354,6 +354,7 @@ public class AlgoList {
 
 						if (!CentralControl.ifTemp && CentralControl.counter % CentralControl.ioPulse == 0)
 							ifOutputFile = true;
+							EMailContent.write();
 
 						GA_AA_Data.writeNextRow(pic, 0, "A3", ifOutputFile);
 
@@ -371,12 +372,11 @@ public class AlgoList {
 						} else
 							System.out.println("Test Result: OK");
 
-						if (!CentralControl.ifTemp && CentralControl.counter % CentralControl.ioPulse == 0)
-							EMailContent.write();
-
 						if (CentralControl.ok2Exit) {
-							GA_AA_Data.writeNextRow(pic, 0, "A3", true);
-							
+							if(ifOutputFile = false) {
+								GA_AA_Data.writeNextRow(pic, 0, "A3", true);
+								EMailContent.write();
+							}
 							System.exit(0);
 						}
 						
@@ -396,7 +396,7 @@ public class AlgoList {
 		if (!CentralControl.ifTemp)
 			CentralControl.counter++;
 
-		if (!CentralControl.ifTemp && CentralControl.counter % CentralControl.ioPulse * 10 == 0) {
+		if (!CentralControl.ifTemp && CentralControl.counter % CentralControl.ioPulse * 20 == 0) {
 			System.gc();
 			System.out.println("Memory Clean");
 		}

@@ -47,6 +47,8 @@ public class GA_AA_Data {
 		header.add("PictureName");
 		header.add("BinarizationThreshold");
 		header.add("SpotSpotterThreshold");
+		header.add("Offset");
+		header.add("ROISize");
 		return header;
 	}
 
@@ -226,6 +228,8 @@ public class GA_AA_Data {
 		content.add(pic.fileName);
 		content.add(Integer.toString(CentralControl.binThresh));
 		content.add(Integer.toString(CentralControl.ssThresh) + "%");
+		content.add(Integer.toString(CentralControl.offset));
+		content.add(Integer.toString(CentralControl.mosaicLength));
 		
 		// 输出到Excel文件
 		final String path = System.getProperty("user.dir");

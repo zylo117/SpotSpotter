@@ -41,7 +41,7 @@ public class CentralControl extends JFrame {
 	public static JTextField processName_manual, machineNO_manual, productName_manual, binarizationThreshold,
 			spotSpotterThreshold, buffTime_manual, mosaicLength_manual, offsetText, ioPulseText;
 	public static String productN = "XX";
-	public static int mcNO = 0, binThresh = 300, ssThresh = 3, buffTime = 10, mosaicLength = 1, offset = 25, ioPulse = 10;
+	public static int mcNO = 0, binThresh = 300, ssThresh = 3, buffTime = 10, mosaicLength = 1, offset = 25, ioPulse = 20;
 	public static int algoIndex = 2, counter = 0;
 	public static boolean ok2Proceed, ok2Test, ok2Exit = false, ifTemp = false, ifPause, ifStop = false,
 			openPicMonitor = true, openLogMonitor = true;

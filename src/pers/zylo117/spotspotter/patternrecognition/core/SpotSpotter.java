@@ -2,7 +2,6 @@ package pers.zylo117.spotspotter.patternrecognition.core;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
