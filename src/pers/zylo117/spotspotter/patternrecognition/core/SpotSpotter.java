@@ -2,6 +2,7 @@ package pers.zylo117.spotspotter.patternrecognition.core;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -104,6 +105,12 @@ public class SpotSpotter {
 		
 		for (int i = 1; i < pic.width - 1; i += 1) {
 			for (int j = 1; j < pic.height - 1; j += 1) {
+				
+				int target = pic.dataSingleChannel[i][j];
+				
+				if(target == 0) {
+					continue;
+				}
 
 				final double a1 = pic.dataSingleChannel[i - 1][j - 1];
 				final double a2 = pic.dataSingleChannel[i - 1][j];
@@ -142,7 +149,7 @@ public class SpotSpotter {
 				final double minB = GetMaxMinMidAvg.getMinFromList(list);
 
 				final double avgB = (sum - maxB - minB) / (list.size() - 2);
-				result = Math.abs(pic.dataSingleChannel[i][j] - avgB) / 256;
+				result = Math.abs(target - avgB) / 256;
 
 				if (result > thresh) {
 					spotQty++;
