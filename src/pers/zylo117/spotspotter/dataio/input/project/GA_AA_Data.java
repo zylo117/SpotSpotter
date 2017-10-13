@@ -225,11 +225,14 @@ public class GA_AA_Data {
 			content.add("");
 			content.add("");
 		}
-		content.add(pic.fileName);
-		content.add(Integer.toString(CentralControl.binThresh));
-		content.add(Integer.toString(CentralControl.ssThresh) + "%");
-		content.add(Integer.toString(CentralControl.offset));
-		content.add(Integer.toString(CentralControl.mosaicLength));
+		
+		if(CentralControl.ifEngMode) {
+			content.add(pic.fileName);
+			content.add(Integer.toString(CentralControl.binThresh));
+			content.add(Integer.toString(CentralControl.ssThresh) + "%");
+			content.add(Integer.toString(CentralControl.offset));
+			content.add(Integer.toString(CentralControl.mosaicLength));
+		}
 		
 		// 输出到Excel文件
 		final String path = System.getProperty("user.dir");

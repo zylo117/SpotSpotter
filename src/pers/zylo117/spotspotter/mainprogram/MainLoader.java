@@ -65,12 +65,17 @@ public class MainLoader {
 				if (CentralControl.ok2Proceed) {
 					Time.getTime();
 					final String oldIndex = System.getProperty("user.dir") + "\\tmpIndex.dat";
+					
+					if(CentralControl.monitorPath == null) {
+						continue;
+					}
+					
 					final String todayFIndex = CentralControl.monitorPath + "\\" + Time.year + "\\" + Time.strMonth
 							+ "\\" + Time.strDay + "\\" + "findex.dat";
 					oldFileIndex = new File(oldIndex);
 					fIndex = new File(todayFIndex);
 					if(!fIndex.exists())
-						break;
+						continue;
 					BreakPoint.continuous(oldlist);
 				}else if (CentralControl.ok2Test){
 					 FIndexReader.indexProcess(CentralControl.tempFile);

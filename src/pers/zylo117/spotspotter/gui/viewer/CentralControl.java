@@ -9,9 +9,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.nio.channels.SelectableChannel;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,23 +31,22 @@ import javax.swing.WindowConstants;
 
 import org.opencv.core.Mat;
 
-import pers.zylo117.spotspotter.fileprocessor.FIndexReader;
+import pers.zylo117.spotspotter.dataio.input.IPReader;
 import pers.zylo117.spotspotter.gui.textbox.ConsoleTextArea;
-import pers.zylo117.spotspotter.mainprogram.AlgoList;
 import pers.zylo117.spotspotter.toolbox.GetPostfix;
 import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
-import pers.zylo117.spotspotter.toolbox.Time;
 
 public class CentralControl extends JFrame {
 
 	public static JFrame jFrame;
-	public static JTextField processName_manual, machineNO_manual, productName_manual, binarizationThreshold,
+	public static JTextField shortCut, machineNO_manual, productName_manual, binarizationThreshold,
 			spotSpotterThreshold, buffTime_manual, mosaicLength_manual, offsetText, ioPulseText;
 	public static String productN = "XX";
-	public static int mcNO = 0, binThresh = 300, ssThresh = 3, buffTime = 10, mosaicLength = 1, offset = 25, ioPulse = 20;
+	public static int mcNO = 0, binThresh = 300, ssThresh = 3, buffTime = 10, mosaicLength = 1, offset = 25,
+			ioPulse = 20;
 	public static int algoIndex = 2, counter = 0;
 	public static boolean ok2Proceed, ok2Test, ok2Exit = false, ifTemp = false, ifPause, ifStop = false,
-			openPicMonitor = true, openLogMonitor = true;
+			openPicMonitor = true, openLogMonitor = true, ifEngMode = false;
 
 	public static boolean hasWorkDir = false;
 
@@ -187,8 +189,6 @@ public class CentralControl extends JFrame {
 		final JPanel baseInfo = new JPanel();
 		baseInfo.setOpaque(false);
 
-		final JTextField processName = new JTextField("Process");
-		processName_manual = new JTextField(3);
 		final JTextField machineNO = new JTextField("MachineNO");
 		machineNO_manual = new JTextField(Integer.toString(mcNO), 3);
 		final JTextField productName = new JTextField("Product");
@@ -197,19 +197,73 @@ public class CentralControl extends JFrame {
 		offsetText = new JTextField(Integer.toString(offset), 3);
 		final JTextField ioPulseBox = new JTextField("I/O Feq");
 		ioPulseText = new JTextField(Integer.toString(ioPulse), 3);
+		final JTextField engModeBox = new JTextField("Eng Mode");
+		final JComboBox<String> engMode = new JComboBox<>();
+		engMode.addItem("Disable");
+		engMode.addItem("Enable");
+		engMode.addActionListener(new ActionListener() {
 
-		processName.setEnabled(false); // true可以编辑
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO 自动生成的方法存根
+				if (engMode.getSelectedItem().equals("Enable")) {
+					ifEngMode = true;
+					System.out.println("Engineer Mode Endable, All Data Will Be Saved");
+					System.out.println("Warning! Too Much Data May Cause Memory Leak!");
+				} else {
+					ifEngMode = false;
+				}
+
+			}
+		});
+
+		final JTextField shortCutBox = new JTextField("Auto Run");
+		final JComboBox<String> shortCut = new JComboBox<>();
+		shortCut.addItem("None");
+		for (int i = 1; i < macCount + 1; i++) {
+			shortCut.addItem("GA" + i);
+		}
+		shortCut.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO 自动生成的方法存根
+				int macNO = shortCut.getSelectedIndex();
+				if (macNO > 1) {
+					loadIP(macNO - 1);
+					monitorPath = findPath();
+					hasWorkDir = true;
+					System.out.println("Auto Run on " + shortCut.getSelectedItem());
+					System.out.println("Start Monitoring");
+					System.out.println(monitorPath);
+					jFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+					// System.out.println(hasWorkDir);
+					
+					machineNO_manual.setText(Integer.toString(macNO));
+					productName_manual.setText(category);
+					
+					machineNO_manual.setEnabled(false);
+					productName_manual.setEnabled(false);
+				
+					jFrame.repaint();
+					ok2Proceed = true;
+				}
+			}
+		});
+		
+		shortCutBox.setEnabled(false); // true可以编辑
 		machineNO.setEnabled(false); // true可以编辑
 		productName.setEnabled(false); // true可以编辑
 		offsetBox.setEnabled(false);
 		ioPulseBox.setEnabled(false);
+		engModeBox.setEnabled(false);
 
 		// jtf4.setFont(new Font("宋体", Font.BOLD | Font.ITALIC, 16)); // 字体，是否加粗、斜体，字号
 		// // 设置文本的水平对齐方式
 		// jtf4.setHorizontalAlignment(JTextField.CENTER);
 
-		baseInfo.add(processName);
-		baseInfo.add(processName_manual);
+		baseInfo.add(shortCutBox);
+		baseInfo.add(shortCut);
 		baseInfo.add(machineNO);
 		baseInfo.add(machineNO_manual);
 		baseInfo.add(productName);
@@ -218,6 +272,8 @@ public class CentralControl extends JFrame {
 		baseInfo.add(offsetText);
 		baseInfo.add(ioPulseBox);
 		baseInfo.add(ioPulseText);
+		baseInfo.add(engModeBox);
+		baseInfo.add(engMode);
 
 		// Panel2参数文本框***********************************
 		final JPanel paraMeter = new JPanel();
@@ -406,4 +462,46 @@ public class CentralControl extends JFrame {
 		}
 	}
 
+	private static List<List<String>> list = IPReader.data();
+	private static int macCount = list.size();
+	private static String category;
+	private static String ip;
+	private static String autoPath;
+	private static String iRCFVendor;
+
+	private static void loadIP(int macIndex) {
+		list = IPReader.data();
+		category = list.get(macIndex).get(2);
+		ip = list.get(macIndex).get(3);
+		autoPath = list.get(macIndex).get(4);
+	}
+
+	private static String findPath() {
+		String title = null;
+		if (category.equals("NH"))
+			title = "GRA-";
+		else if (category.equals("ME"))
+			title = "BB-";
+		String[] midFix = { "", "C", "D", "E" };
+		String postFix = "01\\";
+
+		String finalPath = null;
+		for (int i = 0; i < midFix.length; i++) {
+			StringBuilder sbA = new StringBuilder(autoPath + "\\");
+			StringBuilder sbB = new StringBuilder(autoPath + "\\");
+			String aString = sbA.append(title).append(midFix[i]).append("A").append(postFix).toString();
+			String bString = sbB.append(title).append(midFix[i]).append("B").append(postFix).toString();
+
+			File pathA = new File(aString);
+			File pathB = new File(bString);
+			if (pathA.exists()) {
+				iRCFVendor = "AGC";
+				finalPath = aString;
+			} else if (pathB.exists()) {
+				iRCFVendor = "PTOT";
+				finalPath = bString;
+			}
+		}
+		return finalPath;
+	}
 }

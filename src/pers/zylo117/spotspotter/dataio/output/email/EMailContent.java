@@ -1,11 +1,9 @@
 package pers.zylo117.spotspotter.dataio.output.email;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 
@@ -13,8 +11,6 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import pers.zylo117.spotspotter.dataio.input.project.GA_AA_Data;
 import pers.zylo117.spotspotter.dataio.output.excel.ExcelOperation;
 import pers.zylo117.spotspotter.gui.viewer.CentralControl;
@@ -65,7 +61,7 @@ public class EMailContent {
 		// final File xlsx = new File(path);
 		int rowIndex = 0;
 		int failureCount = 0;
-		Workbook wb =  GA_AA_Data.tmpWB;
+		final Workbook wb =  GA_AA_Data.tmpWB;
 		
 		if(wb == null)
 			return 0;

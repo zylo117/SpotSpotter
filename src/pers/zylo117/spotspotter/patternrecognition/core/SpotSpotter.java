@@ -105,7 +105,7 @@ public class SpotSpotter {
 		for (int i = 1; i < pic.width - 1; i += 1) {
 			for (int j = 1; j < pic.height - 1; j += 1) {
 				
-				int target = pic.dataSingleChannel[i][j];
+				final int target = pic.dataSingleChannel[i][j];
 				
 				if(target == 0) {
 					continue;
