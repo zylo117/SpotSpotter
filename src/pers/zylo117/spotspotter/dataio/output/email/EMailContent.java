@@ -32,15 +32,11 @@ public class EMailContent {
 		}
 
 		Time.getTime();
-		final String str = "Date " + Time.datetime_slash + System.getProperty("line.separator") + "Category "
-				+ CentralControl.productN + System.getProperty("line.separator")
-				// + "AA " + Integer.toString(CentralControl.mcNO) +
-				// System.getProperty("line.separator")
-				// + "SUT " + PythagorasData. + System.getProperty("line.separator")
-				+ "Daily Failure Rate Summary" + System.getProperty("line.separator")
-				// + "AA Glue Spill Rate: " + failureRate() + "%" +
-				// System.getProperty("line.separator")
-				+ "GA Dust Detect Rate: " + failureRate() + "%";
+		final StringBuilder str = new StringBuilder("Date ");
+		str.append(Time.datetime_slash).append(System.getProperty("line.separator"))
+		.append("Category ").append(CentralControl.productN).append(System.getProperty("line.separator"))
+		.append("Daily Failure Rate Summary").append(System.getProperty("line.separator"))
+		.append("GA Dust Detect Rate: ").append(failureRate()).append("%");
 
 		PrintWriter pfp;
 		try {

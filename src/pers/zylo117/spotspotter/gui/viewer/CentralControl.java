@@ -1,6 +1,7 @@
 package pers.zylo117.spotspotter.gui.viewer;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -84,7 +86,7 @@ public class CentralControl extends JFrame {
 		chooser.setCurrentDirectory(new File("."));
 		final JMenuBar menubar = new JMenuBar();
 		jFrame.setJMenuBar(menubar);
-		final JMenu menu = new JMenu("Main");
+		final JMenu menu = new JMenu("Menu");
 		menubar.add(menu);
 		final JMenuItem openItem = new JMenuItem("Select Monitoring Path");
 		menu.add(openItem);
@@ -170,20 +172,20 @@ public class CentralControl extends JFrame {
 		final JScrollPane coverCopy = main;
 
 		// 监视窗口右边显示Log*************************************
-		// ConsoleTextArea consoleTextArea = null;
-		// try {
-		// consoleTextArea = new ConsoleTextArea();
-		// } catch (final IOException e) {
-		// System.err.println("Unable to create LoopedStreams：" + e);
-		// System.exit(1);
-		// }
-		// logContainer = jFrame.getContentPane();
-		// final JScrollPane consolePane = new JScrollPane(consoleTextArea);
-		// final Rectangle boundsOfCover = imageView.getBounds();
-		// consolePane.setBounds(boundsOfCover.x + boundsOfCover.width / 2,
-		// boundsOfCover.y, boundsOfCover.width,
-		// boundsOfCover.height);
-		// logContainer.add(consolePane, BorderLayout.EAST);
+		 ConsoleTextArea consoleTextArea = null;
+		 try {
+		 consoleTextArea = new ConsoleTextArea();
+		 } catch (final IOException e) {
+		 System.err.println("Unable to create LoopedStreams：" + e);
+		 System.exit(1);
+		 }
+		 logContainer = jFrame.getContentPane();
+		 final JScrollPane consolePane = new JScrollPane(consoleTextArea);
+		 final Rectangle boundsOfCover = imageView.getBounds();
+		 consolePane.setBounds(boundsOfCover.x + boundsOfCover.width / 2,
+		 boundsOfCover.y, boundsOfCover.width,
+		 boundsOfCover.height);
+		 logContainer.add(consolePane, BorderLayout.EAST);
 
 		// Panel1基础信息文本框***********************************
 		final JPanel baseInfo = new JPanel();
@@ -197,7 +199,7 @@ public class CentralControl extends JFrame {
 		offsetText = new JTextField(Integer.toString(offset), 3);
 		final JTextField ioPulseBox = new JTextField("I/O Feq");
 		ioPulseText = new JTextField(Integer.toString(ioPulse), 3);
-		final JTextField engModeBox = new JTextField("Eng Mode");
+		final JTextField engModeBox = new JTextField("More Data");
 		final JComboBox<String> engMode = new JComboBox<>();
 		engMode.addItem("Disable");
 		engMode.addItem("Enable");
@@ -235,7 +237,7 @@ public class CentralControl extends JFrame {
 					hasWorkDir = true;
 					System.out.println("Auto Run on " + shortCut.getSelectedItem());
 					System.out.println("Start Monitoring");
-					System.out.println(monitorPath);
+					System.out.println("On: " + monitorPath);
 					jFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 					// System.out.println(hasWorkDir);
 					
@@ -262,8 +264,6 @@ public class CentralControl extends JFrame {
 		// // 设置文本的水平对齐方式
 		// jtf4.setHorizontalAlignment(JTextField.CENTER);
 
-		baseInfo.add(shortCutBox);
-		baseInfo.add(shortCut);
 		baseInfo.add(machineNO);
 		baseInfo.add(machineNO_manual);
 		baseInfo.add(productName);
@@ -272,17 +272,15 @@ public class CentralControl extends JFrame {
 		baseInfo.add(offsetText);
 		baseInfo.add(ioPulseBox);
 		baseInfo.add(ioPulseText);
-		baseInfo.add(engModeBox);
-		baseInfo.add(engMode);
 
 		// Panel2参数文本框***********************************
 		final JPanel paraMeter = new JPanel();
 		paraMeter.setOpaque(false);
-		final JTextField binThresh = new JTextField("BinarizationThreshold");
+		final JTextField binThresh = new JTextField("BinThresh");
 		binarizationThreshold = new JTextField(Integer.toString(CentralControl.binThresh), 3);
-		final JTextField ssThresh = new JTextField("SpotSpotterThreshold");
+		final JTextField ssThresh = new JTextField("DustThresh");
 		spotSpotterThreshold = new JTextField(Integer.toString(CentralControl.ssThresh), 3);
-		final JTextField mosaicL = new JTextField("ROISize");
+		final JTextField mosaicL = new JTextField("BlockSize");
 		mosaicLength_manual = new JTextField(Integer.toString(CentralControl.mosaicLength), 3);
 		final JTextField percent = new JTextField("%");
 		final JTextField bufferTime = new JTextField("BufferTime");
@@ -318,7 +316,7 @@ public class CentralControl extends JFrame {
 		final JPanel switchPanel = new JPanel();
 		switchPanel.setOpaque(true);
 		// JButton select = new JButton("Select");
-		final JButton start = new JButton("Start");
+		final JButton start = new JButton("Manual");
 		final JButton exit = new JButton("Exit");
 
 		start.addActionListener(act_start);
@@ -383,8 +381,12 @@ public class CentralControl extends JFrame {
 		});
 
 		// switchPanel.add(select);
+		switchPanel.add(shortCutBox);
+		switchPanel.add(shortCut);
 		switchPanel.add(start);
 		switchPanel.add(exit);
+		switchPanel.add(engModeBox);
+		switchPanel.add(engMode);
 		// switchPanel.add(picMonitor);
 		// switchPanel.add(logMonitor);
 
@@ -395,11 +397,11 @@ public class CentralControl extends JFrame {
 		// currentPath.add(path);
 
 		final JPanel overallCtrl = new JPanel();
-		overallCtrl.setLayout(new GridLayout(4, 1));
+		overallCtrl.setLayout(new GridLayout(3, 1));
 		overallCtrl.add(switchPanel);
 		overallCtrl.add(baseInfo);
 		overallCtrl.add(paraMeter);
-		overallCtrl.add(tips);
+//		overallCtrl.add(tips);
 		// overallCtrl.add(currentPath);
 
 		// 原图窗口

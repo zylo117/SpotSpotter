@@ -14,7 +14,7 @@ public class Draw {
 
 	// 点到点画线
 	public static void line_P2P(Mat inputmat, Point startP, Point endP) {
-		Imgproc.line(inputmat, startP, endP, new Scalar(255, 128, 128), 4);
+		Imgproc.line(inputmat, startP, endP, new Scalar(128, 200, 255), 8);
 	}
 
 	public static void point(Mat input, Point p, int radius, int size) {
