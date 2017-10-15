@@ -109,19 +109,30 @@ public class Binaryzation {
 			Imgproc.cvtColor(input, gray, Imgproc.COLOR_RGB2GRAY);
 			final Mat binImg = new Mat();
 			Imgproc.threshold(gray, binImg, thresh, 255, Imgproc.THRESH_BINARY);
+//			MatView.imshow(binImg, "binImg");
 			return binImg;
 		}else {
 			final Mat gray = new Mat();
 			Imgproc.cvtColor(input, gray, Imgproc.COLOR_RGB2GRAY);
 			final Mat binImg = new Mat();
-			Imgproc.threshold(gray, binImg, 0, 255, Imgproc.THRESH_OTSU);
+			Imgproc.threshold(gray, binImg, 0, 255, Imgproc.THRESH_OTSU + Imgproc.THRESH_BINARY_INV);
 //			Imgproc.adaptiveThreshold(gray, binImg, 255, Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, 11, 0);
+//			MatView.imshow(binImg, "binImg");
 			return binImg;
 		}
 	}
 	
+	public static Mat bin_second(Mat input){
+		final Mat gray = new Mat();
+		Imgproc.cvtColor(input, gray, Imgproc.COLOR_RGB2GRAY);
+		final Mat binImg = new Mat();
+		Imgproc.threshold(gray, binImg, 0, 255, Imgproc.THRESH_OTSU + Imgproc.THRESH_BINARY_INV);
+//		Imgproc.adaptiveThreshold(gray, binImg, 255, Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, 11, 0);
+		return binImg;
+	}
+	
 	public static void main(String[] args) throws Exception {
-		final String input = "D:\\11#SUT 4\\test\\ (9).jpg";
+		final String input = "C:\\Users\\5117006014\\Pictures\\cut.jpg";
 //		final String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output2.jpg";
 		System.loadLibrary("opencv_java330_64");
 		final Mat in = Imgcodecs.imread(input);

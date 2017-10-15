@@ -3,6 +3,7 @@ package pers.zylo117.spotspotter.gui.viewer;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -35,6 +36,7 @@ import org.opencv.core.Mat;
 
 import pers.zylo117.spotspotter.dataio.input.IPReader;
 import pers.zylo117.spotspotter.gui.textbox.ConsoleTextArea;
+import pers.zylo117.spotspotter.mainprogram.AlgoList;
 import pers.zylo117.spotspotter.toolbox.GetPostfix;
 import pers.zylo117.spotspotter.toolbox.Mat2BufferedImage;
 
@@ -112,7 +114,7 @@ public class CentralControl extends JFrame {
 					if (postFix.equals("jpg") || postFix.equals("gif") || postFix.equals("bmp") || postFix.equals("png")
 							|| postFix.equals("tiff") || postFix.equals("JPG")) {
 						System.out.println("Temporarily Run Test On A Picture");
-						imageView.setIcon(new ImageIcon(name));
+						AlgoList.panda(name);
 					} else if (postFix.equals("dat")) {
 						hasWorkDir = true;
 						System.out.println("Temporarily Run Test On A List");
@@ -172,20 +174,18 @@ public class CentralControl extends JFrame {
 		final JScrollPane coverCopy = main;
 
 		// 监视窗口右边显示Log*************************************
-		 ConsoleTextArea consoleTextArea = null;
-		 try {
-		 consoleTextArea = new ConsoleTextArea();
-		 } catch (final IOException e) {
-		 System.err.println("Unable to create LoopedStreams：" + e);
-		 System.exit(1);
-		 }
-		 logContainer = jFrame.getContentPane();
-		 final JScrollPane consolePane = new JScrollPane(consoleTextArea);
-		 final Rectangle boundsOfCover = imageView.getBounds();
-		 consolePane.setBounds(boundsOfCover.x + boundsOfCover.width / 2,
-		 boundsOfCover.y, boundsOfCover.width,
-		 boundsOfCover.height);
-		 logContainer.add(consolePane, BorderLayout.EAST);
+//		ConsoleTextArea consoleTextArea = null;
+//		try {
+//			consoleTextArea = new ConsoleTextArea();
+//		} catch (final IOException e) {
+//			System.err.println("Unable to create LoopedStreams：" + e);
+//			System.exit(1);
+//		}
+//		final JScrollPane consolePane = new JScrollPane(consoleTextArea);
+//		final Rectangle boundsOfCover = imageView.getBounds();
+//		consolePane.setBounds(boundsOfCover.x + boundsOfCover.width / 4, boundsOfCover.y, boundsOfCover.width,
+//				boundsOfCover.height);
+//		consolePane.setPreferredSize(new Dimension(500, 100));
 
 		// Panel1基础信息文本框***********************************
 		final JPanel baseInfo = new JPanel();
@@ -410,6 +410,7 @@ public class CentralControl extends JFrame {
 		jFrame.add(overallCtrl, BorderLayout.SOUTH);
 		jFrame.add(main, BorderLayout.CENTER);
 		jFrame.add(imageViewM, BorderLayout.WEST);
+//		jFrame.add(consolePane, BorderLayout.EAST);
 
 		// 总窗口设置************************************
 		jFrame.pack();
