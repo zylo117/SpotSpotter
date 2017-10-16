@@ -1,5 +1,7 @@
 package pers.zylo117.spotspotter.toolbox;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -40,6 +42,15 @@ public class GetMaxMinMidAvg {
 		final double min = getMinFromArray(arr);
 		final double mid = (max + min) / 2;
 		return mid;
+	}
+	
+	public static double getMedianFromArray(List<Integer> arr) {
+		Collections.sort(arr);
+		int length = arr.size();
+		if(length % 2 == 0) 
+			return (arr.get(arr.size()/2 - 1) + arr.get(arr.size()))/2;
+		else
+			return arr.get(arr.size());
 	}
 
 	public static double getAvgFromArray(double[] arr) {
