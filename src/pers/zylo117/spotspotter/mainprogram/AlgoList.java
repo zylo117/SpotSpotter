@@ -17,6 +17,7 @@ import pers.zylo117.spotspotter.fileprocessor.FileOperation;
 import pers.zylo117.spotspotter.gui.viewer.CentralControl;
 import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
 import pers.zylo117.spotspotter.patternrecognition.ROI_Irregular;
+import pers.zylo117.spotspotter.patternrecognition.core.AutoEdgeDetect;
 import pers.zylo117.spotspotter.patternrecognition.core.SpotSpotter;
 import pers.zylo117.spotspotter.patternrecognition.regiondetector.ProjectPR.ProjectAlgo_Qiu2017;
 import pers.zylo117.spotspotter.pictureprocess.Picture;
@@ -284,10 +285,14 @@ public class AlgoList {
 									pic.lrP, 5, 5, true, 0.5, 0.45);
 						} else if (pic.processName.equals("GA")) {
 							// 二值化获得初步ROI
-							ProjectAlgo_Qiu2017.colorProject_Qiu2017(imgOrigin, CentralControl.binThresh);
+//							ProjectAlgo_Qiu2017.colorProject_Qiu2017(imgOrigin, CentralControl.binThresh);
+							
 							// ROI
-							roi = ROI_Irregular.irregularQuadrangle_Simplified(imgOrigin, pic.ulP, pic.urP, pic.llP,
-									pic.lrP, CentralControl.offset, CentralControl.offset, false, 0, 0);
+//							roi = ROI_Irregular.irregularQuadrangle_Simplified(imgOrigin, pic.ulP, pic.urP, pic.llP,
+//									pic.lrP, CentralControl.offset, CentralControl.offset, false, 0, 0);
+							
+							//Contour提取ROI
+							roi = AutoEdgeDetect.iRCF_NH_ME(imgOrigin);
 						} else {
 							// System.out.println("Type: " + GetPicType.getPicTypeFromPic(pic));
 							// System.out.println("Type doesn't match, skipping");

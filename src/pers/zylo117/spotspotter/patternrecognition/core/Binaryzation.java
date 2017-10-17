@@ -132,7 +132,7 @@ public class Binaryzation {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		final String input = "C:\\Users\\5117006014\\Pictures\\cut.jpg";
+		final String input = "D:\\tmp\\5.jpg";
 //		final String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output2.jpg";
 		System.loadLibrary("opencv_java330_64");
 		final Mat in = Imgcodecs.imread(input);
