@@ -295,7 +295,6 @@ public class AlgoList {
 //									pic.lrP, CentralControl.offset, CentralControl.offset, false, 0, 0);
 							
 							//ContourÃ·»°ROI
-							System.out.println(CentralControl.mosaicLength);
 							Mat[] matSet = AutoEdgeDetect.iRCF_NH_ME(imgOrigin, 21, 200000, CentralControl.offset);
 							roi = matSet[0];
 							outterBox = matSet[1];
