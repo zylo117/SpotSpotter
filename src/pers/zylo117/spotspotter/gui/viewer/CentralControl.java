@@ -410,7 +410,7 @@ public class CentralControl extends JFrame {
 		jFrame.add(overallCtrl, BorderLayout.SOUTH);
 		jFrame.add(main, BorderLayout.CENTER);
 		jFrame.add(imageViewM, BorderLayout.WEST);
-//		jFrame.add(consolePane, BorderLayout.EAST);
+		jFrame.add(consolePane, BorderLayout.EAST);
 
 		// ×Ü´°¿ÚÉèÖÃ************************************
 		jFrame.pack();

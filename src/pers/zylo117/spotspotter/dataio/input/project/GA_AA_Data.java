@@ -30,12 +30,12 @@ public class GA_AA_Data {
 	private static List<String> defineHeader() {
 		final List<String> header = new ArrayList<>();
 		header.add("NO");
+		header.add("TestDate");
 		header.add("ProcessName");
 		header.add("ProductName");
 		header.add("Lot");
 		header.add("CarrierID");
 		header.add("PocketNO");
-		header.add("TestDate");
 		header.add("MachineNO");
 		header.add("Station");
 		header.add("ProcessDate");
@@ -192,13 +192,21 @@ public class GA_AA_Data {
 
 	public static void writeNextRow(Picture pic, int sheetIndex, String cellRef, boolean ifOutputFile) {
 		final List<String> content = new ArrayList<>();
-		content.add(Integer.toString(GrandCounter.totalTestQuantity));
-		content.add(pic.processName);
-		content.add(CentralControl.productN);
+		if(CentralControl.ifEngMode) {
+			content.add(Integer.toString(GrandCounter.totalTestQuantity));
+			content.add(getTestDate());
+			content.add(pic.processName);
+			content.add(CentralControl.productN);
+		}
+		else {
+			content.add("");
+			content.add("");
+			content.add("");
+			content.add("");
+		}
 		content.add(getLot(pic));
 		content.add(getCarrierID(pic));
 		content.add(getPocketNO(pic));
-		content.add(getTestDate());
 		content.add(Integer.toString(CentralControl.mcNO));
 		if (pic.processName.equals("AA")) {
 			content.add(getStation(pic));
@@ -208,7 +216,10 @@ public class GA_AA_Data {
 		content.add(getProcessDate(pic));
 		content.add(pic.result());
 		if (pic.result().equals("NG")) {
-			content.add(pic.material);
+			if(CentralControl.ifEngMode)
+				content.add(pic.material);
+			else
+				content.add("");
 
 			final Map<Point, Double> max = getMax(pic);
 			for (final Entry<Point, Double> vo : max.entrySet()) {
@@ -217,7 +228,10 @@ public class GA_AA_Data {
 
 				content.add(Double.toString(p.x));
 				content.add(Double.toString(p.y));
-				content.add(Double.toString(value));
+				if(CentralControl.ifEngMode) 
+					content.add(Double.toString(value));
+				else
+					content.add("");
 			}
 		} else {
 			content.add("");

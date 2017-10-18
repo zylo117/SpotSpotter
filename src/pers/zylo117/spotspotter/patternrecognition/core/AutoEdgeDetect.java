@@ -218,7 +218,7 @@ public class AutoEdgeDetect {
 //		MatView.imshow(box, "Box");
 		
 		Core.bitwise_and(image, roi, roi);
-		MatView.imshow(roi, "Final ROI1");
+//		MatView.imshow(roi, "Final ROI1");
 		
 		return matSet;
 	}
