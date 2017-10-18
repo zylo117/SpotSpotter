@@ -78,9 +78,9 @@ public class FileCreateTime {
 		}
 		return false;
 	}
-	
+
 	public static boolean ifOutOfDate(File file) {
-		if(!file.exists())
+		if (!file.exists())
 			return true;
 		else {
 			final String oldDate = getCreateTime(file.getAbsolutePath());
@@ -105,11 +105,11 @@ public class FileCreateTime {
 	}
 
 	public static void main(String[] args) {
-//		getCreateTime("D:\\workspace\\SpotSpotter\\tmpIndex.dat");
-//		getCreateTime("D:\\workspace\\SpotSpotter\\Run.bat");
-//		System.out.println(compare_date(getCreateTime("D:\\workspace\\SpotSpotter\\tmpIndex.dat"),
-//				getCreateTime("D:\\workspace\\SpotSpotter\\Run.bat")));
-//		System.out.println(System.getProperty("user.dir") + "\\tmpIndex.dat");
+		// getCreateTime("D:\\workspace\\SpotSpotter\\tmpIndex.dat");
+		// getCreateTime("D:\\workspace\\SpotSpotter\\Run.bat");
+		// System.out.println(compare_date(getCreateTime("D:\\workspace\\SpotSpotter\\tmpIndex.dat"),
+		// getCreateTime("D:\\workspace\\SpotSpotter\\Run.bat")));
+		// System.out.println(System.getProperty("user.dir") + "\\tmpIndex.dat");
 		System.out.println(ifOutOfDate(new File(System.getProperty("user.dir") + "\\tmpIndex.dat")));
 	}
 }

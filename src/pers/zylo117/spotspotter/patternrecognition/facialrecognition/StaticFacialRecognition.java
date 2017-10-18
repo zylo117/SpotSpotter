@@ -32,9 +32,10 @@ public class StaticFacialRecognition {
 			Imgproc.rectangle(image, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height),
 					new Scalar(0, 255, 0));
 		}
-		
+
 		System.out.println(String.format("Writing %s", output));
 		Imgcodecs.imwrite(output, image);
-		// 留作备用 StaticFacialRecognition.class.getResource("").getPath().substring(1) + output 
+		// 留作备用 StaticFacialRecognition.class.getResource("").getPath().substring(1) +
+		// output
 	}
 }

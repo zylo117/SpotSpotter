@@ -9,9 +9,9 @@ import java.util.List;
 
 public class IPReader {
 	public static List<List<String>> data() {
-		String path = System.getProperty("user.dir") + "\\MachineIP.csv";
-		File file = new File(path);
-		List<List<String>> list = new ArrayList<>();
+		final String path = System.getProperty("user.dir") + "\\MachineIP.csv";
+		final File file = new File(path);
+		final List<List<String>> list = new ArrayList<>();
 		if (file.exists()) {
 			String content = null;
 			try {
@@ -31,7 +31,7 @@ public class IPReader {
 				final List<String> data_line = Arrays.asList(indexList[i].split(","));
 				list.add(data_line);
 			}
-//			System.out.println(list);
+			// System.out.println(list);
 			return list;
 		} else {
 			return null;

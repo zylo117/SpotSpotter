@@ -28,7 +28,7 @@ public class Picture {
 	public static String productName;
 	public static String MachineName;
 	public static String material;
-	
+
 	public static List<Map<Point, Double>> failureData;
 
 	public Picture(String file) throws IOException {
@@ -46,20 +46,19 @@ public class Picture {
 		this.width = matInput.width();
 		this.height = matInput.height();
 	}
-	
+
 	public static String result() {
-			if (failureData.isEmpty()) {
-				return "OK";
-			}
-			else
-				return "NG";
+		if (failureData.isEmpty()) {
+			return "OK";
+		} else
+			return "NG";
 	}
-	
+
 	public static String postFixWithDot() {
 		final String postFixWithDot = fileName.substring(fileName.lastIndexOf("."));
 		return postFixWithDot;
 	}
-	
+
 	public static String fileNameWOPostfix() {
 		final String fileNameWOPostfix = fileName.replace(postFixWithDot(), "");
 		return fileNameWOPostfix;

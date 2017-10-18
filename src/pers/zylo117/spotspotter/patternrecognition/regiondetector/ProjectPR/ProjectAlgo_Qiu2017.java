@@ -27,25 +27,27 @@ public class ProjectAlgo_Qiu2017 {
 	public static int leapPoint_fromCenter(int[] input, double thresh, boolean ifToLeft, boolean takeFirstOne) {
 		final int center = input.length / 2;
 		// 设置安全区
-		final double safeLength = center * 0.8; 
+		final double safeLength = center * 0.8;
 		int lP = 0;
 		// int failSafe = input.length / 50;
 		if (ifToLeft) {
 			for (int i = 1; i < safeLength; i++) {
-//				if ((input[center - i] > thresh * input[center - i + 1]) || (input[center - i + 1] > thresh * input[center - i]) ) {
+				// if ((input[center - i] > thresh * input[center - i + 1]) || (input[center - i
+				// + 1] > thresh * input[center - i]) ) {
 				if ((input[center - i] > thresh * input[center - i + 1])) {
 					lP = center - i;
-					if(takeFirstOne)
-					 break;
+					if (takeFirstOne)
+						break;
 				}
 			}
 		} else {
 			for (int i = 1; i < safeLength; i++) {
-//				if ((input[center + i] > thresh * input[center + i - 1]) || (input[center + i - 1] > thresh * input[center + i])) {
+				// if ((input[center + i] > thresh * input[center + i - 1]) || (input[center + i
+				// - 1] > thresh * input[center + i])) {
 				if ((input[center + i] > thresh * input[center + i - 1])) {
 					lP = center + i;
-					if(takeFirstOne)
-					 break;
+					if (takeFirstOne)
+						break;
 				}
 			}
 		}
@@ -77,13 +79,15 @@ public class ProjectAlgo_Qiu2017 {
 		// System.out.println(datasingle[i][256]);
 		// }
 		boolean takeFirstOne;
-		if(pic.processName.equals("GA"))
+		if (pic.processName.equals("GA"))
 			takeFirstOne = true;
 		else
 			takeFirstOne = false;
-		
-		final int lP_up = leapPoint_fromCenter(pic.dataSingleChannel[pic.dataSingleChannel.length / 2], thresh, true, takeFirstOne);
-		final int lP_down = leapPoint_fromCenter(pic.dataSingleChannel[pic.dataSingleChannel.length / 2], thresh, false, takeFirstOne);
+
+		final int lP_up = leapPoint_fromCenter(pic.dataSingleChannel[pic.dataSingleChannel.length / 2], thresh, true,
+				takeFirstOne);
+		final int lP_down = leapPoint_fromCenter(pic.dataSingleChannel[pic.dataSingleChannel.length / 2], thresh, false,
+				takeFirstOne);
 
 		final int[] horizon = new int[pic.dataSingleChannel.length];
 		for (int i = 1; i < pic.dataSingleChannel.length; i++) {
@@ -92,7 +96,7 @@ public class ProjectAlgo_Qiu2017 {
 		}
 		final int lP_left = leapPoint_fromCenter(horizon, thresh, true, takeFirstOne);
 
-		final int lP_right = leapPoint_fromCenter(horizon, thresh, false,takeFirstOne);
+		final int lP_right = leapPoint_fromCenter(horizon, thresh, false, takeFirstOne);
 
 		// Imgproc.circle(out, new Point(datasingle.length / 2, lP_up), 4, new
 		// Scalar(255, 255, 0), 2);

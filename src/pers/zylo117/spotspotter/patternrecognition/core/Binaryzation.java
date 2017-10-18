@@ -50,25 +50,25 @@ public class Binaryzation {
 			for (int j = 0; j < height; j++) {
 				final String tempst = Integer.toHexString(GetPixelArray.rawoutputRGB[i][j]);
 				String colorstr;
-				
+
 				if (tempst.length() >= 6) {
 					colorstr = tempst.substring(2, 4);
-					
+
 				} else if (tempst.length() == 5) {
 					colorstr = tempst.substring(1, 3);
-					
+
 				} else if (tempst.length() == 1) {
 					final String colorstr1 = tempst.substring(0, 1);
 					colorstr = "0" + colorstr1;
 				} else
 					colorstr = "00";
-				
+
 				final int color = Integer.valueOf(colorstr, 16);
 
-//				System.out.println("rgb"+temprgb[i][j]);
-//				System.out.println("tempst" + tempst);
-//				System.out.println("cst" + colorstr);
-//				System.out.println("col"+color);
+				// System.out.println("rgb"+temprgb[i][j]);
+				// System.out.println("tempst" + tempst);
+				// System.out.println("cst" + colorstr);
+				// System.out.println("col"+color);
 
 				for (int k = 1; k <= scale; k++) {
 					if (color < colorscale[k] && color > colorscale[k - 1]) {
@@ -78,12 +78,12 @@ public class Binaryzation {
 					}
 				}
 
-//				if (i == 0) {
-//					System.out.println(bipiccolor[i][j]);
-//				}
+				// if (i == 0) {
+				// System.out.println(bipiccolor[i][j]);
+				// }
 			}
 		}
-		
+
 		// 写入上述ARGB信息到二值化缓存图像，并写入到原始图像路径
 		BufferedImage bibimg;
 		if (formatname.equals("png")) {
@@ -97,43 +97,46 @@ public class Binaryzation {
 			}
 		}
 		ImageStream2File.IS2F(bibimg, formatname, output);
-		
+
 		final long endTime = new Date().getTime();
 		System.out.println("Binaryzation Tact Time:[" + (endTime - beginTime) + "]ms");
 		System.out.println("");
 	}
-	
+
 	public static Mat binaryzation_OpenCV(Mat input, double thresh, boolean ifAdaptive) {
-		if(!ifAdaptive) {
+		if (!ifAdaptive) {
 			final Mat gray = new Mat();
 			Imgproc.cvtColor(input, gray, Imgproc.COLOR_RGB2GRAY);
 			final Mat binImg = new Mat();
 			Imgproc.threshold(gray, binImg, thresh, 255, Imgproc.THRESH_BINARY);
-//			MatView.imshow(binImg, "binImg");
+			// MatView.imshow(binImg, "binImg");
 			return binImg;
-		}else {
+		} else {
 			final Mat gray = new Mat();
 			Imgproc.cvtColor(input, gray, Imgproc.COLOR_RGB2GRAY);
 			final Mat binImg = new Mat();
 			Imgproc.threshold(gray, binImg, 0, 255, Imgproc.THRESH_OTSU + Imgproc.THRESH_BINARY_INV);
-//			Imgproc.adaptiveThreshold(gray, binImg, 255, Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, 11, 0);
-//			MatView.imshow(binImg, "binImg");
+			// Imgproc.adaptiveThreshold(gray, binImg, 255,
+			// Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, 11, 0);
+			// MatView.imshow(binImg, "binImg");
 			return binImg;
 		}
 	}
-	
-	public static Mat bin_second(Mat input){
+
+	public static Mat bin_second(Mat input) {
 		final Mat gray = new Mat();
 		Imgproc.cvtColor(input, gray, Imgproc.COLOR_RGB2GRAY);
 		final Mat binImg = new Mat();
 		Imgproc.threshold(gray, binImg, 0, 255, Imgproc.THRESH_OTSU + Imgproc.THRESH_BINARY_INV);
-//		Imgproc.adaptiveThreshold(gray, binImg, 255, Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, 11, 0);
+		// Imgproc.adaptiveThreshold(gray, binImg, 255,
+		// Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, 11, 0);
 		return binImg;
 	}
-	
+
 	public static void main(String[] args) throws Exception {
 		final String input = "D:\\tmp\\5.jpg";
-//		final String output = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output2.jpg";
+		// final String output =
+		// "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/output2.jpg";
 		System.loadLibrary("opencv_java330_64");
 		final Mat in = Imgcodecs.imread(input);
 		if (in.empty()) {
@@ -141,6 +144,6 @@ public class Binaryzation {
 		}
 		final Mat mask = binaryzation_OpenCV(in, 300 * 0.6, true);
 		MatView.imshow(mask, "mask");
-//		Imgcodecs.imwrite(output, mask);
+		// Imgcodecs.imwrite(output, mask);
 	}
 }

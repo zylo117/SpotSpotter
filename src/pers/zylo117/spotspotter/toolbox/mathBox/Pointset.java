@@ -71,7 +71,7 @@ public class Pointset {
 		for (int i = 0; i < list.size(); i++) {
 			for (int j = i + 1; j < list.size(); j++) {
 				distance = MathBox.pointDistance(list.get(i), list.get(j));
-//				System.out.println(distance);
+				// System.out.println(distance);
 				if (distance <= Math.sqrt(2) || distance >= 1) {
 					newList.add(list.get(j));
 				}

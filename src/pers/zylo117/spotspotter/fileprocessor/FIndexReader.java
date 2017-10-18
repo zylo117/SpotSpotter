@@ -77,7 +77,7 @@ public class FIndexReader {
 
 	public static void indexProcess(String path, List<String> list) {
 		Time.getTime();
-		String currentPath = CentralControl.monitorPath;
+		final String currentPath = CentralControl.monitorPath;
 		final String todayFIndex = path + Time.year + "\\" + Time.strMonth + "\\" + Time.strDay + "\\";
 		final List<String> newlist = new ArrayList<>();
 		for (int i = 0; i < list.size(); i++) {
@@ -87,11 +87,11 @@ public class FIndexReader {
 				// file.delete();
 				break;
 			}
-			
+
 			// 用于防错，同时用于重启计算
 			if (currentPath != CentralControl.monitorPath)
 				break;
-			
+
 			newlist.add(list.get(i));
 			outputIndex(newlist.get(i));
 		}
@@ -114,8 +114,8 @@ public class FIndexReader {
 
 		final String[] indexList = content.split(System.lineSeparator());
 
-		for(int i=0; i<indexList.length;i++) {
-			AlgoList.panda(path+"/"+ indexList[i]);
+		for (int i = 0; i < indexList.length; i++) {
+			AlgoList.panda(path + "/" + indexList[i]);
 		}
 	}
 

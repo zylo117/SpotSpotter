@@ -152,15 +152,14 @@ public class Ransac<T, S> {
 		return (double) bestSize / (double) dataSize;
 	}
 
-	
 	/**
-	* 模型估计器接口
-	*
-	* @param <T>
-	*            样本的类型
-	* @param <S>
-	*            参数的类型
-	*/
+	 * 模型估计器接口
+	 *
+	 * @param <T>
+	 *            样本的类型
+	 * @param <S>
+	 *            参数的类型
+	 */
 	public interface ParameterEstimator<T, S> {
 		/**
 		 * 执行准确参数估计的方法

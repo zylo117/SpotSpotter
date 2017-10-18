@@ -8,7 +8,7 @@ public class GetPostfix {
 		final String postfix = file.getName().substring(file.getName().lastIndexOf(".") + 1);
 		return postfix;
 	}
-	
+
 	public static String fromFilename(String input) {
 		final String postfix = input.substring(input.lastIndexOf(".") + 1);
 		return postfix;

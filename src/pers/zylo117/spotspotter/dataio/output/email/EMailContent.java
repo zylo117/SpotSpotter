@@ -33,10 +33,10 @@ public class EMailContent {
 
 		Time.getTime();
 		final StringBuilder str = new StringBuilder("Date ");
-		str.append(Time.datetime_slash).append(System.getProperty("line.separator"))
-		.append("Category ").append(CentralControl.productN).append(System.getProperty("line.separator"))
-		.append("Daily Failure Rate Summary").append(System.getProperty("line.separator"))
-		.append("GA Dust Detect Rate: ").append(failureRate()).append("%");
+		str.append(Time.datetime_slash).append(System.getProperty("line.separator")).append("Category ")
+				.append(CentralControl.productN).append(System.getProperty("line.separator"))
+				.append("Daily Failure Rate Summary").append(System.getProperty("line.separator"))
+				.append("GA Dust Detect Rate: ").append(failureRate()).append("%");
 
 		PrintWriter pfp;
 		try {
@@ -57,13 +57,13 @@ public class EMailContent {
 		// final File xlsx = new File(path);
 		int rowIndex = 0;
 		int failureCount = 0;
-		final Workbook wb =  GA_AA_Data.tmpWB;
-		
-		if(wb == null)
+		final Workbook wb = GA_AA_Data.tmpWB;
+
+		if (wb == null)
 			return 0;
 		else {
 			rowIndex = ExcelOperation.getEmptyRow(wb, 0, "A1");
-	
+
 			for (int i = 1; i < rowIndex; i++) {
 				final Sheet sheet = wb.getSheetAt(0);
 				final Row row = sheet.getRow(i);

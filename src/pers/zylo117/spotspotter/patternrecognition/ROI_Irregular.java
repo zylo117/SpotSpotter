@@ -3,7 +3,6 @@ package pers.zylo117.spotspotter.patternrecognition;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.poi.hwpf.model.types.TLPAbstractType;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -19,8 +18,10 @@ import pers.zylo117.spotspotter.toolbox.mathBox.MathBox;
 /***
  * ROI四角排列如下
  * 
- * @param p1	p2
- * @param p3	p4
+ * @param p1
+ *            p2
+ * @param p3
+ *            p4
  */
 
 public class ROI_Irregular {
@@ -35,10 +36,12 @@ public class ROI_Irregular {
 		final Mat maskCopyTo = Mat.zeros(input.size(), CvType.CV_8UC1); // 创建copyTo方法的mask，大小与原图保持一致
 		// floodFill的mask的width和height都必须比输入图像大至少两个像素，否则程序会报错
 		final Mat maskFloodFill = Mat.zeros(new Size(input.cols() + 2, input.rows() + 2), CvType.CV_8UC1); // 创建floodFill方法的mask，尺寸比原图大一些
-		//		Imgproc.circle(maskCopyTo, new Point(cc.x, cc.y), radius, Scalar.all(255), 2, 8, 0); // 画出圆的轮廓
-		Imgproc.rectangle(maskCopyTo, rect.tl(), rect.br(), Scalar.all(255),2,8,0);
-		Imgproc.floodFill(maskCopyTo, maskFloodFill, new Point((rect.tl().x+rect.br().x)/2, (rect.tl().y+rect.br().y)/2), Scalar.all(255), null, Scalar.all(20),
-				Scalar.all(20), 4); // 漫水填充法填充圆的内部
+		// Imgproc.circle(maskCopyTo, new Point(cc.x, cc.y), radius, Scalar.all(255), 2,
+		// 8, 0); // 画出圆的轮廓
+		Imgproc.rectangle(maskCopyTo, rect.tl(), rect.br(), Scalar.all(255), 2, 8, 0);
+		Imgproc.floodFill(maskCopyTo, maskFloodFill,
+				new Point((rect.tl().x + rect.br().x) / 2, (rect.tl().y + rect.br().y) / 2), Scalar.all(255), null,
+				Scalar.all(20), Scalar.all(20), 4); // 漫水填充法填充圆的内部
 		// MatView.imshow(maskFloodFill, "Mask of floodFill"); // 画出floodFill方法的mask
 		// MatView.imshow(maskCopyTo, "Mask of copyTo"); // 画出copyTo方法的mask
 		final Mat imgRectROI = new Mat();
@@ -50,7 +53,8 @@ public class ROI_Irregular {
 	public static Mat Circle(Mat circularInput, Point cc, int radius) {
 		final Mat maskCopyTo = Mat.zeros(circularInput.size(), CvType.CV_8UC1); // 创建copyTo方法的mask，大小与原图保持一致
 		// floodFill的mask的width和height都必须比输入图像大至少两个像素，否则程序会报错
-		final Mat maskFloodFill = Mat.zeros(new Size(circularInput.cols() + 2, circularInput.rows() + 2), CvType.CV_8UC1); // 创建floodFill方法的mask，尺寸比原图大一些
+		final Mat maskFloodFill = Mat.zeros(new Size(circularInput.cols() + 2, circularInput.rows() + 2),
+				CvType.CV_8UC1); // 创建floodFill方法的mask，尺寸比原图大一些
 		Imgproc.circle(maskCopyTo, new Point(cc.x, cc.y), radius, Scalar.all(255), 2, 8, 0); // 画出圆的轮廓
 		Imgproc.floodFill(maskCopyTo, maskFloodFill, new Point(207, 290), Scalar.all(255), null, Scalar.all(20),
 				Scalar.all(20), 4); // 漫水填充法填充圆的内部
@@ -118,8 +122,8 @@ public class ROI_Irregular {
 		return imgIrregularROI;
 	}
 
-	public static Mat irregularQuadrangle_Simplified(Mat irrInput, Point p1, Point p2, Point p3, Point p4, double shift_x, double shift_y,
-			boolean noULandLRcorner, double ulCornerRatio, double lrCornerRatio) {
+	public static Mat irregularQuadrangle_Simplified(Mat irrInput, Point p1, Point p2, Point p3, Point p4,
+			double shift_x, double shift_y, boolean noULandLRcorner, double ulCornerRatio, double lrCornerRatio) {
 		final Mat maskCopyTo = Mat.zeros(irrInput.size(), CvType.CV_8UC1); // 创建copyTo方法的mask，大小与原图保持一致
 
 		// 求中心点作为起始填充点
@@ -145,7 +149,7 @@ public class ROI_Irregular {
 
 		// floodFill的mask的width和height都必须比输入图像大至少两个像素，否则程序会报错
 		Imgproc.drawContours(maskCopyTo, counter, -1, Scalar.all(255)); // 画出轮廓
-		//		MatView.imshow(maskCopyTo, "Irregular shape edge");
+		// MatView.imshow(maskCopyTo, "Irregular shape edge");
 		final Mat maskFloodFill = new Mat(irrInput.rows() + 2, irrInput.cols() + 2, CvType.CV_8UC1); // 创建floodFill方法的mask，尺寸比原图大一些
 		Imgproc.floodFill(maskCopyTo, maskFloodFill, new Point(centerX, centerY), Scalar.all(255), null, Scalar.all(20),
 				Scalar.all(20), 4); // 漫水填充法填充内部
@@ -159,15 +163,17 @@ public class ROI_Irregular {
 		return imgIrregularROI;
 	}
 
-	//	public static Mat zoomoutMat(Mat input, Point p1, Point p2, Point p3, Point p4, double scale_x, double scale_y) {
-	//		double width = p2.x - p1.x;
-	//		double height = p3.y - p1.y;
-	//		Point newP1 = new Point(p1.x + width * scale_x, p1.y + height*scale_y);
-	//		Point newP2 = new Point(p2.x - width * scale_x, p2.y + height*scale_y);
-	//		Point newP3 = new Point(p3.x + width * scale_x, p3.y - height*scale_y);
-	//		Point newP4 = new Point(p4.x - width * scale_x, p4.y - height*scale_y);
-	//		
-	//		Mat out = irregularQuadrangle_Simplified(input, newP1, newP2, newP3, newP4, shift, noULandLRcorner, ulCornerRatio, lrCornerRatio)
-	//		return null;
-	//	}
+	// public static Mat zoomoutMat(Mat input, Point p1, Point p2, Point p3, Point
+	// p4, double scale_x, double scale_y) {
+	// double width = p2.x - p1.x;
+	// double height = p3.y - p1.y;
+	// Point newP1 = new Point(p1.x + width * scale_x, p1.y + height*scale_y);
+	// Point newP2 = new Point(p2.x - width * scale_x, p2.y + height*scale_y);
+	// Point newP3 = new Point(p3.x + width * scale_x, p3.y - height*scale_y);
+	// Point newP4 = new Point(p4.x - width * scale_x, p4.y - height*scale_y);
+	//
+	// Mat out = irregularQuadrangle_Simplified(input, newP1, newP2, newP3, newP4,
+	// shift, noULandLRcorner, ulCornerRatio, lrCornerRatio)
+	// return null;
+	// }
 }

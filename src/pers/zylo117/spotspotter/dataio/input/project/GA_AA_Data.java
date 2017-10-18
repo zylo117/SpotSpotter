@@ -26,7 +26,7 @@ import pers.zylo117.spotspotter.toolbox.Time;
 public class GA_AA_Data {
 
 	public static Workbook tmpWB = null;
-	
+
 	private static List<String> defineHeader() {
 		final List<String> header = new ArrayList<>();
 		header.add("NO");
@@ -64,28 +64,28 @@ public class GA_AA_Data {
 		if (pic.processName.equals("GA")) {
 			final String lot = pic.fileName.substring(23, 35);
 			return lot;
-		}else {
+		} else {
 			return null;
 		}
 	}
-	
+
 	public static String getCarrierID(Picture pic) {
 		if (pic.processName.equals("GA")) {
 			final String carID = pic.fileName.substring(36, 46);
 			return carID;
-		}else
+		} else
 			return null;
-	}	
-	
+	}
+
 	public static String getPocketNO(Picture pic) {
 		if (pic.processName.equals("GA")) {
 			String PocketNO = pic.fileName.substring(47, 49);
 			PocketNO = PocketNO.replace("_", "");
 			return PocketNO;
-		}else
+		} else
 			return null;
 	}
-	
+
 	public static String getStation(Picture pic) {
 		final int length = pic.fileParent.length();
 		return pic.fileParent.substring(pic.fileParent.length() - 12, pic.fileParent.length() - 11);
@@ -111,20 +111,20 @@ public class GA_AA_Data {
 		return pic.fileParent.substring(pic.fileParent.length() - 10, pic.fileParent.length() - 6);
 	}
 
-//	 public static void main(String[] args) {
-//	 try {
-//	 Picture pic = new
-//	 Picture("D:\\EpoxyInsp\\EW4\\2017\\08\\29\\015621(1)417_glue.jpg");
-//	 pic.fileName = "015621(1)417_glue.jpg";
-//	 pic.filePath = "D:\\EpoxyInsp\\EW4\\2017\\08\\29\\015621(1)417_glue.jpg\\";
-//	 System.out.println(getYear(pic));
-//	 System.out.println(getMonth(pic));
-//	 System.out.println(getDay(pic));
-//	 } catch (IOException e) {
-//	 // TODO 自动生成的 catch 块
-//	 e.printStackTrace();
-//	 }
-//	 }
+	// public static void main(String[] args) {
+	// try {
+	// Picture pic = new
+	// Picture("D:\\EpoxyInsp\\EW4\\2017\\08\\29\\015621(1)417_glue.jpg");
+	// pic.fileName = "015621(1)417_glue.jpg";
+	// pic.filePath = "D:\\EpoxyInsp\\EW4\\2017\\08\\29\\015621(1)417_glue.jpg\\";
+	// System.out.println(getYear(pic));
+	// System.out.println(getMonth(pic));
+	// System.out.println(getDay(pic));
+	// } catch (IOException e) {
+	// // TODO 自动生成的 catch 块
+	// e.printStackTrace();
+	// }
+	// }
 
 	public static String getHour(Picture pic) {
 		return pic.fileName.substring(0, 2);
@@ -192,13 +192,12 @@ public class GA_AA_Data {
 
 	public static void writeNextRow(Picture pic, int sheetIndex, String cellRef, boolean ifOutputFile) {
 		final List<String> content = new ArrayList<>();
-		if(CentralControl.ifEngMode) {
+		if (CentralControl.ifEngMode) {
 			content.add(Integer.toString(GrandCounter.totalTestQuantity));
 			content.add(getTestDate());
 			content.add(pic.processName);
 			content.add(CentralControl.productN);
-		}
-		else {
+		} else {
 			content.add("");
 			content.add("");
 			content.add("");
@@ -210,13 +209,13 @@ public class GA_AA_Data {
 		content.add(Integer.toString(CentralControl.mcNO));
 		if (pic.processName.equals("AA")) {
 			content.add(getStation(pic));
-		}else {
+		} else {
 			content.add(null);
 		}
 		content.add(getProcessDate(pic));
 		content.add(pic.result());
 		if (pic.result().equals("NG")) {
-			if(CentralControl.ifEngMode)
+			if (CentralControl.ifEngMode)
 				content.add(pic.material);
 			else
 				content.add("");
@@ -228,7 +227,7 @@ public class GA_AA_Data {
 
 				content.add(Double.toString(p.x));
 				content.add(Double.toString(p.y));
-				if(CentralControl.ifEngMode) 
+				if (CentralControl.ifEngMode)
 					content.add(Double.toString(value));
 				else
 					content.add("");
@@ -239,15 +238,15 @@ public class GA_AA_Data {
 			content.add("");
 			content.add("");
 		}
-		
-		if(CentralControl.ifEngMode) {
+
+		if (CentralControl.ifEngMode) {
 			content.add(pic.fileName);
 			content.add(Integer.toString(CentralControl.binThresh));
 			content.add(Integer.toString(CentralControl.ssThresh) + "%");
 			content.add(Integer.toString(CentralControl.offset));
 			content.add(Integer.toString(CentralControl.mosaicLength));
 		}
-		
+
 		// 输出到Excel文件
 		final String path = System.getProperty("user.dir");
 		final String currrentPath = path + "/" + pic.processName + "/" + Time.year + "/" + Time.month;
@@ -259,19 +258,19 @@ public class GA_AA_Data {
 			FileOperation.createDir(currrentPath);
 			Workbook wb = ExcelOperation.writeOneRow(ExcelOperation.createWookBook(), sheetIndex, 0, defineHeader());
 			wb = ExcelOperation.writeOneRow(wb, sheetIndex, 1, content);
-			
-			if(ifOutputFile)
+
+			if (ifOutputFile)
 				ExcelOperation.writeExcel2File(wb, finalPath);
 		} else {
 			try {
-				if(tmpWB == null) {
+				if (tmpWB == null) {
 					final InputStream iStream = new FileInputStream(xlsx);
 					tmpWB = new XSSFWorkbook(iStream);
 				}
 				final int rowIndex = ExcelOperation.getEmptyRow(tmpWB, sheetIndex, cellRef);
 				tmpWB = ExcelOperation.writeOneRow(tmpWB, sheetIndex, rowIndex, content);
 
-				if(ifOutputFile)
+				if (ifOutputFile)
 					ExcelOperation.writeExcel2File(tmpWB, finalPath);
 			} catch (final IOException e) {
 				// TODO 自动生成的 catch 块

@@ -13,11 +13,10 @@ public class LineDetector {
 		Imgproc.cvtColor(in, gray, Imgproc.COLOR_RGB2GRAY);
 		final Mat out = gray.clone();
 		final Mat _lines = new Mat();
-		lsd.detect(gray, _lines); 
+		lsd.detect(gray, _lines);
 		lsd.drawSegments(out, _lines);
 		return out;
 	}
-
 
 	public static void main(String[] args) throws Exception {
 		final String input = "D:/workspace/SpotSpotter/src/pers/zylo117/spotspotter/image/4.jpg";

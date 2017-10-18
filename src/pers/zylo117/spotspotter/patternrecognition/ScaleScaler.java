@@ -18,10 +18,8 @@ public class ScaleScaler {
 		final ImageReader reader = File2ImageReader.F2IR(input);
 		final int oriwidth = reader.getWidth(0);
 		final int oriheight = reader.getHeight(0);
-		
-		
-		
+
 		return null;
-		
+
 	}
 }

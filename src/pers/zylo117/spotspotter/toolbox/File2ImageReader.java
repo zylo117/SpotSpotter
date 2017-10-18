@@ -15,7 +15,7 @@ public class File2ImageReader {
 
 		// ∂¡»°Õº∆¨∏Ò Ω
 		final String formatname = GetPostfix.fromFilepath(input);
-		
+
 		Iterator<ImageReader> readers;
 		ImageReader reader;
 		ImageInputStream iis;
@@ -23,7 +23,7 @@ public class File2ImageReader {
 		reader = readers.next();
 		iis = ImageIO.createImageInputStream(file);
 		reader.setInput(iis, false);
-		
+
 		return reader;
 	}
 }

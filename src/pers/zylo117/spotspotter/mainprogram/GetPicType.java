@@ -13,7 +13,7 @@ public class GetPicType {
 		final String targetNameWithputPostfix = targetName.substring(0, targetName.length() - postfixLength - 1);// 得到目标名。去掉了后缀
 		return targetNameWithputPostfix;
 	}
-	
+
 	public static String getPicTypeFromFilename(String input) {
 		final String targetName = input.substring(input.lastIndexOf("_") + 1);
 		final String postfix = input.substring(input.lastIndexOf(".") + 1);
@@ -21,7 +21,7 @@ public class GetPicType {
 		final String targetNameWithputPostfix = targetName.substring(0, targetName.length() - postfixLength - 1);// 得到目标名。去掉了后缀
 		return targetNameWithputPostfix;
 	}
-	
+
 	public static String getPicTypeFromPic(Picture pic) {
 		final String targetName = pic.fileName.substring(pic.fileName.lastIndexOf("_") + 1);
 		final String postfix = pic.fileName.substring(pic.fileName.lastIndexOf(".") + 1);

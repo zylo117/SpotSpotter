@@ -73,14 +73,14 @@ public class MatView extends JFrame {
 		jF_overall = new JFrame(windowName);
 		imageView = new JLabel();
 		final JScrollPane imageScrollPane = new JScrollPane(imageView);
-//		imageScrollPane.setPreferredSize(new Dimension(600, 600));
+		// imageScrollPane.setPreferredSize(new Dimension(600, 600));
 		jF_overall.add(imageScrollPane, BorderLayout.CENTER);
-//		jF_overall.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		// jF_overall.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 		loadedImage = Mat2BufferedImage.mat2BI(image);
 		imageView.setIcon(new ImageIcon(loadedImage));
 		jF_overall.pack();
-//		jF_overall.setLocationRelativeTo(null);
+		// jF_overall.setLocationRelativeTo(null);
 		jF_overall.setLocation(650, 120);
 		jF_overall.setVisible(true);
 
@@ -91,7 +91,7 @@ public class MatView extends JFrame {
 		loadedImage = Mat2BufferedImage.mat2BI(image);
 		imageView.setIcon(new ImageIcon(loadedImage));
 		jF_overall.pack();
-//		jF_overall.setLocationRelativeTo(null);
+		// jF_overall.setLocationRelativeTo(null);
 		jF_overall.setLocation(650, 120);
 		jF_overall.setVisible(true);
 	}

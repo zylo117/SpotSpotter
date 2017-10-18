@@ -30,7 +30,8 @@ public class Draw {
 	}
 
 	// ratio should be over 10
-	public static void pointMapList(Mat input, List<Map<Point, Double>> list, int radiusRatio, int thickness, int mosaicLength) {
+	public static void pointMapList(Mat input, List<Map<Point, Double>> list, int radiusRatio, int thickness,
+			int mosaicLength) {
 		for (int i = 0; i < list.size(); i++) {
 			Map dataMap = new HashMap<>();
 			dataMap = list.get(i);
@@ -39,11 +40,12 @@ public class Draw {
 			for (final Map.Entry<Point, Double> entry : entryseSet) {
 				final Point p = entry.getKey();
 				double v = entry.getValue();
-				if(Double.isInfinite(entry.getValue())) {
+				if (Double.isInfinite(entry.getValue())) {
 					v = 1;
 				}
 				final int radius = (new Double(radiusRatio * v)).intValue();
-				Imgproc.circle(input, new Point(p.x * mosaicLength, p.y * mosaicLength), radius, new Scalar(255, 0, 255), thickness);
+				Imgproc.circle(input, new Point(p.x * mosaicLength, p.y * mosaicLength), radius,
+						new Scalar(255, 0, 255), thickness);
 			}
 		}
 		System.out.println("Done Drawing");

@@ -96,20 +96,20 @@ public class SpotSpotter {
 		double result;
 		int spotQty = 0;
 		final List<Map<Point, Double>> spotList = new ArrayList<>();
-		
+
 		// 马赛克化
 		final int mosaicLength = CentralControl.mosaicLength;
 		Imgproc.resize(input, input, new Size(input.width() / mosaicLength, input.height() / mosaicLength));
 		final Picture pic = new Picture(input);
-		
-		int[][] color = pic.dataSingleChannel;
-		
+
+		final int[][] color = pic.dataSingleChannel;
+
 		for (int i = 1; i < pic.width - 1; i += 1) {
 			for (int j = 1; j < pic.height - 1; j += 1) {
-				
+
 				final int target = color[i][j];
-				
-				if(target == 0) {
+
+				if (target == 0) {
 					continue;
 				}
 
@@ -157,12 +157,12 @@ public class SpotSpotter {
 					final Map datamap = new HashMap<>();
 					datamap.put(new Point(i, j), result);
 					spotList.add(datamap);
-					if(ifPrint)
+					if (ifPrint)
 						System.out.println("Center" + "\tX: " + i + "\tY: " + j + "\tDifference " + result * 100 + "%");
 				}
 			}
 		}
-			System.out.println("Spot Quantity = " + spotQty);
+		System.out.println("Spot Quantity = " + spotQty);
 
 		return spotList;
 	}

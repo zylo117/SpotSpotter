@@ -153,7 +153,7 @@ public class GetPixelArray {
 			return singleChannel;
 		}
 	}
-	
+
 	public static int[][] pixelArray_Gray_Mat(Mat input) {
 		final Mat gray = new Mat();
 		Imgproc.cvtColor(input, gray, Imgproc.COLOR_RGB2GRAY);
@@ -162,16 +162,16 @@ public class GetPixelArray {
 		final int[][] data = new int[cols][rows];
 		for (int i = 0; i < cols; i++) {
 			for (int j = 0; j < rows; j++) {
-//				double[] temp = new double[gray.channels()];
-//				temp = input.get(j, i);
+				// double[] temp = new double[gray.channels()];
+				// temp = input.get(j, i);
 				data[i][j] = (int) input.get(j, i)[0];
 			}
 		}
 		return data;
 	}
-	
-	public static byte[] getRaster (Mat input) {
-		Mat gray = new Mat();
+
+	public static byte[] getRaster(Mat input) {
+		final Mat gray = new Mat();
 		Imgproc.cvtColor(input, gray, Imgproc.COLOR_RGB2GRAY);
 		final int cols = gray.cols();
 		final int rows = gray.rows();

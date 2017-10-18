@@ -26,7 +26,7 @@ public class CornerDetector {
 			// …Ë÷√ROI
 			final Rect rect = new Rect(roi_startX, roi_startY, width, height);
 			srcROI = new Mat(src, rect);
-			
+
 			if (srcROI.empty()) {
 				throw new Exception("no file");
 			}

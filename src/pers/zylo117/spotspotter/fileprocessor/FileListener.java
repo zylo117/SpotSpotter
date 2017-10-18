@@ -94,12 +94,12 @@ public class FileListener {
 		}
 
 		while (true) {
-			
-			if(CentralControl.ifStop) {
+
+			if (CentralControl.ifStop) {
 				watchService.poll();
 				break;
 			}
-			
+
 			// 获取下一个文件改动事件
 			final WatchKey key = watchService.take();
 			for (final WatchEvent<?> event : key.pollEvents()) {
@@ -110,23 +110,23 @@ public class FileListener {
 				final Object eventkind = event.kind();
 				final String eventkindstr = Obj2String.o2s(eventkind);
 
-				if(GetPostfix.fromFilename(fileName).equals("jpg")) {				
+				if (GetPostfix.fromFilename(fileName).equals("jpg")) {
 					if (eventkindstr.equals("ENTRY_CREATE")) {
 						System.out.println(fileName + " Created");
 						System.out.println(key.watchable() + " Modified");
 						final Object path = key.watchable();
 						filePath = Obj2String.o2s(path);
 						System.out.println("Ready 2 be analysed");
-	
+
 						switch (index) {
 						case 1:
 							AlgoList.godzilla();
 							break;
-	
+
 						case 2:
 							AlgoList.pythagoras_G();
 							break;
-	
+
 						default:
 							AlgoList.pythagoras_G();
 							break;

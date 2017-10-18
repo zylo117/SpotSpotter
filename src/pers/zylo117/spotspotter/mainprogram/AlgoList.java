@@ -6,12 +6,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Date;
 
-import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
-
 import pers.zylo117.spotspotter.dataio.input.project.GA_AA_Data;
 import pers.zylo117.spotspotter.dataio.output.email.EMailContent;
 import pers.zylo117.spotspotter.fileprocessor.FileListener;
@@ -288,17 +285,19 @@ public class AlgoList {
 									pic.lrP, 5, 5, true, 0.5, 0.45);
 						} else if (pic.processName.equals("GA")) {
 							// 二值化获得初步ROI
-//							ProjectAlgo_Qiu2017.colorProject_Qiu2017(imgOrigin, CentralControl.binThresh);
-							
+							// ProjectAlgo_Qiu2017.colorProject_Qiu2017(imgOrigin,
+							// CentralControl.binThresh);
+
 							// ROI
-//							roi = ROI_Irregular.irregularQuadrangle_Simplified(imgOrigin, pic.ulP, pic.urP, pic.llP,
-//									pic.lrP, CentralControl.offset, CentralControl.offset, false, 0, 0);
-							
-							//Contour提取ROI
-							Mat[] matSet = AutoEdgeDetect.iRCF_NH_ME(imgOrigin, 21, 200000, CentralControl.offset);
+							// roi = ROI_Irregular.irregularQuadrangle_Simplified(imgOrigin, pic.ulP,
+							// pic.urP, pic.llP,
+							// pic.lrP, CentralControl.offset, CentralControl.offset, false, 0, 0);
+
+							// Contour提取ROI
+							final Mat[] matSet = AutoEdgeDetect.iRCF_NH_ME(imgOrigin, 21, 200000, CentralControl.offset);
 							roi = matSet[0];
 							outterBox = matSet[1];
-							
+
 						} else {
 							// System.out.println("Type: " + GetPicType.getPicTypeFromPic(pic));
 							// System.out.println("Type doesn't match, skipping");
@@ -329,7 +328,7 @@ public class AlgoList {
 						} else if (pic.processName.equals("GA")) {
 							Draw.pointMapList(out, pic.failureData, 500, 5, CentralControl.mosaicLength);
 						}
-						
+
 						// Draw.pointList(out, Pointset.confidenceIntervals(spotList, 1), 1, 1);
 						// Draw.pointList(out, Pointset.pointConnectivity(spotList), 2, 1);
 						// MatView.imshow(out, "Output");
@@ -339,10 +338,10 @@ public class AlgoList {
 						// CentralControl.showPicOnPre(imgOriginClone);
 
 						// 画出ROI
-//						Draw.line_P2P(out, pic.ulP, pic.llP);
-//						Draw.line_P2P(out, pic.ulP, pic.urP);
-//						Draw.line_P2P(out, pic.urP, pic.lrP);
-//						Draw.line_P2P(out, pic.llP, pic.lrP);
+						// Draw.line_P2P(out, pic.ulP, pic.llP);
+						// Draw.line_P2P(out, pic.ulP, pic.urP);
+						// Draw.line_P2P(out, pic.urP, pic.lrP);
+						// Draw.line_P2P(out, pic.llP, pic.lrP);
 
 						// System.out.print(MathBox.pointDistance(pic.ulP, pic.llP));
 						// System.out.print(MathBox.pointDistance(pic.ulP, pic.urP));
@@ -367,7 +366,7 @@ public class AlgoList {
 
 						if (!CentralControl.ifTemp && CentralControl.counter % CentralControl.ioPulse == 0)
 							ifOutputFile = true;
-							EMailContent.write();
+						EMailContent.write();
 
 						GA_AA_Data.writeNextRow(pic, 0, "A3", ifOutputFile);
 
@@ -386,13 +385,13 @@ public class AlgoList {
 							System.out.println("Test Result: OK");
 
 						if (CentralControl.ok2Exit) {
-							if(ifOutputFile = false) {
+							if (ifOutputFile = false) {
 								GA_AA_Data.writeNextRow(pic, 0, "A3", true);
 								EMailContent.write();
 							}
 							System.exit(0);
 						}
-						
+
 						final long endTime = new Date().getTime();
 						System.out.println("Tact Time:[" + (endTime - beginTime) + "]ms");
 

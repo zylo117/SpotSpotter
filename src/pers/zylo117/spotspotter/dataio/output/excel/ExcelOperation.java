@@ -19,9 +19,9 @@ import pers.zylo117.spotspotter.toolbox.Time;
 
 public class ExcelOperation {
 	public static Workbook createWookBook() {
-//		Time.getTime();
-//		String currrentPath = path + "/" + Time.year + "/" + Time.month;
-//		FileOperation.createDir(currrentPath);
+		// Time.getTime();
+		// String currrentPath = path + "/" + Time.year + "/" + Time.month;
+		// FileOperation.createDir(currrentPath);
 		// 创建excel工作簿
 		final Workbook wb = new XSSFWorkbook();
 
@@ -83,11 +83,11 @@ public class ExcelOperation {
 		}
 		return wb;
 	}
-	
-	public static void getTrend(String processName){
+
+	public static void getTrend(String processName) {
 		Time.getTime();
-		final String path = System.getProperty("user.dir") + "/" + processName + "/" + Time.year + "/" + Time.month + "/"
-				+ Time.day + ".xlsx";
+		final String path = System.getProperty("user.dir") + "/" + processName + "/" + Time.year + "/" + Time.month
+				+ "/" + Time.day + ".xlsx";
 		final File xlsx = new File(path);
 		int rowIndex = 0;
 		int failureCount = 0;
@@ -118,10 +118,11 @@ public class ExcelOperation {
 		// System.out.println(rowIndex);
 		final BigDecimal bd_rate = new BigDecimal((double) failureCount * 100 / (rowIndex - 1));
 		final double rate = bd_rate.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
-//		return rate;
+		// return rate;
 	}
 
 	public static void main(String[] args) {
-//		writeExcel2File(new XSSFWorkbook(), "D:\\workspace\\SpotSpotter\\AA\\2017\\7\\31.xlsx");
+		// writeExcel2File(new XSSFWorkbook(),
+		// "D:\\workspace\\SpotSpotter\\AA\\2017\\7\\31.xlsx");
 	}
 }

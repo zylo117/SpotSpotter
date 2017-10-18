@@ -13,7 +13,7 @@ public class SetPixelArray {
 		}
 		return bibimg;
 	}
-	
+
 	public static BufferedImage fromRaster(byte[] data, int width, int height) {
 		final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
 		image.getRaster().setDataElements(0, 0, width, height, data);

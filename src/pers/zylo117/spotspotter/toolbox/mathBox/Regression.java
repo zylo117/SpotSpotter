@@ -21,7 +21,7 @@ public class Regression {
 				list.add(p);
 			}
 		}
-		
+
 		// 先求x,y的平均值x_avg, y_avg
 		// 再用公式代入求解：k=(x1y1+x2y2+...xnyn-nXY)/(x1^2+x2^2+...xn^2-nX^2)
 		// 后把x,y的平均数X，Y代入b=Y-kX
@@ -67,8 +67,8 @@ public class Regression {
 			return regressionLine;
 		}
 	}
-	
-	public static Line lineFromPointList(List<Point> list) {		
+
+	public static Line lineFromPointList(List<Point> list) {
 		// 先求x,y的平均值x_avg, y_avg
 		// 再用公式代入求解：k=(x1y1+x2y2+...xnyn-nXY)/(x1^2+x2^2+...xn^2-nX^2)
 		// 后把x,y的平均数X，Y代入b=Y-kX

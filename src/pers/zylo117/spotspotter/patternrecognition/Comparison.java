@@ -23,12 +23,12 @@ public final class Comparison {
 
 	public static void getperfectData(String path, int ROIstart_x, int ROIstart_y, int ROIlength_x, int ROIlength_y)
 			throws IOException {
-		
+
 		Comparison.ROIstart_x = ROIstart_x;
 		Comparison.ROIstart_y = ROIstart_y;
 		Comparison.ROIlength_x = ROIlength_x;
 		Comparison.ROIlength_y = ROIlength_y;
-		
+
 		final File file = new File(path);
 		final Image pic = Toolkit.getDefaultToolkit().getImage(file.getPath());
 		final BufferedImage perfectbimg = Image2BufferedImage.toBufferedImage(pic);
@@ -40,7 +40,7 @@ public final class Comparison {
 		// 此方式为沿Height方向扫描
 		for (int i = 0; i < ROIlength_x; i++) {
 			for (int j = 0; j < ROIlength_y; j++) {
-				perfectdatargb[i][j] = perfectbimg.getRGB(i+ROIstart_x, j+ROIstart_y);
+				perfectdatargb[i][j] = perfectbimg.getRGB(i + ROIstart_x, j + ROIstart_y);
 				perfectrgb[0] = (perfectdatargb[i][j] & 0xff0000);
 				perfectrgb[1] = (perfectdatargb[i][j] & 0xff00);
 				perfectrgb[2] = (perfectdatargb[i][j] & 0xff);

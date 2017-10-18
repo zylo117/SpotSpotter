@@ -34,10 +34,11 @@ public class Mat2BufferedImage {
 		image2.getRaster().setDataElements(0, 0, cols, rows, data);
 		return image2;
 	}
-	
+
 	public static void main(String[] args) {
 		System.loadLibrary("opencv_java330_64");
-		final Mat mat = Imgcodecs.imread("Z:\\2017\\09\\19\\20170919_090000514_ALL_T738154GR.01_M441F26952-1_Pkg1_Chip.jpg");
+		final Mat mat = Imgcodecs
+				.imread("Z:\\2017\\09\\19\\20170919_090000514_ALL_T738154GR.01_M441F26952-1_Pkg1_Chip.jpg");
 		final BufferedImage bImage = mat2BI(mat);
 	}
 }

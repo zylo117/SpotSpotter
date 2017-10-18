@@ -29,7 +29,7 @@ public class Parameter {
 			// ROIWidth = 149;
 			// ROIHeight = 184;
 			// theshold = 0.25;
-			
+
 			// Granite AA Glue识别参数
 			ROIstart_x = 207;
 			ROIstart_y = 186;

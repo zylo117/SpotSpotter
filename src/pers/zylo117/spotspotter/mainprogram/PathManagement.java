@@ -12,24 +12,23 @@ public class PathManagement {
 	public static String perfect;
 	public static String IRCF;
 	public static String ROI;
-	
+
 	public static String monitorPath;
 
 	public static void definePath() throws IOException {
 		final String absClassPath = PathManagement.class.getClass().getResource("/").getPath().substring(1);
-		
+
 		inputdir = absClassPath + "/worklog/input/";
 		finaloutputdir = absClassPath + "/workLog/output/";
-		
-//		monitorPath = inputdir;
-//		System.out.println("Monitoring Path Has Been Set to : " + monitorPath);
-		
 
-//		rawoutputdir = "D:/SpotSpotterWorkLog/rawoutput/";
-//		bipicdir = "D:/SpotSpotterWorkLog/bipic/";
-//		perfect = "D:/SpotSpotterWorkLog/perfect/perfect.jpg";
-//		IRCF = "D:/SpotSpotterWorkLog/IRCF/";
-//		ROI = "D:/SpotSpotterWorkLog/ROI/";
+		// monitorPath = inputdir;
+		// System.out.println("Monitoring Path Has Been Set to : " + monitorPath);
+
+		// rawoutputdir = "D:/SpotSpotterWorkLog/rawoutput/";
+		// bipicdir = "D:/SpotSpotterWorkLog/bipic/";
+		// perfect = "D:/SpotSpotterWorkLog/perfect/perfect.jpg";
+		// IRCF = "D:/SpotSpotterWorkLog/IRCF/";
+		// ROI = "D:/SpotSpotterWorkLog/ROI/";
 
 	}
 

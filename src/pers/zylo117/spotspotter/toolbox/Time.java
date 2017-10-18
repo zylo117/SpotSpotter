@@ -28,12 +28,12 @@ public class Time {
 		datetime_slash = year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
 		date_slash = year + "/" + month + "/" + day;
 		datetime_hyphen = year + "-" + month + "-" + day + " " + hour + "-" + minute + "-" + second;
-	
+
 		if (month < 10)
 			strMonth = "0" + month;
 		else
 			strMonth = Integer.toString(month);
-		
+
 		if (day < 10)
 			strDay = "0" + day;
 		else
@@ -49,9 +49,9 @@ public class Time {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		getTime();
-		System.out.println(Time.year+" "+Time.month+" "+Time.day);
+		System.out.println(Time.year + " " + Time.month + " " + Time.day);
 	}
 }

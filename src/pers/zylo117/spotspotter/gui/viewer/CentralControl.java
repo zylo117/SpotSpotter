@@ -1,7 +1,6 @@
 package pers.zylo117.spotspotter.gui.viewer;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -11,12 +10,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.nio.channels.SelectableChannel;
 import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -230,7 +227,7 @@ public class CentralControl extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO 自动生成的方法存根
-				int macNO = shortCut.getSelectedIndex();
+				final int macNO = shortCut.getSelectedIndex();
 				if (macNO > 1) {
 					loadIP(macNO - 1);
 					monitorPath = findPath();
@@ -240,19 +237,19 @@ public class CentralControl extends JFrame {
 					System.out.println("On: " + monitorPath);
 					jFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 					// System.out.println(hasWorkDir);
-					
+
 					machineNO_manual.setText(Integer.toString(macNO));
 					productName_manual.setText(category);
-					
+
 					machineNO_manual.setEnabled(false);
 					productName_manual.setEnabled(false);
-				
+
 					jFrame.repaint();
 					ok2Proceed = true;
 				}
 			}
 		});
-		
+
 		shortCutBox.setEnabled(false); // true可以编辑
 		machineNO.setEnabled(false); // true可以编辑
 		productName.setEnabled(false); // true可以编辑
@@ -401,7 +398,7 @@ public class CentralControl extends JFrame {
 		overallCtrl.add(switchPanel);
 		overallCtrl.add(baseInfo);
 		overallCtrl.add(paraMeter);
-//		overallCtrl.add(tips);
+		// overallCtrl.add(tips);
 		// overallCtrl.add(currentPath);
 
 		// 原图窗口
@@ -485,18 +482,18 @@ public class CentralControl extends JFrame {
 			title = "GRA-";
 		else if (category.equals("ME"))
 			title = "BB-";
-		String[] midFix = { "", "C", "D", "E" };
-		String postFix = "01\\";
+		final String[] midFix = { "", "C", "D", "E" };
+		final String postFix = "01\\";
 
 		String finalPath = null;
 		for (int i = 0; i < midFix.length; i++) {
-			StringBuilder sbA = new StringBuilder(autoPath + "\\");
-			StringBuilder sbB = new StringBuilder(autoPath + "\\");
-			String aString = sbA.append(title).append(midFix[i]).append("A").append(postFix).toString();
-			String bString = sbB.append(title).append(midFix[i]).append("B").append(postFix).toString();
+			final StringBuilder sbA = new StringBuilder(autoPath + "\\");
+			final StringBuilder sbB = new StringBuilder(autoPath + "\\");
+			final String aString = sbA.append(title).append(midFix[i]).append("A").append(postFix).toString();
+			final String bString = sbB.append(title).append(midFix[i]).append("B").append(postFix).toString();
 
-			File pathA = new File(aString);
-			File pathB = new File(bString);
+			final File pathA = new File(aString);
+			final File pathB = new File(bString);
 			if (pathA.exists()) {
 				iRCFVendor = "AGC";
 				finalPath = aString;
