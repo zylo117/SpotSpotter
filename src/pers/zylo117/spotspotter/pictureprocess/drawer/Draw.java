@@ -48,6 +48,6 @@ public class Draw {
 						new Scalar(255, 0, 255), thickness);
 			}
 		}
-		System.out.println("Done Drawing");
+//		System.out.println("Done Drawing");
 	}
 }

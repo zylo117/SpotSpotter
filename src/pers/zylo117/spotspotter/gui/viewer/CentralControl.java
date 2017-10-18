@@ -43,7 +43,7 @@ public class CentralControl extends JFrame {
 	public static JTextField shortCut, machineNO_manual, productName_manual, binarizationThreshold,
 			spotSpotterThreshold, buffTime_manual, mosaicLength_manual, offsetText, ioPulseText;
 	public static String productN = "XX";
-	public static int mcNO = 0, binThresh = 300, ssThresh = 3, buffTime = 1, mosaicLength = 1, offset = 25,
+	public static int mcNO = 0, binThresh = 300, ssThresh = 3, buffTime = 1, mosaicLength = 1, offset = 30,
 			ioPulse = 20;
 	public static int algoIndex = 2, counter = 0;
 	public static boolean ok2Proceed, ok2Test, ok2Exit = false, ifTemp = false, ifPause, ifStop = false,
