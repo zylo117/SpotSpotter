@@ -4,7 +4,11 @@ import java.awt.font.NumericShaper.Range;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
@@ -87,21 +91,44 @@ public class AutoEdgeDetect {
 		return edge;
 	}
 
-	public static Mat largestContour(Mat input) {
+	public static Mat[] largestContour(Mat raw, Mat crop, double minArea) {
+		//0为ROI，1为标示框
+		Mat[] matSet = new Mat[2];
+		
 		List<MatOfPoint> cnts = new ArrayList<MatOfPoint>();
-		Imgproc.findContours(input.clone(), cnts, new Mat(), Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE);
+		Imgproc.findContours(crop.clone(), cnts, new Mat(), Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE);
 		// MatView.imshow(input, "Img");
 		System.out.println(cnts.size());
 		System.out.println(cnts);
-		double maxArea = Imgproc.contourArea(cnts.get(0));
-		int maxIdx = 0;
+		// double maxArea = Imgproc.contourArea(cnts.get(0));
+		// int maxIdx = 0;
+		// for (int i = 0; i < cnts.size(); i++) {
+		// if (Imgproc.contourArea(cnts.get(i)) > maxArea) {
+		// maxArea = Imgproc.contourArea(cnts.get(i));
+		// maxIdx = i;
+		// }
+		//// System.out.println(Imgproc.contourArea(cnts.get(i)));
+		// }
+
+		Map<Integer, Double> map = new HashMap<>();
 		for (int i = 0; i < cnts.size(); i++) {
-			if (Imgproc.contourArea(cnts.get(i)) > maxArea) {
-				maxArea = Imgproc.contourArea(cnts.get(i));
-				maxIdx = i;
-			}
-			// System.out.println(Imgproc.contourArea(cnts.get(i)));
+			map.put(i, Imgproc.contourArea(cnts.get(i)));
 		}
+
+		List<Map.Entry<Integer, Double>> cnts_AreaOrder = new ArrayList<Map.Entry<Integer, Double>>(map.entrySet());
+		Collections.sort(cnts_AreaOrder, new Comparator<Map.Entry<Integer, Double>>() {
+			// 降序排序
+			@Override
+			public int compare(Entry<Integer, Double> o1, Entry<Integer, Double> o2) {
+				// return o1.getValue().compareTo(o2.getValue());
+				return o2.getValue().compareTo(o1.getValue());
+			}
+		});
+		// System.out.println(cnts_AreaOrder);
+		for (int i = 0; i < cnts_AreaOrder.size(); i++) {
+			System.out.println(cnts_AreaOrder.get(i).getKey() + ":" + cnts_AreaOrder.get(i).getValue());
+		}
+
 		// System.out.println("maxArea " + maxArea);
 		// System.out.println("maxIdx " + maxIdx);
 
@@ -111,42 +138,65 @@ public class AutoEdgeDetect {
 		// (int) (Math.random() * 256)), 4);
 		// }
 
+		// 求最适合的Contour
+		int minIdx = 0;
+		for (int i = 1; i < cnts_AreaOrder.size(); i++) {
+			if (cnts_AreaOrder.get(i).getValue() < minArea) {
+				minIdx = cnts_AreaOrder.get(i - 1).getKey();
+				break;
+			}
+		}
+
+		System.out.println(minIdx);
+
 		// // 画出最大的区域
-		Mat zero = Mat.zeros(input.size(), CvType.CV_8UC3);
-		Imgproc.drawContours(zero, cnts, maxIdx, new Scalar(255, 255, 255), -1);
-		//
-		// MatView.imshow(zero, "Contour");
-		Imgproc.cvtColor(zero, cnts.get(maxIdx), CvType.CV_8UC3);
-		return zero;
+		Mat roi = Mat.zeros(crop.size(), CvType.CV_8UC3);
+		Imgproc.drawContours(roi, cnts, minIdx, new Scalar(255, 255, 255), -1);
+		
+		Imgproc.drawContours(raw, cnts, minIdx, new Scalar(200, 128, 128), 8);
+			
+		
+		matSet[0] = roi;
+		matSet[1] = raw;	
+		
+		return matSet;
 	}
 
-	public static void main(String[] args) {
-		System.loadLibrary("opencv_java330_64");
-		String input = "D:\\tmp\\8.jpg";
-		Mat image = Imgcodecs.imread(input, 1);
-		MatView.imshow(image, "Ori");
+	public static Mat[] iRCF_NH_ME(Mat image, int blurVal, double minAreaSize){
+		Mat[] matSet = new Mat[2];
 		
-		Mat bin = new Mat();
-		Imgproc.cvtColor(image, bin, Imgproc.COLOR_RGB2GRAY);
-		Imgproc.threshold(bin, bin, 0, 255, Imgproc.THRESH_OTSU + Imgproc.THRESH_BINARY_INV);
-		MatView.imshow(bin, "Bin");
+		//		MatView.imshow(image, "Ori");
+
+		Mat gray = new Mat();
+		Imgproc.cvtColor(image, gray, Imgproc.COLOR_RGB2GRAY);
+
+		double percentOfCrop = 0.5;
+		Rect rect = new Rect((int) (gray.width() * percentOfCrop / 2), (int) (gray.height() * percentOfCrop / 2),
+				(int) (gray.width() * (1 - percentOfCrop)), (int) (gray.height() * (1 - percentOfCrop)));
+
+		Mat findThresh = gray.clone().submat(rect);
+		double thresh = Imgproc.threshold(findThresh, findThresh, 0, 255, Imgproc.THRESH_OTSU + Imgproc.THRESH_BINARY);
+
+		Mat roi = ROI_Irregular.RectangleSubROI(gray, rect);
 		
-		double percentOfCrop = 0.55;
-
-		new Mat();
-		Rect rect = new Rect((int) (bin.width() * percentOfCrop / 2), (int) (bin.height() * percentOfCrop / 2),
-				(int) (bin.width() * (1 - percentOfCrop)), (int) (bin.height() * (1 - percentOfCrop)));
-
-		Mat roi = ROI_Irregular.RectangleSubROI(bin, rect);
-
-		MatView.imshow(roi, "ROI");
-//		roi = autoCanny(roi, 0.67, true, percentOfCrop);
-//		MatView.imshow(roi, "Edge");
-		roi = largestContour(roi);
-		MatView.imshow(roi, "Contour");
+		Imgproc.GaussianBlur(roi, roi, new Size(blurVal, blurVal), 0);
 		
+//		MatView.imshow(roi, "ROI");
+
+		Imgproc.threshold(roi, roi, thresh, 255, Imgproc.THRESH_BINARY);
+//		MatView.imshow(roi, "Bin");
+
+		matSet = largestContour(image.clone(), roi, minAreaSize);
+		roi = matSet[0];
+//		MatView.imshow(roi, "Contour");
+		
+		Mat box = matSet[1];
+//		MatView.imshow(box, "Box");
+
 		Core.bitwise_and(image, roi, roi);
-		MatView.imshow(roi, "Final ROI");
+//		MatView.imshow(roi, "Final ROI");
+		
+		return matSet;
 	}
 
 }
