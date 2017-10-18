@@ -19,10 +19,8 @@ import pers.zylo117.spotspotter.toolbox.mathBox.MathBox;
 /***
  * ROI四角排列如下
  * 
- * @param p1
- *            p2
- * @param p3
- *            p4
+ * @param p1	p2
+ * @param p3	p4
  */
 
 public class ROI_Irregular {

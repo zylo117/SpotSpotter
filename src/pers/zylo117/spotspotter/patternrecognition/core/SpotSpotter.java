@@ -102,23 +102,25 @@ public class SpotSpotter {
 		Imgproc.resize(input, input, new Size(input.width() / mosaicLength, input.height() / mosaicLength));
 		final Picture pic = new Picture(input);
 		
+		int[][] color = pic.dataSingleChannel;
+		
 		for (int i = 1; i < pic.width - 1; i += 1) {
 			for (int j = 1; j < pic.height - 1; j += 1) {
 				
-				final int target = pic.dataSingleChannel[i][j];
+				final int target = color[i][j];
 				
 				if(target == 0) {
 					continue;
 				}
 
-				final double a1 = pic.dataSingleChannel[i - 1][j - 1];
-				final double a2 = pic.dataSingleChannel[i - 1][j];
-				final double a3 = pic.dataSingleChannel[i - 1][j + 1];
-				final double a4 = pic.dataSingleChannel[i][j - 1];
-				final double a5 = pic.dataSingleChannel[i][j + 1];
-				final double a6 = pic.dataSingleChannel[i + 1][j - 1];
-				final double a7 = pic.dataSingleChannel[i + 1][j];
-				final double a8 = pic.dataSingleChannel[i + 1][j + 1];
+				final double a1 = color[i - 1][j - 1];
+				final double a2 = color[i - 1][j];
+				final double a3 = color[i - 1][j + 1];
+				final double a4 = color[i][j - 1];
+				final double a5 = color[i][j + 1];
+				final double a6 = color[i + 1][j - 1];
+				final double a7 = color[i + 1][j];
+				final double a8 = color[i + 1][j + 1];
 
 				final List<Double> list = new ArrayList<Double>();
 				list.add(a1);

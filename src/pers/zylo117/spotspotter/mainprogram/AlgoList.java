@@ -295,7 +295,8 @@ public class AlgoList {
 //									pic.lrP, CentralControl.offset, CentralControl.offset, false, 0, 0);
 							
 							//ContourÌáÈ¡ROI
-							Mat[] matSet = AutoEdgeDetect.iRCF_NH_ME(imgOrigin, 21, 200000);
+							System.out.println(CentralControl.mosaicLength);
+							Mat[] matSet = AutoEdgeDetect.iRCF_NH_ME(imgOrigin, 21, 200000, CentralControl.offset);
 							roi = matSet[0];
 							outterBox = matSet[1];
 							
@@ -324,11 +325,11 @@ public class AlgoList {
 						// È¦³öspot
 						final Mat out = outterBox;
 
-//						if (pic.processName.equals("AA")) {
-//							Draw.pointMapList(out, pic.failureData, 10, 1, CentralControl.mosaicLength);
-//						} else if (pic.processName.equals("GA")) {
-//							Draw.pointMapList(out, pic.failureData, 500, 5, CentralControl.mosaicLength);
-//						}
+						if (pic.processName.equals("AA")) {
+							Draw.pointMapList(out, pic.failureData, 10, 1, CentralControl.mosaicLength);
+						} else if (pic.processName.equals("GA")) {
+							Draw.pointMapList(out, pic.failureData, 500, 5, CentralControl.mosaicLength);
+						}
 						
 						// Draw.pointList(out, Pointset.confidenceIntervals(spotList, 1), 1, 1);
 						// Draw.pointList(out, Pointset.pointConnectivity(spotList), 2, 1);

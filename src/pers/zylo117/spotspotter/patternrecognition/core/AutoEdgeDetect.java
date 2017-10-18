@@ -14,8 +14,10 @@ import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
+import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
+import org.opencv.core.RotatedRect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
@@ -27,6 +29,7 @@ import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
 import pers.zylo117.spotspotter.patternrecognition.ROI_Irregular;
 import pers.zylo117.spotspotter.patternrecognition.SetPixelArray;
 import pers.zylo117.spotspotter.toolbox.GetMaxMinMidAvg;
+import pers.zylo117.spotspotter.toolbox.MatOfPointCovert;
 import pers.zylo117.spotspotter.toolbox.mathBox.Line;
 
 public class AutoEdgeDetect {
@@ -91,15 +94,15 @@ public class AutoEdgeDetect {
 		return edge;
 	}
 
-	public static Mat[] largestContour(Mat raw, Mat crop, double minArea) {
+	public static Mat[] largestContour(Mat raw, Mat crop, double minArea, int offset) {
 		//0为ROI，1为标示框
-		Mat[] matSet = new Mat[2];
+		Mat[] matSet = new Mat[3];
 		
 		List<MatOfPoint> cnts = new ArrayList<MatOfPoint>();
 		Imgproc.findContours(crop.clone(), cnts, new Mat(), Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE);
 		// MatView.imshow(input, "Img");
-		System.out.println(cnts.size());
-		System.out.println(cnts);
+//		System.out.println(cnts.size());
+//		System.out.println(cnts);
 		// double maxArea = Imgproc.contourArea(cnts.get(0));
 		// int maxIdx = 0;
 		// for (int i = 0; i < cnts.size(); i++) {
@@ -125,9 +128,9 @@ public class AutoEdgeDetect {
 			}
 		});
 		// System.out.println(cnts_AreaOrder);
-		for (int i = 0; i < cnts_AreaOrder.size(); i++) {
-			System.out.println(cnts_AreaOrder.get(i).getKey() + ":" + cnts_AreaOrder.get(i).getValue());
-		}
+//		for (int i = 0; i < cnts_AreaOrder.size(); i++) {
+//			System.out.println(cnts_AreaOrder.get(i).getKey() + ":" + cnts_AreaOrder.get(i).getValue());
+//		}
 
 		// System.out.println("maxArea " + maxArea);
 		// System.out.println("maxIdx " + maxIdx);
@@ -147,23 +150,35 @@ public class AutoEdgeDetect {
 			}
 		}
 
-		System.out.println(minIdx);
+//		System.out.println(minIdx);
 
 		// // 画出最大的区域
 		Mat roi = Mat.zeros(crop.size(), CvType.CV_8UC3);
 		Imgproc.drawContours(roi, cnts, minIdx, new Scalar(255, 255, 255), -1);
 		
-		Imgproc.drawContours(raw, cnts, minIdx, new Scalar(200, 128, 128), 8);
-			
+//		// 转换MatOfPoint为MatOfPoint2f
+//		MatOfPoint2f mop2f = MatOfPointCovert.toMOP2F(cnts.get(minIdx));
+//		// 输出最小外接矩形
+//		RotatedRect roRect = Imgproc.minAreaRect(mop2f);
+//		Point[] vertices = new Point[4];
+//		roRect.points(vertices);
+//		roi = ROI_Irregular.irregularQuadrangle_Simplified(raw, vertices[1], vertices[2], vertices[0], vertices[3], 0, 0, false, 0, 0);
+//		MatView.imshow(roi, "Rect");
+		
+		Imgproc.drawContours(raw, cnts, minIdx, new Scalar(200, 128, 128), offset * 2);
+		
+		Mat zero = Mat.zeros(crop.size(), CvType.CV_8UC3);
+		Imgproc.drawContours(zero, cnts, minIdx, new Scalar(255, 255, 255), offset * 2);	
 		
 		matSet[0] = roi;
 		matSet[1] = raw;	
+		matSet[2] = zero;
 		
 		return matSet;
 	}
 
-	public static Mat[] iRCF_NH_ME(Mat image, int blurVal, double minAreaSize){
-		Mat[] matSet = new Mat[2];
+	public static Mat[] iRCF_NH_ME(Mat image, int blurVal, double minAreaSize, int offset){
+		Mat[] matSet = new Mat[3];
 		
 		//		MatView.imshow(image, "Ori");
 
@@ -186,17 +201,34 @@ public class AutoEdgeDetect {
 		Imgproc.threshold(roi, roi, thresh, 255, Imgproc.THRESH_BINARY);
 //		MatView.imshow(roi, "Bin");
 
-		matSet = largestContour(image.clone(), roi, minAreaSize);
+		matSet = largestContour(image.clone(), roi, minAreaSize, offset);
+		
+		Mat emptyBox = matSet[2];
+//		MatView.imshow(emptyBox, "EmptyBox");
+		
 		roi = matSet[0];
 //		MatView.imshow(roi, "Contour");
+
+		Core.subtract(roi, emptyBox, roi);
+		
+//		Core.bitwise_xor(roi, emptyBox, roi);
+//		MatView.imshow(roi, "Contour2");
 		
 		Mat box = matSet[1];
 //		MatView.imshow(box, "Box");
-
+		
 		Core.bitwise_and(image, roi, roi);
-//		MatView.imshow(roi, "Final ROI");
+		MatView.imshow(roi, "Final ROI1");
 		
 		return matSet;
+	}
+	
+	public static void main(String[] args) {
+		System.loadLibrary("opencv_java330_64");
+		String input = "D:\\tmp\\9.jpg";
+		Mat image = Imgcodecs.imread(input, 1);
+//		MatView.imshow(image, "Ori");
+		iRCF_NH_ME(image, 21, 200000, 16);
 	}
 
 }

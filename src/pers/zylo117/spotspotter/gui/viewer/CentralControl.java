@@ -174,18 +174,18 @@ public class CentralControl extends JFrame {
 		final JScrollPane coverCopy = main;
 
 		// 监视窗口右边显示Log*************************************
-//		ConsoleTextArea consoleTextArea = null;
-//		try {
-//			consoleTextArea = new ConsoleTextArea();
-//		} catch (final IOException e) {
-//			System.err.println("Unable to create LoopedStreams：" + e);
-//			System.exit(1);
-//		}
-//		final JScrollPane consolePane = new JScrollPane(consoleTextArea);
-//		final Rectangle boundsOfCover = imageView.getBounds();
-//		consolePane.setBounds(boundsOfCover.x + boundsOfCover.width / 4, boundsOfCover.y, boundsOfCover.width,
-//				boundsOfCover.height);
-//		consolePane.setPreferredSize(new Dimension(500, 100));
+		ConsoleTextArea consoleTextArea = null;
+		try {
+			consoleTextArea = new ConsoleTextArea();
+		} catch (final IOException e) {
+			System.err.println("Unable to create LoopedStreams：" + e);
+			System.exit(1);
+		}
+		final JScrollPane consolePane = new JScrollPane(consoleTextArea);
+		final Rectangle boundsOfCover = imageView.getBounds();
+		consolePane.setBounds(boundsOfCover.x + boundsOfCover.width / 4, boundsOfCover.y, boundsOfCover.width,
+				boundsOfCover.height);
+		consolePane.setPreferredSize(new Dimension(500, 100));
 
 		// Panel1基础信息文本框***********************************
 		final JPanel baseInfo = new JPanel();
