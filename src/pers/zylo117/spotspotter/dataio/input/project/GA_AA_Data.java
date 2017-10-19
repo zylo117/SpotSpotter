@@ -53,16 +53,16 @@ public class GA_AA_Data {
 	}
 
 	public static String getProcess(Picture pic) {
-		final String targetName = pic.fileName.substring(pic.fileName.lastIndexOf("_") + 1);
-		final String postfix = pic.fileName.substring(pic.fileName.lastIndexOf(".") + 1);
+		final String targetName = Picture.fileName.substring(Picture.fileName.lastIndexOf("_") + 1);
+		final String postfix = Picture.fileName.substring(Picture.fileName.lastIndexOf(".") + 1);
 		final int postfixLength = postfix.length();// 得到后缀名长度
 		final String targetNameWithputPostfix = targetName.substring(0, targetName.length() - postfixLength - 1);// 得到目标名。去掉了后缀
 		return targetNameWithputPostfix;
 	}
 
 	public static String getLot(Picture pic) {
-		if (pic.processName.equals("GA")) {
-			final String lot = pic.fileName.substring(23, 35);
+		if (Picture.processName.equals("GA")) {
+			final String lot = Picture.fileName.substring(23, 35);
 			return lot;
 		} else {
 			return null;
@@ -70,16 +70,16 @@ public class GA_AA_Data {
 	}
 
 	public static String getCarrierID(Picture pic) {
-		if (pic.processName.equals("GA")) {
-			final String carID = pic.fileName.substring(36, 46);
+		if (Picture.processName.equals("GA")) {
+			final String carID = Picture.fileName.substring(36, 46);
 			return carID;
 		} else
 			return null;
 	}
 
 	public static String getPocketNO(Picture pic) {
-		if (pic.processName.equals("GA")) {
-			String PocketNO = pic.fileName.substring(47, 49);
+		if (Picture.processName.equals("GA")) {
+			String PocketNO = Picture.fileName.substring(47, 49);
 			PocketNO = PocketNO.replace("_", "");
 			return PocketNO;
 		} else
@@ -87,8 +87,8 @@ public class GA_AA_Data {
 	}
 
 	public static String getStation(Picture pic) {
-		final int length = pic.fileParent.length();
-		return pic.fileParent.substring(pic.fileParent.length() - 12, pic.fileParent.length() - 11);
+		final int length = Picture.fileParent.length();
+		return Picture.fileParent.substring(Picture.fileParent.length() - 12, Picture.fileParent.length() - 11);
 	}
 
 	public static String getTestDate() {
@@ -97,18 +97,18 @@ public class GA_AA_Data {
 	}
 
 	public static String getDay(Picture pic) {
-		final int length = pic.fileParent.length();
-		return pic.fileParent.substring(pic.fileParent.length() - 2, pic.fileParent.length());
+		final int length = Picture.fileParent.length();
+		return Picture.fileParent.substring(Picture.fileParent.length() - 2, Picture.fileParent.length());
 	}
 
 	public static String getMonth(Picture pic) {
-		final int length = pic.fileParent.length();
-		return pic.fileParent.substring(pic.fileParent.length() - 5, pic.fileParent.length() - 3);
+		final int length = Picture.fileParent.length();
+		return Picture.fileParent.substring(Picture.fileParent.length() - 5, Picture.fileParent.length() - 3);
 	}
 
 	public static String getYear(Picture pic) {
-		final int length = pic.fileParent.length();
-		return pic.fileParent.substring(pic.fileParent.length() - 10, pic.fileParent.length() - 6);
+		final int length = Picture.fileParent.length();
+		return Picture.fileParent.substring(Picture.fileParent.length() - 10, Picture.fileParent.length() - 6);
 	}
 
 	// public static void main(String[] args) {
@@ -127,29 +127,29 @@ public class GA_AA_Data {
 	// }
 
 	public static String getHour(Picture pic) {
-		return pic.fileName.substring(0, 2);
+		return Picture.fileName.substring(0, 2);
 	}
 
 	public static String getMinute(Picture pic) {
-		return pic.fileName.substring(2, 4);
+		return Picture.fileName.substring(2, 4);
 	}
 
 	public static String getSecond(Picture pic) {
-		return pic.fileName.substring(4, 6);
+		return Picture.fileName.substring(4, 6);
 	}
 
 	public static String getProcessDate(Picture pic) {
-		if (pic.processName.equals("AA")) {
+		if (Picture.processName.equals("AA")) {
 			final String processDate = getYear(pic) + "/" + getMonth(pic) + "/" + getDay(pic) + " " + getHour(pic) + ":"
 					+ getMinute(pic) + ":" + getSecond(pic);
 			return processDate;
-		} else if (pic.processName.equals("GA")) {
-			final String year = pic.fileName.substring(0, 4);
-			final String month = pic.fileName.substring(4, 6);
-			final String day = pic.fileName.substring(6, 8);
-			final String hour = pic.fileName.substring(9, 11);
-			final String minute = pic.fileName.substring(11, 13);
-			final String second = pic.fileName.substring(13, 15);
+		} else if (Picture.processName.equals("GA")) {
+			final String year = Picture.fileName.substring(0, 4);
+			final String month = Picture.fileName.substring(4, 6);
+			final String day = Picture.fileName.substring(6, 8);
+			final String hour = Picture.fileName.substring(9, 11);
+			final String minute = Picture.fileName.substring(11, 13);
+			final String second = Picture.fileName.substring(13, 15);
 			final String processDate = year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
 			return processDate;
 		} else
@@ -157,9 +157,9 @@ public class GA_AA_Data {
 	}
 
 	public static Map<Point, Double> getMax(Picture pic) {
-		if (pic.failureData.isEmpty())
+		if (Picture.failureData.isEmpty())
 			return null;
-		final List<Map<Point, Double>> maplist = pic.failureData;
+		final List<Map<Point, Double>> maplist = Picture.failureData;
 		final List<Point> point = new ArrayList<>();
 		final List<Double> value = new ArrayList<>();
 		for (int i = 0; i < maplist.size(); i++) {
@@ -184,7 +184,7 @@ public class GA_AA_Data {
 	public static void writeHeader(Picture pic) {
 		final List<String> header = defineHeader();
 		final String path = System.getProperty("user.dir");
-		final String currrentPath = path + "/" + pic.processName + "/" + Time.year + "/" + Time.month;
+		final String currrentPath = path + "/" + Picture.processName + "/" + Time.year + "/" + Time.month;
 
 		final Workbook wb = ExcelOperation.writeOneRow(ExcelOperation.createWookBook(), 0, 0, header);
 		ExcelOperation.writeExcel2File(wb, currrentPath + "/" + Time.day + ".xlsx");
@@ -195,7 +195,7 @@ public class GA_AA_Data {
 		if (CentralControl.ifEngMode) {
 			content.add(Integer.toString(GrandCounter.totalTestQuantity));
 			content.add(getTestDate());
-			content.add(pic.processName);
+			content.add(Picture.processName);
 			content.add(CentralControl.productN);
 		} else {
 			content.add("");
@@ -207,16 +207,16 @@ public class GA_AA_Data {
 		content.add(getCarrierID(pic));
 		content.add(getPocketNO(pic));
 		content.add(Integer.toString(CentralControl.mcNO));
-		if (pic.processName.equals("AA")) {
+		if (Picture.processName.equals("AA")) {
 			content.add(getStation(pic));
 		} else {
 			content.add(null);
 		}
 		content.add(getProcessDate(pic));
-		content.add(pic.result());
-		if (pic.result().equals("NG")) {
+		content.add(Picture.result());
+		if (Picture.result().equals("NG")) {
 			if (CentralControl.ifEngMode)
-				content.add(pic.material);
+				content.add(Picture.material);
 			else
 				content.add("");
 
@@ -240,7 +240,7 @@ public class GA_AA_Data {
 		}
 
 		if (CentralControl.ifEngMode) {
-			content.add(pic.fileName);
+			content.add(Picture.fileName);
 			content.add(Integer.toString(CentralControl.binThresh));
 			content.add(Integer.toString(CentralControl.ssThresh) + "%");
 			content.add(Integer.toString(CentralControl.offset));
@@ -249,7 +249,7 @@ public class GA_AA_Data {
 
 		// 输出到Excel文件
 		final String path = System.getProperty("user.dir");
-		final String currrentPath = path + "/" + pic.processName + "/" + Time.year + "/" + Time.month;
+		final String currrentPath = path + "/" + Picture.processName + "/" + Time.year + "/" + Time.month;
 		final String finalPath = currrentPath + "/" + Time.day + ".xlsx";
 
 		final File xlsx = new File(finalPath);

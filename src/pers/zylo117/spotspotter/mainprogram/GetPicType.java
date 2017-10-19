@@ -23,8 +23,8 @@ public class GetPicType {
 	}
 
 	public static String getPicTypeFromPic(Picture pic) {
-		final String targetName = pic.fileName.substring(pic.fileName.lastIndexOf("_") + 1);
-		final String postfix = pic.fileName.substring(pic.fileName.lastIndexOf(".") + 1);
+		final String targetName = Picture.fileName.substring(Picture.fileName.lastIndexOf("_") + 1);
+		final String postfix = Picture.fileName.substring(Picture.fileName.lastIndexOf(".") + 1);
 		final int postfixLength = postfix.length();// 得到后缀名长度
 		final String targetNameWithputPostfix = targetName.substring(0, targetName.length() - postfixLength - 1);// 得到目标名。去掉了后缀
 		return targetNameWithputPostfix;

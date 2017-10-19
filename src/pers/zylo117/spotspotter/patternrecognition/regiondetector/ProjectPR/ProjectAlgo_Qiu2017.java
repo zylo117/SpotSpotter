@@ -79,7 +79,7 @@ public class ProjectAlgo_Qiu2017 {
 		// System.out.println(datasingle[i][256]);
 		// }
 		boolean takeFirstOne;
-		if (pic.processName.equals("GA"))
+		if (Picture.processName.equals("GA"))
 			takeFirstOne = true;
 		else
 			takeFirstOne = false;
@@ -107,10 +107,10 @@ public class ProjectAlgo_Qiu2017 {
 		// Imgproc.circle(out, new Point(lP_right,datasingle[datasingle.length /
 		// 2].length / 2), 4, new Scalar(255, 255, 0), 2);
 
-		pic.ulP = new Point(lP_left, lP_up);
-		pic.urP = new Point(lP_right, lP_up);
-		pic.llP = new Point(lP_left, lP_down);
-		pic.lrP = new Point(lP_right, lP_down);
+		Picture.ulP = new Point(lP_left, lP_up);
+		Picture.urP = new Point(lP_right, lP_up);
+		Picture.llP = new Point(lP_left, lP_down);
+		Picture.lrP = new Point(lP_right, lP_down);
 
 		// Imgproc.circle(out, ulP, 4, new Scalar(255, 255, 0), 2);
 		// Imgproc.circle(out, urP, 4, new Scalar(255, 255, 0), 2);

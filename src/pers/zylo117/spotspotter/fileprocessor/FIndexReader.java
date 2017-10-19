@@ -42,8 +42,8 @@ public class FIndexReader {
 		final String[] indexList = content.split(System.lineSeparator());
 
 		final List<String> list = new ArrayList<String>();
-		for (int i = 0; i < indexList.length; i++) {
-			list.add(indexList[i]);
+		for (final String element : indexList) {
+			list.add(element);
 		}
 		return list;
 
@@ -114,8 +114,8 @@ public class FIndexReader {
 
 		final String[] indexList = content.split(System.lineSeparator());
 
-		for (int i = 0; i < indexList.length; i++) {
-			AlgoList.panda(path + "/" + indexList[i]);
+		for (final String element : indexList) {
+			AlgoList.panda(path + "/" + element);
 		}
 	}
 

@@ -43,7 +43,7 @@ public class CentralControl extends JFrame {
 	public static JTextField shortCut, machineNO_manual, productName_manual, binarizationThreshold,
 			spotSpotterThreshold, buffTime_manual, mosaicLength_manual, offsetText, ioPulseText;
 	public static String productN = "XX";
-	public static int mcNO = 0, binThresh = 300, ssThresh = 3, buffTime = 1, mosaicLength = 1, offset = 30,
+	public static int mcNO = 0, binThresh = 300, ssThresh = 3, buffTime = 1, mosaicLength = 1, offset = 10,
 			ioPulse = 20;
 	public static int algoIndex = 2, counter = 0;
 	public static boolean ok2Proceed, ok2Test, ok2Exit = false, ifTemp = false, ifPause, ifStop = false,
@@ -300,8 +300,8 @@ public class CentralControl extends JFrame {
 		paraMeter.add(bufferTime);
 		paraMeter.add(buffTime_manual);
 		paraMeter.add(ms);
-		paraMeter.add(binThresh);
-		paraMeter.add(binarizationThreshold);
+//		paraMeter.add(binThresh);
+//		paraMeter.add(binarizationThreshold);
 		paraMeter.add(ssThresh);
 		paraMeter.add(spotSpotterThreshold);
 		paraMeter.add(percent);
@@ -486,11 +486,11 @@ public class CentralControl extends JFrame {
 		final String postFix = "01\\";
 
 		String finalPath = null;
-		for (int i = 0; i < midFix.length; i++) {
+		for (final String element : midFix) {
 			final StringBuilder sbA = new StringBuilder(autoPath + "\\");
 			final StringBuilder sbB = new StringBuilder(autoPath + "\\");
-			final String aString = sbA.append(title).append(midFix[i]).append("A").append(postFix).toString();
-			final String bString = sbB.append(title).append(midFix[i]).append("B").append(postFix).toString();
+			final String aString = sbA.append(title).append(element).append("A").append(postFix).toString();
+			final String bString = sbB.append(title).append(element).append("B").append(postFix).toString();
 
 			final File pathA = new File(aString);
 			final File pathB = new File(bString);

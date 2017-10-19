@@ -17,9 +17,9 @@ public class GetMaxMinMidAvg {
 
 	public static double getMaxFromArray(double[] arr) {
 		double max = arr[0];
-		for (int i = 0; i < arr.length; i++) {
-			if (arr[i] > max) {
-				max = arr[i];
+		for (final double element : arr) {
+			if (element > max) {
+				max = element;
 			}
 		}
 		return max;
@@ -27,9 +27,9 @@ public class GetMaxMinMidAvg {
 
 	public static double getMinFromArray(double[] arr) {
 		double min = arr[0];
-		for (int i = 0; i < arr.length; i++) {
-			if (arr[i] < min) {
-				min = arr[i];
+		for (final double element : arr) {
+			if (element < min) {
+				min = element;
 			}
 		}
 		return min;
@@ -54,8 +54,8 @@ public class GetMaxMinMidAvg {
 	public static double getAvgFromArray(double[] arr) {
 		final int length = arr.length;
 		double sum = 0;
-		for (int i = 0; i < arr.length; i++) {
-			sum += arr[i];
+		for (final double element : arr) {
+			sum += element;
 		}
 		final double avg = sum / length;
 		return avg;

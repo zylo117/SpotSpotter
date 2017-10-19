@@ -14,8 +14,8 @@ import javax.swing.text.Document;
 
 public class ConsoleTextArea extends JTextArea {
 	public ConsoleTextArea(InputStream[] inStreams) {
-		for (int i = 0; i < inStreams.length; ++i)
-			startConsoleReaderThread(inStreams[i]);
+		for (final InputStream inStream : inStreams)
+			startConsoleReaderThread(inStream);
 	} // ConsoleTextArea()
 
 	public ConsoleTextArea() throws IOException {

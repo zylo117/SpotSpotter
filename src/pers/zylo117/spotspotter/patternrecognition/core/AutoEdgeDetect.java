@@ -3,6 +3,7 @@ package pers.zylo117.spotspotter.patternrecognition.core;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import org.opencv.imgproc.Imgproc;
 import pers.zylo117.spotspotter.gui.viewer.MatView;
 import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
 import pers.zylo117.spotspotter.patternrecognition.ROI_Irregular;
+import pers.zylo117.spotspotter.toolbox.Time;
 
 public class AutoEdgeDetect {
 	// Default: sigma = 0.33
@@ -220,7 +222,10 @@ public class AutoEdgeDetect {
 		final String input = "D:\\tmp\\9.jpg";
 		final Mat image = Imgcodecs.imread(input, 1);
 		// MatView.imshow(image, "Ori");
+		final long beginTime = new Date().getTime();
 		iRCF_NH_ME(image, 21, 200000, 16);
+		final long endTime = new Date().getTime();
+		System.out.println("Tact Time:[" + (endTime - beginTime) + "]ms");
 	}
 
 }

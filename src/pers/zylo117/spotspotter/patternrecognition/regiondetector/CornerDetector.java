@@ -38,8 +38,8 @@ public class CornerDetector {
 			pCorners = corners.toArray();
 
 			if (ifOutputRawPoint) {
-				for (int i = 0; i < pCorners.length; i++) {
-					Imgproc.circle(srcROI, pCorners[i], 4, new Scalar(255, 255, 0), 2);
+				for (final Point pCorner : pCorners) {
+					Imgproc.circle(srcROI, pCorner, 4, new Scalar(255, 255, 0), 2);
 				}
 			}
 		} catch (final Exception e) {
