@@ -120,9 +120,22 @@ public class ExcelOperation {
 		final double rate = bd_rate.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
 		// return rate;
 	}
+	
+	public static void wipeoutContent(Workbook wb, int sheetIndex, String cellRef) {
+		final int lastRowIndex = getEmptyRow(wb, sheetIndex, cellRef);
+		final Sheet sheet = wb.getSheetAt(sheetIndex);
+		sheet.shiftRows(1, lastRowIndex - 1, -1);
+		
+	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// writeExcel2File(new XSSFWorkbook(),
 		// "D:\\workspace\\SpotSpotter\\AA\\2017\\7\\31.xlsx");
+//		Workbook workbook = new XSSFWorkbook("D:\\tmp\\20.xlsx");
+//		final int rowIndex = getEmptyRow(workbook, 0, "A1");
+//		System.out.println(rowIndex);
+//		wipeoutContent(workbook, 0, "A1");
+//		final int rowIndex1 = getEmptyRow(workbook, 0, "A1");
+//		System.out.println(rowIndex1);
 	}
 }

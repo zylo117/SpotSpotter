@@ -255,6 +255,9 @@ public class GA_AA_Data {
 		final File xlsx = new File(finalPath);
 
 		if (!xlsx.exists()) {
+			// 清空过期数据
+			tmpWB = null;
+			
 			FileOperation.createDir(currrentPath);
 			Workbook wb = ExcelOperation.writeOneRow(ExcelOperation.createWookBook(), sheetIndex, 0, defineHeader());
 			wb = ExcelOperation.writeOneRow(wb, sheetIndex, 1, content);

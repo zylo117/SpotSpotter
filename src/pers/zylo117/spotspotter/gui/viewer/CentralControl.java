@@ -144,6 +144,7 @@ public class CentralControl extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO 自动生成的方法存根
+				System.out.println("Exit when this round finishes");
 				ok2Exit = true;
 			}
 		};

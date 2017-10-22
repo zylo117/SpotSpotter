@@ -22,7 +22,6 @@ import org.opencv.imgproc.Imgproc;
 import pers.zylo117.spotspotter.gui.viewer.MatView;
 import pers.zylo117.spotspotter.patternrecognition.GetPixelArray;
 import pers.zylo117.spotspotter.patternrecognition.ROI_Irregular;
-import pers.zylo117.spotspotter.toolbox.Time;
 
 public class AutoEdgeDetect {
 	// Default: sigma = 0.33

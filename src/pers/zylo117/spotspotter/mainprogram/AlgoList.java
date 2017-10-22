@@ -186,7 +186,7 @@ public class AlgoList {
 
 						GrandCounter.plusOne();
 
-						GA_AA_Data.writeNextRow(pic, 0, "A3", true);
+						GA_AA_Data.writeNextRow(pic, 0, "A1", true);
 						if (Picture.result().equals("NG")) {
 							System.out.println("Test Result: " + Picture.material);
 							System.out.println("Outputing NG Pics");
@@ -368,7 +368,7 @@ public class AlgoList {
 							ifOutputFile = true;
 						EMailContent.write();
 
-						GA_AA_Data.writeNextRow(pic, 0, "A3", ifOutputFile);
+						GA_AA_Data.writeNextRow(pic, 0, "A1", ifOutputFile);
 
 						if (Picture.result().equals("NG")) {
 							System.out.println("Test Result: " + Picture.material);
@@ -386,7 +386,7 @@ public class AlgoList {
 
 						if (CentralControl.ok2Exit) {
 							if (ifOutputFile = false) {
-								GA_AA_Data.writeNextRow(pic, 0, "A3", true);
+								GA_AA_Data.writeNextRow(pic, 0, "A1", true);
 								EMailContent.write();
 							}
 							System.exit(0);
