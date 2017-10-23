@@ -9,9 +9,13 @@ public class BreakPoint {
 	public static void continuous(List<String> oldlist) {
 		oldlist = FIndexReader.getFIndex(false);
 		final List<String> newlist = FIndexReader.getFIndex(true);
-		newlist.removeAll(oldlist);
-		if (!newlist.isEmpty())
-			oldlist = newlist;
-		FIndexReader.indexProcess(CentralControl.monitorPath, oldlist);
+		if (!newlist.isEmpty()) {
+			newlist.removeAll(oldlist);
+			if (!newlist.isEmpty()) {
+				oldlist = newlist;
+				FIndexReader.indexProcess(CentralControl.monitorPath, oldlist);
+			} else
+				System.out.println("Empty List");
+		}
 	}
 }
