@@ -98,14 +98,15 @@ public class SpotSpotter {
 		final List<Map<Point, Double>> spotList = new ArrayList<>();
 
 		// 马赛克化
-		final int mosaicLength = CentralControl.mosaicLength;
-		Imgproc.resize(input, input, new Size(input.width() / mosaicLength, input.height() / mosaicLength));
+		if(CentralControl.mosaicLength != 1)
+			Imgproc.resize(input, input, new Size(input.width() / CentralControl.mosaicLength, input.height() / CentralControl.mosaicLength));
+		
 		final Picture pic = new Picture(input);
 
 		final int[][] color = pic.dataSingleChannel;
 
-		for (int i = 1; i < pic.width - 1; i += 1) {
-			for (int j = 1; j < pic.height - 1; j += 1) {
+		for (int i = 1, width = pic.width; i < width - 1; i += 1) {
+			for (int j = 1, height = pic.height; j < height - 1; j += 1) {
 
 				final int target = color[i][j];
 
@@ -113,41 +114,36 @@ public class SpotSpotter {
 					continue;
 				}
 
-				final double a1 = color[i - 1][j - 1];
-				final double a2 = color[i - 1][j];
-				final double a3 = color[i - 1][j + 1];
-				final double a4 = color[i][j - 1];
-				final double a5 = color[i][j + 1];
-				final double a6 = color[i + 1][j - 1];
-				final double a7 = color[i + 1][j];
-				final double a8 = color[i + 1][j + 1];
-
 				final List<Double> list = new ArrayList<Double>();
-				list.add(a1);
-				list.add(a2);
-				list.add(a3);
-				list.add(a4);
-				list.add(a5);
-				list.add(a6);
-				list.add(a7);
-				list.add(a8);
+				list.add((double) color[i - 1][j - 1]);
+				list.add((double) color[i - 1][j]);
+				list.add((double) color[i - 1][j + 1]);
+				list.add((double) color[i][j - 1]);
+				list.add((double) color[i][j + 1]);
+				list.add((double) color[i + 1][j - 1]);
+				list.add((double) color[i + 1][j]);
+				list.add((double) color[i + 1][j + 1]);
 
-				for (int k = 0; k < list.size(); k++) {
+				boolean ok2Continue = false;
+				for (int k = 0, len = list.size(); k < len; k++) {
 					if (list.get(k) == 0) {
-						list.remove(k);
+//						list.remove(k);
+						ok2Continue = true;
+						break;
 					}
 				}
 
-				if (list.size() < 8)
+				if (ok2Continue)
 					continue;
 
 				double sum = 0;
-				for (int l = 0; l < list.size(); l++) {
+				for (int l = 0, len = list.size(); l < len; l++) {
 					sum += list.get(l);
 				}
 
-				final double maxB = GetMaxMinMidAvg.getMaxFromList(list);
-				final double minB = GetMaxMinMidAvg.getMinFromList(list);
+				final double[] set = GetMaxMinMidAvg.getMAXMINFromList(list);
+				final double maxB = set[0];
+				final double minB = set[1];
 
 				final double avgB = (sum - maxB - minB) / (list.size() - 2);
 				result = Math.abs(target - avgB) / 256;

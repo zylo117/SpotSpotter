@@ -14,6 +14,13 @@ public class GetMaxMinMidAvg {
 		final double min = (double) Collections.min(list);
 		return min;
 	}
+	
+	public static double[] getMAXMINFromList(List list) {
+		final double max = (double) Collections.max(list);
+		final double min = (double) Collections.min(list);
+		final double[] set = {max, min};
+		return set;
+	}
 
 	public static double getMaxFromArray(double[] arr) {
 		double max = arr[0];
