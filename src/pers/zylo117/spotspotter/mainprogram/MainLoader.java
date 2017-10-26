@@ -1,6 +1,7 @@
 package pers.zylo117.spotspotter.mainprogram;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -74,8 +75,15 @@ public class MainLoader {
 							+ "\\" + Time.strDay + "\\" + "findex.dat";
 					oldFileIndex = new File(oldIndex);
 					fIndex = new File(todayFIndex);
-					if (!fIndex.exists())
+					if (!fIndex.exists()) {
+						try {
+							fIndex.createNewFile();
+						} catch (IOException e) {
+							// TODO 自动生成的 catch 块
+							e.printStackTrace();
+						}
 						continue;
+					}
 					BreakPoint.continuous(oldlist);
 				} else if (CentralControl.ok2Test) {
 					FIndexReader.indexProcess(CentralControl.tempFile);
