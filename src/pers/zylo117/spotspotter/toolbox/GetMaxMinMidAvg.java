@@ -21,6 +21,23 @@ public class GetMaxMinMidAvg {
 		final double[] set = {max, min};
 		return set;
 	}
+	
+	public static double[] getMAXMINFromArray(double[] list) {
+		double max = 0;
+		for(int i = 0;i<list.length;i++) {
+			if(list[i] > max) {
+				max = list[i];
+			}
+		}
+		double min = max;
+		for(int i = 0;i<list.length;i++) {
+			if(list[i] < min) {
+				min = list[i];
+			}
+		}
+		final double[] set = {max, min};
+		return set;
+	}
 
 	public static double getMaxFromArray(double[] arr) {
 		double max = arr[0];

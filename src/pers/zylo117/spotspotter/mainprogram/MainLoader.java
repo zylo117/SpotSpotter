@@ -74,6 +74,15 @@ public class MainLoader {
 					final String todayFIndex = CentralControl.monitorPath + "\\" + Time.year + "\\" + Time.strMonth
 							+ "\\" + Time.strDay + "\\" + "findex.dat";
 					oldFileIndex = new File(oldIndex);
+					
+					if(!oldFileIndex.exists())
+						try {
+							oldFileIndex.createNewFile();
+						} catch (IOException e1) {
+							// TODO 自动生成的 catch 块
+							e1.printStackTrace();
+						}
+						
 					fIndex = new File(todayFIndex);
 					if (!fIndex.exists()) {
 						try {

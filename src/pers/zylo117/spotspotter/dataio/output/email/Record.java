@@ -11,45 +11,16 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import pers.zylo117.spotspotter.dataio.input.project.GA_AA_Data;
 import pers.zylo117.spotspotter.dataio.output.excel.ExcelOperation;
 import pers.zylo117.spotspotter.gui.viewer.CentralControl;
 import pers.zylo117.spotspotter.toolbox.Time;
 
-public class EMailContent {
-	public static void write() {
-		final String currrentPath = System.getProperty("user.dir") + "/" + "email_content.txt";
+public class Record {
 
-		final File counterTXT = new File(currrentPath);
-
-		if (!counterTXT.exists()) {
-			try {
-				final FileOutputStream fileOut = new FileOutputStream(counterTXT);
-			} catch (final FileNotFoundException e) {
-				// TODO 自动生成的 catch 块
-				e.printStackTrace();
-			}
-		}
-
-		Time.getTime();
-		final StringBuilder str = new StringBuilder("Date ");
-		str.append(Time.datetime_slash).append(System.getProperty("line.separator")).append("Category ")
-				.append(CentralControl.productN).append(System.getProperty("line.separator"))
-				.append("Daily Failure Rate Summary").append(System.getProperty("line.separator"))
-				.append("GA Dust Detect Rate: ").append(failureRate()).append("%");
-
-		PrintWriter pfp;
-		try {
-			pfp = new PrintWriter(counterTXT);
-			pfp.print(str);
-			pfp.close();
-		} catch (final FileNotFoundException e) {
-			// TODO 自动生成的 catch 块
-			e.printStackTrace();
-		}
-	}
-
-	public static double failureRate() {
+	public static double failureRate(String assas) {
 		// Time.getTime();
 		// final String path = System.getProperty("user.dir") + "/" + processName + "/"
 		// + Time.year + "/" + Time.month
@@ -57,7 +28,14 @@ public class EMailContent {
 		// final File xlsx = new File(path);
 		int rowIndex = 0;
 		int failureCount = 0;
-		final Workbook wb = GA_AA_Data.tmpWB;
+		
+		Workbook wb = null;
+		try {
+			wb = new XSSFWorkbook(assas);
+		} catch (IOException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
 
 		if (wb == null)
 			return 0;
@@ -81,8 +59,14 @@ public class EMailContent {
 	}
 
 	public static void main(String[] args) throws IOException {
-		write();
-		 double i = failureRate();
-		 System.out.println(i);
+		
+		for(int i = 28; i<29;i++ ) {
+			String path = "\\\\43.98.80.42\\userdata$\\5117005569\\ProjectArgus\\SpotSpotter\\GA\\2017\\10\\";
+			path = path + i + ".xlsx";
+			double fr = failureRate(path);
+			 System.out.println(fr);
+		}
+		
+		 
 	}
 }

@@ -114,38 +114,57 @@ public class SpotSpotter {
 					continue;
 				}
 
-				final List<Double> list = new ArrayList<Double>();
-				list.add((double) color[i - 1][j - 1]);
-				list.add((double) color[i - 1][j]);
-				list.add((double) color[i - 1][j + 1]);
-				list.add((double) color[i][j - 1]);
-				list.add((double) color[i][j + 1]);
-				list.add((double) color[i + 1][j - 1]);
-				list.add((double) color[i + 1][j]);
-				list.add((double) color[i + 1][j + 1]);
+//				final List<Double> list = new ArrayList<Double>();
+//				list.add((double) color[i - 1][j - 1]);
+//				list.add((double) color[i - 1][j]);
+//				list.add((double) color[i - 1][j + 1]);
+//				list.add((double) color[i][j - 1]);
+//				list.add((double) color[i][j + 1]);
+//				list.add((double) color[i + 1][j - 1]);
+//				list.add((double) color[i + 1][j]);
+//				list.add((double) color[i + 1][j + 1]);
+				
+				double[] list = new double[8];
+				list[0] = (double) color[i - 1][j - 1];
+				list[1] = (double) color[i - 1][j];
+				list[2] = (double) color[i - 1][j + 1];
+				list[3] = (double) color[i][j - 1];
+				list[4] = (double) color[i][j + 1];
+				list[5] = (double) color[i + 1][j - 1];
+				list[6] = (double) color[i + 1][j];
+				list[7] = (double) color[i + 1][j + 1];
 
-				boolean ok2Continue = false;
-				for (int k = 0, len = list.size(); k < len; k++) {
-					if (list.get(k) == 0) {
-//						list.remove(k);
-						ok2Continue = true;
-						break;
-					}
+				boolean ok2Skip = false;
+//				for (int k = 0, len = list.size(); k < len; k++) {
+//					if (list.get(k) == 0) {
+////						list.remove(k);
+//						ok2Skip = true;
+//						break;
+//					}
+//				}
+				
+				for (int k = 0, len = 8; k < len; k++) {
+				if (list[k] == 0) {
+//					list.remove(k);
+					ok2Skip = true;
+					break;
 				}
+			}
+				
 
-				if (ok2Continue)
+				if (ok2Skip)
 					continue;
 
 				double sum = 0;
-				for (int l = 0, len = list.size(); l < len; l++) {
-					sum += list.get(l);
+				for (int l = 0, len = 8; l < len; l++) {
+					sum += list[l];
 				}
 
-				final double[] set = GetMaxMinMidAvg.getMAXMINFromList(list);
+				final double[] set = GetMaxMinMidAvg.getMAXMINFromArray(list);
 				final double maxB = set[0];
 				final double minB = set[1];
 
-				final double avgB = (sum - maxB - minB) / (list.size() - 2);
+				final double avgB = (sum - maxB - minB) / 6;
 				result = Math.abs(target - avgB) / 256;
 
 				if (result > thresh) {
